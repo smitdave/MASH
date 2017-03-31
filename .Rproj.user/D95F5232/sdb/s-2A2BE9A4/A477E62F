@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "# Compiled source #\n###################\n*.com\n*.class\n*.dll\n*.exe\n*.o\n*.so\n\n\n# Packages #\n############\n# it's better to unpack these files and commit the raw source\n# git has its own built in compression methods\n*.7z\n*.dmg\n*.gz\n*.tgz\n*.iso\n*.jar\n*.rar\n*.tar\n*.zip\n*.swp\n\n# Logs and databases #\n######################\n*.log\n*.sql\n*.sqlite\n*.aux\n\n# OS generated files #\n######################\n.DS_Store\n.DS_Store?\n._*\n.Spotlight-V100\n.Trashes\nehthumbs.db\nThumbs.db\n\n# R runtime files #\n###################\n.RData\n.RHistory\n.Rhistory\n.R.Rout\n\n^.*\\.Rproj$\n^\\.Rproj\\.user$\n\n# Junk Directory  #\n###################\nArchive/\n\n# Media and other bloat-prone files #\n#####################################\n*.png\n*.jpg\n*.ppt\n*.pptx\n*.mov\n*.avi\n*.jpeg\n*.jp2\n*.eps\n*.pdf\n*.doc\n*.docx\n",
+    "created" : 1490978744117.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2101380186",
+    "id" : "A477E62F",
+    "lastKnownWriteTime" : 1490978766,
+    "last_content_update" : 1490978766289,
+    "path" : "~/Desktop/MASH.MBPT/.gitignore",
+    "project_path" : ".gitignore",
+    "properties" : {
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "gitignore"
+}
