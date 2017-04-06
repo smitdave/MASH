@@ -121,7 +121,6 @@ bloodEnergetics <- function(M,P){
 
 # BloodMeal:
 BloodMeal <- function(M,P){
-  #. BloodMeal:
   M$bmSize = rBloodMealSize(P)
   M = bloodEnergetics(M,P)
   if(P$OVERFEED){ # overfeed
@@ -130,17 +129,22 @@ BloodMeal <- function(M,P){
       return(M)
     }
   }
-  M$batch = switch(P$batchSize,
-    bms = BatchSize.bms(M,P),
-    norm = BatchSize.norm(M,P)
-  )
-  eggMaturationTime = switch(P$eggMatT,
-    off = eggMaturationTime.off(P),
-    norm = eggMaturationTime.norm(P)
-  )
-  M$eggT = M$tNow + eggMaturationTime
+  # mated and mature mosquitoes produce eggs
+  if(M$mated & M$mature){
+    M$batch = switch(P$batchSize,
+                     bms = BatchSize.bms(M,P),
+                     norm = BatchSize.norm(M,P)
+    )
+    eggMaturationTime = switch(P$eggMatT,
+                               off = eggMaturationTime.off(P),
+                               norm = eggMaturationTime.norm(P)
+    )
+    M$eggT = M$tNow + eggMaturationTime
+  }
+
   return(M)
 }
+
 
 
 ##############################
@@ -174,9 +178,12 @@ reFeed <- function(M,P){
   if(isAlive(M)){
     if(P$REFEED){
       M$stateNew = rReFeed(M,P)
-    } else {
+    } else if(M$mated & M$batch > 0){
       M$stateNew = "L"
+    } else {
+      stop("mosquito is mature but either not mated or has no eggs")
     }
+
   }
 
   return(M)
