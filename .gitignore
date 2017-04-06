@@ -69,3 +69,4 @@ Archive/
 *.doc
 *.docx
 .Rproj.user
+.Rproj.user*
