@@ -60,9 +60,11 @@ staticLandscapePlot <- function(offset=0.05,bgCol="grey20",cex=0.75){
   mateXY = t(sapply(LANDSCAPE$swarmSites,function(x){x$siteXY}))
 
   #set up plotting options
-  .GlobalEnv$defaultPar = par()
+  if(!exists(x = "defaultPar",where = .GlobalEnv)){
+    # if does not exist, save default graphical parameters
+    .GlobalEnv$defaultPar = par()
+  }
   par(bg=bgCol,mar=c(0,0,0,0),mgp=c(0,0,0))
-  # par(bf=bgCol)
 
   #colors
   setup_col = ggCol(n=4)
@@ -79,7 +81,7 @@ staticLandscapePlot <- function(offset=0.05,bgCol="grey20",cex=0.75){
   legend(x = "topleft", legend = c("Feeding Site","Aquatic Habitat","Sugar Source","Mating Site"),pch = 15:18,
          col = setup_col, bty = "n", text.col = "grey80")
 
-  suppressWarnings(par(.GlobalEnv$defaultPar))
+  par(bg=.GlobalEnv$defaultPar$bg,mar=.GlobalEnv$defaultPar$mar,mgp=.GlobalEnv$defaultPar$mgp)
 }
 
 

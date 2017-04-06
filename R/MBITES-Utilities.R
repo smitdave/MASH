@@ -49,6 +49,7 @@
 # fileName: name of file to write to
 trackAdults_init <- function(directory, fileName){
   if(!dir.exists(paste0(directory,"OUTPUT"))){
+    dir.create(paste0(directory))
     dir.create(paste0(directory,"OUTPUT"))
   }
   if(file.exists(paste0(directory,"OUTPUT/",fileName))){
@@ -86,22 +87,11 @@ trackAdults <- function(con){
 
 # clearOutput: erase all files in given OUTPUT directory (use with caution)
 clearOutput <- function(directory){
+  if(!dir.exists(paste0(directory,"OUTPUT"))){
+    stop("directory does not exist; nothing to clear")
+  }
   dirFiles = system(command = paste0("ls ",directory,"/OUTPUT/"),intern = TRUE)
   file.remove(paste0(directory,"/OUTPUT/",dirFiles))
-}
-
-# trackBionomics_init: write output inside of "OUTPUT" folder in given directory
-# dir: directory to write in (usually set to MASH)
-# fileName: name of file to write to
-trackBionomics_init <- function(directory, fileName){
-  if(!dir.exists(paste0(directory,"OUTPUT"))){
-    dir.create(paste0(directory,"OUTPUT"))
-  }
-  if(file.exists(paste0(directory,"OUTPUT/",fileName))){
-    stop("trackBionomics_init cannot init a file that already exists!")
-  }
-  conBionomics = file(description = paste0(directory,"OUTPUT/",fileName),open = "wt")
-  return(conBionomics)
 }
 
 # trackBionomics: write bionomics to .json
@@ -156,11 +146,11 @@ importBionomics <- function(directory){
   dirFiles = system(command = paste0("ls ",directory,"/OUTPUT/"),intern = TRUE)
   bionomics = grep("bionomics[[:digit:]]+.json",dirFiles)
   bionomicsOut = lapply(X = dirFiles[bionomics],FUN = function(x){
-    fromJSON(txt = paste0(directory,"OUTPUT/",x))
+    jsonlite::fromJSON(txt = paste0(directory,"OUTPUT/",x))
   })
   bionomicsOut = Reduce(f = c,x = bionomicsOut)
   # extract mosquito IDs and append to the history
-  bionomicsIx = unname(sapply(names(bionomicsOut),function(x){as.integer(sub(pattern = "mosy",replacement =  "",x = x))}))
+  bionomicsIx = unname(sapply(names(bionomicsOut),function(x){sub(pattern = "mosy",replacement =  "",x = x)}))
   for(ix in 1:length(bionomicsOut)){
     bionomicsOut[[ix]]$id = bionomicsIx[ix]
   }
@@ -175,11 +165,11 @@ importHistory <- function(directory){
     stop(paste0("no female histories found in",directory,"/OUTPUT/.."))
   }
   historyOut = lapply(X = dirFiles[historyF],FUN = function(x){
-    fromJSON(txt = paste0(directory,"OUTPUT/",x))
+    jsonlite::fromJSON(txt = paste0(directory,"OUTPUT/",x))
   })
   historyOut = Reduce(f = c,x = historyOut)
   # extract mosquito IDs and append to the history
-  historyIx = unname(sapply(names(historyOut),function(x){as.integer(sub(pattern = "mosy",replacement =  "",x = x))}))
+  historyIx = unname(sapply(names(historyOut),function(x){sub(pattern = "mosy",replacement =  "",x = x)}))
   for(ix in 1:length(historyOut)){
     historyOut[[ix]]$id = historyIx[ix]
   }
@@ -194,11 +184,11 @@ importHistoryM <- function(directory){
     stop(paste0("no male histories found in",directory,"/OUTPUT/.."))
   }
   historyOut = lapply(X = dirFiles[historyM],FUN = function(x){
-    fromJSON(txt = paste0(directory,"OUTPUT/",x))
+    jsonlite::fromJSON(txt = paste0(directory,"OUTPUT/",x))
   })
   historyOut = Reduce(f = c,x = historyOut)
   # extract mosquito IDs and append to the history
-  historyIx = unname(sapply(names(historyOut),function(x){as.integer(sub(pattern = "mosy",replacement =  "",x = x))}))
+  historyIx = unname(sapply(names(historyOut),function(x){sub(pattern = "mosy",replacement =  "",x = x)}))
   for(ix in 1:length(historyOut)){
     historyOut[[ix]]$id = historyIx[ix]
   }

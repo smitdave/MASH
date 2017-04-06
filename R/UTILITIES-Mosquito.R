@@ -68,7 +68,10 @@ oneTrajectory <- function(history, traceCol = "#FF80FFFF", bgCol = "grey20", off
   mateXY = t(sapply(LANDSCAPE$swarmSites,function(x){x$siteXY}))
 
   #set up plotting options
-  .GlobalEnv$defaultPar = par()
+  if(!exists(x = "defaultPar",where = .GlobalEnv)){
+    # if does not exist, save default graphical parameters
+    .GlobalEnv$defaultPar = par()
+  }
   par(bg=bgCol,mar=c(0,0,0,0),mgp=c(0,0,0))
 
   #colors
@@ -123,7 +126,7 @@ oneTrajectory <- function(history, traceCol = "#FF80FFFF", bgCol = "grey20", off
     segments(x0 = xyH[i,1], y0 = xyH[i,2], x1 = xyH[(i+1),1], y1 = xyH[(i+1),2], col = colVec[i+1])
   }
 
-  suppressWarnings(par(.GlobalEnv$defaultPar))
+  par(bg=.GlobalEnv$defaultPar$bg,mar=.GlobalEnv$defaultPar$mar,mgp=.GlobalEnv$defaultPar$mgp)
 
 }
 

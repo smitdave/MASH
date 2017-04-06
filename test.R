@@ -12,8 +12,133 @@ MvOb = exactAll(LANDSCAPE)
 basicN = 5e3
 basicOut = MBITES.basic(N = basicN,P = P,parallel = TRUE,move = TRUE)
 
-# basicTraj = getStateTraj(ix = 1:basicN,mosyPop = basicOut)
-# cohortStateTrajectory(stateT = basicTraj,logX = F,normY = T,lwd = 1.5)
-
 cohortBionomics = cohortBionomics(mosyPop = basicOut,ix = 1:basicN)
 aquaEq = aquaIx_equilibrium(mosyPop = basicOut)
+
+eqM = 50
+
+Aq.PAR = makePAR_EL4P(nA = LANDSCAPE$nA,nH = LANDSCAPE$nH,aquaEq = aquaEq,M = floor(eqM*aquaEq),R0 = 4,par = P,summary = cohortBionomics$summary)
+Aq.Equilibrium = setupAquaPop_EL4P(PAR = Aq.PAR,tol = 100,plot = TRUE)
+
+# set LANDSCAPE aquatic populations to equilibrium values
+for(ix in 1:Aq.PAR$nA){
+  LANDSCAPE$aquaSites[[ix]]$EL4P = Aq.Equilibrium$EL4P_pops[[ix]]
+  LANDSCAPE$aquaSites[[ix]]$alpha = Aq.Equilibrium$PAR$alpha[[ix]]
+  LANDSCAPE$aquaSites[[ix]]$psi = Aq.Equilibrium$PAR$psiHat[[ix]]
+  LANDSCAPE$aquaSites[[ix]]$p = Aq.Equilibrium$PAR$p
+}
+
+######################################################
+#
+# Test of EL4P aquatic ecology module for M-BITES
+#
+# initialize rest of simulation
+#
+######################################################
+
+# generate humans object
+HUMANS = makeHumans(nH = LANDSCAPE$nH,hhSizes = LANDSCAPE$hhSizes,hhIx = LANDSCAPE$hhIx)
+
+# initialize activity space
+init_riskList() #initialize riskList for all sites
+init_myTimeAtRisk() #initialize myTimeAtRisk parameters for all humans
+activitySpace() #run daily activity space
+
+# generate mosquito populations
+tStart = 1
+MPopF = makeMosquitoCohort(N = eqM,female = TRUE,tm = tStart-1, state = "M", EIP = 1, mature = TRUE, offset = 1e4)
+MPopM = makeMosquitoCohort(N = eqM,female = FALSE,tm = tStart-1, state = "M", offset = 1e4)
+
+# load global values for PfSI
+PFSI.SETUP()
+
+PfID = 1 # global iterator; we want to increment it when a mosquito successfully infects a human
+
+# set up PfSI object in all humans
+NOISY = FALSE
+for(ixH in 1:length(HUMANS)){
+  HUMANS[[ixH]]$Pathogens$Pf = pathOBJ_PfSI()
+  if(runif(1) < 0.5){
+    infectHuman_PfSI(ixH = ixH,t = 0,PAR = list(pfid = PfID))
+    PfID <<- PfID + 1
+  }
+}
+
+# PfPedigree
+initPfPedigree(n = 5,PfPedigree_XX = PfPedigree_full)
+PfPedigree_XX = PfPedigree_full
+makePfPedigree = makePfPedigree_full
+makePfM = makePfM_full
+getPfParent = getPfParent_SI
+
+##########################################
+# Run MASH
+##########################################
+
+out = "/Users/slwu89/Desktop/mash.out/"
+
+clearOutput(directory = out) # THIS FUNCTION ERASES ALL FILES IN OUTPUT/ FOLDER; USE WITH CAUTION
+
+el4pCon = trackEL4P_init(directory = out,fileName = "el4p.csv")
+adultCon = trackAdults_init(directory = out,fileName = "adults.csv")
+
+# test MASH
+for(tMax in tStart:(tStart+21)){
+
+  print(paste0("tMax: ",tMax))
+
+  # human activity space simulation
+  activitySpace()
+
+  # "EL4P" Aquatic Ecology
+  oneDay_EL4P(tNow = tMax)
+  addCohort(tNow = tMax)
+
+  # male MBITES
+  MBITESmale(P)
+
+  # female MBITES
+  MBITES(P)
+
+  # human events
+  runHumanEventQ(tPause = tMax)
+
+  # track all output
+  trackEL4P(con = el4pCon)
+  trackAdults(con = adultCon)
+  # log mosquito data and clear out vector every 10 days
+  if((tMax > tStart) & (tMax %% 10 == 0)){
+    print(paste0("logging mosquito bionomics and histories"))
+    trackBionomics(directory = out,fileName = paste0("bionomics",tMax,".json"))
+    trackHistory(directory = out,fileName = paste0("historyF",tMax,".json"))
+    trackHistoryM(directory = out,fileName = paste0("historyM",tMax,".json"))
+    resetMosyPop(female = TRUE)
+    resetMosyPop(female = FALSE)
+  }
+
+}
+
+# close all output connections
+close(el4pCon)
+close(adultCon)
+
+
+##########################################
+# Analyze MASH
+##########################################
+
+# import .json data
+bionomics = importBionomics(directory = out)
+history = importHistory(directory = out)
+
+# analyze mosquito cohorts
+cohortIx = getCohortIndices.history(history = history,sites = FALSE)
+cohortT = getStateTraj.history(ix = cohortIx[[1]],history = history,female = TRUE)
+plotStateTrajectory(stateT = cohortT,logX = F,normY = T, lwd = 1.5)
+cohortTrajectory.history(ix = cohortIx[[1]],history = history,cex = 2)
+
+cohortBionomics.history(bionomics = bionomics,ix = cohortIx[[1]])
+
+# analyze human infection
+
+pfsiTrajectory()

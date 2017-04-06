@@ -22,6 +22,7 @@
 # fileName: name of file to write to
 trackEL4P_init <- function(directory, fileName){
   if(!dir.exists(paste0(directory,"OUTPUT"))){
+    dir.create(paste0(directory))
     dir.create(paste0(directory,"OUTPUT"))
   }
   if(file.exists(paste0(directory,"OUTPUT/",fileName))){
