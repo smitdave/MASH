@@ -47,9 +47,6 @@ Thumbs.db
 .Rhistory
 .R.Rout
 
-^.*\.Rproj$
-^\.Rproj\.user$
-
 # Junk Directory  #
 ###################
 Archive/
@@ -68,7 +65,13 @@ Archive/
 *.pdf
 *.doc
 *.docx
+
+# Misc stuffs #
+###############
+^.*\.Rproj$
+^\.Rproj\.user$
 .Rproj.user
 .Rproj.user*
 .Rproj.user/
 MASH.MBPT.Rproj
+notes.txt
