@@ -12,6 +12,17 @@
 ##########################################
 # Point Clustering Patterns
 ##########################################
+
+#' Generate Poisson point pattern for landscape sites
+#'
+#' This function is a low-level function to generate spatial point pattern for the MICRO-LANDSCAPE point sets. 
+#'
+#' @param n number of points to generate
+#' @param xLim a length 2 numeric vector of bounds for the sampling grid
+#' @param yLim a length 2 numeric vector of bounds for the sampling grid
+#' @return a list with two elements x and y corresponding to the sampled points
+#' @examples
+#' pointsPoisson(n=10, xLim=c(0,1), yLim=c(0,1))
 pointsPoisson <- function(n, xLim=c(0,1), yLim=c(0,1)){
   #. pointsPoisson: Poisson point pattern for landscape sites
   ps = spatstat::rpoispp(lambda = n,win = spatstat::owin(xLim,yLim))

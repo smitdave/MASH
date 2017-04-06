@@ -2,7 +2,7 @@ Package: MASH.MBPT
 Type: Package
 Title: MASH-MBPT (Modular Analysis and Simulation for Human Health - Mosquito-borne Pathogen Transmission)
 Version: 0.9
-Authors@R:c(
+Authors@R: c(
           person(given = "David L.", family = "Smith", email = "smitdave@gmail.com", role = c("cre","aut")),
           person(given = "Héctor Manuel", family = "Sánchez Castellanos", email = "sanchez.hmsc@gmail.com", role= c("aut")),
           person(given = "Sean", family = "Wu", email = "slwu89@berkeley.edu", role= c("aut")),
@@ -41,3 +41,4 @@ ByteCompile: yes
 Encoding: UTF-8
 LazyData: true
 Imports: plotrix, viridis, spatstat, parallel, jsonlite
+RoxygenNote: 6.0.1
