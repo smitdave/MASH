@@ -156,7 +156,9 @@ bMove.newIx <- function(MvMat){
       ix
     } else {
       if(x <= PR[1] + PR[2]){ #near movement
-        sample(x = near$id,size = 1,prob = near$pr)
+        # sample(x = near$id,size = 1,prob = near$pr)
+        ixNear = sample(x = 1:length(near$id),size = 1,prob = near$pr)
+        near$id[ixNear]
       } else {
         if(x <= sum(PR)){ #around movement
           browser("'around' movement not yet implemented")
