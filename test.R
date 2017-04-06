@@ -75,7 +75,7 @@ getPfParent = getPfParent_SI
 # Run MASH
 ##########################################
 
-# PLEASE SET TO YOUR OWN DESIRED FOLDER TO HOLD OUTPUT/..
+# PLEASE SET TO YOUR OWN DESIRED FOLDER TO HOLD OUTPUT/.. (this must end in /)
 out = "/Users/slwu89/Desktop/mash.out/"
 
 clearOutput(directory = out) # THIS FUNCTION ERASES ALL FILES IN OUTPUT/ FOLDER; USE WITH CAUTION
@@ -131,6 +131,10 @@ close(adultCon)
 # import .json data
 bionomics = importBionomics(directory = out)
 history = importHistory(directory = out)
+
+# import .csv data
+adults = importAdults(directory = out,fileName = "adults.csv")
+el4p = importEL4P(directory = out,fileName = "el4p.csv")
 
 # analyze mosquito cohorts
 cohortIx = getCohortIndices.history(history = history,sites = FALSE)

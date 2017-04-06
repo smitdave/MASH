@@ -29,6 +29,7 @@ trackEL4P_init <- function(directory, fileName){
     stop("trackEL4P_init cannot init a file that already exists!")
   }
   conEL4P = file(description = paste0(directory,"OUTPUT/",fileName),open = "wt")
+  writeLines(text =paste0(c("labels",paste0("ix",1:LANDSCAPE$nA)),collapse = ","),con = conEL4P,sep = "\n") # write header
   return(conEL4P)
 }
 
@@ -42,4 +43,9 @@ trackEL4P <- function(con){
   for(i in 1:nrow(el4p)){
     writeLines(text = paste0(c(el4pNames[i],el4p[i,]),collapse = ","),con = con,sep = "\n")
   }
+}
+
+# importEL4P: import aquatic population counts
+importEL4P <- function(directory, fileName){
+  read.csv(file = paste0(directory,"OUTPUT/",fileName),header = TRUE)
 }

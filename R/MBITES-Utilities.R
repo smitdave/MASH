@@ -56,7 +56,7 @@ trackAdults_init <- function(directory, fileName){
     stop("trackAdults_init cannot init a file that already exists!")
   }
   conAdults = file(description = paste0(directory,"OUTPUT/",fileName),open = "wt")
-  writeLines(text = paste0(c("time","Ff","Bf","Rf","Lf","Of","Mf","Sf","Ef","Mm","Sm","Rm"),collapse = ","),con = conAdults,sep = "\n")
+  writeLines(text = paste0(c("time","Ff","Bf","Rf","Lf","Of","Mf","Sf","Ef","Mm","Sm","Rm"),collapse = ","),con = conAdults,sep = "\n") # write header
   return(conAdults)
 }
 
@@ -80,6 +80,11 @@ trackAdults <- function(con){
   writeLines(text = txtOut,con = con,sep = "\n")
 }
 
+# importAdults: import adult population counts
+importAdults <- function(directory, fileName){
+  read.csv(file = paste0(directory,"OUTPUT/",fileName),header = TRUE)
+}
+
 
 #################################################################
 # Tracking of mosquito histories and bionomics via .json output
@@ -90,8 +95,8 @@ clearOutput <- function(directory){
   if(!dir.exists(paste0(directory,"OUTPUT"))){
     stop("directory does not exist; nothing to clear")
   }
-  dirFiles = system(command = paste0("ls ",directory,"/OUTPUT/"),intern = TRUE)
-  file.remove(paste0(directory,"/OUTPUT/",dirFiles))
+  dirFiles = system(command = paste0("ls ",directory,"OUTPUT/"),intern = TRUE)
+  file.remove(paste0(directory,"OUTPUT/",dirFiles))
 }
 
 # trackBionomics: write bionomics to .json
@@ -143,11 +148,11 @@ trackHistoryM <- function(directory, fileName){
 
 # importBionomics: import female bionomics
 importBionomics <- function(directory){
-  dirFiles = system(command = paste0("ls ",directory,"/OUTPUT/"),intern = TRUE)
+  dirFiles = system(command = paste0("ls ",directory,"OUTPUT/"),intern = TRUE)
   bionomics = grep("bionomics[[:digit:]]+.json",dirFiles)
-  bionomicsOut = lapply(X = dirFiles[bionomics],FUN = function(x){
+  bionomicsOut = parallel::mclapply(X = dirFiles[bionomics],FUN = function(x){
     jsonlite::fromJSON(txt = paste0(directory,"OUTPUT/",x))
-  })
+  },mc.cores = parallel::detectCores()-2)
   bionomicsOut = Reduce(f = c,x = bionomicsOut)
   # extract mosquito IDs and append to the history
   bionomicsIx = unname(sapply(names(bionomicsOut),function(x){sub(pattern = "mosy",replacement =  "",x = x)}))
@@ -159,14 +164,14 @@ importBionomics <- function(directory){
 
 # importHistory: import female histories
 importHistory <- function(directory){
-  dirFiles = system(command = paste0("ls ",directory,"/OUTPUT/"),intern = TRUE)
+  dirFiles = system(command = paste0("ls ",directory,"OUTPUT/"),intern = TRUE)
   historyF = grep("historyF[[:digit:]]+.json",dirFiles)
   if(length(historyF)==0){
-    stop(paste0("no female histories found in",directory,"/OUTPUT/.."))
+    stop(paste0("no female histories found in",directory,"OUTPUT/.."))
   }
-  historyOut = lapply(X = dirFiles[historyF],FUN = function(x){
+  historyOut = parallel::mclapply(X = dirFiles[historyF],FUN = function(x){
     jsonlite::fromJSON(txt = paste0(directory,"OUTPUT/",x))
-  })
+  },mc.cores = parallel::detectCores()-2)
   historyOut = Reduce(f = c,x = historyOut)
   # extract mosquito IDs and append to the history
   historyIx = unname(sapply(names(historyOut),function(x){sub(pattern = "mosy",replacement =  "",x = x)}))
@@ -178,14 +183,14 @@ importHistory <- function(directory){
 
 # importHistoryM: import male histories
 importHistoryM <- function(directory){
-  dirFiles = system(command = paste0("ls ",directory,"/OUTPUT/"),intern = TRUE)
+  dirFiles = system(command = paste0("ls ",directory,"OUTPUT/"),intern = TRUE)
   historyM = grep("historyM[[:digit:]]+.json",dirFiles)
   if(length(historyM)==0){
-    stop(paste0("no male histories found in",directory,"/OUTPUT/.."))
+    stop(paste0("no male histories found in",directory,"OUTPUT/.."))
   }
-  historyOut = lapply(X = dirFiles[historyM],FUN = function(x){
+  historyOut = parallel::mclapply(X = dirFiles[historyM],FUN = function(x){
     jsonlite::fromJSON(txt = paste0(directory,"OUTPUT/",x))
-  })
+  },mc.cores = parallel::detectCores()-2)
   historyOut = Reduce(f = c,x = historyOut)
   # extract mosquito IDs and append to the history
   historyIx = unname(sapply(names(historyOut),function(x){sub(pattern = "mosy",replacement =  "",x = x)}))
