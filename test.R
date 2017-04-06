@@ -46,8 +46,8 @@ activitySpace() #run daily activity space
 
 # generate mosquito populations
 tStart = 1
-MPopF = makeMosquitoCohort(N = eqM,female = TRUE,tm = tStart-1, state = "M", EIP = 1, mature = TRUE, offset = 1e4)
-MPopM = makeMosquitoCohort(N = eqM,female = FALSE,tm = tStart-1, state = "M", offset = 1e4)
+MPopF = makeMosquitoCohort(N = eqM,female = TRUE,tm = tStart-1, state = "M", EIP = 1, mature = TRUE, offset = 5e4)
+MPopM = makeMosquitoCohort(N = eqM,female = FALSE,tm = tStart-1, state = "M", offset = 5e4)
 
 # load global values for PfSI
 PFSI.SETUP()
@@ -75,6 +75,7 @@ getPfParent = getPfParent_SI
 # Run MASH
 ##########################################
 
+# PLEASE SET TO YOUR OWN DESIRED FOLDER TO HOLD OUTPUT/..
 out = "/Users/slwu89/Desktop/mash.out/"
 
 clearOutput(directory = out) # THIS FUNCTION ERASES ALL FILES IN OUTPUT/ FOLDER; USE WITH CAUTION
@@ -83,7 +84,7 @@ el4pCon = trackEL4P_init(directory = out,fileName = "el4p.csv")
 adultCon = trackAdults_init(directory = out,fileName = "adults.csv")
 
 # test MASH
-for(tMax in tStart:(tStart+21)){
+for(tMax in tStart:(tStart+221)){
 
   print(paste0("tMax: ",tMax))
 
