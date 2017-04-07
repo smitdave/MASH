@@ -32,7 +32,15 @@
 # Generic PfPedigree management functions
 ############################################################################
 
-
+#' Initialize PfPedigree to Track Mosquito to Human Transmission
+#'
+#' Generate a text connection to write .csv pedigrees.
+#'
+#' @param directory directory that will be created; files will be put in directory/OUTPUT/..
+#' @param fileName name of the file to write to; directory/OUTPUT/fileName.csv
+#' @return a text connection
+#' @examples
+#' PfPedigree_init(directory, fileName)
 PfPedigree_init <- function(directory, fileName){
   if(!dir.exists(paste0(directory,"OUTPUT"))){
     dir.create(paste0(directory))
@@ -45,28 +53,6 @@ PfPedigree_init <- function(directory, fileName){
   writeLines(text = paste0(c("tStart","tBite","tMosy","ixH","ixS","ixM","damID","sireID","PfID"),collapse = ","),con = conPf,sep = "\n") # write header
   return(conPf)
 }
-
-# NOTE: PfPedigree_XX should be global function ie; PfPedigree_XX <<- PfPedigree_full
-
-# initPfPedigree: generic function to initialize the PfPedigree
-# n: initial size of PfPedigree
-# PfPedigree_func: version of PfPedigree_XX used
-# ...: additional named parameters for PfPedigree_func
-# initPfPedigree <- function(n, PfPedigree_XX, ...){
-#   args = as.list(substitute(list(...)))[-1L]
-#   PfPedigree <<- replicate(n = n,expr = do.call(PfPedigree_XX,args),simplify = FALSE)
-# }
-
-# addPf2Pedigree <- function(tStart, tBite, ixH, ixM, ixS, PfM){
-#   thisPf = makePfPedigree(tStart, tBite, ixH, ixM, ixS, PfM) # make the new pedigree object
-#   if(is.null(thisPf)){return(NULL)} # to interface with PfPedigree_NULL
-#   emptyIx = which(sapply(PfPedigree,function(x){x$empty})) # find empty indices
-#   if(length(emptyIx)<2){ # extend pedigree if necessary
-#     extendPfPedigree()
-#     emptyIx = which(sapply(PfPedigree,function(x){x$empty}))
-#   }
-#   PfPedigree[[emptyIx[1]]] <<- thisPf # insert the new pedigree
-# }
 
 #' Add new Mosquito to Human Pf Infection to Pedigree
 #'
@@ -90,25 +76,11 @@ PfPedigree_init <- function(directory, fileName){
 #' * PfID: the Pf ID; every infection that makes it to bloodstream stage is considered a new clonal variant
 #' @md
 addPf2Pedigree <- function(tStart, tBite, ixH, ixM, ixS, PfM){
-  print("writing pf to pedigree!!!")
   with(PfM,{
     txtOut = paste0(c(tStart,tBite,tm,ixH,ixS,ixM,damID,sireID,pfid),collapse = ",")
     writeLines(text = txtOut,con = .GlobalEnv$pfCon,sep = "\n")
   })
 }
-
-# extendPfPedigree <- function(offset = NULL){
-#   if(is.null(offset)){
-#     offset = ceiling(length(PfPedigree)*1.5)
-#   }
-#
-#   PfPedigree <<- c(PfPedigree,replicate(n = offset,expr = PfPedigree_XX(),simplify = FALSE))
-# }
-#
-# # asDfPfPedigree: returns the PfPedgiree as a data.frame
-# asDfPfPedigree <- function(){
-#   Reduce("rbind",PfPedigree,init=NULL)
-# }
 
 
 ############################################################################
@@ -121,6 +93,15 @@ addPf2Pedigree <- function(tStart, tBite, ixH, ixM, ixS, PfM){
 #
 ############################################################################
 
+#' Return a pfid During Human to Mosquito Transmission
+#'
+#' For PfSI module this will only return a single pfid but in general the damID and sireID could be a vector of male and female gametocyte IDs
+#' ingested by the mosquito during host to vector transmission during a blood meal.
+#'
+#' @param ixH index of human
+#' @return a single pfid (integer)
+#' @examples
+#' getPfParent_SI(ixH)
 getPfParent_SI <- function(ixH){
   HUMANS[[ixH]]$Pathogens$Pf$pfid
 }
@@ -140,8 +121,27 @@ getPfParent_SI <- function(ixH){
 # PfPedigree: full
 ######################
 
-# makePfM_full: called from infectMosquito_XX
-makePfM_full <- function(ixH, tBite, ixS){
+#' Generate the Pf Object for Human to Mosquito Transmission
+#'
+#' During successful human to mosquito transmission makePfM() generates the PfM object that is passed from human to mosquito.
+#' This object contains all of the Pf information necessary for the module.
+#'
+#' @param ixH index of human
+#' @param tBite time of bite
+#' @param ixS index of site
+#' @return a list of two elements
+#' * infected: TRUE
+#' * PfM: The PfM object
+#'    * tm: time of human to vector transmission
+#'    * ixS: site of human to vector transmission
+#'    * ixH: site of human to vector transmission
+#'    * damID: female gametocyte IDs
+#'    * sireID: male gametocyte IDs
+#'    * pfid: Pf ID from the infected human
+#' @md
+#' @examples
+#' makePfM(ixH, tBite, ixS)
+makePfM <- function(ixH, tBite, ixS){
   damID  = getPfParent(ixH)
   sireID = getPfParent(ixH)
   pfid = getPfParent(ixH)
@@ -149,43 +149,4 @@ makePfM_full <- function(ixH, tBite, ixS){
     infected = TRUE,
     PfM = list(tm=tBite, ixS=ixS, ixH=ixH, damID=damID, sireID=sireID, pfid=pfid)
   )
-}
-
-# # PfPedigree_full:
-# PfPedigree_full <- function(tStart=-1, tBite=-1, tMosy=-1, ixH=-1, ixM=-1, ixS=-1, damID=NULL, sireID=NULL, PfID=NULL, empty=TRUE){
-#   list(
-#     tStart = tStart,    # time of start of infection
-#     tBite  = tBite,     # time of infectious bite
-#     tMosy  = tMosy,     # time mosquito initially infected
-#     ixH    = ixH,       # index of human host
-#     ixS    = ixS,       # site of infectious bite
-#     ixM    = ixM,       # index of mosquito vector
-#     damID  = damID,     # vector of female gametocyte IDs
-#     sireID = sireID,    # vector of male gametocyte IDs
-#     PfID   = PfID,      # PfID; every infection that makes it to bloodstream is a new clonal variant
-#     empty  = empty      # is this a prealloc slot or does it have a pedigree?
-#   )
-# }
-#
-# # makePfPedigree_full: called from addPf2Pedigree; called from infectiousBite_XX
-# makePfPedigree_full <- function(tStart, tBite, ixH, ixM, ixS, PfM){
-#   with(PfM,{
-#     PfPedigree_full(tStart, tBite, tm, ixH, ixM, ixS, damID, sireID, empty = FALSE)
-#   })
-# }
-
-######################
-# PfPedigree: null
-######################
-
-makePfM_NULL <- function(ixH, tBite, ixS){
-  list(infected=TRUE, PfM=NULL)
-}
-
-PfPedigree_NULL <- function(){
-  NULL
-}
-
-makePfPedigree_NULL <- function(tStart, tBite, ixH, ixM, ixS, PfM){
-  NULL
 }

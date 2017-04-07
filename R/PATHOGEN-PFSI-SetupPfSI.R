@@ -144,9 +144,6 @@ PFSI.SETUP <- function(
   lmSpecPf <<- lmSpecPf
   lmTest <<- lmTest_PfSI
 
-  # Mosquito Pf Object
-  makePfM <<- makePfM_full
-
   # Pedigree
   # PfPedigree_XX <<- PfPedigree_full
   # makePfPedigree <<- makePfPedigree_full
