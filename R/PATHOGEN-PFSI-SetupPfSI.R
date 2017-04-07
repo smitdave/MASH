@@ -144,12 +144,14 @@ PFSI.SETUP <- function(
   lmSpecPf <<- lmSpecPf
   lmTest <<- lmTest_PfSI
 
-  # Pedigree
-  PfPedigree_XX <<- PfPedigree_full
-  makePfPedigree <<- makePfPedigree_full
+  # Mosquito Pf Object
   makePfM <<- makePfM_full
-  getPfParent <<- getPfParent_SI
 
+  # Pedigree
+  # PfPedigree_XX <<- PfPedigree_full
+  # makePfPedigree <<- makePfPedigree_full
+  # makePfM <<- makePfM_full
+  getPfParent <<- getPfParent_SI
   KeepPfHistory <<- KeepPfHistory
 
 }

@@ -52,24 +52,23 @@ MPopM = makeMosquitoCohort(N = eqM,female = FALSE,tm = tStart-1, state = "M", of
 # load global values for PfSI
 PFSI.SETUP()
 
-PfID = 1 # global iterator; we want to increment it when a mosquito successfully infects a human
-
 # set up PfSI object in all humans
 NOISY = FALSE
+PfID = 1 # initialize pfid
 for(ixH in 1:length(HUMANS)){
   HUMANS[[ixH]]$Pathogens$Pf = pathOBJ_PfSI()
-  if(runif(1) < 0.5){
+  if(runif(1) < 0.7){
     infectHuman_PfSI(ixH = ixH,t = 0,PAR = list(pfid = PfID))
     PfID <<- PfID + 1
   }
 }
 
-# PfPedigree
-initPfPedigree(n = 5,PfPedigree_XX = PfPedigree_full)
-PfPedigree_XX = PfPedigree_full
-makePfPedigree = makePfPedigree_full
-makePfM = makePfM_full
-getPfParent = getPfParent_SI
+# # PfPedigree
+# initPfPedigree(n = 5,PfPedigree_XX = PfPedigree_full)
+# PfPedigree_XX = PfPedigree_full
+# makePfPedigree = makePfPedigree_full
+# makePfM = makePfM_full
+# getPfParent = getPfParent_SI
 
 ##########################################
 # Run MASH
@@ -82,6 +81,7 @@ clearOutput(directory = out) # THIS FUNCTION ERASES ALL FILES IN OUTPUT/ FOLDER;
 
 el4pCon = trackEL4P_init(directory = out,fileName = "el4p.csv")
 adultCon = trackAdults_init(directory = out,fileName = "adults.csv")
+pfCon = PfPedigree_init(directory = out,fileName = "pf.csv") # this MUST be called pfCon
 
 # test MASH
 for(tMax in tStart:(tStart+221)){
@@ -120,6 +120,7 @@ for(tMax in tStart:(tStart+221)){
 }
 
 # close all output connections
+close(pfCon)
 close(el4pCon)
 close(adultCon)
 

@@ -177,7 +177,7 @@ boutGenericMale <- function(M,P,boutFun,...){
   # queueMating() only queue if mated = FALSE
 
   # log history
-  if(P$HISTORY){M = history(M)}
+  if(P$HISTORY){M = historyTrack(M)}
 
   return(M)
 }

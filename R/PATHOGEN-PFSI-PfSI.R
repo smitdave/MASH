@@ -15,7 +15,6 @@ probeHost_PfSI <- function(tBite, ixH, ixS, ixM, Pf){
   if(any(Pf$spz)){ # sample a clonal variant if multiple
     PfClonalVar = which(Pf$spz)
     PfIx = sample(x = PfClonalVar, size = 1)
-    # infectiousBite_PfSI(ixH, ixM, tBite, ixS, Pf$PfM[[PfIx]])
     infectiousBite_PfSI(tBite = tBite, ixH = ixH, ixS = ixS, ixM = ixM, PfM = Pf$PfM[[PfIx]])
   }
 }

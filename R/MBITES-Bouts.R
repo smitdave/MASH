@@ -150,7 +150,7 @@ isActive <- function(M){
 ############################################################
 
 # track history
-history <- function(M){
+historyTrack <- function(M){
   M$history$stateH     = c(M$history$stateH,M$state)     # state trajectory
   M$history$timeH      = c(M$history$timeH,M$tNow)         # transition times
   M$history$ixH        = c(M$history$ixH,M$ix)              # sites visited
@@ -242,7 +242,7 @@ boutGeneric <- function(M,P,boutFun,...){
   M = queueEstivation(M,P) # MBITES-Estivate.R
 
   # log history
-  if(P$HISTORY){M = history(M)}
+  if(P$HISTORY){M = historyTrack(M)}
 
   return(M)
 }

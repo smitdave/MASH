@@ -348,7 +348,7 @@ boutBasic.nomove <- function(M,P,boutFun,...){
   M = queueEstivation(M,P) # MBITES-Estivate.R
 
   # log history
-  if(P$HISTORY){M = history(M)}
+  if(P$HISTORY){M = historyTrack(M)}
 
   return(M)
 }
@@ -381,7 +381,7 @@ boutBasic.move <- function(M,P,MvOb,boutFun,...){
   M = queueEstivation(M,P) # MBITES-Estivate.R
 
   # log history
-  if(P$HISTORY){M = history(M)}
+  if(P$HISTORY){M = historyTrack(M)}
 
   return(M)
 }
