@@ -25,12 +25,13 @@
 #' @param GSProtectPf 1; proportion protected by GS vaccination (probability vaccination successful)
 #' @param gsBlockPf 0.9; proportion of infections blocked by GS vaccination
 #' @param mnGSPf 180; mean duration of protection from GS vaccination
-#' @param vrPEPf 20; standard deviation of protection from GS vaccination
+#' @param vrGSPf 20; standard deviation of protection from GS vaccination
 #' @param rdtSensPf 0.9; RDT sensitivity
 #' @param rdtSpecPf 0.1; RDT specificity
 #' @param lmSensPf 0.9; Light Microscopy sensitivity
 #' @param lmSpecPf 0.1; Light Microscopy specificity
 #' @param KeepPfHistory TRUE; record PfSI events in HUMANS[[ixH]]$Pathogens$Pf$eventT?
+#' @param NOISY FALSE; print events to console?
 #' @return define functions and parameters in global environment
 #' @examples
 #' PFSI.SETUP()
@@ -95,8 +96,9 @@ PFSI.SETUP <- function(
     lmSensPf  = .9,
     lmSpecPf  = .1,
 
-    # Pedigree
-    KeepPfHistory = TRUE
+    # auxiliary
+    KeepPfHistory = TRUE,
+    NOISY = FALSE
 
   ){
 
@@ -173,10 +175,41 @@ PFSI.SETUP <- function(
   lmTest <<- lmTest_PfSI
 
   # Pedigree
-  # PfPedigree_XX <<- PfPedigree_full
-  # makePfPedigree <<- makePfPedigree_full
-  # makePfM <<- makePfM_full
   getPfParent <<- getPfParent_SI
-  KeepPfHistory <<- KeepPfHistory
 
+  # auxiliary
+  KeepPfHistory <<- KeepPfHistory
+  NOISY <<- NOISY
+
+}
+
+#' Initialize PfSI Human Infections
+#'
+#' Initialize PfSI module infections in the human population (requires \code{HUMANS} to be defined in the global environment)
+#' \code{PFSI.SETUP()} should be called prior to initializing human infections.
+#'
+#' @param PfPR initial parasite prevalence in the human population
+#' @return modify \code{HUMANS} object in global environment
+#' @examples
+#' PFSI.INIT()
+PFSI.INIT <- function(PfPR){
+  if(exists(x = "LANDSCAPE",where = .GlobalEnv)){
+    if(length(HUMANS)!=LANDSCAPE$nH){
+      stop("HUMANS object not equal to LANDSCAPE$nH")
+    }
+  }
+  if(!exists(x = "tStart",where = .GlobalEnv)){
+    print(paste0("tStart not defined globally; setting initial infection times to 0"))
+    tStart = 0
+  }
+  PfID = 1
+  for(ixH in 1:length(HUMANS)){
+    HUMANS[[ixH]]$Pathogens$Pf <<- pathOBJ_PfSI()
+    if(runif(1) < PfPR){
+      infectHuman_PfSI(ixH = ixH,t = tStart,PAR = list(pfid = PfID))
+      PfID = PfID + 1
+    } else {
+      PfSIHistory(ixH = ixH,t = tStart,event = "S")
+    }
+  }
 }

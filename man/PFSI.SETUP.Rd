@@ -9,7 +9,8 @@ PFSI.SETUP(Pf_c = 0.15, Pf_b = 0.55, DurationPf = 200, LatentPf = 10,
   mnTreatPf = 1, mnChemoprophylaxisPf = 32, PEProtectPf = 0.99,
   peBlockPf = 1, mnPEPf = 270, vrPEPf = 50, GSProtectPf = 1,
   gsBlockPf = 0.9, mnGSPf = 180, vrGSPf = 20, rdtSensPf = 0.9,
-  rdtSpecPf = 0.1, lmSensPf = 0.9, lmSpecPf = 0.1, KeepPfHistory = TRUE)
+  rdtSpecPf = 0.1, lmSensPf = 0.9, lmSpecPf = 0.1, KeepPfHistory = TRUE,
+  NOISE = FALSE)
 }
 \arguments{
 \item{Pf_c}{0.15; transmission efficiency: infected mosquito to human}
@@ -46,6 +47,8 @@ PFSI.SETUP(Pf_c = 0.15, Pf_b = 0.55, DurationPf = 200, LatentPf = 10,
 
 \item{mnGSPf}{180; mean duration of protection from GS vaccination}
 
+\item{vrGSPf}{20; standard deviation of protection from GS vaccination}
+
 \item{rdtSensPf}{0.9; RDT sensitivity}
 
 \item{rdtSpecPf}{0.1; RDT specificity}
@@ -56,7 +59,7 @@ PFSI.SETUP(Pf_c = 0.15, Pf_b = 0.55, DurationPf = 200, LatentPf = 10,
 
 \item{KeepPfHistory}{TRUE; record PfSI events in HUMANS[[ixH]]$Pathogens$Pf$eventT?}
 
-\item{vrPEPf}{20; standard deviation of protection from GS vaccination}
+\item{NOISY}{FALSE; print events to console?}
 }
 \value{
 define functions and parameters in global environment

@@ -49,26 +49,10 @@ tStart = 1
 MPopF = makeMosquitoCohort(N = eqM,female = TRUE,tm = tStart-1, state = "M", EIP = 1, mature = TRUE, offset = 5e4)
 MPopM = makeMosquitoCohort(N = eqM,female = FALSE,tm = tStart-1, state = "M", offset = 5e4)
 
-# load global values for PfSI
+# initialize PfSI module
 PFSI.SETUP()
+PFSI.INIT(PfPR = 0.5)
 
-# set up PfSI object in all humans
-NOISY = FALSE
-PfID = 1 # initialize pfid
-for(ixH in 1:length(HUMANS)){
-  HUMANS[[ixH]]$Pathogens$Pf = pathOBJ_PfSI()
-  if(runif(1) < 0.7){
-    infectHuman_PfSI(ixH = ixH,t = 0,PAR = list(pfid = PfID))
-    PfID <<- PfID + 1
-  }
-}
-
-# # PfPedigree
-# initPfPedigree(n = 5,PfPedigree_XX = PfPedigree_full)
-# PfPedigree_XX = PfPedigree_full
-# makePfPedigree = makePfPedigree_full
-# makePfM = makePfM_full
-# getPfParent = getPfParent_SI
 
 ##########################################
 # Run MASH
@@ -120,7 +104,7 @@ for(tMax in tStart:(tStart+221)){
 }
 
 # close all output connections
-close(pfCon)
+close(pfM2HCon)
 close(el4pCon)
 close(adultCon)
 
