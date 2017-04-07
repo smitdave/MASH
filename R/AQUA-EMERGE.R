@@ -14,6 +14,11 @@
 #tNow: current daily time tick of model
 oneDay_emerge <- function(tNow){
 
+  # log EggQ
+  if(EggQ_TRACK){
+    trackEggQ(con = .GlobalEnv$EggQCon)
+  }
+
   lambdaExact = sapply(LANDSCAPE$aquaSites,function(x){x$season[floor(tNow)%%365+1]}) #exact emergence rates
 
   nSites = length(lambdaExact)

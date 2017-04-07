@@ -98,6 +98,7 @@ PFSI.SETUP <- function(
 
     # auxiliary
     KeepPfHistory = TRUE,
+    pfM2H_TRACK = FALSE,
     NOISY = FALSE
 
   ){
@@ -180,6 +181,7 @@ PFSI.SETUP <- function(
   # auxiliary
   KeepPfHistory <<- KeepPfHistory
   NOISY <<- NOISY
+  pfM2H_TRACK <<- pfM2H_TRACK
 
 }
 

@@ -260,3 +260,64 @@ extendEggQ <- function(ix,offset = NULL){
 
   LANDSCAPE$aquaSites[[ix]]$EggQ <<- c(LANDSCAPE$aquaSites[[ix]]$EggQ,replicate(n = offset,expr = eggBatch(),simplify = FALSE))
 }
+
+
+#################################################################
+#
+# Numerical tracking of EggQ:
+# observe values of state varibles across each site in landscape
+#
+#################################################################
+
+#' Initialize Text Connection to Track EggQ
+#'
+#' Generate a text connection to write .csv EggQ values to. This records daily egg laying in each aquatic habitat.
+#' The text connection generated must be named \code{EggQCon}; this function also defines a global flag \code{EggQ_TRACK} that is
+#' used by \code{oneDay_EL4P()} or \code{oneDay_emerge()} to determine whether or not to write to output.
+#'
+#' @param directory directory that will be created; files will be put in directory/OUTPUT/..
+#' @param fileName name of the file to write to; directory/OUTPUT/fileName.csv
+#' @return a text connection
+#' @examples
+#' trackEggQ_init(directory, fileName)
+trackEggQ_init <- function(directory, fileName){
+  if(!dir.exists(paste0(directory,"OUTPUT"))){
+    dir.create(paste0(directory))
+    dir.create(paste0(directory,"OUTPUT"))
+  }
+  if(file.exists(paste0(directory,"OUTPUT/",fileName))){
+    stop("trackEggQ_init cannot init a file that already exists!")
+  }
+  EggQ_TRACK <<- TRUE
+  conEggQ = file(description = paste0(directory,"OUTPUT/",fileName),open = "wt")
+  writeLines(text = paste0(c("time",paste0("ix",1:LANDSCAPE$nA)),collapse = ","),con = conEggQ,sep = "\n") # write header
+  return(conEggQ)
+}
+
+#' Write EggQ Values to .csv
+#'
+#' Generate daily output of EggQ tracking to .csv file through text connection created with \code{trackEggQ_init()}.
+#'
+#' @param con text connection to write to
+#' @return none
+#' @examples
+#' trackEggQ(con)
+trackEggQ <- function(con){
+  eggs = sapply(LANDSCAPE$aquaSites,function(x){
+    sum(sapply(x$EggQ,function(xx){xx$N}))
+  })
+  writeLines(text = paste0(c(tMax,eggs),collapse = ","),con = .GlobalEnv$EggQCon,sep = "\n")
+}
+
+#' Import Logged EggQ Data from .csv
+#'
+#' Generate daily output of EggQ tracking to .csv file through text connection created with \code{trackEggQ_init()}.
+#'
+#' @param directory directory that OUTPUT/.. is in
+#' @param fileName file name in OUTPUT/..
+#' @return data frame
+#' @examples
+#' importimportEggQEL4P(directory, fileName)
+importEggQ <- function(directory, fileName){
+  read.csv(file = paste0(directory,"OUTPUT/",fileName),header = TRUE)
+}

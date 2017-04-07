@@ -13,7 +13,7 @@ PFSI.INIT(PfPR)
 modify \code{HUMANS} object in global environment
 }
 \description{
-Initialize PfSI module infections in the human population (requires HUMANS to be defined in the global environment)
+Initialize PfSI module infections in the human population (requires \code{HUMANS} to be defined in the global environment)
 \code{PFSI.SETUP()} should be called prior to initializing human infections.
 }
 \examples{

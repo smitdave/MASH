@@ -49,6 +49,7 @@ PfPedigree_init <- function(directory, fileName){
   if(file.exists(paste0(directory,"OUTPUT/",fileName))){
     stop("PfPedigree_init cannot init a file that already exists!")
   }
+  pfM2H_TRACK <<- TRUE
   conPf = file(description = paste0(directory,"OUTPUT/",fileName),open = "wt")
   writeLines(text = paste0(c("tStart","tBite","tMosy","ixH","ixS","ixM","damID","sireID","PfID"),collapse = ","),con = conPf,sep = "\n") # write header
   return(conPf)
@@ -76,6 +77,9 @@ PfPedigree_init <- function(directory, fileName){
 #' * PfID: the Pf ID; every infection that makes it to bloodstream stage is considered a new clonal variant
 #' @md
 addPf2Pedigree <- function(tStart, tBite, ixH, ixM, ixS, PfM){
+  if(!pfM2H_TRACK){
+    return(NULL)
+  }
   with(PfM,{
     txtOut = paste0(c(tStart,tBite,tm,ixH,ixS,ixM,damID,sireID,pfid),collapse = ",")
     writeLines(text = txtOut,con = .GlobalEnv$pfM2HCon,sep = "\n")

@@ -1,4 +1,5 @@
 library(MASH.MBPT)
+rm(list=ls())
 
 # global parameters
 P = MBITES.PAR(maxBatch = 35)
@@ -22,6 +23,7 @@ Aq.Equilibrium = setupAquaPop_EL4P(PAR = Aq.PAR,tol = 100,plot = TRUE)
 
 # set LANDSCAPE aquatic populations to equilibrium values
 for(ix in 1:Aq.PAR$nA){
+  # probably need to have the eggs go into the EggQs as well
   LANDSCAPE$aquaSites[[ix]]$EL4P = Aq.Equilibrium$EL4P_pops[[ix]]
   LANDSCAPE$aquaSites[[ix]]$alpha = Aq.Equilibrium$PAR$alpha[[ix]]
   LANDSCAPE$aquaSites[[ix]]$psi = Aq.Equilibrium$PAR$psiHat[[ix]]
@@ -66,9 +68,10 @@ clearOutput(directory = out) # THIS FUNCTION ERASES ALL FILES IN OUTPUT/ FOLDER;
 el4pCon = trackEL4P_init(directory = out,fileName = "el4p.csv")
 adultCon = trackAdults_init(directory = out,fileName = "adults.csv")
 pfM2HCon = PfPedigree_init(directory = out,fileName = "pfM2H.csv") # this MUST be called pfM2HCon
+EggQCon = trackEggQ_init(directory = out,fileName = "egg.csv")
 
 # test MASH
-for(tMax in tStart:(tStart+221)){
+for(tMax in tStart:(tStart+361)){
 
   print(paste0("tMax: ",tMax))
 
@@ -103,10 +106,12 @@ for(tMax in tStart:(tStart+221)){
 
 }
 
+
 # close all output connections
 close(pfM2HCon)
 close(el4pCon)
 close(adultCon)
+close(EggQCon)
 
 
 ##########################################

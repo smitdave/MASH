@@ -61,6 +61,11 @@ oneSiteEL4Pt <- function(ix, tNow){
 # oneDay_EL4PL run EL4P aquatic ecology module for one day
 oneDay_EL4P <- function(tNow){
 
+  # log EggQ
+  if(EggQ_TRACK){
+    trackEggQ(con = .GlobalEnv$EggQCon)
+  }
+
   for(ixA in 1:LANDSCAPE$nA){ # iterate over aquatic habitats
     oneSiteEL4Pt(ix = ixA, tNow = tNow)
   }

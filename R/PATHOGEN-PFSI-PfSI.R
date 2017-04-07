@@ -23,7 +23,6 @@ infectiousBite_PfSI <- function(tBite, ixH, ixS, ixM, PfM){
   if(NOISY == TRUE){print("infectiousBite")}
   if(rbinom(1,1,HUMANS[[ixH]]$Pathogens$Pf$b)){
     tInfStart = tBite + ttInfectionPf() # when does latent -> infected occur
-    PfID <<- PfID + 1 # increment global PfID
     if(NOISY == TRUE){print("add2Pedigree")}
     addPf2Pedigree(tStart = tInfStart, tBite = tBite, ixH = ixH, ixS = ixS, ixM = ixM, PfM = PfM)
     add2Q_startPfSI(ixH, tInfStart, PfID)

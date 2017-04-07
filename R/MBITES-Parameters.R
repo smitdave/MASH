@@ -177,6 +177,9 @@ MBITES.PAR <- function(
 
 ){
 
+  # set global flags (will be false until set to true by appropriate function)
+  EggQ_TRACK <<- FALSE
+
   return(list(
 
     # landscape creation parameters
