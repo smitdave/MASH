@@ -127,6 +127,9 @@ adults = importAdults(directory = out,fileName = "adults.csv")
 el4p = importEL4P(directory = out,fileName = "el4p.csv")
 egg = importEggQ(directory = out,fileName = "egg.csv")
 
+# analyze aquatic dynamics
+plotEL4P(el4p = el4p,egg = egg)
+
 # analyze mosquito cohorts
 cohortIx = getCohortIndices.history(history = history,sites = FALSE)
 cohortT = getStateTraj.history(ix = cohortIx[[1]],history = history,female = TRUE)
@@ -136,5 +139,4 @@ cohortTrajectory.history(ix = cohortIx[[1]],history = history,cex = 2)
 cohortBionomics.history(bionomics = bionomics,ix = cohortIx[[1]])
 
 # analyze human infection
-
 pfsiTrajectory()

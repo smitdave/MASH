@@ -69,3 +69,12 @@ pfsiTrajectory <- function(){
 
   par(xpd = F, mar=c(5, 4, 4, 2) + 0.1)
 }
+
+
+
+# N = length(HUMANS)
+# maxT = ceiling(max(sapply(HUMANS,function(x){x$Pathogens$Pf$eventT[length(x$Pathogens$Pf$eventT)]})))
+
+
+
+

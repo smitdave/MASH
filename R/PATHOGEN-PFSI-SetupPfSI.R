@@ -8,8 +8,8 @@
 #'
 #' Generate a list of parameters and define functions in the global environment for PfSI. All arguments have default values which are listed below before the definition.
 #'
-#' @param Pf_c 0.15; transmission efficiency: infected mosquito to human
-#' @param Pf_b 0.55; transmission efficiency: infected human to mosquito
+#' @param Pf_c 0.15; transmission efficiency: infected human to mosquito
+#' @param Pf_b 0.55; transmission efficiency: infected mosquito to human
 #' @param DurationPf 200; duration of infection (How many days does the infection last?)
 #' @param LatentPf 10; latency (How many days after the infectious bite does the infection start?)
 #' @param FeverPf 0.3; probability of fever
@@ -182,6 +182,10 @@ PFSI.SETUP <- function(
   KeepPfHistory <<- KeepPfHistory
   NOISY <<- NOISY
   pfM2H_TRACK <<- pfM2H_TRACK
+
+  # placeholder objects for simulated biting
+  Pf0 <<- list(spz = TRUE, PfM = list())
+  Pf0$PfM[[1]] <<- list(parentID=0,ixM=0,tm=0,ixS=0)
 
 }
 

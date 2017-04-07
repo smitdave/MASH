@@ -29,11 +29,6 @@ infectiousBite_PfSI <- function(tBite, ixH, ixS, ixM, PfM){
   }
 }
 
-Pf0=list()
-Pf0$spz = 1
-PfM0 = list(parentID=0,ixM=0,tm=0,ixS=0)
-Pf0$PfM[[1]] = PfM0
-
 add2Q_simbitePfSI <- function(ixH, t, PAR=Pf0){
   addEvent2Q(ixH, event_simbitePfSI(t))
 }
@@ -278,6 +273,19 @@ PfSIHistory <- function(ixH, t, event){
 # From bloodstream infection to infect the mosquito
 ###################################################################
 
+#' Infectious Bite for Human to Vector Transmission
+#'
+#' This function handles human to vector transmission for the PfSI module and is called from \code{getInfected()} defined in MBITES-HostEncounter.R.
+#' If the human has an active infection and there is a successful bloodstream to mosquito transfer of gametocytes a \code{PfM} object is made by \code{makePfM()}
+#' and is passed to the mosquito.
+#'
+#' @param ixH index of human
+#' @param t time of bite (local time of mosquito)
+#' @param ixS index of feeding site
+#' @return a named list
+#' * infected: TRUE or FALSE depending on human infection status and transmisson efficiency
+#' * PfM: if transmisson successful, the pathogen object passed to the mosquito
+#' @md
 infectMosquito_PfSI <- function(ixH, t, ixS){
   with(HUMANS[[ixH]]$Pathogens$Pf,{
     if(infected==TRUE & rbinom(1,1,HUMANS[[ixH]]$Pathogens$Pf$c)){
@@ -288,10 +296,21 @@ infectMosquito_PfSI <- function(ixH, t, ixS){
   })
 }
 
+#' Pathogen Object for Humans in PfSI Module
+#'
+#' This function generates the Pf object for humans Pathogen slot \code{HUMANS[[ixH]]$Pathogens$Pf <<- pathOBJ_PfSI()}
+#' It is called during initialization by \code{PFSI.INIT()}.
+#'
+#' @param b transmission efficiency: infected mosquito to human
+#' @param c transmission efficiency: infected human to mosquito
+#' @return a named list
+#' * infected: TRUE or FALSE
+#' * chemoprophylaxis: is human protected by chemoprophylaxis?
+#' @md
 pathOBJ_PfSI <- function(b=Pf_b, c=Pf_c){
   list(
     infected = FALSE,
-    chemoprophylaxis = 0,
+    chemoprophylaxis = FALSE,
     b = b,
     c = c,
     pfid = NULL,

@@ -125,7 +125,7 @@ getPfParent_SI <- function(ixH){
 # PfPedigree: full
 ######################
 
-#' Generate the Pf Object for Human to Mosquito Transmission
+#' Generate the Pf Object for Mosquito Stage of Parasite Life Cycle
 #'
 #' During successful human to mosquito transmission makePfM() generates the PfM object that is passed from human to mosquito.
 #' This object contains all of the Pf information necessary for the module.
