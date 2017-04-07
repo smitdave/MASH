@@ -33,5 +33,5 @@ During successful human to mosquito transmission makePfM() generates the PfM obj
 This object contains all of the Pf information necessary for the module.
 }
 \examples{
-getPfParent_SI(ixH)
+makePfM(ixH, tBite, ixS)
 }

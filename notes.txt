@@ -1,6 +1,7 @@
 Documentation done for:
 * MICRO-LANDSCAPE.R
 * PATHOGEN-PfPedigree.R
+* PATHOGEN-PFSI-SetupPfSI.R
 
 Other to-do:
 * makeMosquitoCohort() should accept P as an argument for certain parameters, such as energyPreG
@@ -8,4 +9,4 @@ Other to-do:
 * Write plotting routines for trackAdults and trackEL4P output
 
 More Other to-do:
-* Shiny GUIs for MBITES-Basic and EL4P fitting.
+* Shiny GUIs for MBITES-Basic, EL4P fitting, PfSI.
