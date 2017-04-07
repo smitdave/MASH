@@ -125,6 +125,7 @@ history = importHistory(directory = out)
 # import .csv data
 adults = importAdults(directory = out,fileName = "adults.csv")
 el4p = importEL4P(directory = out,fileName = "el4p.csv")
+egg = importEggQ(directory = out,fileName = "egg.csv")
 
 # analyze mosquito cohorts
 cohortIx = getCohortIndices.history(history = history,sites = FALSE)

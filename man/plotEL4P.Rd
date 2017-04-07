@@ -4,13 +4,15 @@
 \alias{plotEL4P}
 \title{Plot Imported EL4P .csv Data}
 \usage{
-plotEL4P(el4p)
+plotEL4P(el4p, egg = NULL)
 }
 \arguments{
 \item{el4p}{a data frame (output of importEL4P)}
+
+\item{egg}{a data frame (output of importEggQ; may be set to NULL)}
 }
 \value{
-formatted data object; a list of sites, each site has named elements L1, L2, L3, L4, P
+plot
 }
 \description{
 This is a utility to format logged EL4P data after it has been imported by importEL4P
