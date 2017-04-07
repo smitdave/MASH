@@ -25,7 +25,7 @@ infectiousBite_PfSI <- function(tBite, ixH, ixS, ixM, PfM){
     tInfStart = tBite + ttInfectionPf() # when does latent -> infected occur
     if(NOISY == TRUE){print("add2Pedigree")}
     addPf2Pedigree(tStart = tInfStart, tBite = tBite, ixH = ixH, ixS = ixS, ixM = ixM, PfM = PfM)
-    add2Q_startPfSI(ixH, tInfStart, PfID)
+    add2Q_startPfSI(ixH, tInfStart, PfM$pfid) #FIX THIS LATER; NEW CLONAL VARIANT = NEW ID
   }
 }
 
