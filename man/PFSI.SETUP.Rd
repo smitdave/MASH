@@ -63,7 +63,6 @@ define functions and parameters in global environment
 }
 \description{
 Generate a list of parameters and define functions in the global environment for PfSI. All arguments have default values which are listed below before the definition.
-\deqn{(A,B) = (Q S Z^H, Q T Z^H)}{(A,B) = (Q*S*Z^H, Q*T*Z^H)} Hi, I'm a LaTeX equation!
 }
 \examples{
 PFSI.SETUP()

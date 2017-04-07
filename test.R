@@ -81,7 +81,7 @@ clearOutput(directory = out) # THIS FUNCTION ERASES ALL FILES IN OUTPUT/ FOLDER;
 
 el4pCon = trackEL4P_init(directory = out,fileName = "el4p.csv")
 adultCon = trackAdults_init(directory = out,fileName = "adults.csv")
-pfCon = PfPedigree_init(directory = out,fileName = "pf.csv") # this MUST be called pfCon
+pfM2HCon = PfPedigree_init(directory = out,fileName = "pfM2H.csv") # this MUST be called pfM2HCon
 
 # test MASH
 for(tMax in tStart:(tStart+221)){

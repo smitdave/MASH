@@ -78,7 +78,7 @@ PfPedigree_init <- function(directory, fileName){
 addPf2Pedigree <- function(tStart, tBite, ixH, ixM, ixS, PfM){
   with(PfM,{
     txtOut = paste0(c(tStart,tBite,tm,ixH,ixS,ixM,damID,sireID,pfid),collapse = ",")
-    writeLines(text = txtOut,con = .GlobalEnv$pfCon,sep = "\n")
+    writeLines(text = txtOut,con = .GlobalEnv$pfM2HCon,sep = "\n")
   })
 }
 
