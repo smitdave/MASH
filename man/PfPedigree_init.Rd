@@ -2,7 +2,7 @@
 % Please edit documentation in R/PATHOGEN-PfPedigree.R
 \name{PfPedigree_init}
 \alias{PfPedigree_init}
-\title{Initialize PfPedigree to Track Mosquito to Human Transmission}
+\title{Initialize PfPedigree to Generation of New Clonal Variants}
 \usage{
 PfPedigree_init(directory, fileName)
 }
@@ -15,7 +15,7 @@ PfPedigree_init(directory, fileName)
 a text connection
 }
 \description{
-Generate a text connection to write .csv pedigrees.
+Generate a text connection to write .csv pedigrees. This connection \strong{must} be named \code{PfPedigreeCon}.
 }
 \examples{
 PfPedigree_init(directory, fileName)

@@ -8,6 +8,60 @@
 #
 #################################################################
 
+
+############################################################################
+# Generic PfTransmission management functions
+############################################################################
+
+#' Initialize PfTransmission to Track Pathogen Transmission Networks
+#'
+#' Generate a text connection to write .csv transmission chains. This connection \strong{must} be named \code{PfTransmissionCon}.
+#' See \code{\link{trackPfTransmission}}.
+#'
+#' @param directory directory that will be created; files will be put in directory/OUTPUT/..
+#' @param fileName name of the file to write to; directory/OUTPUT/fileName.csv
+#' @return a text connection
+#' @examples
+#' PfTransmission_init(directory, fileName)
+PfTransmission_init <- function(directory, fileName){
+  if(!dir.exists(paste0(directory,"OUTPUT"))){
+    dir.create(paste0(directory))
+    dir.create(paste0(directory,"OUTPUT"))
+  }
+  if(file.exists(paste0(directory,"OUTPUT/",fileName))){
+    stop("PfTransmission_init cannot init a file that already exists!")
+  }
+  PfTransmission_TRACK <<- TRUE
+  conPf = file(description = paste0(directory,"OUTPUT/",fileName),open = "wt")
+  writeLines(text = paste0(c("time","M2H","H2M","ixH","ixS","ixM","PfID"),collapse = ","),con = conPf,sep = "\n") # write header
+  return(conPf)
+}
+
+#' Add New Transmisson Event to PfTransmission
+#'
+#' Add a new transmission event PfTransmission .csv for data logging.
+#'
+#' @param M2H direction of transmission
+#' @param tBite time of infectious bite (mosquito to human)
+#' @param ixH index of human host
+#' @param ixM index of mosquito vector
+#' @param ixS site of infectious bite
+#' @param PfM Pf object from infectious mosquito
+#' @return Write the following Pf pedigree to file
+#' * tStart: time of start of infection
+#' * tBite: time of infectious bite
+#' * tMosy: time mosquito initially infected
+#' * ixH: index of human host
+#' * ixS: site of vector to human transmission
+#' * ixM: index of mosquito vector
+#' * damID: female gametocyte ID
+#' * sireID: male gametocyte ID
+#' * PfID: the Pf ID; every infection that makes it to bloodstream stage is considered a new clonal variant
+#' @md
+trackPfTransmission <- function(M2H){
+
+}
+
 #################################################################
 #
 #   Generic definitions of variables:
@@ -32,9 +86,9 @@
 # Generic PfPedigree management functions
 ############################################################################
 
-#' Initialize PfPedigree to Track Mosquito to Human Transmission
+#' Initialize PfPedigree to Generation of New Clonal Variants
 #'
-#' Generate a text connection to write .csv pedigrees.
+#' Generate a text connection to write .csv pedigrees. This connection \strong{must} be named \code{PfPedigreeCon}.
 #'
 #' @param directory directory that will be created; files will be put in directory/OUTPUT/..
 #' @param fileName name of the file to write to; directory/OUTPUT/fileName.csv
@@ -49,7 +103,7 @@ PfPedigree_init <- function(directory, fileName){
   if(file.exists(paste0(directory,"OUTPUT/",fileName))){
     stop("PfPedigree_init cannot init a file that already exists!")
   }
-  pfM2H_TRACK <<- TRUE
+  PfPedigree_TRACK <<- TRUE
   conPf = file(description = paste0(directory,"OUTPUT/",fileName),open = "wt")
   writeLines(text = paste0(c("tStart","tBite","tMosy","ixH","ixS","ixM","damID","sireID","PfID"),collapse = ","),con = conPf,sep = "\n") # write header
   return(conPf)
@@ -77,12 +131,9 @@ PfPedigree_init <- function(directory, fileName){
 #' * PfID: the Pf ID; every infection that makes it to bloodstream stage is considered a new clonal variant
 #' @md
 addPf2Pedigree <- function(tStart, tBite, ixH, ixM, ixS, PfM){
-  if(!pfM2H_TRACK){
-    return(NULL)
-  }
   with(PfM,{
     txtOut = paste0(c(tStart,tBite,tm,ixH,ixS,ixM,damID,sireID,pfid),collapse = ",")
-    writeLines(text = txtOut,con = .GlobalEnv$pfM2HCon,sep = "\n")
+    writeLines(text = txtOut,con = .GlobalEnv$PfPedigreeCon,sep = "\n")
   })
 }
 

@@ -10,12 +10,12 @@ PFSI.SETUP(Pf_c = 0.15, Pf_b = 0.55, DurationPf = 200, LatentPf = 10,
   peBlockPf = 1, mnPEPf = 270, vrPEPf = 50, GSProtectPf = 1,
   gsBlockPf = 0.9, mnGSPf = 180, vrGSPf = 20, rdtSensPf = 0.9,
   rdtSpecPf = 0.1, lmSensPf = 0.9, lmSpecPf = 0.1, KeepPfHistory = TRUE,
-  pfM2H_TRACK = FALSE, NOISY = FALSE)
+  NOISY = FALSE)
 }
 \arguments{
-\item{Pf_c}{0.15; transmission efficiency: infected mosquito to human}
+\item{Pf_c}{0.15; transmission efficiency: infected human to mosquito}
 
-\item{Pf_b}{0.55; transmission efficiency: infected human to mosquito}
+\item{Pf_b}{0.55; transmission efficiency: infected mosquito to human}
 
 \item{DurationPf}{200; duration of infection (How many days does the infection last?)}
 

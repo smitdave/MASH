@@ -18,3 +18,7 @@ More Other to-do:
 * Shiny GUIs for MBITES-Basic, EL4P fitting, PfSI.
 
 More Other to-do (DONE):
+
+Where I Left Off:
+you were working on PATHOGEN-PfPedigree.R to do trackPfTransmission routines. Also working on visualization of
+pathogen history in humans.

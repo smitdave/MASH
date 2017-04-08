@@ -98,7 +98,6 @@ PFSI.SETUP <- function(
 
     # auxiliary
     KeepPfHistory = TRUE,
-    pfM2H_TRACK = FALSE,
     NOISY = FALSE
 
   ){
@@ -181,7 +180,10 @@ PFSI.SETUP <- function(
   # auxiliary
   KeepPfHistory <<- KeepPfHistory
   NOISY <<- NOISY
-  pfM2H_TRACK <<- pfM2H_TRACK
+
+  # tracking flags
+  PfPedigree_TRACK <<- FALSE
+  PfTransmission_TRACK <<- FALSE
 
   # placeholder objects for simulated biting
   Pf0 <<- list(spz = TRUE, PfM = list())

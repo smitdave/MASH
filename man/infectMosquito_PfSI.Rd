@@ -23,5 +23,5 @@ a named list
 \description{
 This function handles human to vector transmission for the PfSI module and is called from \code{getInfected()} defined in MBITES-HostEncounter.R.
 If the human has an active infection and there is a successful bloodstream to mosquito transfer of gametocytes a \code{PfM} object is made by \code{makePfM()}
-and is passed to the mosquito.
+and is passed to the mosquito. If global flag \code{PfTransmission_TRACK} is true it will call \code{trackPfTransmission()} to track human to vector transmission.
 }

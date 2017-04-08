@@ -19,12 +19,18 @@ probeHost_PfSI <- function(tBite, ixH, ixS, ixM, Pf){
   }
 }
 
+# If global flag \code{PfTransmission_TRACK} is true it will call \code{trackPfTransmission()} to track human to vector transmission.
 infectiousBite_PfSI <- function(tBite, ixH, ixS, ixM, PfM){
   if(NOISY == TRUE){print("infectiousBite")}
   if(rbinom(1,1,HUMANS[[ixH]]$Pathogens$Pf$b)){
     tInfStart = tBite + ttInfectionPf() # when does latent -> infected occur
     if(NOISY == TRUE){print("add2Pedigree")}
-    addPf2Pedigree(tStart = tInfStart, tBite = tBite, ixH = ixH, ixS = ixS, ixM = ixM, PfM = PfM)
+    if(PfPedigree_TRACK){
+      addPf2Pedigree(tStart = tInfStart, tBite = tBite, ixH = ixH, ixS = ixS, ixM = ixM, PfM = PfM)
+    }
+    if(PfTransmission_TRACK){
+      print("sean hasn't coded trackPfTransmission yet!")
+    }
     add2Q_startPfSI(ixH, tInfStart, PfM$pfid) #FIX THIS LATER; NEW CLONAL VARIANT = NEW ID
   }
 }
@@ -277,7 +283,7 @@ PfSIHistory <- function(ixH, t, event){
 #'
 #' This function handles human to vector transmission for the PfSI module and is called from \code{getInfected()} defined in MBITES-HostEncounter.R.
 #' If the human has an active infection and there is a successful bloodstream to mosquito transfer of gametocytes a \code{PfM} object is made by \code{makePfM()}
-#' and is passed to the mosquito.
+#' and is passed to the mosquito. If global flag \code{PfTransmission_TRACK} is true it will call \code{trackPfTransmission()} to track human to vector transmission.
 #'
 #' @param ixH index of human
 #' @param t time of bite (local time of mosquito)
@@ -289,6 +295,9 @@ PfSIHistory <- function(ixH, t, event){
 infectMosquito_PfSI <- function(ixH, t, ixS){
   with(HUMANS[[ixH]]$Pathogens$Pf,{
     if(infected==TRUE & rbinom(1,1,HUMANS[[ixH]]$Pathogens$Pf$c)){
+      if(PfTransmission_TRACK){
+        print("sean hasn't coded trackPfTransmission yet!")
+      }
       return(makePfM(ixH, t, ixS))
     } else {
       return(list(infected=FALSE))

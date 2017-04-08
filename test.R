@@ -67,7 +67,7 @@ clearOutput(directory = out) # THIS FUNCTION ERASES ALL FILES IN OUTPUT/ FOLDER;
 
 el4pCon = trackEL4P_init(directory = out,fileName = "el4p.csv")
 adultCon = trackAdults_init(directory = out,fileName = "adults.csv")
-pfM2HCon = PfPedigree_init(directory = out,fileName = "pfM2H.csv") # this MUST be called pfM2HCon
+PfPedigreeCon = PfPedigree_init(directory = out,fileName = "pfM2H.csv") # this MUST be called PfPedigreeCon
 EggQCon = trackEggQ_init(directory = out,fileName = "egg.csv")
 
 # test MASH
@@ -108,7 +108,7 @@ for(tMax in tStart:(tStart+361)){
 
 
 # close all output connections
-close(pfM2HCon)
+close(PfPedigreeCon)
 close(el4pCon)
 close(adultCon)
 close(EggQCon)

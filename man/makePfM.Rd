@@ -2,7 +2,7 @@
 % Please edit documentation in R/PATHOGEN-PfPedigree.R
 \name{makePfM}
 \alias{makePfM}
-\title{Generate the Pf Object for Human to Mosquito Transmission}
+\title{Generate the Pf Object for Mosquito Stage of Parasite Life Cycle}
 \usage{
 makePfM(ixH, tBite, ixS)
 }
