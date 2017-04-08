@@ -4,10 +4,10 @@
 \alias{trackPfTransmission}
 \title{Add New Transmisson Event to PfTransmission}
 \usage{
-trackPfTransmission(M2H)
+trackPfTransmission(M2H, tBite, ixH, ixM, ixS, PfM = NULL)
 }
 \arguments{
-\item{M2H}{direction of transmission}
+\item{M2H}{logical: direction of transmission}
 
 \item{tBite}{time of infectious bite (mosquito to human)}
 
@@ -34,5 +34,6 @@ Write the following Pf pedigree to file
 }
 }
 \description{
-Add a new transmission event PfTransmission .csv for data logging.
+Add a new transmission event PfTransmission .csv for data logging. If the global flag \code{PfTransmission_TRACK} is set to TRUE, this
+function will be called during \code{\link{infectiousBite}} (vector to human transmission) and \code{\link{infectMosquito}} (human to vector transmission).
 }

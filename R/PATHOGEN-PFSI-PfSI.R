@@ -19,7 +19,7 @@ probeHost_PfSI <- function(tBite, ixH, ixS, ixM, Pf){
   }
 }
 
-# If global flag \code{PfTransmission_TRACK} is true it will call \code{trackPfTransmission()} to track human to vector transmission.
+# If global flag \code{PfTransmission_TRACK} is true it will call \code{trackPfTransmission()} to track vector to human.
 infectiousBite_PfSI <- function(tBite, ixH, ixS, ixM, PfM){
   if(NOISY == TRUE){print("infectiousBite")}
   if(rbinom(1,1,HUMANS[[ixH]]$Pathogens$Pf$b)){

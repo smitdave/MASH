@@ -39,9 +39,10 @@ PfTransmission_init <- function(directory, fileName){
 
 #' Add New Transmisson Event to PfTransmission
 #'
-#' Add a new transmission event PfTransmission .csv for data logging.
+#' Add a new transmission event PfTransmission .csv for data logging. If the global flag \code{PfTransmission_TRACK} is set to TRUE, this
+#' function will be called during \code{\link{infectiousBite}} (vector to human transmission) and \code{\link{infectMosquito}} (human to vector transmission).
 #'
-#' @param M2H direction of transmission
+#' @param M2H logical: direction of transmission
 #' @param tBite time of infectious bite (mosquito to human)
 #' @param ixH index of human host
 #' @param ixM index of mosquito vector
@@ -58,7 +59,7 @@ PfTransmission_init <- function(directory, fileName){
 #' * sireID: male gametocyte ID
 #' * PfID: the Pf ID; every infection that makes it to bloodstream stage is considered a new clonal variant
 #' @md
-trackPfTransmission <- function(M2H){
+trackPfTransmission <- function(M2H, tBite, ixH, ixM, ixS, PfM = NULL){
 
 }
 
