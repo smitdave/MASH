@@ -29,7 +29,7 @@ infectiousBite_PfSI <- function(tBite, ixH, ixS, ixM, PfM){
       addPf2Pedigree(tStart = tInfStart, tBite = tBite, ixH = ixH, ixS = ixS, ixM = ixM, PfM = PfM)
     }
     if(PfTransmission_TRACK){
-      print("sean hasn't coded trackPfTransmission yet!")
+      trackPfTransmission(M2H = TRUE, tBite = tBite, ixH = ixH, ixS = ixS, ixM = ixM, PfM = PfM)
     }
     add2Q_startPfSI(ixH, tInfStart, PfM$pfid) #FIX THIS LATER; NEW CLONAL VARIANT = NEW ID
   }
@@ -295,12 +295,14 @@ PfSIHistory <- function(ixH, t, event){
 infectMosquito_PfSI <- function(ixH, t, ixS){
   with(HUMANS[[ixH]]$Pathogens$Pf,{
     if(infected==TRUE & rbinom(1,1,HUMANS[[ixH]]$Pathogens$Pf$c)){
+      infObj = makePfM(ixH, t, ixS)
       if(PfTransmission_TRACK){
-        print("sean hasn't coded trackPfTransmission yet!")
+        trackPfTransmission(M2H = TRUE, tBite = tBite, ixH = ixH, ixS = ixS, ixM = ixM, PfM = infObj$PfM)
       }
-      return(makePfM(ixH, t, ixS))
+      return(infObj)
     } else {
-      return(list(infected=FALSE))
+      infObj = list(infected = FALSE)
+      return(infObj)
     }
   })
 }

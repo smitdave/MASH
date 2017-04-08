@@ -45,8 +45,8 @@ PfTransmission_init <- function(directory, fileName){
 #' @param M2H logical: direction of transmission
 #' @param tBite time of infectious bite (mosquito to human)
 #' @param ixH index of human host
-#' @param ixM index of mosquito vector
 #' @param ixS site of infectious bite
+#' @param ixM index of mosquito vector
 #' @param PfM Pf object from infectious mosquito
 #' @return Write the following Pf pedigree to file
 #' * tStart: time of start of infection
@@ -59,8 +59,14 @@ PfTransmission_init <- function(directory, fileName){
 #' * sireID: male gametocyte ID
 #' * PfID: the Pf ID; every infection that makes it to bloodstream stage is considered a new clonal variant
 #' @md
-trackPfTransmission <- function(M2H, tBite, ixH, ixM, ixS, PfM = NULL){
-
+trackPfTransmission <- function(M2H, tBite, ixH, ixS, ixM, PfM){
+  if(M2H){ # vector to human
+    txtOut = paste0(c(tBite, 1L, 0L, ixH, ixS, ixM, PfM$pfid),collapse = ",")
+    writeLines(text = txtOut,con = .GlobalEnv$PfTransmissionCon,sep = "\n")
+  } else { # human to vector
+    txtOut = paste0(c(tBite, 0L, 1L, ixH, ixS, ixM, PfM$pfid),collapse = ",")
+    writeLines(text = txtOut,con = .GlobalEnv$PfTransmissionCon,sep = "\n")
+  }
 }
 
 #################################################################
