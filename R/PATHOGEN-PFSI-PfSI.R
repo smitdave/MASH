@@ -19,7 +19,17 @@ probeHost_PfSI <- function(tBite, ixH, ixS, ixM, Pf){
   }
 }
 
-# If global flag \code{PfTransmission_TRACK} is true it will call \code{trackPfTransmission()} to track vector to human.
+#' Infectious Bite (Vector to Human Transmission)
+#'
+#' This is the routine that handles a bite from an infectious vector on a human for PfSI module. It calls \code{link{add2Q_startPfSI}}
+#' to begin queuing human infection events if tranmission of sporozoites into the bloodstream is successful (probability \code{b}).
+#' Depending on the global flags \code{PfPedigree_TRACK} and \code{PfTransmission_TRACK} it may call \code{\link{addPf2Pedigree}} or \code{\link{trackPfTransmission}} to log data.
+#'
+#'
+#' @param ixH index of human
+#' @return a single pfid (integer)
+#' @examples
+#' getPfParent_SI(ixH)
 infectiousBite_PfSI <- function(tBite, ixH, ixS, ixM, PfM){
   if(NOISY == TRUE){print("infectiousBite")}
   if(rbinom(1,1,HUMANS[[ixH]]$Pathogens$Pf$b)){
@@ -283,7 +293,7 @@ PfSIHistory <- function(ixH, t, event){
 #'
 #' This function handles human to vector transmission for the PfSI module and is called from \code{getInfected()} defined in MBITES-HostEncounter.R.
 #' If the human has an active infection and there is a successful bloodstream to mosquito transfer of gametocytes a \code{PfM} object is made by \code{makePfM()}
-#' and is passed to the mosquito. If global flag \code{PfTransmission_TRACK} is true it will call \code{trackPfTransmission()} to track human to vector transmission.
+#' and is passed to the mosquito. If global flag \code{\link{PfTransmission_TRACK}} is true it will call \code{\link{trackPfTransmission}} to track human to vector transmission.
 #'
 #' @param ixH index of human
 #' @param t time of bite (local time of mosquito)
@@ -292,10 +302,10 @@ PfSIHistory <- function(ixH, t, event){
 #' * infected: TRUE or FALSE depending on human infection status and transmisson efficiency
 #' * PfM: if transmisson successful, the pathogen object passed to the mosquito
 #' @md
-infectMosquito_PfSI <- function(ixH, t, ixS){
+infectMosquito_PfSI <- function(tBite, ixH, ixS, ixM){
   with(HUMANS[[ixH]]$Pathogens$Pf,{
     if(infected==TRUE & rbinom(1,1,HUMANS[[ixH]]$Pathogens$Pf$c)){
-      infObj = makePfM(ixH, t, ixS)
+      infObj = makePfM(ixH, tBite, ixS)
       if(PfTransmission_TRACK){
         trackPfTransmission(M2H = TRUE, tBite = tBite, ixH = ixH, ixS = ixS, ixM = ixM, PfM = infObj$PfM)
       }

@@ -132,7 +132,7 @@ updateMosqInf <- function(M){
 
 # getInfected: infectMosquito defined in PfSI.R
 getInfected <- function(M){
-  im = infectMosquito(ixH = M$hostID, t = M$tNow, ixS = M$ix) # in appropriate PATHOGEN module
+  im = infectMosquito(tBite = M$tNow, ixH = M$hostID, ixS = M$ix, ixM = M$id) # in appropriate PATHOGEN module
   if(im$infected==TRUE){ #if mosy got infected
     #update Pf list of mosy
     M$Pf$n                = M$Pf$n+1
