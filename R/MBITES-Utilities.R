@@ -96,7 +96,10 @@ clearOutput <- function(directory){
     stop("directory does not exist; nothing to clear")
   }
   dirFiles = system(command = paste0("ls ",directory,"OUTPUT/"),intern = TRUE)
-  file.remove(paste0(directory,"OUTPUT/",dirFiles))
+  xx = menu(c("Yes", "No"), title=paste0("There are ",length(dirFiles)," files in OUTPUT/.. are you sure you want to delete all?"))
+  if(xx==1){
+    file.remove(paste0(directory,"OUTPUT/",dirFiles))
+  }
 }
 
 # trackBionomics: write bionomics to .json

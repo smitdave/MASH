@@ -65,10 +65,14 @@ out = "/Users/slwu89/Desktop/mash.out/"
 
 clearOutput(directory = out) # THIS FUNCTION ERASES ALL FILES IN OUTPUT/ FOLDER; USE WITH CAUTION
 
+# vector population tracking
 el4pCon = trackEL4P_init(directory = out,fileName = "el4p.csv")
 adultCon = trackAdults_init(directory = out,fileName = "adults.csv")
-PfPedigreeCon = PfPedigree_init(directory = out,fileName = "pfM2H.csv") # this MUST be called PfPedigreeCon
 EggQCon = trackEggQ_init(directory = out,fileName = "egg.csv")
+
+# pathogen transmission tracking
+PfPedigreeCon = PfPedigree_init(directory = out,fileName = "pfpedigree.csv") # this MUST be called PfPedigreeCon
+PfTransmissionCon = PfTransmission_init(directory = out,fileName = "pftransmission.csv") # this MUST be called PfTransmissionCon
 
 # test MASH
 for(tMax in tStart:(tStart+361)){
@@ -108,10 +112,12 @@ for(tMax in tStart:(tStart+361)){
 
 
 # close all output connections
-close(PfPedigreeCon)
 close(el4pCon)
 close(adultCon)
 close(EggQCon)
+
+close(PfPedigreeCon)
+close(PfTransmissionCon)
 
 
 ##########################################
