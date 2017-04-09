@@ -4,14 +4,14 @@
 \alias{infectMosquito_PfSI}
 \title{Infectious Bite for Human to Vector Transmission}
 \usage{
-infectMosquito_PfSI(ixH, t, ixS)
+infectMosquito_PfSI(tBite, ixH, ixS, ixM)
 }
 \arguments{
 \item{ixH}{index of human}
 
-\item{t}{time of bite (local time of mosquito)}
-
 \item{ixS}{index of feeding site}
+
+\item{t}{time of bite (local time of mosquito)}
 }
 \value{
 a named list
