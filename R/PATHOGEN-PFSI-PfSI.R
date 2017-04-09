@@ -307,7 +307,7 @@ infectMosquito_PfSI <- function(tBite, ixH, ixS, ixM){
     if(infected==TRUE & rbinom(1,1,HUMANS[[ixH]]$Pathogens$Pf$c)){
       infObj = makePfM(ixH, tBite, ixS)
       if(PfTransmission_TRACK){
-        trackPfTransmission(M2H = TRUE, tBite = tBite, ixH = ixH, ixS = ixS, ixM = ixM, PfM = infObj$PfM)
+        trackPfTransmission(M2H = FALSE, tBite = tBite, ixH = ixH, ixS = ixS, ixM = ixM, PfM = infObj$PfM)
       }
       return(infObj)
     } else {

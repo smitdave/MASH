@@ -48,8 +48,8 @@ activitySpace() #run daily activity space
 
 # generate mosquito populations
 tStart = 1
-MPopF = makeMosquitoCohort(N = eqM,female = TRUE,tm = tStart-1, state = "M", EIP = 1, mature = TRUE, offset = 5e4)
-MPopM = makeMosquitoCohort(N = eqM,female = FALSE,tm = tStart-1, state = "M", offset = 5e4)
+MPopF = makeMosquitoCohort(N = eqM,female = TRUE,tm = tStart-1, state = "M", EIP = 1, mature = TRUE, offset = 6e4)
+MPopM = makeMosquitoCohort(N = eqM,female = FALSE,tm = tStart-1, state = "M", offset = 6e4)
 
 # initialize PfSI module
 PFSI.SETUP()
