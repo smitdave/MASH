@@ -1,5 +1,19 @@
-library(MASH.MBPT)
+#################################################################
+#
+#   MASH/MBITES
+#   Example Simulation and Analysis MASH-MBPT
+#   R version
+#   Sean Wu
+#   April 10, 2017
+#
+#################################################################
+
+######################################################
+# Initialize Ross-MacDonald parameters and EL4P
+######################################################
+
 rm(list=ls())
+library(MASH.MBPT)
 
 # global parameters
 P = MBITES.PAR(maxBatch = 35)
@@ -31,11 +45,7 @@ for(ix in 1:Aq.PAR$nA){
 }
 
 ######################################################
-#
-# Test of EL4P aquatic ecology module for M-BITES
-#
-# initialize rest of simulation
-#
+# Initialize HUMANS and mosquito objects
 ######################################################
 
 # generate humans object
@@ -75,7 +85,8 @@ PfPedigreeCon = PfPedigree_init(directory = out,fileName = "pfpedigree.csv") # t
 PfTransmissionCon = PfTransmission_init(directory = out,fileName = "pftransmission.csv") # this MUST be called PfTransmissionCon
 
 # test MASH
-for(tMax in tStart:(tStart+361)){
+tEnd = tStart+361
+for(tMax in tStart:tEnd){
 
   print(paste0("tMax: ",tMax))
 
@@ -106,6 +117,10 @@ for(tMax in tStart:(tStart+361)){
     trackHistoryM(directory = out,fileName = paste0("historyM",tMax,".json"))
     resetMosyPop(female = TRUE)
     resetMosyPop(female = FALSE)
+  }
+  # log human event data when simulation completes
+  if(tMax == tEnd){
+
   }
 
 }

@@ -45,18 +45,25 @@ infectiousBite_PfSI <- function(tBite, ixH, ixS, ixM, PfM){
   }
 }
 
-add2Q_simbitePfSI <- function(ixH, t, PAR=Pf0){
-  addEvent2Q(ixH, event_simbitePfSI(t))
+###################################################################
+# Simulated bites
+###################################################################
+
+add2Q_simbitePfSI <- function(ixH, t, PAR){
+  Pf0 = makePf0(ixH = ixH, tBite = t)
+  addEvent2Q(ixH, event_simbitePfSI(t = t, PAR = Pf0))
 }
 
-event_simbitePfSI <- function(t, PAR=Pf0){
+event_simbitePfSI <- function(t, PAR){
   if(NOISY == TRUE) print("adding simbite")
-  list(t=t, PAR=Pf0, F=simbite_PfSI, tag="simbite_PfSI")
+  list(t=t, PAR = PAR, F=simbite_PfSI, tag="simbite_PfSI")
 }
 
-simbite_PfSI <- function(ixH, t, ixS, ixM, PAR=Pf0){
+# simbite_PfSI <- function(ixH, t, ixS, ixM, PAR=Pf0){
+simbite_PfSI <- function(ixH, t, ixS, ixM, PAR){
   with(PAR,{
-    probeHost_PfSI(ixH, t, ixS, ixM, Pf0)
+    # probeHost_PfSI(ixH, t, ixS, ixM, Pf0)
+    probeHost_PfSI(ixH, t, ixS, ixM, PAR)
   })
 }
 

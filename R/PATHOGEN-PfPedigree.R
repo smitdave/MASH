@@ -238,3 +238,11 @@ makePfM <- function(ixH, tBite, ixS){
     PfM = list(tm=tBite, ixS=ixS, ixH=ixH, damID=damID, sireID=sireID, pfid=pfid)
   )
 }
+
+# simbite_PfSI
+makePf0 <- function(ixH, tBite, ixS = NULL){
+  list(
+    spz = TRUE,
+    PfM = list(tm=tBite, ixS=ixS, ixH=ixH, damID=NULL, sireID=NULL, pfid=NULL)
+  )
+}

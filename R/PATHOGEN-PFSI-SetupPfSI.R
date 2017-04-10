@@ -186,8 +186,9 @@ PFSI.SETUP <- function(
   PfTransmission_TRACK <<- FALSE
 
   # placeholder objects for simulated biting
-  Pf0 <<- list(spz = TRUE, PfM = list())
-  Pf0$PfM[[1]] <<- list(parentID=0,ixM=0,tm=0,ixS=0)
+  # Pf0 <<- list(spz = 1)
+  # Pf0$PfM[[1]] <<- list(tm=0, ixS=0, ixH=0, damID=0, sireID=0, pfid=0)
+  Pf0 <<- list(spz = TRUE, tm=0, ixS=0, ixH=0, damID=0, sireID=0, pfid=0)
 
 }
 
@@ -210,12 +211,12 @@ PFSI.INIT <- function(PfPR){
     print(paste0("tStart not defined globally; setting initial infection times to 0"))
     tStart = 0
   }
-  PfID = 1
+  PfID <<- 1
   for(ixH in 1:length(HUMANS)){
     HUMANS[[ixH]]$Pathogens$Pf <<- pathOBJ_PfSI()
     if(runif(1) < PfPR){
       infectHuman_PfSI(ixH = ixH,t = tStart,PAR = list(pfid = PfID))
-      PfID = PfID + 1
+      PfID <<- PfID + 1
     } else {
       PfSIHistory(ixH = ixH,t = tStart,event = "S")
     }
