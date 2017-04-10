@@ -50,27 +50,17 @@ writeHumanEvent_PfSI <- function(directory, fileName){
 #' Import human histories exported to .json from PfSI module.
 #'
 #' @param directory directory; files are in directory/OUTPUT/..
-#' @return nothing
+#' @return list of histories
+#' * eventT: times events occur
+#' * events: events
+#' @md
 #' @examples
 #' writeHumanEvent(directory, fileName)
 importHumanEvent_PfSI <- function(directory){
-
-}
-
-# importBionomics: import female bionomics
-importBionomics <- function(directory){
   dirFiles = system(command = paste0("ls ",directory,"OUTPUT/"),intern = TRUE)
-  bionomics = grep("bionomics[[:digit:]]+.json",dirFiles)
-  bionomicsOut = parallel::mclapply(X = dirFiles[bionomics],FUN = function(x){
-    jsonlite::fromJSON(txt = paste0(directory,"OUTPUT/",x))
-  },mc.cores = parallel::detectCores()-2)
-  bionomicsOut = Reduce(f = c,x = bionomicsOut)
-  # extract mosquito IDs and append to the history
-  bionomicsIx = unname(sapply(names(bionomicsOut),function(x){sub(pattern = "mosy",replacement =  "",x = x)}))
-  for(ix in 1:length(bionomicsOut)){
-    bionomicsOut[[ix]]$id = bionomicsIx[ix]
-  }
-  return(bionomicsOut)
+  humanFile = grep("humanPfSI.json",dirFiles)
+  humanHistories = jsonlite::fromJSON(txt = paste0(directory,"OUTPUT/",dirFiles[humanFile]))
+  return(humanHistories)
 }
 
 

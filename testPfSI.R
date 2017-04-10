@@ -62,13 +62,16 @@ for(i in 1:nH){
   liveLife(ixH = i,tPause = tMax)
 }
 
+# PLEASE SET TO YOUR OWN DESIRED FOLDER TO HOLD OUTPUT/.. (this must end in /)
+out = "/Users/slwu89/Desktop/mash.out/"
+writeHumanEvent_PfSI(directory = out,fileName = "humanPfSI.json")
+
 
 ######################################################
 # Analysis and Visualization
 ######################################################
 
-# PLEASE SET TO YOUR OWN DESIRED FOLDER TO HOLD OUTPUT/.. (this must end in /)
-out = "/Users/slwu89/Desktop/mash.out/"
+humanHistories = importHumanEvent_PfSI(directory = out)
 
 pfsiTrajectory()
 
