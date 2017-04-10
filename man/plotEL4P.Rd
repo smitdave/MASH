@@ -7,15 +7,15 @@
 plotEL4P(el4p, egg = NULL)
 }
 \arguments{
-\item{el4p}{a data frame (output of importEL4P)}
+\item{el4p}{a data frame (output of \code{\link{importEL4P}})}
 
-\item{egg}{a data frame (output of importEggQ; may be set to NULL)}
+\item{egg}{a data frame (output of \code{\link{importEggQ}}; may be set to NULL)}
 }
 \value{
 plot
 }
 \description{
-This is a utility to format logged EL4P data after it has been imported by importEL4P
+This is a utility to plot logged EL4P and EggQ data after it has been imported by importEL4P
 }
 \examples{
 formatEL4P(el4p)

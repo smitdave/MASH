@@ -16,10 +16,10 @@
 
 #' Plot Imported EL4P .csv Data
 #'
-#' This is a utility to format logged EL4P data after it has been imported by importEL4P
+#' This is a utility to plot logged EL4P and EggQ data after it has been imported by importEL4P
 #'
-#' @param el4p a data frame (output of importEL4P)
-#' @param egg a data frame (output of importEggQ; may be set to NULL)
+#' @param el4p a data frame (output of \code{\link{importEL4P}})
+#' @param egg a data frame (output of \code{\link{importEggQ}}; may be set to NULL)
 #' @return plot
 #' @examples
 #' formatEL4P(el4p)
@@ -54,7 +54,7 @@ plotEL4P <- function(el4p, egg = NULL){
   L2 = el4p[el4p$labels=="L2",-1]
   L2$time = 1:nrow(L2)
   matplot(x = L2[,-which(names(L2)=="time")],type = "l",col = col,lty = 1,
-          ylab="Larval instar stage 1 (L2)",xlab="Time (Days)")
+          ylab="Larval instar stage 2 (L2)",xlab="Time (Days)")
   L2flat = as.vector(as.matrix(L2[,-which(names(L2)=="time")]))
   L2time = rep(x = L2$time,times = ncol(L2)-1)
   nwSmooth = ksmooth(x = L2time,y=L2flat,bandwidth = max(L2$time)/100)
@@ -64,7 +64,7 @@ plotEL4P <- function(el4p, egg = NULL){
   L3 = el4p[el4p$labels=="L3",-1]
   L3$time = 1:nrow(L3)
   matplot(x = L3[,-which(names(L3)=="time")],type = "l",col = col,lty = 1,
-          ylab="Larval instar stage 1 (L3)",xlab="Time (Days)")
+          ylab="Larval instar stage 3 (L3)",xlab="Time (Days)")
   L3flat = as.vector(as.matrix(L3[,-which(names(L3)=="time")]))
   L3time = rep(x = L3$time,times = ncol(L3)-1)
   nwSmooth = ksmooth(x = L3time,y=L3flat,bandwidth = max(L3$time)/100)
@@ -74,7 +74,7 @@ plotEL4P <- function(el4p, egg = NULL){
   L4 = el4p[el4p$labels=="L4",-1]
   L4$time = 1:nrow(L4)
   matplot(x = L4[,-which(names(L4)=="time")],type = "l",col = col,lty = 1,
-          ylab="Larval instar stage 1 (L4)",xlab="Time (Days)")
+          ylab="Larval instar stage 4 (L4)",xlab="Time (Days)")
   L4flat = as.vector(as.matrix(L4[,-which(names(L4)=="time")]))
   L4time = rep(x = L4$time,times = ncol(L4)-1)
   nwSmooth = ksmooth(x = L4time,y=L4flat,bandwidth = max(L4$time)/100)
@@ -84,7 +84,7 @@ plotEL4P <- function(el4p, egg = NULL){
   P = el4p[el4p$labels=="P",-1]
   P$time = 1:nrow(P)
   matplot(x = P[,-which(names(P)=="time")],type = "l",col = col,lty = 1,
-          ylab="Larval instar stage 1 (P)",xlab="Time (Days)")
+          ylab="Pupae (P)",xlab="Time (Days)")
   Pflat = as.vector(as.matrix(P[,-which(names(P)=="time")]))
   Ptime = rep(x = P$time,times = ncol(P)-1)
   nwSmooth = ksmooth(x = Ptime,y=Pflat,bandwidth = max(P$time)/100)

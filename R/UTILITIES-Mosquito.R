@@ -650,3 +650,60 @@ aquaIx_oneMosy <- function(oneMosy, aquaIx){
   })
 
 }
+
+
+##########################################
+# Plot population dynamics
+##########################################
+
+#' Plot Imported Adult Dynamics .csv Data
+#'
+#' This is a utility to plot logged adult dynamics data after it has been imported by \code{\link{importAdults}}.
+#'
+#' @param egg a data frame (output of \code{\link{importAdults}})
+#' @return plot
+#' @examples
+#' plotAdults(adults)
+plotAdults <- function(adults){
+
+  par(mfrow=c(1,2))
+
+  # female parameters
+  fStates = colnames(adults)[grep("f$",x = colnames(adults))]
+  fStatesLegend = substr(x = fStates,start = 1,stop = 1)
+  fCol = ggCol(n = length(fStates),alpha = 0.75)
+  fColSmooth = ggCol(n = length(fStates))
+  names(fColSmooth) = fStates
+
+  # plot female dynamics
+  matplot(x = adults[,fStates],type = "l",col = fCol,lty = 1:length(fStates),
+          ylab="Adult Densities",xlab="Time (Days)",main = "Females")
+  legend("topleft",legend = fStatesLegend,col = fCol,lty = 1:length(fStates),bty="n")
+
+  # smoothed female dynamics
+  for(ix in fStates){
+    stateSmooth = ksmooth(x = adults$time,y = adults[,ix],bandwidth = max(adults$time)/20)
+    lines(x = stateSmooth$x,y = stateSmooth$y,col = fColSmooth[ix],lwd = 1.5)
+  }
+
+  # male parameters
+  mStates = colnames(adults)[grep("m$",x = colnames(adults))]
+  mStatesLegend = substr(x = mStates,start = 1,stop = 1)
+  mCol = ggCol(n = length(mStates),alpha = 0.75)
+  mColSmooth = ggCol(n = length(mStates))
+  names(mColSmooth) = mStates
+
+  # plot male dynamics
+  matplot(x = adults[,mStates],type = "l",col = mCol,lty = 1:length(mStates),
+          ylab="Adult Densities",xlab="Time (Days)",main = "Males")
+  legend("topleft",legend = mStatesLegend,col = mCol,lty = 1:length(mStates),bty="n")
+
+  # smoothed male dynamics
+  for(ix in mStates){
+    stateSmooth = ksmooth(x = adults$time,y = adults[,ix],bandwidth = max(adults$time)/20)
+    lines(x = stateSmooth$x,y = stateSmooth$y,col = mColSmooth[ix],lwd = 1.5)
+  }
+
+  par(mfrow=c(1,1))
+
+}
