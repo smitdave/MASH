@@ -10,6 +10,24 @@
 
 
 ##########################################
+# Generic Event History Management Functions
+##########################################
+
+#' Write eventT and events from HUMANS to .json
+#'
+#' Write HUMANS histories to .json file.
+#'
+#' @param directory directory; files will be put in directory/OUTPUT/..
+#' @param fileName name of the file to write to; directory/OUTPUT/fileName.csv
+#' @return nothing
+#' @examples
+#' writeHumanEvent(directory, fileName)
+writeHumanEvent <- function(directory, fileName){
+  print("sean hasn't written this function yet!")
+}
+
+
+##########################################
 # PfSI Trajectories
 ##########################################
 
@@ -74,7 +92,3 @@ pfsiTrajectory <- function(){
 
 # N = length(HUMANS)
 # maxT = ceiling(max(sapply(HUMANS,function(x){x$Pathogens$Pf$eventT[length(x$Pathogens$Pf$eventT)]})))
-
-
-
-

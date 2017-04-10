@@ -133,6 +133,9 @@ adults = importAdults(directory = out,fileName = "adults.csv")
 el4p = importEL4P(directory = out,fileName = "el4p.csv")
 egg = importEggQ(directory = out,fileName = "egg.csv")
 
+PfTransmission = importPfTransmission(directory = out,fileName = "pftransmission.csv")
+PfPedigree = importPfPedigree(directory = out,fileName = "pfpedigree.csv")
+
 # analyze aquatic dynamics
 plotEL4P(el4p = el4p,egg = egg)
 

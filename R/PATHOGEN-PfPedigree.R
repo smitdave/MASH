@@ -69,6 +69,19 @@ trackPfTransmission <- function(M2H, tBite, ixH, ixS, ixM, PfM){
   }
 }
 
+#' Import PfTransmission Data from .csv
+#'
+#' Import PfTransmission data written to .csv from \code{\link{trackPfTransmission}}.
+#'
+#' @param directory directory of output; files are in directory/OUTPUT/..
+#' @param fileName name of the file; directory/OUTPUT/fileName.csv
+#' @return a data frame
+#' @examples
+#' importPfTransmission(directory, fileName)
+importPfTransmission <- function(directory, fileName){
+  read.csv(file = paste0(directory,"OUTPUT/",fileName),header = TRUE)
+}
+
 #################################################################
 #
 #   Generic definitions of variables:
@@ -142,6 +155,19 @@ addPf2Pedigree <- function(tStart, tBite, ixH, ixM, ixS, PfM){
     txtOut = paste0(c(tStart,tBite,tm,ixH,ixS,ixM,damID,sireID,pfid),collapse = ",")
     writeLines(text = txtOut,con = .GlobalEnv$PfPedigreeCon,sep = "\n")
   })
+}
+
+#' Import PfPedigree Data from .csv
+#'
+#' Import PfPedigree data written to .csv from \code{\link{addPf2Pedigree}}.
+#'
+#' @param directory directory of output; files are in directory/OUTPUT/..
+#' @param fileName name of the file; directory/OUTPUT/fileName.csv
+#' @return a data frame
+#' @examples
+#' importPfTransmission(directory, fileName)
+importPfPedigree <- function(directory, fileName){
+  read.csv(file = paste0(directory,"OUTPUT/",fileName),header = TRUE)
 }
 
 
