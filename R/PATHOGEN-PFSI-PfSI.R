@@ -49,21 +49,49 @@ infectiousBite_PfSI <- function(tBite, ixH, ixS, ixM, PfM){
 # Simulated bites
 ###################################################################
 
-add2Q_simbitePfSI <- function(ixH, t, PAR){
+#' \code{add2Q_XX} Family: Add Simulated Bite to EventQ
+#'
+#' \code{add2Q_simbitePfSI} adds a simulated bite to human ixH's eventQ.
+#' For more information on how this family of functions works, see \url{http://smitdave.github.io/MASH-Development/docHumans.html#add2q_xx}
+#'
+#' @param ixH index of human
+#' @param t time the event will occur
+#' @param PAR NULL; the function will generate a default pathogen object with \code{\link{makePf0}}
+#' @examples
+#' add2Q_simbitePfSI(ixH, t, PAR = NULL)
+add2Q_simbitePfSI <- function(ixH, t, PAR = NULL){
   Pf0 = makePf0(ixH = ixH, tBite = t)
   addEvent2Q(ixH, event_simbitePfSI(t = t, PAR = Pf0))
 }
 
+#' \code{event_XX} Family: Simulated Bite Event in EventQ
+#'
+#' This creates an event for the simulated bite in a human's eventQ and is called by \code{\link{add2Q_simbitePfSI}}.
+#' For more information on how this family of functions works, see \url{http://smitdave.github.io/MASH-Development/docHumans.html#add2q_xx}
+#'
+#' @param ixH index of human
+#' @param t time the event will occur
+#' @param PAR passed from Pf0
+#' @examples
+#' getPfParent_SI(ixH)
 event_simbitePfSI <- function(t, PAR){
   if(NOISY == TRUE) print("adding simbite")
   list(t=t, PAR = PAR, F=simbite_PfSI, tag="simbite_PfSI")
 }
 
-# simbite_PfSI <- function(ixH, t, ixS, ixM, PAR=Pf0){
-simbite_PfSI <- function(ixH, t, ixS, ixM, PAR){
+#' \code{XX} Family: Simulated Bite
+#'
+#' This function runs a simulated bite on a human. It is called by \code{\link{event_simbitePfSI}} and simulates \code{\link{probeHost_PfSI}}.
+#' For more information on how this family of functions works, see \url{http://smitdave.github.io/MASH-Development/docHumans.html#add2q_xx}
+#'
+#' @param ixH index of human
+#' @param t time the event will occur
+#' @param PAR passed from Pf0
+#' @examples
+#' simbite_PfSI(ixH, t, PAR)
+simbite_PfSI <- function(ixH, t, PAR){
   with(PAR,{
-    # probeHost_PfSI(ixH, t, ixS, ixM, Pf0)
-    probeHost_PfSI(ixH, t, ixS, ixM, PAR)
+    probeHost_PfSI(tBite = t, ixH = ixH, ixS = ixS, ixM = NULL, Pf = PAR)
   })
 }
 

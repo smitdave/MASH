@@ -239,10 +239,31 @@ makePfM <- function(ixH, tBite, ixS){
   )
 }
 
-# simbite_PfSI
+#' Generate the Pf Object for Simulated Biting
+#'
+#' This generates the Pf object for \code{\link{simbite_PfSI}}. It does not have the element \code{infected} in the returned list
+#' because this is for vector to human transmission; therefore \code{spz} must be set to \code{TRUE}.
+#'
+#' @param ixH index of human
+#' @param tBite time of bite
+#' @param ixS NULL; index of site
+#' @return a list of two elements
+#' * spz: TRUE
+#' * PfM: The PfM object
+#'    * tm: time of human to vector transmission
+#'    * ixS: NULL
+#'    * ixH: site of human to vector transmission
+#'    * damID: NULL
+#'    * sireID: NULL
+#'    * pfid: NULL
+#' @md
+#' @examples
+#' makePfM(ixH, tBite, ixS)
 makePf0 <- function(ixH, tBite, ixS = NULL){
+  PfM = list()
+  PfM[[1]] = list(tm=tBite, ixS=ixS, ixH=ixH, damID=NULL, sireID=NULL, pfid=NULL)
   list(
     spz = TRUE,
-    PfM = list(tm=tBite, ixS=ixS, ixH=ixH, damID=NULL, sireID=NULL, pfid=NULL)
+    PfM = PfM
   )
 }

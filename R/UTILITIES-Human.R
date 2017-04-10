@@ -15,15 +15,62 @@
 
 #' Write eventT and events from HUMANS to .json
 #'
-#' Write HUMANS histories to .json file.
+#' Write HUMANS histories from PfSI module to .json file.
 #'
 #' @param directory directory; files will be put in directory/OUTPUT/..
 #' @param fileName name of the file to write to; directory/OUTPUT/fileName.csv
 #' @return nothing
 #' @examples
 #' writeHumanEvent(directory, fileName)
-writeHumanEvent <- function(directory, fileName){
-  print("sean hasn't written this function yet!")
+writeHumanEvent_PfSI <- function(directory, fileName){
+  if(!dir.exists(paste0(directory,"OUTPUT"))){
+    dir.create(paste0(directory))
+    dir.create(paste0(directory,"OUTPUT"))
+  }
+  if(file.exists(paste0(directory,"OUTPUT/",fileName))){
+    stop("writeHumanEvent_PfSI cannot write to a file that already exists!")
+  }
+
+  con = file(description = paste0(directory,"OUTPUT/",fileName),open = "wt")
+
+  humanHistories = lapply(HUMANS,function(x){
+    list(
+      eventT = x$Pathogens$Pf$eventT,
+      events = x$Pathogens$Pf$events
+    )
+  })
+  humanID = sapply(HUMANS,function(x){x$myID})
+  names(humanHistories) = paste0("human",humanID)
+  writeLines(text = jsonlite::toJSON(x = humanHistories,pretty = TRUE),con = con)
+  close(con)
+}
+
+#' Reimport Human eventT and events from .json
+#'
+#' Import human histories exported to .json from PfSI module.
+#'
+#' @param directory directory; files are in directory/OUTPUT/..
+#' @return nothing
+#' @examples
+#' writeHumanEvent(directory, fileName)
+importHumanEvent_PfSI <- function(directory){
+
+}
+
+# importBionomics: import female bionomics
+importBionomics <- function(directory){
+  dirFiles = system(command = paste0("ls ",directory,"OUTPUT/"),intern = TRUE)
+  bionomics = grep("bionomics[[:digit:]]+.json",dirFiles)
+  bionomicsOut = parallel::mclapply(X = dirFiles[bionomics],FUN = function(x){
+    jsonlite::fromJSON(txt = paste0(directory,"OUTPUT/",x))
+  },mc.cores = parallel::detectCores()-2)
+  bionomicsOut = Reduce(f = c,x = bionomicsOut)
+  # extract mosquito IDs and append to the history
+  bionomicsIx = unname(sapply(names(bionomicsOut),function(x){sub(pattern = "mosy",replacement =  "",x = x)}))
+  for(ix in 1:length(bionomicsOut)){
+    bionomicsOut[[ix]]$id = bionomicsIx[ix]
+  }
+  return(bionomicsOut)
 }
 
 
@@ -67,7 +114,7 @@ pfsiOneTrajectory <- function(ixH){
 
 pfsiTrajectory <- function(){
 
-  par(xpd = T, mar = par()$mar + c(0,0,0,7)) # adjust plotting area for legend
+  par(xpd = T, mar = par()$mar + c(-1,-1,-4,7)) # adjust plotting area for legend
 
   rng = c(0,1)
   for(i in 1:length(HUMANS)){
@@ -87,8 +134,3 @@ pfsiTrajectory <- function(){
 
   par(xpd = F, mar=c(5, 4, 4, 2) + 0.1)
 }
-
-
-
-# N = length(HUMANS)
-# maxT = ceiling(max(sapply(HUMANS,function(x){x$Pathogens$Pf$eventT[length(x$Pathogens$Pf$eventT)]})))
