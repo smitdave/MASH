@@ -106,10 +106,10 @@ pfsiTrajectory <- function(){
 
   par(xpd = T, mar = par()$mar + c(-1,-1,-4,7)) # adjust plotting area for legend
 
-  rng = c(0,1)
-  for(i in 1:length(HUMANS)){
-    rng = range(rng,HUMANS[[i]]$Pathogens$Pf$eventT[-1])
-  }
+  # rng = c(0,1)
+  # for(i in 1:length(HUMANS)){
+  #   rng = range(rng,HUMANS[[i]]$Pathogens$Pf$eventT[-1])
+  # }
 
   plot(c(0,tMax), c(0.9,length(HUMANS)+0.1), type = "n", xaxt = "n", yaxt = "n", ylab = "Humans", xlab = "Time")
   ttMax = tMax/365
