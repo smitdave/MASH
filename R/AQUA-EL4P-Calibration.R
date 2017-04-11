@@ -19,6 +19,7 @@ getLambda <- function(R0, summary, nH, P){
     P = exp(-EIP/lifespanC) # probability to survive EIP
     S = feedAllC # stability index
     (R0 * nH * (S^2) * r) / (b * c * P)
+    # (R0*nH*r) / ((S^2)*b*c*P)
   })
 }
 

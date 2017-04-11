@@ -6,6 +6,7 @@ Documentation done for:
 * MICRO-LANDSCAPE.R
 * PATHOGEN-PfPedigree.R
 * PATHOGEN-PFSI-SetupPfSI.R
+* UTILITIES-Pathogen.R
 
 Other to-do:
 * makeMosquitoCohort() should accept P as an argument for certain parameters, such as energyPreG

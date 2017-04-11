@@ -50,9 +50,9 @@ makeMosquito <- function(id=0,tm=NULL,ix=NULL,state="M",inPointSet="l",EIP=12,
   M = list(
 
     # ID and time
-    id        = id,       # mosquito id
+    id        = id,        # mosquito id
     bDay      = tm,        # time of emergence
-    tNow      = tm,        # time of last event (DBG)
+    tNow      = tm,        # time of last event
     tNext     = tm,        # time to next event
 
     # State and Location
