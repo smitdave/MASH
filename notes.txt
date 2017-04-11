@@ -21,4 +21,3 @@ Large Scale to-do:
 Large Scale to-do (DONE):
 
 Where I Left Off:
-Also working on visualization of pathogen history in humans.
