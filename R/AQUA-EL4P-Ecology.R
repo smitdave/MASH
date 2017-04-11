@@ -49,7 +49,6 @@ oneSiteEL4Pt <- function(ix, tNow){
   })
 
   if(LANDSCAPE$aquaSites[[ix]]$EL4P$lambda > 0){ # if emerge, add to ImagoQ
-    # browser("oneSiteEL4Pt being called when positive lambda")
     lambdaEmerge = rpois(n = 1,lambda = LANDSCAPE$aquaSites[[ix]]$EL4P$lambda)
     if(lambdaEmerge > 0){
       addAdults2Q(lambda = lambdaEmerge,tm = tNow,ix = ix,dam = 0,sire = 0) # aquaticEcology.R

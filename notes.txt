@@ -9,6 +9,7 @@ Documentation done for:
 * UTILITIES-Pathogen.R
 
 Other to-do:
+# Urgent: confirm getLambda with John before he goes to NYC.
 * makeMosquitoCohort() should accept P as an argument for certain parameters, such as energyPreG
 
 Other to-do (DONE):
