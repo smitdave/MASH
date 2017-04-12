@@ -165,7 +165,7 @@ setupAquaPop_EL4Pexact <- function(PAR, tol = 0.1, plot = FALSE){
 
     if(plot){
       plotPsi(PAR = PAR)
-      par(mfrow=c(1,2))
+      par(mfrow=c(1,3))
       invisible(psi2K_cf(meshK = K,psiHat = psi,plot = T,main="Prior to Fitting EL4P"))
     }
 
@@ -175,26 +175,38 @@ setupAquaPop_EL4Pexact <- function(PAR, tol = 0.1, plot = FALSE){
     # fit psi to exact landscape
 
     # sample K on mesh in log space; transform to normal space
-    psiHat = vector(mode="numeric",length=length(EL4P_pops))
+    psiOptim = vector(mode="numeric",length=length(EL4P_pops))
 
     # fit EL4P: set values of psi so lambda = K at (p,G)
     for(ix in 1:length(EL4P_pops)){
       print(paste0("fitting psi for site ix: ",ix, ", target K: ",K[ix]))
       psiMin = optimize(f = psiFit,interval = c(0,10), ix=ix, ixEL4P=EL4P_pops[[ix]], ixKmesh=K[ix], PAR=PAR)
-      psiHat[ix] = psiMin$minimum
+      psiOptim[ix] = psiMin$minimum
     }
+    PAR$psiOptim = psiOptim # attach psi fitted by optimize(...) to PAR
 
     # run all EL4P aquatic populations to equilibrium values
     print(paste0("run aquatic populations to equilibrium values"))
-    EL4P_pops = parallel::mcmapply(FUN = run2Eq_GEL4P,ix = 1:length(EL4P_pops),psi = psiHat,pop = EL4P_pops, MoreArgs = list(tol = tol, PAR = PAR),
+    EL4P_pops = parallel::mcmapply(FUN = run2Eq_GEL4P,ix = 1:length(EL4P_pops),psi = psiOptim,pop = EL4P_pops, MoreArgs = list(tol = tol, PAR = PAR),
                                    mc.cores = parallel::detectCores()-2L,SIMPLIFY = FALSE)
 
-    PAR$psiOptim = psiHat # attach psi fitted by optimize(...) to PAR
-
+    # regression of psi inverse on K
+    cf = psi2K_cf(meshK = K,psiHat = PAR$psiOptim,plot = plot, main = "After Optimization")
     if(plot){
+      psi2K_plot(lmFit = lm(1/K2psi(K,cf)~K+0),K = K,psi = K2psi(K,cf), main = "After Regression")
       par(mfrow=c(1,1))
     }
 
+    # attach psi fitted via linear regression to PAR for final fitted psi
+    PAR$psiHat = K2psi(K = K,cf = cf)
+
+    # run all EL4P aquatic populations to equilibrium values on final fitted psi values
+    EL4P_pops = parallel::mcmapply(FUN = run2Eq_GEL4P,ix = 1:length(EL4P_pops),psi = PAR$psiHat,pop = EL4P_pops, MoreArgs = list(tol = tol, PAR = PAR),
+                                   mc.cores = parallel::detectCores()-2L,SIMPLIFY = FALSE)
+
+    return(
+      list(EL4P_pops = EL4P_pops, PAR = PAR)
+    )
   })
 }
 
@@ -238,8 +250,12 @@ setupAquaPop_EL4PsamplePoints <- function(PAR, gridN, tol = 0.1, plot = FALSE){
     PAR$meshK = AquaPops$meshK # attach sampled meshK to PAR
 
     if(plot){plotPsi(PAR = PAR)}
-
+    if(plot){par(mfrow=c(1,2))}
     cf = psi2K_cf(AquaPops$meshK,AquaPops$psiHat,plot)
+    if(plot){
+      psi2K_plot(lmFit = lm(1/K2psi(AquaPops$meshK,cf)~AquaPops$meshK+0),K = AquaPops$meshK,psi = K2psi(AquaPops$meshK,cf))
+      par(mfrow=c(1,1))
+    }
     psiHat = K2psi(AquaPops$meshK,cf)
     PAR$psiHat = psiHat # attach psi fitted via linear regression to PAR
 
@@ -430,7 +446,7 @@ psi2K_cf <- function(meshK, psiHat, plot = FALSE, ...){
 #
 psi2K_plot <- function(lmFit, K, psi, main = NULL){
   pCol = ggCol(n = 1,alpha = 0.8)
-  plot(K,1/psi,type="p",pch=16,col=pCol, ylab = expression(paste(1/psi," (density-dependent mortality)")), xlab = "K (carrying capacities)",main = main)
+  plot(K,1/psi,type="p",pch=16,cex=1.15,col=pCol, ylab = expression(paste(1/psi," (density-dependent mortality)")), xlab = "K (carrying capacities)",main = main)
   legend(x = "topleft",legend = expression(paste("Regression of ",1/psi," on K")),bty = "n")
   grid()
   abline(lmFit)

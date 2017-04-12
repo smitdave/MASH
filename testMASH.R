@@ -33,7 +33,7 @@ aquaEq = aquaIx_equilibrium(mosyPop = basicOut)
 eqM = 50
 
 Aq.PAR = makePAR_EL4P(nA = LANDSCAPE$nA,nH = LANDSCAPE$nH,aquaEq = aquaEq,M = floor(eqM*aquaEq),R0 = 4,par = P,summary = cohortBionomics$summary)
-Aq.Equilibrium = setupAquaPop_EL4P(PAR = Aq.PAR,tol = 100,plot = TRUE)
+Aq.Equilibrium = setupAquaPop_EL4PsamplePoints(PAR = Aq.PAR,tol = 100,plot = TRUE)
 
 # set LANDSCAPE aquatic populations to equilibrium values
 for(ix in 1:Aq.PAR$nA){

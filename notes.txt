@@ -11,8 +11,9 @@ Documentation done for:
 * UTILITIES-Pathogen.R
 
 Other to-do:
-# Write PfTransmission analysis routines (UTILITIES-Pathogen.R).
-# Write kernel visualizations.
+* Write better plotPsi
+* Write PfTransmission analysis routines (UTILITIES-Pathogen.R).
+* Write kernel visualizations.
 * makeMosquitoCohort() should accept P as an argument for certain parameters, such as energyPreG
 
 Other to-do (DONE):
