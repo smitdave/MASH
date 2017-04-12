@@ -9,17 +9,25 @@
 #
 #################################################################
 
-# getLambda: return average lambda required to sustain given R0
-# R0: desired value of R0 to calibrate against
-# summary: output from cohortBionomics() or MBITES-BASIC NEED TO WRITE
-# nH: number of humans
-# P: M-BITES parameter list
+
+#' Calculate Lambda (Equilibrium Rate of Emergence)
+#'
+#' Calculate parameter \code{lambda} (daily adult female emergence over entire landscape) required to sustain \emph{Plasmodium falciparum} transmission at given value of \emph{R0} based on
+#' classical Ross-MacDonald assumptions.
+#'
+#' @param R0 desired intensity of pathogen transmission
+#' @param summary output from \code{\link{cohortBionomics}} which can be calculated from a run of MASH, or, less laboriously, from \code{\link{MBITES.basic}}.
+#' @param nH number of humans on landscape (ie; number of humans in the MICRO patch)
+#' @param P list of parameters from \code{\link{MBITES.PAR}}
+#' @return numeric value of lambda
+#' @examples
+#' getLambda(R0, summary, nH, P)
 getLambda <- function(R0, summary, nH, P){
   with(c(P,summary),{
     P = exp(-EIP/lifespanC) # probability to survive EIP
     S = feedAllC # stability index
-    (R0 * nH * (S^2) * r) / (b * c * P)
-    # (R0*nH*r) / ((S^2)*b*c*P)
+    # (R0 * nH * (S^2) * r) / (b * c * P)
+    (R0*nH*r) / ((S^2)*b*c*P)
   })
 }
 
@@ -127,9 +135,87 @@ setupAquaPop_EL4P <- function(PAR, tol = 0.1, plot = FALSE){
   })
 }
 
-# sample from arbitrary mesh of points for K; above function is for exact calculations
-# gridN: number of points to sample
-setupAquaPop_EL4P_samplePoints <- function(PAR, gridN, tol = 0.1, plot = FALSE){
+#' Fit EL4P Aquatic Ecology Model on Exact Landscape
+#'
+#' Fit the EL4P Aquatic Ecology module on the exact LANDSCAPE to match a desired level of daily emergence at equilibrium.
+#' This means that the site-specific density dependent mortality parameter \code{psi} will be fit
+#' to K for each aquatic habitat on the landscape, and then each site will be run to equilibrium. Compare with \code{\link{setupAquaPop_EL4PsamplePoints}} which will
+#' fit \code{psi} based on a sampling grid of K.
+#'
+#' @param PAR named list of parameters calculated from \code{\link{makePAR_EL4P}}
+#' @param tol tolerance of fluctuations in variance of lambda until convergence to equilibrium is assumed
+#' @param plot produce diagnostic plots?
+#' @return named list of fitted parameters
+#' * EL4P_pops: fitted EL4P aquatic populations
+#' * PAR: input PAR with fitted values of \code{psi} and \code{alpha} appended
+#' @md
+setupAquaPop_EL4Pexact <- function(PAR, tol = 0.1, plot = FALSE){
+  with(PAR,{
+
+    # calculate initial parameter values
+    W = rgamma(n = nA,shape = a,scale = b)
+    K = (lambda*W) / sum(W)
+    pp = -log(P^((1-p)/5))
+    alpha = abs(rnorm(n = nA,mean = pp,sd = 0.004))
+    psi = alpha/K
+
+    PAR$alpha = alpha # attach alpha to PAR
+    PAR$K = K # attach K to PAR
+    PAR$psiInit = psi # attach psi to PAR
+
+    if(plot){
+      plotPsi(PAR = PAR)
+      par(mfrow=c(1,2))
+      invisible(psi2K_cf(meshK = K,psiHat = psi,plot = T,main="Prior to Fitting EL4P"))
+    }
+
+    # generate aquatic populations
+    EL4P_pops = replicate(n = nA,expr = EL4P(),simplify = FALSE)
+
+    # fit psi to exact landscape
+
+    # sample K on mesh in log space; transform to normal space
+    psiHat = vector(mode="numeric",length=length(EL4P_pops))
+
+    # fit EL4P: set values of psi so lambda = K at (p,G)
+    for(ix in 1:length(EL4P_pops)){
+      print(paste0("fitting psi for site ix: ",ix, ", target K: ",K[ix]))
+      psiMin = optimize(f = psiFit,interval = c(0,10), ix=ix, ixEL4P=EL4P_pops[[ix]], ixKmesh=K[ix], PAR=PAR)
+      psiHat[ix] = psiMin$minimum
+    }
+
+    # run all EL4P aquatic populations to equilibrium values
+    print(paste0("run aquatic populations to equilibrium values"))
+    EL4P_pops = parallel::mcmapply(FUN = run2Eq_GEL4P,ix = 1:length(EL4P_pops),psi = psiHat,pop = EL4P_pops, MoreArgs = list(tol = tol, PAR = PAR),
+                                   mc.cores = parallel::detectCores()-2L,SIMPLIFY = FALSE)
+
+    PAR$psiOptim = psiHat # attach psi fitted by optimize(...) to PAR
+
+    if(plot){
+      par(mfrow=c(1,1))
+    }
+
+  })
+}
+
+
+#' Fit EL4P Aquatic Ecology Model on Sample Grid
+#'
+#' Fit the EL4P Aquatic Ecology module on a sampling grid of K values to match a desired level of daily emergence at equilibrium.
+#' This means that the site-specific density dependent mortality parameter \code{psi} will be fit
+#' to K based on a sampling grid of values for K in log-space. If \code{plot = TRUE}, the linear regression of \code{psi} against logged values of K
+#' should show exact linear dependence, indicating fitted \code{psi} will produce desired level of lambda at equilibrium. Compare with \code{\link{setupAquaPop_EL4Pexact}} which will
+#' fit \code{psi} based on an exact LANDSCAPE.
+#'
+#' @param PAR named list of parameters calculated from \code{\link{makePAR_EL4P}}
+#' @param gridN number of points to sample in K
+#' @param tol tolerance of fluctuations in variance of lambda until convergence to equilibrium is assumed
+#' @param plot produce diagnostic plots?
+#' @return named list of fitted parameters
+#' * EL4P_pops: fitted EL4P aquatic populations
+#' * PAR: input PAR with fitted values of \code{psi} and \code{alpha} appended
+#' @md
+setupAquaPop_EL4PsamplePoints <- function(PAR, gridN, tol = 0.1, plot = FALSE){
   with(PAR,{
 
     # calculate initial parameter values
@@ -194,7 +280,7 @@ meshK_EL4P <- function(lK, uK, EL4P_pops, PAR, tMax = 500, plot = FALSE, tol = 0
 
   # fit EL4P: set values of psi so lambda = K at (p,G)
   for(ix in 1:length(EL4P_pops)){
-    print(paste0("fitting psi for site ix: ",ix))
+    print(paste0("fitting psi for site ix: ",ix, ", target K: ",meshK[ix]))
     psiMin = optimize(f = psiFit,interval = c(0,10), ix=ix, ixEL4P=EL4P_pops[[ix]], ixKmesh=meshK[ix], PAR=PAR)
     psiHat[ix] = psiMin$minimum
   }
@@ -330,26 +416,23 @@ checkDX_GEL4P <- function(ix, psi, pop, PAR, tMax = 800){
 }
 
 # psi2K_cf: run linear regression of K on psi
-psi2K_cf <- function(meshK, psiHat, plot = FALSE){
+psi2K_cf <- function(meshK, psiHat, plot = FALSE, ...){
   psiInv = 1/psiHat
   psi2K = lm(psiInv~meshK+0)
   cf = coef(psi2K)
-  # if(plot){
-  #   plot(meshK, 1/psiHat)
-  #   abline(psi2K)
-  #   points(meshK, cf*meshK, col = "red", pch = 3)
-  #   points(meshK, 1/K2psi(meshK,cf), col = "purple")
-  # }
+  # plot unfitted values of psi
   if(plot){
-    psi2K_plot(lmFit = psi2K,K = meshK,psi = psiHat)
+    psi2K_plot(lmFit = psi2K,K = meshK,psi = psiHat, ...)
   }
   return(cf)
 }
 
 #
-psi2K_plot <- function(lmFit,K,psi){
+psi2K_plot <- function(lmFit, K, psi, main = NULL){
   pCol = ggCol(n = 1,alpha = 0.8)
-  plot(K,1/psi,type="p",pch=16,col=pCol)
+  plot(K,1/psi,type="p",pch=16,col=pCol, ylab = expression(paste(1/psi," (density-dependent mortality)")), xlab = "K (carrying capacities)",main = main)
+  legend(x = "topleft",legend = expression(paste("Regression of ",1/psi," on K")),bty = "n")
+  grid()
   abline(lmFit)
   points(K, coef(lmFit)*K, col = "red", pch = 3)
   points(K, 1/K2psi(K = K,cf = coef(lmFit)),col = "purple")
@@ -384,9 +467,14 @@ plotPsi <- function(PAR){
     hist(psiInit,freq=F,main=expression('initial (uniftted)'~psi),cex.main=2,ylim=c(0,max(psiDensity$y)),xlab=expression(psi))
     lines(psiDensity,lwd=5,col=col[3])
 
-    plot(meshK,main="K mesh (sample in log-space)",type="p",pch=16,col=col[4],cex=2,xaxt="n",xlab="") # meshK
-    grid()
-    axis(1, at = seq(from=1,to=length(meshK),length.out = 10),labels = round(meshK[seq(from=1,to=length(meshK),length.out = 10)]))
+    if(exists(x = "meshK")){
+      plot(meshK,main="K mesh (sample in log-space)",type="p",pch=16,col=col[4],cex=2,xaxt="n",xlab="") # meshK
+      grid()
+      axis(1, at = seq(from=1,to=length(meshK),length.out = 10),labels = round(meshK[seq(from=1,to=length(meshK),length.out = 10)]))
+    } else {
+      plot(K,main="K (values from landscape)",type="p",pch=16,col=col[4],cex=2,xlab="Aquatic Habitats") # meshK
+      grid()
+    }
 
     par(mfrow=c(1,1))
   })

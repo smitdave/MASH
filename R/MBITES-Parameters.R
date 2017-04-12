@@ -43,6 +43,104 @@
 #M-BITES parameters
 #################################################################
 
+#' Generate Parameters for MASH-MBPT MICRO/M-BITES
+#'
+#' Generate named list of parameters used throughout MICRO/M-BITES. All arguments have default values which are listed below before the definition.
+#'
+#' @param enterhouse.a = 9, # beta house entry parameters
+#' @param enterhouse.b = 1, # beta house entry parameters
+#' @param feedHaz.a = 99, # beta feeding site hazard weights
+#' @param feedHaz.b = 1, # beta feeding site hazard weights
+#' @param aquaHaz.a = 99, # beta aqua site hazard weights
+#' @param aquaHaz.b = 1, # beta aqua site hazard weights
+#' @param sugarHaz.a = 99, # beta sugar site hazard weights
+#' @param sugarHaz.b = 1, # beta sugar site hazard weights
+#' @param swarmHaz.a = 99, # beta swarm site hazard weights
+#' @param swarmHaz.b = 1, # beta swarm site hazard weights
+#' @param F.t = 1, #blood feed search bout timing
+#' @param B.t = 0.75, #blood feed attempt bout timing
+#' @param R.t = 1.5, #resting bout timing
+#' @param L.t = 0.75, #egg laying search bout timing
+#' @param O.t = 1, #egg laying attempt bout timing
+#' @param M.t = 1.5, #mating bout timing
+#' @param S.t = 0.5, #sugar feeding bout timing
+#' @param F.s = 0.99,
+#' @param B.s = 0.99,
+#' @param L.s = 0.99,
+#' @param O.s = 0.99,
+#' @param M.s = 0.95,
+#' @param S.s = 0.95,
+#' @param F.p = 0.95,
+#' @param B.p = 0.98,
+#' @param R.p = 0.98,
+#' @param L.p = 0.80,
+#' @param O.p = 0.98,
+#' @param M.p = 0.98,
+#' @param S.p = 0.98,
+#' @param maleM.s = .99,
+#' @param maleM.p = .95,
+#' @param Q = 0.9, #human blood index
+#' @param reFeed = 0.01, #probability to refeed post resting bout
+#' @param bm.a = 7.5, #shape param for bloodmeal size
+#' @param bm.b = 2.5, #shape param for bloodmeal size
+#' @param rf.a = 60, #exp param for refeeding as function of bmSize
+#' @param rf.b = 5e3, #exp param for refeeding as function of bmSize
+#' @param of.a = 5, #exp param for overfeeding as function of bmSize
+#' @param of.b = 5e3, #exp param for overfeeding as function of bmSize
+#' @param S.a = 20, #exp param for death as function of energy
+#' @param S.b = 10, #exp param for death as function of energy
+#' @param S.u = 1/7, #energy expenditure for each bout
+#' @param S.sa = 15, #exp param for sugar bout as function of energy
+#' @param S.sb = 5, #exp param for sugar bout as function of energy
+#' @param sf.a = 7.5, #shape param for sugar feed size
+#' @param sf.b = 4.5, #shape param for sugar feed size
+#' @param B.energy = 1/10, #scaling factor energy from a bloodmeal
+#' @param energyPreG = 0, #pre-gonotrophic energy requirement
+#' @param preGsugar = 0,
+#' @param preGblood = 0,
+#' @param sns.a = 0.085, #exp param for senescence
+#' @param sns.b = 100, #exp param for senescence
+#' @param ttsz.p = 0.5, #zero-inflation for tattering damage
+#' @param ttsz.a = 5, #shape param for tattering damage
+#' @param ttsz.b = 95, #shape param for tattering damage
+#' @param ttr.a = 15, #exp param for tattering survival
+#' @param ttr.b = 500, #exp param for tattering survival
+#' @param maxBatch = 30, #maximum batch size
+#' @param E.p = 0.5, # probability of surviving estivation
+#' @param Emax = 90, # onset of the dry season; a day of the calendar year
+#' @param Eb = 0.9,
+#' @param eEndm = 180, # end of estivation; a day of the calendar year
+#' @param eEndV = 30,
+#' @param surviveH = 1,
+#' @param probeH = 1,
+#' @param surviveprobeH = 1,
+#' @param feedH = 1,
+#' @param surviveL = 1,
+#' @param feedL = 1,
+#' @param SUGAR = TRUE,
+#' @param ESTIVATION = FALSE,
+#' @param MATE = TRUE,
+#' @param SENESCE = TRUE, #senesce
+#' @param TATTER = TRUE, #tattering
+#' @param REFEED = TRUE,
+#' @param OVERFEED TRUE; simulate overfeeding? See \code{\link{overFeed}}
+#' @param HISTORY TRUE; record history? Needed for \code{\link{cohortBionomics}}, see \code{\link{historyTrack}}
+#' @param batchSize "bms"; switches for how egg batch size is calculated, should be either "bms" or "norm", see \code{\link{BatchSize.bms}} or \code{\link{BatchSize.norm}}
+#' @param eggMatT "off"; switches for how egg maturation is calculated, should be either "off" or "norm", see \code{\link{eggMaturationTime.off}} or \code{\link{eggMaturationTime.norm}}
+#' @param InAndOut matrix of weights for landing spot, see \code{\link{newSpot}}
+#' @param Fwts rep(1,5); blood feeding search bout landing spot weights, see \code{\link{newSpot}}
+#' @param Rwts rep(1,5); resting bout landing spot weights, see \code{\link{newSpot}}
+#' @param Lwts rep(1,5); egg laying search bout landing spot weights, see \code{\link{newSpot}}
+#' @param Owts rep(1,5); egg laying attempt bout landing spot weights, see \code{\link{newSpot}}
+#' @param Mwts rep(1,5); mating bout landing spot weights, see \code{\link{newSpot}}
+#' @param Swts rep(1,5); sugar bout landing spot weights, see \code{\link{newSpot}}
+#' @param r 1/38; recovery rate (mean length of infection)
+#' @param b 0.55; vector to human transmission efficiency
+#' @param c 0.15; human to vector transmission efficiency
+#' @param EIP 12; extrinsic incubation period
+#' @return a named list of parameters
+#' @examples
+#' P = MBITES.PAR()
 MBITES.PAR <- function(
 
   # landscape creation parameters
