@@ -19,7 +19,7 @@ library(MASH.MBPT)
 P = MBITES.PAR(maxBatch = 35)
 
 # set up LANDSCAPE
-LANDSCAPE = makeLandscape(nF = 20,nA = 15,nS = 5,nM = 5,aquaMod = "el4p",pointGen = pointsPoisson,hhSize = 10,hhMin = 2,aquaSD = 0.025)
+LANDSCAPE = makeLandscape(nF = 25,nA = 25,nS = 5,nM = 5,aquaMod = "el4p",pointGen = pointsPoisson,hhSize = 10,hhMin = 2,aquaSD = 0.05)
 staticLandscapePlot()
 MvOb = exactAll(LANDSCAPE)
 
@@ -33,7 +33,8 @@ aquaEq = aquaIx_equilibrium(mosyPop = basicOut)
 eqM = 50
 
 Aq.PAR = makePAR_EL4P(nA = LANDSCAPE$nA,nH = LANDSCAPE$nH,aquaEq = aquaEq,M = floor(eqM*aquaEq),R0 = 4,par = P,summary = cohortBionomics$summary)
-Aq.Equilibrium = setupAquaPop_EL4PsamplePoints(PAR = Aq.PAR,tol = 100,plot = TRUE)
+# Aq.Equilibrium = setupAquaPop_EL4PsamplePoints(PAR = Aq.PAR,tol = 100,plot = TRUE)
+Aq.Equilibrium = setupAquaPop_EL4Pexact(PAR = Aq.PAR,tol = 100,plot = TRUE)
 
 # set LANDSCAPE aquatic populations to equilibrium values
 for(ix in 1:Aq.PAR$nA){
