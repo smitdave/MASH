@@ -154,6 +154,9 @@ PfPedigree = importPfPedigree(directory = out,fileName = "pfpedigree.csv")
 # analyze aquatic dynamics
 plotEL4P(el4p = el4p,egg = egg)
 
+# analyze adult dynamics
+plotAdults(adults)
+
 # analyze mosquito cohorts
 cohortIx = getCohortIndices.history(history = history,sites = FALSE)
 cohortT = getStateTraj.history(ix = cohortIx[[1]],history = history,female = TRUE)
