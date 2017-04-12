@@ -16,7 +16,7 @@
 #' classical Ross-MacDonald assumptions.
 #'
 #' @param R0 desired intensity of pathogen transmission
-#' @param summary output from \code{\link{cohortBionomics}} which can be calculated from a run of MASH, or, less laboriously, from \code{\link{MBITES.basic}}.
+#' @param summary output from \code{\link{cohortBionomics}} which can be calculated from a run of MASH, or, less laboriously, from \code{\link{MBITES.basic}}
 #' @param nH number of humans on landscape (ie; number of humans in the MICRO patch)
 #' @param P list of parameters from \code{\link{MBITES.PAR}}
 #' @return numeric value of lambda
@@ -31,29 +31,35 @@ getLambda <- function(R0, summary, nH, P){
   })
 }
 
-#################################################################
-#
-# makePAR_EL4P: make PAR for EL4P
-#
-# arguments:
-# nA: number of aquatic habitats
-# nH: number of humans
-# R0: desired R0 at equilibrium
-# M: vector of densities of mosquitoes at each site ix
-# aquaEq: vector of probability of oviposition from aquaIx.equilibrium(...)
-# par: parameters from MBITES-Parameters
-# summary: cohort summary bionomics from cohortBionomics(...)
-# p: 1/p is expected time until advance to next stage
-# P: density independent survival from egg to adult
-# a: shape parameter for gamma distributed weights
-# b: scale parameter for gamma distributed weights
-#
-# computed values:
-# G: mean total lifetime egg production of an adult female
-# nu: mean batch size for one oviposition
-# lambda: value of adult female emergence to sustain R0
-#
-#################################################################
+#' Calculate Parameters for EL4P Aquatic Ecology Module
+#'
+#' Calculate parameters needed for EL4P fitting.
+#'
+#' @param nA number of aquatic habitats
+#' @param nH number of humans
+#' @param R0 desired pathogen transmission level at equilibrium
+#' @param M vector of densities of mosquitoes at each aquatic habitat
+#' @param aquaEq vector of probability of oviposition at each aquatic habitat (see \code{\link{aquaIx_equilibrium}})
+#' @param par parameter list from \code{\link{MBITES.PAR}}
+#' @param summary output from \code{\link{cohortBionomics}} which can be calculated from a run of MASH, or, less laboriously, from \code{\link{MBITES.basic}}.
+#' @param p expected fraction of cohort that advances to next life stage (1/p is expected time spent in each stage E,L1,L2,L3,L4,P)
+#' @param P density independent survival from egg to adult
+#' @param a shape parameter for gamma distributed weights on K
+#' @param b scale parameter for gamma distributed weights on K
+#' @return named list of fitted parameters
+#' * M: M
+#' * aquaEq: aquaEq
+#' * nA: nA
+#' * nH: nH
+#' * lifespan: mean length of mosquito lifespan
+#' * G: mean total lifetime egg production of an adult female
+#' * nu: mean batch size for one oviposition
+#' * p: p
+#' * P: P
+#' * a: a
+#' * b: b
+#' * lambda: daily female emergence required to sustain transmission at input R0 (see \code{\link{getLambda}})
+#' @md
 makePAR_EL4P <- function(nA, nH, R0, M, aquaEq, par, summary, p = 0.9, P = 0.8, a = 1, b = 1){
 
   PAR = list(
@@ -92,48 +98,48 @@ makePAR_EL4P <- function(nA, nH, R0, M, aquaEq, par, summary, p = 0.9, P = 0.8, 
 #
 #################################################################
 
-setupAquaPop_EL4P <- function(PAR, tol = 0.1, plot = FALSE){
-  with(PAR,{
-
-    # calculate initial parameter values
-    W = rgamma(n = nA,shape = a,scale = b)
-    K = (lambda*W) / sum(W)
-    PAR$K = K # attach K to PAR
-    pp = -log(P^((1-p)/5))
-    alpha = abs(rnorm(n = nA,mean = pp,sd = 0.004))
-    PAR$alpha = alpha # attach alpha to PAR
-    psi = alpha/K
-    PAR$psiInit = psi # attach psi to PAR
-
-    # EL4P populations
-    EL4P_pops = replicate(n = nA,expr = EL4P(),simplify = FALSE)
-
-    # fit psi
-    rng = range(K)
-    AquaPops = meshK_EL4P(lK = rng[1],uK = rng[2],EL4P_pops = EL4P_pops,PAR = PAR,plot = plot,tol = tol)
-    PAR$psiOptim = AquaPops$psiHat # attach psi fitted by optimize(...) to PAR
-    PAR$meshK = AquaPops$meshK # attach sampled meshK to PAR
-
-    if(plot){plotPsi(PAR = PAR)}
-    if(plot){par(mfrow=c(1,2))}
-    cf = psi2K_cf(AquaPops$meshK,AquaPops$psiHat,plot)
-    if(plot){
-      psi2K_plot(lmFit = lm(1/K2psi(AquaPops$meshK,cf)~AquaPops$meshK+0),K = AquaPops$meshK,psi = K2psi(AquaPops$meshK,cf))
-      par(mfrow=c(1,1))
-    }
-    psiHat = K2psi(AquaPops$meshK,cf)
-    PAR$psiHat = psiHat # attach psi fitted via linear regression to PAR
-
-    # run all EL4P aquatic populations to equilibrium values
-    EL4P_pops = parallel::mcmapply(FUN = run2Eq_GEL4P,ix = 1:length(EL4P_pops),psi = psiHat,pop = AquaPops$EL4P_pops, MoreArgs = list(tol = tol, PAR = PAR),
-                                   mc.cores = parallel::detectCores()-2L,SIMPLIFY = FALSE)
-    return(
-      list(EL4P_pops=EL4P_pops,
-           PAR=PAR
-      )
-    )
-  })
-}
+# setupAquaPop_EL4P <- function(PAR, tol = 0.1, plot = FALSE){
+#   with(PAR,{
+#
+#     # calculate initial parameter values
+#     W = rgamma(n = nA,shape = a,scale = b)
+#     K = (lambda*W) / sum(W)
+#     PAR$K = K # attach K to PAR
+#     pp = -log(P^((1-p)/5))
+#     alpha = abs(rnorm(n = nA,mean = pp,sd = 0.004))
+#     PAR$alpha = alpha # attach alpha to PAR
+#     psi = alpha/K
+#     PAR$psiInit = psi # attach psi to PAR
+#
+#     # EL4P populations
+#     EL4P_pops = replicate(n = nA,expr = EL4P(),simplify = FALSE)
+#
+#     # fit psi
+#     rng = range(K)
+#     AquaPops = meshK_EL4P(lK = rng[1],uK = rng[2],EL4P_pops = EL4P_pops,PAR = PAR,plot = plot,tol = tol)
+#     PAR$psiOptim = AquaPops$psiHat # attach psi fitted by optimize(...) to PAR
+#     PAR$meshK = AquaPops$meshK # attach sampled meshK to PAR
+#
+#     if(plot){plotPsi(PAR = PAR)}
+#     if(plot){par(mfrow=c(1,2))}
+#     cf = psi2K_cf(AquaPops$meshK,AquaPops$psiHat,plot)
+#     if(plot){
+#       psi2K_plot(lmFit = lm(1/K2psi(AquaPops$meshK,cf)~AquaPops$meshK+0),K = AquaPops$meshK,psi = K2psi(AquaPops$meshK,cf))
+#       par(mfrow=c(1,1))
+#     }
+#     psiHat = K2psi(AquaPops$meshK,cf)
+#     PAR$psiHat = psiHat # attach psi fitted via linear regression to PAR
+#
+#     # run all EL4P aquatic populations to equilibrium values
+#     EL4P_pops = parallel::mcmapply(FUN = run2Eq_GEL4P,ix = 1:length(EL4P_pops),psi = psiHat,pop = AquaPops$EL4P_pops, MoreArgs = list(tol = tol, PAR = PAR),
+#                                    mc.cores = parallel::detectCores()-2L,SIMPLIFY = FALSE)
+#     return(
+#       list(EL4P_pops=EL4P_pops,
+#            PAR=PAR
+#       )
+#     )
+#   })
+# }
 
 #' Fit EL4P Aquatic Ecology Model on Exact Landscape
 #'

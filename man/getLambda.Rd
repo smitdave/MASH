@@ -9,7 +9,7 @@ getLambda(R0, summary, nH, P)
 \arguments{
 \item{R0}{desired intensity of pathogen transmission}
 
-\item{summary}{output from \code{\link{cohortBionomics}} which can be calculated from a run of MASH, or, less laboriously, from \code{\link{MBITES.basic}}.}
+\item{summary}{output from \code{\link{cohortBionomics}} which can be calculated from a run of MASH, or, less laboriously, from \code{\link{MBITES.basic}}}
 
 \item{nH}{number of humans on landscape (ie; number of humans in the MICRO patch)}
 
