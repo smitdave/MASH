@@ -9,9 +9,11 @@ setupAquaPop_EL4Pexact(PAR, tol = 0.1, plot = FALSE)
 \arguments{
 \item{PAR}{named list of parameters calculated from \code{\link{makePAR_EL4P}}}
 
-\item{tol}{tolerance of fluctuations in variance of lambda until convergence to equilibrium is assumed}
+\item{tol}{target minimum variance in lambda for aquatic populations equilibrium}
 
 \item{plot}{produce diagnostic plots?}
+
+\item{tol}{tolerance of fluctuations in variance of lambda until convergence to equilibrium is assumed}
 }
 \value{
 named list of fitted parameters
@@ -25,4 +27,7 @@ Fit the EL4P Aquatic Ecology module on the exact LANDSCAPE to match a desired le
 This means that the site-specific density dependent mortality parameter \code{psi} will be fit
 to K for each aquatic habitat on the landscape, and then each site will be run to equilibrium. Compare with \code{\link{setupAquaPop_EL4PsamplePoints}} which will
 fit \code{psi} based on a sampling grid of K.
+}
+\examples{
+setupAquaPop_EL4Pexact(PAR, tol = 0.1, plot = FALSE)
 }

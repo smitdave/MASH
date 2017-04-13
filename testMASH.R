@@ -86,7 +86,7 @@ PfPedigreeCon = PfPedigree_init(directory = out,fileName = "pfpedigree.csv") # t
 PfTransmissionCon = PfTransmission_init(directory = out,fileName = "pftransmission.csv") # this MUST be called PfTransmissionCon
 
 # test MASH
-tEnd = tStart+361
+tEnd = tStart+(361*2)
 for(tMax in tStart:tEnd){
 
   print(paste0("tMax: ",tMax))

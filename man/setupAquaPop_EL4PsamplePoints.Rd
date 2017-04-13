@@ -11,7 +11,7 @@ setupAquaPop_EL4PsamplePoints(PAR, gridN, tol = 0.1, plot = FALSE)
 
 \item{gridN}{number of points to sample in K}
 
-\item{tol}{tolerance of fluctuations in variance of lambda until convergence to equilibrium is assumed}
+\item{tol}{target minimum variance in lambda for aquatic populations equilibrium}
 
 \item{plot}{produce diagnostic plots?}
 }
@@ -28,4 +28,7 @@ This means that the site-specific density dependent mortality parameter \code{ps
 to K based on a sampling grid of values for K in log-space. If \code{plot = TRUE}, the linear regression of \code{psi} against logged values of K
 should show exact linear dependence, indicating fitted \code{psi} will produce desired level of lambda at equilibrium. Compare with \code{\link{setupAquaPop_EL4Pexact}} which will
 fit \code{psi} based on an exact LANDSCAPE.
+}
+\examples{
+setupAquaPop_EL4PsamplePoints(PAR, gridN, tol = 0.1, plot = FALSE)
 }
