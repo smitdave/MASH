@@ -15,7 +15,7 @@
 
 #' Write eventT and events from HUMANS to .json
 #'
-#' Write HUMANS histories from PfSI module to .json file.
+#' Write HUMANS histories from PfSI module to .json file. This should typically be called at the end of a model run, assuming demography is not implemented.
 #'
 #' @param directory directory; files will be put in directory/OUTPUT/..
 #' @param fileName name of the file to write to; directory/OUTPUT/fileName.csv

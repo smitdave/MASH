@@ -121,7 +121,7 @@ for(tMax in tStart:tEnd){
   }
   # log human event data when simulation completes
   if(tMax == tEnd){
-
+    writeHumanEvent_PfSI(directory = out,fileName = "humanPfSI.json")
   }
 
 }

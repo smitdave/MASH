@@ -276,7 +276,7 @@ setupAquaPop_EL4Pexact <- function(PAR, tol = 0.1, plot = FALSE){
 #' This means that the site-specific density dependent mortality parameter \code{psi} will be fit
 #' to K based on a sampling grid of values for K in log-space. If \code{plot = TRUE}, the linear regression of \code{psi} against logged values of K
 #' should show exact linear dependence, indicating fitted \code{psi} will produce desired level of lambda at equilibrium. Compare with \code{\link{setupAquaPop_EL4Pexact}} which will
-#' fit \code{psi} based on an exact LANDSCAPE.
+#' fit \code{psi} based on an exact LANDSCAPE. This will also return the coefficients of a linear regression of K on psi (see \code{\link{psi2K_cf}}) to give the functional relationship between K and psi.
 #'
 #' @param PAR named list of parameters calculated from \code{\link{makePAR_EL4P}}
 #' @param gridN number of points to sample in K
@@ -321,6 +321,7 @@ setupAquaPop_EL4PsamplePoints <- function(PAR, gridN, tol = 0.1, plot = FALSE){
 
     # regression of psi inverse on K
     cf = psi2K_cf(meshK = AquaPops$meshK,psiHat = PAR$psiOptim,plot = plot, main = "After Optimization")
+    PAR$cf = cf # attach coefficients to convert K to psi to PAR
     if(plot){
       psi2K_plot(lmFit = lm(1/K2psi(AquaPops$meshK,cf)~K+0),K = AquaPops$meshK,psi = K2psi(AquaPops$meshK,cf), main = "After Regression")
       par(mfrow=c(1,1))

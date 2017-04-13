@@ -11,7 +11,6 @@
 # probeHost_PfSI: probeHost called from probing(); defined in MBITES-HostEncounter.R
 # infect a human
 probeHost_PfSI <- function(tBite, ixH, ixS, ixM, Pf){
-  if(NOISY == TRUE){print("probeHost")}
   if(any(Pf$spz)){ # sample a clonal variant if multiple
     PfClonalVar = which(Pf$spz)
     PfIx = sample(x = PfClonalVar, size = 1)
@@ -31,10 +30,8 @@ probeHost_PfSI <- function(tBite, ixH, ixS, ixM, Pf){
 #' @examples
 #' getPfParent_SI(ixH)
 infectiousBite_PfSI <- function(tBite, ixH, ixS, ixM, PfM){
-  if(NOISY == TRUE){print("infectiousBite")}
   if(rbinom(1,1,HUMANS[[ixH]]$Pathogens$Pf$b)){
     tInfStart = tBite + ttInfectionPf() # when does latent -> infected occur
-    if(NOISY == TRUE){print("add2Pedigree")}
     if(PfPedigree_TRACK){
       addPf2Pedigree(tStart = tInfStart, tBite = tBite, ixH = ixH, ixS = ixS, ixM = ixM, PfM = PfM)
     }
@@ -75,7 +72,6 @@ add2Q_simbitePfSI <- function(ixH, t, PAR = NULL){
 #' @examples
 #' getPfParent_SI(ixH)
 event_simbitePfSI <- function(t, PAR){
-  if(NOISY == TRUE) print("adding simbite")
   list(t=t, PAR = PAR, F=simbite_PfSI, tag="simbite_PfSI")
 }
 
@@ -104,17 +100,13 @@ add2Q_startPfSI <- function(ixH, t, pfid){
 }
 
 event_startPfSI <- function(t, pfid){
-  #if(NOISY == TRUE) {print(c(t=t,"adding infection")); browser()}
-  if(NOISY == TRUE) {print(c(t=t,"adding infection"))}
   list(t=t, PAR=list(pfid=pfid), F=infectHuman_PfSI, tag="infectHuman_PfSI")
 }
 
 infectHuman_PfSI <- function(ixH, t, PAR){
-  if(NOISY == TRUE){print("infectHuman")}
   #Infect
   with(PAR,{
     if(HUMANS[[ixH]]$Pathogens$Pf$infected == FALSE & HUMANS[[ixH]]$Pathogens$Pf$chemoprophylaxis == FALSE){
-        if(NOISY==TRUE) print("Infect")
         PfSIHistory(ixH, t, "I")
         HUMANS[[ixH]]$Pathogens$Pf$infected <<- TRUE
         HUMANS[[ixH]]$Pathogens$Pf$t0 <<- t
@@ -138,7 +130,6 @@ add2Q_endPfSI <- function(ixH, t, pfid){
 }
 
 event_endPfSI <- function(t,pfid){
-  if(NOISY == TRUE) print("adding clear infection")
   tE = t+ttClearPf()
   list(t=tE, PAR=pfid, F = endPfSI, tag = "endPfSI")
 }
@@ -146,7 +137,6 @@ event_endPfSI <- function(t,pfid){
 endPfSI <- function(ixH, t, PAR=NULL){
   # Clear
   if(HUMANS[[ixH]]$Pathogens$Pf$infected == TRUE){
-    if(NOISY==TRUE) print("Clear Infection")
     PfSIHistory(ixH, t, "S")
     HUMANS[[ixH]]$Pathogens$Pf$infected <<- FALSE
   }
@@ -162,14 +152,12 @@ add2Q_feverPfSI <- function(ixH, t){
 }
 
 event_feverPfSI <- function(t){
-  if(NOISY == TRUE) print("adding fever")
   ttF = t + ttFeverPf()
   list(t=ttF, PAR=NULL, F=fever_PfSI, tag = "fever_PfSI")
 }
 
 fever_PfSI <- function(ixH, t, PAR=NULL){
   #Fever
-  if(NOISY==TRUE) print("Fever")
   PfSIHistory(ixH, t, "F")
   if(rbinom(1,1,TreatPf)){
     add2Q_treatPfSI(ixH, t)
@@ -186,14 +174,12 @@ add2Q_treatPfSI <- function(ixH, t){
 }
 
 event_treatPfSI <- function(t){
-  if(NOISY==TRUE) print("adding treatment")
   ttT = t+ttTreatPf()
   list(t=ttT, PAR=NULL, F=treat_PfSI, tag = "treat_PfSI")
 }
 
 treat_PfSI <- function(ixH, t, PAR){
   # Treat
-  if(NOISY==TRUE) print("Treat")
   if(HUMANS[[ixH]]$Pathogens$Pf$infected == TRUE){
     HUMANS[[ixH]]$Pathogens$Pf$infected <<- FALSE
     PfSIHistory(ixH, t, "S")
@@ -215,14 +201,12 @@ add2Q_endprophylaxisPfSI <- function(ixH, t){
 }
 
 event_endprophylaxisPfSI <- function(t){
-  if(NOISY==TRUE) print("adding end chemoprophylaxis")
   ttS = t + ttSusceptiblePf()
   list(t=ttS, PAR=NULL, F=endprophylaxis_PfSI, tag = "endprophylaxis_PfSI")
 }
 
 endprophylaxis_PfSI <- function(ixH, t, PAR){
   # End Prophylaxis
-  if(NOISY==TRUE) print("End Prophylaxis")
   PfSIHistory(ixH, t, "S")
   HUMANS[[ixH]]$Pathogens$Pf$chemoprophylaxis <<- FALSE
 }
@@ -312,9 +296,7 @@ lmTest_PfSI <- function(ixH){
 ###################################################################
 
 PfSIHistory <- function(ixH, t, event){
-  if(NOISY == TRUE) ("PfSIHistory")
   if(KeepPfHistory == TRUE){
-    if(NOISY == TRUE) ("Tracking History")
     HUMANS[[ixH]]$Pathogens$Pf$eventT <<- c(HUMANS[[ixH]]$Pathogens$Pf$eventT,t)
     HUMANS[[ixH]]$Pathogens$Pf$events <<- c(HUMANS[[ixH]]$Pathogens$Pf$events,event)
   }
