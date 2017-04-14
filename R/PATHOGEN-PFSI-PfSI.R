@@ -87,7 +87,7 @@ event_simbitePfSI <- function(t, PAR){
 #' simbite_PfSI(ixH, t, PAR)
 simbite_PfSI <- function(ixH, t, PAR){
   with(PAR,{
-    probeHost_PfSI(tBite = t, ixH = ixH, ixS = ixS, ixM = NULL, Pf = PAR)
+    probeHost_PfSI(tBite = t, ixH = ixH, ixS = PfM$ixS, ixM = NULL, Pf = PAR)
   })
 }
 
