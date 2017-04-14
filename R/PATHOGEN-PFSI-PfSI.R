@@ -287,7 +287,7 @@ rdtTest_PfSI <- function(ixH){
 }
 
 lmTest_PfSI <- function(ixH){
- ifelse(HUMANS[[ixH]]$Pathogens$Pf$infected==TRUE,rbinom(1,1,lmSensPf), rbinom(1,1,rdtSpecPf))
+ ifelse(HUMANS[[ixH]]$Pathogens$Pf$infected==TRUE,rbinom(1,1,lmSensPf), rbinom(1,1,lmSpecPf))
 }
 
 

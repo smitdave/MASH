@@ -186,9 +186,8 @@ PFSI.SETUP <- function(
   PfTransmission_TRACK <<- FALSE
 
   # placeholder objects for simulated biting
-  # Pf0 <<- list(spz = 1)
-  # Pf0$PfM[[1]] <<- list(tm=0, ixS=0, ixH=0, damID=0, sireID=0, pfid=0)
-  Pf0 <<- list(spz = TRUE, tm=0, ixS=0, ixH=0, damID=0, sireID=0, pfid=0)
+  Pf0 <<- list(spz = TRUE)
+  Pf0$PfM[[1]] <<- list(tm=0, ixS=0, ixH=0, damID=0, sireID=0, pfid=0)
 
 }
 
