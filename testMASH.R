@@ -141,16 +141,17 @@ close(PfTransmissionCon)
 ##########################################
 
 # import .json data
-bionomics = importBionomics(directory = out)
-history = importHistory(directory = out)
+bionomics = importBionomics(directory = out) # import mosquito bionomics
+history = importHistory(directory = out) # import mosquito event histories
+humanHistory = importHumanEvent_PfSI(directory = out) # import human event histories
 
 # import .csv data
-adults = importAdults(directory = out,fileName = "adults.csv")
-el4p = importEL4P(directory = out,fileName = "el4p.csv")
-egg = importEggQ(directory = out,fileName = "egg.csv")
+adults = importAdults(directory = out,fileName = "adults.csv") # import mosquito adult densities
+el4p = importEL4P(directory = out,fileName = "el4p.csv") # import mosquito aquatic stage densities
+egg = importEggQ(directory = out,fileName = "egg.csv") # import mosquito egg laying densities
 
-PfTransmission = importPfTransmission(directory = out,fileName = "pftransmission.csv")
-PfPedigree = importPfPedigree(directory = out,fileName = "pfpedigree.csv")
+PfTransmission = importPfTransmission(directory = out,fileName = "pftransmission.csv") # import pf transmission histories
+PfPedigree = importPfPedigree(directory = out,fileName = "pfpedigree.csv") # import pf pedigree histories (currently placeholder)
 
 # analyze aquatic dynamics
 plotEL4P(el4p = el4p,egg = egg)
@@ -167,4 +168,4 @@ cohortTrajectory.history(ix = cohortIx[[1]],history = history,cex = 2)
 cohortBionomics.history(bionomics = bionomics,ix = cohortIx[[1]])
 
 # analyze human infection
-pfsiTrajectory()
+plotPfsiTrajectory(history = humanHistory)
