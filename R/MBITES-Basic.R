@@ -283,8 +283,8 @@ myHaz.basic <- function(M,P){
   switch(M$inPointSet,
     f = P$feedHaz.mean,
     l = P$aquaHaz.mean,
-    m = P$sugarHaz.mean,
-    s = P$swarmHaz.mean
+    m = P$swarmHaz.mean,
+    s = P$sugarHaz.mean
   )
 }
 
