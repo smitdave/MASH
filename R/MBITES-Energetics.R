@@ -109,7 +109,7 @@ bloodEnergetics <- function(M,P){
     M$energy = max(1, (M$energy + B.energy))
 
     if(!M$mature){
-      M$energyPreG = M$energyPreG - preGsugar
+      M$energyPreG = M$energyPreG - preGblood
       if(M$energyPreG <= 0){
         M$mature = TRUE
       }
