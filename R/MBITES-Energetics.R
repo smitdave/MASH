@@ -162,7 +162,7 @@ rOverFeed <- function(bmSize, of.a, of.b){
 overFeed <- function(M,P){
   with(P,{
     if(rOverFeed(M$bmSize, of.a, of.b)){
-      M$bStateNew = "D"
+      M$stateNew = "D"
     }
     return(M)
   })
