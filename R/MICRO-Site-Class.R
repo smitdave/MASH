@@ -172,7 +172,10 @@ FeedingSite <- R6::R6Class(classname = "FeedingSite",
 #'
 #' This is a generic site blah blah ...
 #'  This class inherits from \code{\link{Site}} class.
-#'  Defines the fitting algorithm for a regression model \code{A[j] ~ W + ...}.
+#'  below i describe the basic structure of the site. methods and fields for specific COMPONENTS can be found in:
+#' * \code{\link{init.AquaticEcology}}: generic functions and structures for mangaging Aquatic Ecology COMPONENT
+#' * \code{\link{init.Emerge}}: specific functions and structures for 'Emerge' MODULE
+#' @md
 #'
 #' @docType class
 #' @format An \code{\link{R6Class}} generator object
@@ -213,6 +216,8 @@ AquaticSite <- R6::R6Class(classname = "AquaticSite",
                      private$searchWt = searchWt
                      private$lambda = lambda
                      private$haz = haz
+                     private$ImagoQ = allocImagoQ(N = 1e2)
+                     private$EggQ = allocEggQ(N = 1e2)
 
                    },
 

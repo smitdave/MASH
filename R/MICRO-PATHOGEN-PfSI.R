@@ -4,7 +4,7 @@
 #  April 5, 2017
 ########################################
 
-#' Initialize PfSI Module Parameters
+#' Initialize PfSI Module Parameters (Pathogen)
 #'
 #' Generate a list of parameters and define functions in the global environment for PfSI. All arguments have default values which are listed below before the definition.
 #'
@@ -439,7 +439,7 @@ makePf0 <- function(ixH, tBite, ixS = NULL){
 # Add Methods to R6 'Human' and 'HumanPop' Class
 ###################################################################
 
-#' Initialize PfSI-SimBite Module Methods
+#' Initialize PfSI-SimBite Module (Pathogen)
 #'
 #' Initialize methods in \code{\link{Human}} and \code{\link{HumanPop}} classes for simulated biting.
 #' This should be run after calling \code{\link{init.PfSI}} if humans are being simulated as a stand-alone component.
@@ -491,9 +491,9 @@ init.simbitePfSI <- function(){
 
 }
 
-#' Initialize PfSI Module Methods
+#' Initialize PfSI Module (Pathogen)
 #'
-#' Generate a list of parameters and define functions in the global environment for PfSI. All arguments have default values which are listed below before the definition.
+#' Initialize methods in \code{\link{Human}} and \code{\link{HumanPop}} classes for PfSI Pathogen module.
 #'
 #' @param write me
 #' @return write me
@@ -505,9 +505,9 @@ init.PfSI <- function(){
   # setPfSI
   HumanPop$set(which = "public",name = "init_PfSI",
                value = function(){
-                 if(self$verbose){
-                   print(paste0("initializing PfSI PATHOGEN module"))
-                 }
+
+                 print(paste0("initializing PfSI PATHOGEN module"))
+
                  for(i in 1:self$nHum){
                    private$pop[[i]]$setPathogensObject(pathogen = "PfSI")
                  }

@@ -10,8 +10,12 @@ AquaticSite
 }
 \description{
 This is a generic site blah blah ...
- This class inherits from \code{\link{Site}} class.
- Defines the fitting algorithm for a regression model \code{A[j] ~ W + ...}.
+This class inherits from \code{\link{Site}} class.
+below i describe the basic structure of the site. methods and fields for specific COMPONENTS can be found in:
+\itemize{
+\item \code{\link{init.AquaticEcology}}: generic functions and structures for mangaging Aquatic Ecology COMPONENT
+\item \code{\link{init.Emerge}}: specific functions and structures for 'Emerge' MODULE
+}
 }
 \details{
 \itemize{
@@ -24,17 +28,17 @@ This is a generic site blah blah ...
 \section{Methods}{
 
 \describe{
-  \item{\code{new(reg, DataStorageClass.g0, ...)}}{...}
-  \item{\code{fit(data)}}{...}
-  \item{\code{predict(newdata)}}{...}
-  \item{\code{predictAeqa(newdata)}}{...}
+\item{\code{new(reg, DataStorageClass.g0, ...)}}{...}
+\item{\code{fit(data)}}{...}
+\item{\code{predict(newdata)}}{...}
+\item{\code{predictAeqa(newdata)}}{...}
 }
 }
 
 \section{Active Bindings}{
 
 \describe{
-  \item{\code{cats}}{...}
+\item{\code{cats}}{...}
 }
 }
 
