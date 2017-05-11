@@ -46,6 +46,14 @@ init.AquaticEcology <- function(){
             }
   )
 
+  # extend the EggQ
+  AquaticSite$set(which = "public",name = "extendEggQ",
+            value = function(){
+              offset = length(private$EggQ)*2L
+              private$EggQ = c(private$EggQ,replicate(n=offset,expr=eggBatch(),simplify=FALSE))
+            }
+  )
+
   # add a egg batch to the EggQ
   # argument is from eggBatch which should be called in MBITES
   AquaticSite$set(which = "public",name = "addBatch2Q",
@@ -66,8 +74,19 @@ init.AquaticEcology <- function(){
             }
   )
 
-  # get ixQ of full slots: return 0 if none
-  AquaticSite$set(which = "public",name = "fullIxEggQ",
+  # zeroBatch: zero out an egg batch in EggQ
+  AquaticSite$set(which = "public",name = "zeroBatch",
+            value = function(ixQ){
+              private$EggQ[[ixQ]]$N    = 0L
+              private$EggQ[[ixQ]]$tm   = 0
+              private$EggQ[[ixQ]]$ix   = 0L
+              private$EggQ[[ixQ]]$dam  = 0L
+              private$EggQ[[ixQ]]$sire = 0L
+            }
+  )
+
+  # get ixQ of full slots: return 0 if none (ACTIVE BINDING)
+  AquaticSite$set(which = "active",name = "fullIxEggQ",
             value = function(){
               fullIx = vapply(X = private$EggQ,FUN = function(x){x$N != 0L},FUN.VALUE = logical(1))
               if(any(!fullIx)){
@@ -78,8 +97,8 @@ init.AquaticEcology <- function(){
             }
   )
 
-  # get ixQ of empty slots: return 0 if none
-  AquaticSite$set(which = "public",name = "emptyIxEggQ",
+  # get ixQ of empty slots: return 0 if none (ACTIVE BINDING)
+  AquaticSite$set(which = "active",name = "emptyIxEggQ",
             value = function(){
               emptyIx = vapply(X = private$EggQ,FUN = function(x){x$N == 0L},FUN.VALUE = logical(1))
               if(any(!emptyIx)){
@@ -89,6 +108,29 @@ init.AquaticEcology <- function(){
               }
             }
   )
+
+  # modifiers & accessors
+  AquaticSite$set(which = "public",name = "getEggQ",
+            value = function(){return(private$EggQ)}
+  )
+  AquaticSite$set(which = "public",name = "setEggQ",
+            value = function(newEggQ){private$EggQ <- newEggQ}
+  )
+
+  AquaticSite$set(which = "public",name = "getEggQixQ",
+            value = function(ixQ){return(private$EggQ[[ixQ]])}
+  )
+  AquaticSite$set(which = "public",name = "setEggQixQ",
+            value = function(newBatch){private$EggQ[[ixQ]] <- newBatch}
+  )
+
+  # data logging
+  AquaticSite$set(which = "public",name = "getEggQTot",
+            value = function(){
+              return(sum(vapply(X = private$EggQ,FUN = function(x){x$N},FUN.VALUE = integer(1))))
+            }
+  )
+
 
   ###########################
   # Imago Queue

@@ -235,7 +235,9 @@ AquaticSite <- R6::R6Class(classname = "AquaticSite",
                  private = list(
 
                    haz = NULL,    # local hazards
-                   lambda = vector(mode="numeric",length=365) # daily emergence
+                   lambda = vector(mode="numeric",length=365), # daily emergence
+                   ImagoQ = NULL,
+                   EggQ = NULL
 
                  )
 )
