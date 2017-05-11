@@ -19,31 +19,56 @@
 #'
 #' @param directory directory; files will be put in directory/OUTPUT/..
 #' @param fileName name of the file to write to; directory/OUTPUT/fileName.csv
+#' @param overWrite allow overwriting of files in directory/OUTPUT/..? Use with caution. Generally it is reccomended to use \code{\link{clearOutput}} to clear the OUTPUT/.. folder after moving data to a permanant location and prior to running the simulation.
 #' @return nothing
 #' @examples
-#' writeHumanEvent(directory, fileName)
-writeHumanEvent_PfSI <- function(directory, fileName){
-  if(!dir.exists(paste0(directory,"OUTPUT"))){
-    dir.create(paste0(directory))
-    dir.create(paste0(directory,"OUTPUT"))
+#' writeHumanEvent(directory, fileName overWrite = FALSE)
+writeHumanEvent_PfSI <- function (directory, fileName, overWrite = FALSE)
+{
+  if (!dir.exists(paste0(directory, "OUTPUT"))) {
+    dir.create(paste0(directory, "OUTPUT"), recursive = T)
   }
-  if(file.exists(paste0(directory,"OUTPUT/",fileName))){
+  if (!overWrite & file.exists(paste0(directory, "OUTPUT/", fileName))) {
     stop("writeHumanEvent_PfSI cannot write to a file that already exists!")
   }
-
-  con = file(description = paste0(directory,"OUTPUT/",fileName),open = "wt")
-
-  humanHistories = lapply(HUMANS,function(x){
-    list(
-      eventT = x$Pathogens$Pf$eventT,
-      events = x$Pathogens$Pf$events
-    )
+  con = file(description = paste0(directory, "OUTPUT/", fileName),
+             open = "wt")
+  humanHistories = lapply(HUMANS, function(x) {
+    list(eventT = x$Pathogens$Pf$eventT, events = x$Pathogens$Pf$events)
   })
-  humanID = sapply(HUMANS,function(x){x$myID})
-  names(humanHistories) = paste0("human",humanID)
-  writeLines(text = jsonlite::toJSON(x = humanHistories,pretty = TRUE),con = con)
+  humanID = sapply(HUMANS, function(x) {
+    x$myID
+  })
+  names(humanHistories) = paste0("human", humanID)
+  writeLines(text = jsonlite::toJSON(x = humanHistories, pretty = TRUE),
+             con = con)
   close(con)
 }
+
+# writeHumanEvent_PfSI <- function(directory, fileName){
+#   if(!dir.exists(paste0(directory,"OUTPUT"))){
+#     dir.create(paste0(directory))
+#     dir.create(paste0(directory,"OUTPUT"))
+#   }
+#   if(file.exists(paste0(directory,"OUTPUT/",fileName))){
+#     stop("writeHumanEvent_PfSI cannot write to a file that already exists!")
+#   }
+#
+#   con = file(description = paste0(directory,"OUTPUT/",fileName),open = "wt")
+#
+#   humanHistories = lapply(HUMANS,function(x){
+#     list(
+#       eventT = x$Pathogens$Pf$eventT,
+#       events = x$Pathogens$Pf$events
+#     )
+#   })
+#   humanID = sapply(HUMANS,function(x){x$myID})
+#   names(humanHistories) = paste0("human",humanID)
+#   writeLines(text = jsonlite::toJSON(x = humanHistories,pretty = TRUE),con = con)
+#   close(con)
+# }
+
+
 
 #' Reimport Human eventT and events from .json
 #'

@@ -27,7 +27,7 @@ Fit the EL4P Aquatic Ecology module on a sampling grid of K values to match a de
 This means that the site-specific density dependent mortality parameter \code{psi} will be fit
 to K based on a sampling grid of values for K in log-space. If \code{plot = TRUE}, the linear regression of \code{psi} against logged values of K
 should show exact linear dependence, indicating fitted \code{psi} will produce desired level of lambda at equilibrium. Compare with \code{\link{setupAquaPop_EL4Pexact}} which will
-fit \code{psi} based on an exact LANDSCAPE.
+fit \code{psi} based on an exact LANDSCAPE. This will also return the coefficients of a linear regression of K on psi (see \code{\link{psi2K_cf}}) to give the functional relationship between K and psi.
 }
 \examples{
 setupAquaPop_EL4PsamplePoints(PAR, gridN, tol = 0.1, plot = FALSE)
