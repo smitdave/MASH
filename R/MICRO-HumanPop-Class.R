@@ -11,8 +11,8 @@
 #' MICRO-HumanPop Class Definition
 #'
 #' This is a a human population blah blah ...
-#'  categorical summary measure \code{A[j]}. This class inherits from \code{\link{GenericModel}} class.
-#'  Defines the fitting algorithm for a regression model \code{A[j] ~ W + ...}.
+#' 
+#'
 #'
 #' @docType class
 #' @format An \code{\link{R6Class}} generator object
