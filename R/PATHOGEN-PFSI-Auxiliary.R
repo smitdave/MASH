@@ -1,9 +1,14 @@
 #################################################################
 #
-#   Nbinom bites
-#   Sean Wu
-#   May 5, 2017
+#   MASH-MAP relevant functions
+#   Sean Wu & Su Yun Kang
+#   May 19, 2017
 #
+#################################################################
+
+
+#################################################################
+# Simulate Biting Processes with desired statistical properties
 #################################################################
 
 #' Gamma Distributed Biting Rates
@@ -117,4 +122,53 @@ simBites_MeanBites <- function(nH, meanNumberBites, days = 365, shape = 5, plot 
   }
 
   return(bitingTimes)
+}
+
+
+#################################################################
+# Convienience Functions for analysis
+#################################################################
+
+#' Find State Status for Specific Human on Specific Day
+#'
+#' Given a single human history (which can be extracted via \code{\link{convertHumanEvent_PfSI}} or \code{\link{importHumanEvent_PfSI}}),
+#' retrieve their state on that day.
+#'
+#' @param human a single human history
+#' @param day what day
+#' @return character vector of state
+#' @examples
+#' Humans_getInfoDay(human = humanHistories[[1]],day = 1)
+Humans_getInfoDay <- function(human, day) {
+  index <- max(which(human$eventT == max(human$eventT[human$eventT <= day])))
+  human$events[index]
+}
+
+#' Find State Status for All Humans on Specific Day as a data.table
+#'
+#' Given all human histories (which can be extracted via \code{\link{convertHumanEvent_PfSI}} or \code{\link{importHumanEvent_PfSI}}),
+#' retrieve their states on that day as a \code{\link{data.table}}.
+#'
+#' @param human a human history object
+#' @param day what day
+#' @return data.table of states
+#' @examples
+#' Humans_getInfoDay(history = humanHistories,day = 1)
+Humans_collectDay <- function(history, day) {
+  data.table::data.table(day = day, event = sapply(history, getInfoDay, day = day))
+}
+
+#' Return Human State Histories as a data.table
+#'
+#' Given all human histories (which can be extracted via \code{\link{convertHumanEvent_PfSI}} or \code{\link{importHumanEvent_PfSI}}),
+#' retrieve the cohort state histories as a \code{\link{data.table}}.
+#'
+#' @param history a human history object
+#' @param day_integers integer vector of days
+#' @return data.table of states
+#' @examples
+#' Humans_getInfoDay(history = humanHistories,day = -1L:tMax)
+Humans_collectOutput <- function(history, day_integers) {
+  results <- data.table::rbindlist(lapply(day_integers, collectDay, history = history))
+  data.table::dcast(results, day~event, fun.aggregate = length, value.var = "event")
 }
