@@ -155,7 +155,7 @@ Humans_getInfoDay <- function(human, day) {
 #' @examples
 #' Humans_getInfoDay(history = humanHistories,day = 1)
 Humans_collectDay <- function(history, day) {
-  data.table::data.table(day = day, event = sapply(history, getInfoDay, day = day))
+  data.table::data.table(day = day, event = sapply(history, Humans_getInfoDay, day = day))
 }
 
 #' Return Human State Histories as a data.table
@@ -169,6 +169,6 @@ Humans_collectDay <- function(history, day) {
 #' @examples
 #' Humans_getInfoDay(history = humanHistories,day = -1L:tMax)
 Humans_collectOutput <- function(history, day_integers) {
-  results <- data.table::rbindlist(lapply(day_integers, collectDay, history = history))
+  results <- data.table::rbindlist(lapply(day_integers, Humans_collectDay, history = history))
   data.table::dcast(results, day~event, fun.aggregate = length, value.var = "event")
 }
