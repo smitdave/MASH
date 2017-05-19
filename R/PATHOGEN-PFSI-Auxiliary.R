@@ -25,6 +25,7 @@ gammaRates <- function(N, mean = 5,shape = 10){
 #' The biting process for each person is a Poisson process with individual gamma-distributed rates.
 #' Because the negative binomial distribution arises as a compound Poisson-Gamma distribution, it will also arise from independent Poisson processes each with gamma-distributed rates,
 #' because the expected value of a Poisson process is also Poisson.
+#' This calls \code{\link{gammaRates}}.
 #'
 #' @param nH number of humans
 #' @param meanWaitingTime population mean waiting time between bites
@@ -74,6 +75,7 @@ simBites_waitingTime <- function(nH, meanWaitingTime, days = 365, shape = 5, plo
 #' The biting process for each person is a Poisson process with individual gamma-distributed rates.
 #' Because the negative binomial distribution arises as a compound Poisson-Gamma distribution, it will also arise from independent Poisson processes each with gamma-distributed rates,
 #' because the expected value of a Poisson process is also Poisson.
+#' This calls \code{\link{gammaRates}}.
 #'
 #' @param nH number of humans
 #' @param meanNumberBites population mean number of bites (over time period equal to \code{days})

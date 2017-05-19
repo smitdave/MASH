@@ -26,4 +26,5 @@ Simulate a biting process to result in a negative-binomially distributed cumulat
 The biting process for each person is a Poisson process with individual gamma-distributed rates.
 Because the negative binomial distribution arises as a compound Poisson-Gamma distribution, it will also arise from independent Poisson processes each with gamma-distributed rates,
 because the expected value of a Poisson process is also Poisson.
+This calls \code{\link{gammaRates}}.
 }
