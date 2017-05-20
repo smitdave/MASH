@@ -4,6 +4,7 @@
 #  April 5, 2017
 ########################################
 
+
 #' Initialize PfSI Module Parameters (Pathogen)
 #'
 #' Generate a list of parameters PfSI_PAR in \code{\link{Human}} and public methods in \code{\link{Human}}
@@ -97,75 +98,6 @@ PfSI.Setup <- function(
 
 ){
 
-  # Define functions
-  probeHost <<- probeHost_PfSI
-  infectMosquito <<- infectMosquito_PfSI
-
-
-  # Duration of Infection
-  # (How many days does the infection last?)
-  DurationPf <<- DurationPf
-  ttClearPf <<- function(){rexp(1, 1/DurationPf)}
-
-  # Latency:
-  # (How many days after the infectious
-  #  bite does the infection start?)
-  LatentPf <<- LatentPf
-  ttInfectionPf <<- function(){LatentPf}
-
-  # Probability of Fever
-  FeverPf <<- FeverPf
-
-  # Timing of Fever Incident
-  # (relative to start of the infection)
-  mnFeverPf <<- mnFeverPf
-  vrFeverPf <<- vrFeverPf
-  ttFeverPf <<- function(){mnFeverPf}
-
-  # Probability of Treating
-  TreatPf <<- TreatPf
-
-  # Timing of Treatment
-  # (relative to start of the fever)
-  mnTreatPf <<- mnTreatPf
-  ttTreatPf <<- function(){mnTreatPf}
-
-  # Prophylaxis, time to susceptibility
-  mnChemoprophylaxisPf <<- mnChemoprophylaxisPf
-  ttSusceptiblePf <<- function(){mnChemoprophylaxisPf}
-
-  # Proportion Protected by PE Vaccination
-  PEProtectPf <<- PEProtectPf
-
-  # Proportion of infections Blocked
-  peBlockPf <<- peBlockPf
-  mnPEPf <<- mnPEPf
-  vrPEPf <<- vrPEPf
-  ttPEWanePf <<- function(){
-    rnorm(1, mnPEPf, vrPEPf)
-  }
-
-  # Proportion Protected by GS Vaccination
-  GSProtectPf <<- GSProtectPf
-
-  # Proportion of infections Blocked
-  gsBlockPf <<- gsBlockPf
-  mnGSPf <<- mnGSPf
-  vrGSPf <<- vrGSPf
-  ttGSWanePf <<- function(){
-    rnorm(1, PfmeanGSProtect, PfvarGSprotect)
-  }
-
-  #  RDT Probe and Accuracy
-  rdtSensPf <<- rdtSensPf
-  rdtSpecPf <<- rdtSpecPf
-  rdtTest <<- rdtTestPfSI
-
-  #  Light Microscopy Probe and Sensitivity
-  lmSensPf <<- lmSensPf
-  lmSpecPf <<- lmSpecPf
-  lmTest <<- lmTestPfSI
-
   ###################################################################
   # Add PfSI Parameters to 'Human' Class
   ###################################################################
@@ -173,11 +105,31 @@ PfSI.Setup <- function(
   # PfSI_PAR: list of PfSI parameters added to private field of 'Human' class
   Human$set(which = "private",name = "PfSI_PAR",
             value = list(
-              #  all non pathogen stuffs here
-                DurationPf = DurationPf,
-                LatentPf = LatentPf,
-
-              )
+              Pf_c   = Pf_c,
+              Pf_b   = Pf_b,
+              DurationPf = DurationPf,
+              LatentPf = LatentPf,
+              FeverPf = FeverPf,
+              mnFeverPf = mnFeverPf,
+              vrFeverPf = vrFeverPf,
+              TreatPf = TreatPf,
+              mnTreatPf = mnTreatPf,
+              mnChemoprophylaxisPf = mnChemoprophylaxisPf,
+              PEProtectPf = PEProtectPf,
+              peBlockPf = peBlockPf,
+              mnPEPf = mnPEPf,
+              vrPEPf = vrPEPf,
+              GSProtectPf = GSProtectPf,
+              gsBlockPf = gsBlockPf,
+              mnGSPf = mnGSPf,
+              vrGSPf = vrGSPf,
+              rdtSensPf = rdtSensPf,
+              rdtSpecPf = rdtSpecPf,
+              rdtTest = rdtTestPfSI,
+              lmSensPf = lmSensPf,
+              lmSpecPf = lmSpecPf,
+              lmTest = lmTestPfSI
+            )
   )
 
   # getter for PfSI_PAR
@@ -194,8 +146,63 @@ PfSI.Setup <- function(
             }
   )
 
+  ###################################################################
+  # Add PfSI Timing Functions to 'Human' Class
+  ###################################################################
 
+  # Duration of Infection
+  # (How many days does the infection last?)
+  Human$set(which = "public",name = "ttClearPf",
+            value = function(){
+              return(rexp(n = 1, rate = 1/private$PfSI_PAR$DurationPf))
+            }
+  )
 
+  # Latency:
+  # (How many days after the infectious
+  #  bite does the infection start?)
+  Human$set(which = "public",name = "ttInfectionPf",
+            value = function(){
+              return(private$PfSI_PAR$LatentPf)
+            }
+  )
+
+  # Timing of Fever Incident
+  # (relative to start of the infection)
+  Human$set(which = "public",name = "ttFeverPf",
+            value = function(){
+              return(private$PfSI_PAR$mnFeverPf)
+            }
+  )
+
+  # Timing of Treatment
+  # (relative to start of the fever)
+  Human$set(which = "public",name = "ttTreatPf",
+            value = function(){
+              return(private$PfSI_PAR$mnTreatPf)
+            }
+  )
+
+  # Prophylaxis, time to susceptibility
+  Human$set(which = "public",name = "ttSusceptiblePf",
+            value = function(){
+              return(private$PfSI_PAR$mnChemoprophylaxisPf)
+            }
+  )
+
+  # Duration of protection by PE Vaccination
+  Human$set(which = "public",name = "ttPEWanePf",
+            value = function(){
+              return(rnorm(n = 1, mean = private$PfSI_PAR$mnPEPf, sd = private$PfSI_PAR$vrPEPf))
+            }
+  )
+
+  # Duration of protection Blocked by GS Vaccination
+  Human$set(which = "public",name = "ttGSWanePf",
+            value = function(){
+              return(rnorm(n = 1, mean = private$PfSI_PAR$mnGSPf, sd = private$PfSI_PAR$vrGSPf))
+            }
+  )
 
   ###################################################################
   # PfSI: Mosquito to Human infectious bite
@@ -207,7 +214,9 @@ PfSI.Setup <- function(
   # infectiousBite_PfSI
   Human$set(which = "public",name = "infectiousBite_PfSI",
             value = function(tBite, PAR){
-
+              if(runif(1) < private$Pathogens$PfSI_PAR$Pf_b){
+                tInfStart = tBite +
+              }
             }
   )
 
