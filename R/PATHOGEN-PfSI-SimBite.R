@@ -181,37 +181,30 @@ PfSI.Setup <- function(
               )
   )
 
-  Human$set(which = "private",name = "getPfSI.PAR",
+  Human$set(which = "public",name = "getPfSI.PAR",
             value = function(){
               return(private$PfSI.PAR)
             }
   )
 
-  Human$set(which = "private",name = "setPfSI.PAR",
+  Human$set(which = "public",name = "setPfSI.PAR",
             value = function(PfSI.PAR){
               private$PfSI.PAR = PfSI.PAR
             }
   )
 
-  Human$set(which = "private",name = "infectHuman_PfSI",
-            value = function(tEvent, PAR){
-              if(!private$Pathogens$Pf$infected & !private$Pathogens$Pf$chemoprophylaxis){
-                self$trackHist(tEvent = tEvent, event = "I") # track history
-                private$Pathogens$Pf$infected = TRUE
-                private$Pathogens$Pf$PfObj = PfSI$new(PfID = PAR$PfID, damID = PAR$damID, sireID = PAR$sireID, tInf = tEvent)
-                if(runif(1) < private$PfSI.PAR$FeverPf){
 
-                }
-              }
+
+  ###################################################################
+  # Start a PfSI Infection
+  ###################################################################
+
+  # event_startPfSI: begin a PfSI infection
+  Human$set(which = "public",name = "event_startPfSI",
+            value = function(tEvent, PAR = NULL){
+              list(tEvent = tFever, PAR = PAR, tag = "infectHuman_PfSI")
             }
   )
-
-
-  ###################################################################
-  # Fever
-  ###################################################################
-
-
 
   # infectHuman_PfSI
   infectHuman_PfSI <- function(tEvent, PAR, private, self){
@@ -227,21 +220,60 @@ PfSI.Setup <- function(
     }
   }
 
+  Human$set(which = "public",name = "infectHuman_PfSI",
+            value = function(tEvent, PAR){
+              if(!private$Pathogens$Pf$infected & !private$Pathogens$Pf$chemoprophylaxis){
+                self$trackHist(tEvent = tEvent, event = "I") # track history
+                private$Pathogens$Pf$infected = TRUE
+                private$Pathogens$Pf$PfObj = PfSI$new(PfID = PAR$PfID, damID = PAR$damID, sireID = PAR$sireID, tInf = tEvent)
+                if(runif(1) < private$PfSI.PAR$FeverPf){
+
+                }
+              }
+            }
+  )
+
+  # add2Q_startPfSI
+  Human$set(which = "public",name = "add2Q_startPfSI",
+            value = function(tEvent, PAR = NULL){
+              self$addEvent2Q(event = event_startPfSI(tEvent = tEvent, PAR = PAR))
+            }
+  )
 
 
-  # event_feverPfSI
-  event_feverPfSI <- function(tEvent, PAR = NULL){
-    tFever = tEvent + ttFeverPf()
-    list(tEvent = tFever, PAR = PAR, FUN = feverPfSI)
-  }
 
-  # feverPfSI
-  feverPfSI <- function(tEvent, PAR = NULL, private, self){
-    self$trackHist(tEvent = tEvent, event = "F")
-    if(runif(1) < TreatPf){
-      self$add2Q_treatPfSI(tEvent = tEvent)
-    }
-  }
+  ###################################################################
+  # Fever
+  ###################################################################
+
+  Human$set(which = "public",name = "event_feverPfSI",
+            value = function(tEvent, PAR = NULL){
+              tFever = tEvent + self$ttFeverPf()
+              list(tEvent = tFever, PAR = PAR, tag = "feverPfSI")
+            }
+  )
+
+  Human$set(which = "public",name = "feverPfSI",
+            value = function(tEvent, PAR){
+              self$trackHist(tEvent = tEvent, event = "F")
+              if(runif(1) < private$TreatPf){
+                self$add2Q_treatPfSI(tEvent = tEvent)
+              }
+            }
+  )
+
+  Human$set(which = "public",name = "add2Q_feverPfSI",
+            value = function(tEvent, PAR = NULL){
+              self$addEvent2Q(event = self$event_feverPfSI(tEvent = tEvent, PAR = PAR))
+            }
+  )
+
+
+
+
+
+
+
   # add2Q_feverPfSI
   Human$set(which = "public",name = "add2Q_feverPfSI",
             value = function(tEvent, PAR = NULL){
@@ -272,15 +304,7 @@ PfSI.Setup <- function(
 }
 
 
-###################################################################
-# Fever
-###################################################################
 
-# event_feverPfSI
-event_feverPfSI <- function(tEvent, PAR = NULL){
-  tFever = tEvent + ttFeverPf()
-  list(tEvent = tFever, PAR = PAR, FUN = feverPfSI)
-}
 
 
 #' Initialize PfSI Human Infections
