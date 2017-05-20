@@ -115,7 +115,7 @@ FeedingSite <- R6::R6Class(classname = "FeedingSite",
                  # public members
                  public = list(
 
-                  #  initializer
+                  #  initialize
                    initialize = function(ix, siteXY, searchWt, enterP, hazV = 0, hazW = 0, hazI = 0, sugar = 1){
 
                      private$ix = ix

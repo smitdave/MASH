@@ -45,7 +45,7 @@ HumanPop <- R6::R6Class(classname = "HumanPop",
                     # public members
                     public = list(
 
-                      # initializer
+                      # initialize
                       initialize = function(nHum, tStart = 0, hhIDs = NULL, hIDs = NULL, verbose = FALSE){
 
                         if(is.null(hhIDs)){
@@ -79,29 +79,29 @@ HumanPop <- R6::R6Class(classname = "HumanPop",
                       #################################################
 
                       # getPop: retrieve the entire population or a single member
-                      getPop = function(ix = NULL){
-                        if(is.null(ix)){
+                      getHuman = function(ixH = NULL){
+                        if(is.null(ixH)){
                           return(private$pop)
                         } else {
-                          return(private$pop[[ix]])
+                          if(!any(self$hIDs == ixH)){ stop(paste0("index: ",ixH," does not match any ID!"))}
+                          return(private$pop[[ixH]])
                         }
                       },
 
-                      getIx = function(ix){
-                        if(!any(self$hIDs == ix)){
-                          stop(paste0("index ",ix," does not match any ID!"))
+                      # getHistory: retrieve the entire population history or a single human's history
+                      getHistory = function(ixH = NULL){
+                        if(is.null(ixH)){
+                          histories = vector(mode = "list",length = self$nHum)
+                          for(i in 1:self$nHum){
+                            histories[[i]] = private$pop[[i]]$getHistory()
+                          }
+                          return(histories)
+                        } else {
+                          if(!any(self$hIDs == ixH)){ stop(paste0("index: ",ixH," does not match any ID!"))}
+                          return(private$pop[[ixH]]$getHistory())
                         }
-                        return(private$pop[[ix]]$getAll())
                       },
-
-                      getHistories = function(){
-                        histories = vector(mode = "list",length = self$nHum)
-                        for(i in 1:self$nHum){
-                          histories[[i]] = private$pop[[i]]$getHistory()
-                        }
-                        return(histories)
-                      },
-
+                      
                       #################################################
                       # Simulation and Events
                       #################################################

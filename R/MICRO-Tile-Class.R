@@ -40,7 +40,7 @@
 #'   \item{\code{cats}}{...}
 #' }
 #' @export
-Tile <- R6::R6Class(classname = "Patch",
+MicroTile <- R6::R6Class(classname = "MicroTile",
                  portable = TRUE,
                  cloneable = FALSE,
                  lock_class = FALSE,

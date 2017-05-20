@@ -50,7 +50,7 @@ Human <- R6::R6Class(classname="Human",
                      #public members
                      public = list(
 
-                       #initializer
+                       #initialize
                        initialize = function(myID, hhID, bDay){
                          private$myID = myID
                          private$hhID = hhID
@@ -86,6 +86,12 @@ Human <- R6::R6Class(classname="Human",
                        getAlive = function(){
                          return(private$Alive)
                        },
+                       setAlive = function(alive){
+                         if(!is.logical(alive)){
+                           stop("alive must be boolean/logical value")
+                         }
+                         private$Alive = alive
+                       },
 
                        #queueN
                        getqueueN = function(){
@@ -117,6 +123,13 @@ Human <- R6::R6Class(classname="Human",
                        getPublic = function(){
                          return(as.list(self))
                        },
+
+
+
+                      # #  TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING
+                      # killAPerson = function(ixH, Pointers){
+                      #   Pointers$
+                      # }
 
                        #################################################
                        # Event Queue
@@ -187,11 +200,11 @@ Human <- R6::R6Class(classname="Human",
                        # Pathogen Module-specific Functions
                        #################################################
 
-                       setPathogensObject = function(pathogen){
-                         switch(pathogen,
-                                PfSI = {private$Pathogens$Pf = pathOBJ_PfSI()}
-                         )
-                       },
+                      #  setPathogensObject = function(pathogen){
+                      #    switch(pathogen,
+                      #           PfSI = {private$Pathogens$Pf = pathOBJ_PfSI()}
+                      #    )
+                      #  },
 
                        #################################################
                        # Auxiliary Functions

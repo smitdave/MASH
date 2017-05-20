@@ -45,7 +45,7 @@ PfSI <- R6::R6Class(classname="PfSI",
                      #public members
                      public = list(
 
-                       #initializer
+                       #initialize
                        initialize = function(PfID, damID, sireID, tInf, Pf_c = 0.15, Pf_b = 0.55){
                          private$PfID = PfID
                          private$damID = damID
@@ -56,7 +56,7 @@ PfSI <- R6::R6Class(classname="PfSI",
                        },
 
                        ########################################
-                       #  Accessors and Setters
+                       #  Accessors, Pointers, and Setters
                        ########################################
 
                        getPfID = function(){

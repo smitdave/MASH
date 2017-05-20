@@ -50,7 +50,7 @@ Landscape <- R6::R6Class(classname = "Landscape",
                  # public members
                  public = list(
 
-                  #  initializer
+                  #  initialize
                    initialize = function(landscape.PAR){
 
                      with(landscape.PAR,{

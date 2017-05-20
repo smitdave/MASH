@@ -22,7 +22,7 @@
 #' talk about me in detail!
 #' @section public:
 #' \itemize{
-#'   \item{\code{initializer(N)}}{
+#'   \item{\code{initialize(N)}}{
 #'        talk about me!
 #'        }
 #'   \item{\code{function()}}{
@@ -57,7 +57,7 @@
 #'   \item{\code{coolActiveBinding}}{...}
 #' }
 #' @export
-MosyPop <- R6::R6Class(classname = "MosyPop",
+MosquitoPop <- R6::R6Class(classname = "MosquitoPop",
                  portable = TRUE,
                  cloneable = FALSE,
                  lock_class = FALSE,
@@ -66,8 +66,8 @@ MosyPop <- R6::R6Class(classname = "MosyPop",
                  # public methods & fields
                  public = list(
 
-                   # class initializer
-                   initializer = function(nPatches = 10, maxEIP = 10, RMparameters){
+                   # class initialize
+                   initialize = function(nPatches = 10, maxEIP = 10, RMparameters){
 
                       private$maxEIP = maxEIP
                       private$nPatches = nPatches
