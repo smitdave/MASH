@@ -89,11 +89,11 @@ Landscape <- R6::R6Class(classname = "Landscape",
                    },
 
                   #  accessors & modifiers
-                  getFeedingSites = function(){return(private$FeedingSites)},
-                  getAquaSites = function(){return(private$AquaSites)},
+                  get__FeedingSites = function(){return(private$FeedingSites)},
+                  get_AquaSites = function(){return(private$AquaSites)},
 
-                  getFeedingSitesIx = function(ix){return(private$FeedingSites[[ix]])},
-                  getAquaSitesIx = function(ix){return(private$AquaSites[[ix]])}
+                  get_FeedingSitesIx = function(ix){return(private$FeedingSites[[ix]])},
+                  get_AquaSitesIx = function(ix){return(private$AquaSites[[ix]])}
 
                  ),
 

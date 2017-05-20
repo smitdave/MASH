@@ -110,22 +110,22 @@ init.AquaticEcology <- function(){
   )
 
   # modifiers & accessors
-  AquaticSite$set(which = "public",name = "getEggQ",
+  AquaticSite$set(which = "public",name = "get_EggQ",
             value = function(){return(private$EggQ)}
   )
-  AquaticSite$set(which = "public",name = "setEggQ",
+  AquaticSite$set(which = "public",name = "set_EggQ",
             value = function(newEggQ){private$EggQ <- newEggQ}
   )
 
-  AquaticSite$set(which = "public",name = "getEggQixQ",
+  AquaticSite$set(which = "public",name = "get_EggQixQ",
             value = function(ixQ){return(private$EggQ[[ixQ]])}
   )
-  AquaticSite$set(which = "public",name = "setEggQixQ",
+  AquaticSite$set(which = "public",name = "set_EggQixQ",
             value = function(newBatch){private$EggQ[[ixQ]] <- newBatch}
   )
 
   # data logging
-  AquaticSite$set(which = "public",name = "getEggQTot",
+  AquaticSite$set(which = "public",name = "get_EggQTot",
             value = function(){
               return(sum(vapply(X = private$EggQ,FUN = function(x){x$N},FUN.VALUE = integer(1))))
             }

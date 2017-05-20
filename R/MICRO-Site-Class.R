@@ -51,14 +51,14 @@ Site <- R6::R6Class(classname = "Site",
 
                   #  modifiers & accessors
 
-                  getIx = function(){return(private$ix)},
-                  setIx = function(newIx){private$ix <- newIx},
+                  get_ix = function(){return(private$ix)},
+                  set_ix = function(newIx){private$ix <- newIx},
 
-                  getSiteXY = function(){return(private$siteXY)},
-                  setSiteXY = function(newSiteXY){private$siteXY <- newSiteXY},
+                  get_siteXY = function(){return(private$siteXY)},
+                  set_siteXY = function(newSiteXY){private$siteXY <- newSiteXY},
 
-                  getSearchWt = function(){return(private$searchWt)},
-                  setSearchWt = function(newSearchWt){private$searchWt <- newSearchWt}
+                  get_searchWt = function(){return(private$searchWt)},
+                  set_searchWt = function(newSearchWt){private$searchWt <- newSearchWt}
 
                  ),
 
@@ -130,23 +130,23 @@ FeedingSite <- R6::R6Class(classname = "FeedingSite",
                    },
 
                   #  modifiers & accessors
-                  getHazV = function(){return(private$hazV)},
-                  setHazV = function(newHazV){private$hazV <- newHazV},
+                  get_hazV = function(){return(private$hazV)},
+                  set_hazV = function(newHazV){private$hazV <- newHazV},
 
-                  getHazW = function(){return(private$hazW)},
-                  setHazW = function(newHazW){private$hazW <- newHazW},
+                  get_hazW = function(){return(private$hazW)},
+                  set_hazW = function(newHazW){private$hazW <- newHazW},
 
-                  getHazI = function(){return(private$hazI)},
-                  setHazI = function(newHazI){private$hazI <- newHazI},
+                  get_hazI = function(){return(private$hazI)},
+                  set_hazI = function(newHazI){private$hazI <- newHazI},
 
-                  getSugar = function(){return(private$sugar)},
-                  setSugar = function(newSugar){private$sugar <- newSugar},
+                  get_sugar = function(){return(private$sugar)},
+                  set_sugar = function(newSugar){private$sugar <- newSugar},
 
-                  getEnterP = function(){return(private$enterP)},
-                  setEnterP = function(newEnterP){private$enterP <- newEnterP},
+                  get_enterP = function(){return(private$enterP)},
+                  set_enterP = function(newEnterP){private$enterP <- newEnterP},
 
-                  getRiskList = function(){return(private$riskList)},
-                  setRiskList = function(newRiskList){private$riskList <- newRiskList}
+                  get_riskList = function(){return(private$riskList)},
+                  set_riskList = function(newRiskList){private$riskList <- newRiskList}
 
                  ),
 
@@ -222,11 +222,11 @@ AquaticSite <- R6::R6Class(classname = "AquaticSite",
                    },
 
                    #  modifiers & accessors
-                   getHaz = function(){return(private$haz)},
-                   setHaz = function(newHaz){private$haz <- newHaz},
+                   get_haz = function(){return(private$haz)},
+                   set_haz = function(newHaz){private$haz <- newHaz},
 
-                   getLambda = function(){return(private$lambda)},
-                   setLambda = function(newLambda){private$lambda <- newLambda}
+                   get_lambda = function(){return(private$lambda)},
+                   set_lambda = function(newLambda){private$lambda <- newLambda}
 
 
                  ),

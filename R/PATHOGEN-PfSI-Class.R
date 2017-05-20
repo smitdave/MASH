@@ -36,7 +36,7 @@
 #'   \item{\code{cats}}{...}
 #' }
 #' @export
-PfSI <- R6::R6Class(classname="PfSI",
+pathogenPfSI <- R6::R6Class(classname="pathogenPfSI",
                      portable = TRUE,
                      cloneable = FALSE,
                      lock_class = FALSE,
@@ -46,11 +46,11 @@ PfSI <- R6::R6Class(classname="PfSI",
                      public = list(
 
                        #initialize
-                       initialize = function(PfID, damID, sireID, tInf, Pf_c = 0.15, Pf_b = 0.55){
+                       initialize = function(PfID, tInf, damID = NULL, sireID = NULL, Pf_c = 0.15, Pf_b = 0.55){
                          private$PfID = PfID
+                         private$tInf = tInf
                          private$damID = damID
                          private$sireID = sireID
-                         private$tInf = tInf
                          private$Pf_c = Pf_c
                          private$Pf_b = Pf_b
                        },
@@ -59,19 +59,19 @@ PfSI <- R6::R6Class(classname="PfSI",
                        #  Accessors, Pointers, and Setters
                        ########################################
 
-                       getPfID = function(){
+                       get_PfID = function(){
                          return(private$PfID)
                        },
-                       getdamID = function(){
+                       get_damID = function(){
                          return(private$damID)
                        },
-                       getsireID = function(){
+                       get_sireID = function(){
                          return(private$sireID)
                        },
-                       gettInf = function(){
+                       get_tInf = function(){
                          return(private$tInf)
                        },
-                       getPrivate = function(){
+                       get_Private = function(){
                          return(as.list(private))
                        }
 
@@ -80,7 +80,7 @@ PfSI <- R6::R6Class(classname="PfSI",
                      #private members
                      private = list(
 
-                       PfID = NULL,
+                       PfID = NULL, # pathogen ID
                        damID = NULL, # female gametocyte 'mother'
                        sireID = NULL, # male gametocyte 'father'
                        tInf = NULL, # time of infection

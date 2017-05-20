@@ -63,30 +63,30 @@ Human <- R6::R6Class(classname="Human",
                        #################################################
 
                        #myID
-                       getmyID = function(){
+                       get_myID = function(){
                          return(private$myID)
                        },
 
                        #hhID
-                       gethhID = function(){
+                       get_hhID = function(){
                          return(private$hhID)
                        },
 
                        #bDay
-                       getbDay = function(){
+                       get_bDay = function(){
                          return(private$bDay)
                        },
 
                        #eventQ
-                       getEventQ = function(){
+                       get_EventQ = function(){
                          return(private$eventQ)
                        },
 
                        #Alive
-                       getAlive = function(){
+                       get_Alive = function(){
                          return(private$Alive)
                        },
-                       setAlive = function(alive){
+                       set_Alive = function(alive){
                          if(!is.logical(alive)){
                            stop("alive must be boolean/logical value")
                          }
@@ -94,12 +94,12 @@ Human <- R6::R6Class(classname="Human",
                        },
 
                        #queueN
-                       getqueueN = function(){
+                       get_queueN = function(){
                          return(private$queueN)
                        },
 
                        # history
-                       getHistory = function(){
+                       get_History = function(){
                          list(
                            events = private$events,
                            eventT = private$eventT
@@ -107,27 +107,27 @@ Human <- R6::R6Class(classname="Human",
                        },
 
                        # Pathogens
-                       getPf = function(){
+                       get_Pf = function(){
                          return(private$Pathogens$Pf)
                        },
 
-                       getPv = function(){
+                       get_Pv = function(){
                          return(private$Pathogens$Pv)
                        },
 
                        # accessors
-                       getPrivate = function(){
+                       get_Private = function(){
                          return(as.list(private))
                        },
 
-                       getPublic = function(){
+                       get_Public = function(){
                          return(as.list(self))
                        },
 
                       # # #  TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING
                       # killAPerson = function(ixH, Pointers){
-                      #   Pointers$pointHumanPop()$getHuman(ixH)$setAlive(alive = FALSE)
-                      #   print(paste0("human: ",self$getmyID()," has just killed human: ",ixH,", the proof is: ",Pointers$pointHumanPop()$getHuman(ixH)$getAlive()))
+                      #   Pointers$pointHumanPop()$get_Human(ixH)$set_Alive(alive = FALSE)
+                      #   print(paste0("human: ",self$get_myID()," has just killed human: ",ixH,", the proof is: ",Pointers$pointHumanPop()$get_Human(ixH)$get_Alive()))
                       # },
 
                        #################################################
@@ -199,7 +199,7 @@ Human <- R6::R6Class(classname="Human",
                        # Pathogen Module-specific Functions
                        #################################################
 
-                      #  setPathogensObject = function(pathogen){
+                      #  set_PathogensObject = function(pathogen){
                       #    switch(pathogen,
                       #           PfSI = {private$Pathogens$Pf = pathOBJ_PfSI()}
                       #    )

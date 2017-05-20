@@ -66,7 +66,7 @@ Patch <- R6::R6Class(classname = "Patch",
                    #  Accessors, Pointers, and Setters
                    ########################################
 
-                   getkappa = function(){
+                   get_kappa = function(){
                      return(private$kappa)
                    }
 

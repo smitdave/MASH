@@ -78,8 +78,8 @@ HumanPop <- R6::R6Class(classname = "HumanPop",
                       # Accessor Methods
                       #################################################
 
-                      # getPop: retrieve the entire population or a single member
-                      getHuman = function(ixH = NULL){
+                      # get_Pop: retrieve the entire population or a single member
+                      get_Human = function(ixH = NULL){
                         if(is.null(ixH)){
                           return(private$pop)
                         } else {
@@ -88,20 +88,20 @@ HumanPop <- R6::R6Class(classname = "HumanPop",
                         }
                       },
 
-                      # getHistory: retrieve the entire population history or a single human's history
-                      getHistory = function(ixH = NULL){
+                      # get_History: retrieve the entire population history or a single human's history
+                      get_History = function(ixH = NULL){
                         if(is.null(ixH)){
                           histories = vector(mode = "list",length = self$nHum)
                           for(i in 1:self$nHum){
-                            histories[[i]] = private$pop[[i]]$getHistory()
+                            histories[[i]] = private$pop[[i]]$get_History()
                           }
                           return(histories)
                         } else {
                           if(!any(self$hIDs == ixH)){ stop(paste0("index: ",ixH," does not match any ID!"))}
-                          return(private$pop[[ixH]]$getHistory())
+                          return(private$pop[[ixH]]$get_History())
                         }
                       },
-                      
+
                       #################################################
                       # Simulation and Events
                       #################################################

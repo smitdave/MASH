@@ -6,7 +6,7 @@
 
 #' Initialize PfSI Module Parameters (Pathogen)
 #'
-#' Generate a list of parameters and define functions in the global environment for PfSI. All arguments have default values which are listed below before the definition.
+#' Generate a list of parameters PfSI.PAR in \code{\link{Human}} and public methods in \code{\link{Human}}
 #'
 #' @param Pf_c 0.15; transmission efficiency: infected human to mosquito
 #' @param Pf_b 0.55; transmission efficiency: infected mosquito to human
@@ -30,11 +30,11 @@
 #' @param rdtSpecPf 0.1; RDT specificity
 #' @param lmSensPf 0.9; Light Microscopy sensitivity
 #' @param lmSpecPf 0.1; Light Microscopy specificity
-#' @return define functions and parameters in global environment
+#' @return Defines a field (list) PfSI.PAR in \code{\link{HumanPop}} and public methods in \code{\link{Human}}
 #' @examples
-#' PFSI.SETUP()
+#' PfSI.Setup()
 #' @export
-PFSI.SETUP <- function(
+PfSI.Setup <- function(
 
   ########################################
   #  Parameters
@@ -101,9 +101,6 @@ PFSI.SETUP <- function(
   probeHost <<- probeHost_PfSI
   infectMosquito <<- infectMosquito_PfSI
 
-  # Transmission efficiency
-  Pf_c   <<- Pf_c
-  Pf_b   <<- Pf_b
 
   # Duration of Infection
   # (How many days does the infection last?)
@@ -168,6 +165,133 @@ PFSI.SETUP <- function(
   lmSensPf <<- lmSensPf
   lmSpecPf <<- lmSpecPf
   lmTest <<- lmTestPfSI
+
+  ###################################################################
+  # Add PfSI Parameters to 'Human' Class
+  ###################################################################
+
+  # PfSI.PAR: list of PfSI parameters added to private field of 'Human' class
+  Human$set(which = "private",name = "PfSI.PAR",
+            value = list(
+              #  all non pathogen stuffs here
+                DurationPf <<- DurationPf,
+                LatentPf <<- LatentPf,
+
+              )
+  )
+
+  # getter for PfSI.PAR
+  Human$set(which = "public",name = "get_PfSI.PAR",
+            value = function(){
+              return(private$PfSI.PAR)
+            }
+  )
+
+  # setter for PfSI.PAR
+  Human$set(which = "public",name = "set_PfSI.PAR",
+            value = function(PfSI.PAR){
+              private$PfSI.PAR = PfSI.PAR
+            }
+  )
+
+
+  ###################################################################
+  # Add PfSI Events to 'Human' Class
+  ###################################################################
+
+  ###################################################################
+  # Start a PfSI Infection
+  ###################################################################
+
+  # event_infectHumanPfSI: begin a PfSI infection
+  Human$set(which = "public",name = "event_infectHumanPfSI",
+            value = function(tEvent, PAR = NULL){
+              list(tEvent = tFever, PAR = PAR, tag = "infectHumanPfSI")
+            }
+  )
+
+  # infectHumanPfSI
+  Human$set(which = "public",name = "infectHumanPfSI",
+            value = function(tEvent, PAR){
+              if(!private$Pathogens$Pf$infected & !private$Pathogens$Pf$chemoprophylaxis){
+                self$trackHist(tEvent = tEvent, event = "I") # track history
+                private$Pathogens$Pf$infected = TRUE
+                private$Pathogens$Pf$PfObj = PfSI$new(PfID = PAR$PfID, damID = PAR$damID, sireID = PAR$sireID, tInf = tEvent)
+                if(runif(1) < private$PfSI.PAR$FeverPf){
+                    self$add2Q_feverPfSI(tEvent = tEvent)
+                }
+                self$add2Q_endPfSI(tEvent = tEvent)
+              }
+            }
+  )
+
+  # add2Q_infectHumanPfSI
+  Human$set(which = "public",name = "add2Q_infectHumanPfSI",
+            value = function(tEvent, PAR = NULL){
+              self$addEvent2Q(event = self$event_infectHumanPfSI(tEvent = tEvent, PAR = PAR))
+            }
+  )
+
+
+
+  ###################################################################
+  # Fever
+  ###################################################################
+
+  Human$set(which = "public",name = "event_feverPfSI",
+            value = function(tEvent, PAR = NULL){
+              tFever = tEvent + self$ttFeverPf()
+              list(tEvent = tFever, PAR = PAR, tag = "feverPfSI")
+            }
+  )
+
+  Human$set(which = "public",name = "feverPfSI",
+            value = function(tEvent, PAR){
+              self$trackHist(tEvent = tEvent, event = "F")
+              if(runif(1) < private$TreatPf){
+                self$add2Q_treatPfSI(tEvent = tEvent)
+              }
+            }
+  )
+
+  Human$set(which = "public",name = "add2Q_feverPfSI",
+            value = function(tEvent, PAR = NULL){
+              self$addEvent2Q(event = self$event_feverPfSI(tEvent = tEvent, PAR = PAR))
+            }
+  )
+
+
+
+
+
+
+
+  # add2Q_feverPfSI
+  Human$set(which = "public",name = "add2Q_feverPfSI",
+            value = function(tEvent, PAR = NULL){
+              self$addEvent2Q(event = event_feverPfSI(tEvent = tEvent, PAR = PAR))
+            }
+  )
+
+
+  HumanPop$set(which = "private",name = "init.PfSI",
+
+            value = function(PfPR){
+
+              PfID = 1L
+              for(ixH in 1:self$nHum){
+
+                if(runif(1) < PfPR){
+
+                  PfID = PfID + 1L
+                } else {
+                  private$pop[[ix]]$trackHist(tEvent = 0, event = "S")
+                }
+
+              }
+
+            }
+  )
 
 }
 

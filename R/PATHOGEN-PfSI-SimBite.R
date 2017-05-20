@@ -39,301 +39,34 @@
 #' @examples
 #' SimBite.PfSI.Parameters()
 #' @export
-PfSI.Setup <- function(
-
-  ########################################
-  #  Parameters
-  ########################################
-
-  # Transmission efficiency
-  Pf_c   = 0.15,
-  Pf_b   = 0.55,
-
-  # Duration of Infection
-  # (How many days does the infection last?)
-  DurationPf = 200,
-
-  # Latency:
-  # (How many days after the infectious
-  #  bite does the infection start?)
-  LatentPf = 10,
-
-  # Probability of Fever
-  FeverPf = 0.3,
-
-  # Timing of Fever Incident
-  # (relative to start of the infection)
-  mnFeverPf = 10,
-  vrFeverPf = .1,
-
-  # Probability of Treating
-  TreatPf = .5,
-
-  # Timing of Treatment
-  # (relative to start of the fever)
-  mnTreatPf = 1,
-
-  # Prophylaxis, time to susceptibility
-  mnChemoprophylaxisPf = 32,
-
-  # Proportion Protected by PE Vaccination
-  PEProtectPf = .99,
-
-  # Proportion of infections Blocked
-  peBlockPf = 1,
-  mnPEPf = 270,
-  vrPEPf = 50,
-
-  # Proportion Protected by GS Vaccination
-  GSProtectPf = 1,
-
-  # Proportion of infections Blocked
-  gsBlockPf = .9,
-  mnGSPf = 180,
-  vrGSPf = 20,
-
-  #  RDT Probe and Accuracy
-  rdtSensPf  = .9,
-  rdtSpecPf  = .1,
-
-  #  Light Microscopy Probe and Sensitivity
-  lmSensPf  = .9,
-  lmSpecPf  = .1
-
+SimBitePfSI.Setup <- function(
+  N = NULL
 ){
 
-  # Define functions
-  probeHost <<- probeHost_PfSI
-  infectMosquito <<- infectMosquito_PfSI
-
-
-  # Duration of Infection
-  # (How many days does the infection last?)
-  DurationPf <<- DurationPf
-  ttClearPf <<- function(){rexp(1, 1/DurationPf)}
-
-  # Latency:
-  # (How many days after the infectious
-  #  bite does the infection start?)
-  LatentPf <<- LatentPf
-  ttInfectionPf <<- function(){LatentPf}
-
-  # Probability of Fever
-  FeverPf <<- FeverPf
-
-  # Timing of Fever Incident
-  # (relative to start of the infection)
-  mnFeverPf <<- mnFeverPf
-  vrFeverPf <<- vrFeverPf
-  ttFeverPf <<- function(){mnFeverPf}
-
-  # Probability of Treating
-  TreatPf <<- TreatPf
-
-  # Timing of Treatment
-  # (relative to start of the fever)
-  mnTreatPf <<- mnTreatPf
-  ttTreatPf <<- function(){mnTreatPf}
-
-  # Prophylaxis, time to susceptibility
-  mnChemoprophylaxisPf <<- mnChemoprophylaxisPf
-  ttSusceptiblePf <<- function(){mnChemoprophylaxisPf}
-
-  # Proportion Protected by PE Vaccination
-  PEProtectPf <<- PEProtectPf
-
-  # Proportion of infections Blocked
-  peBlockPf <<- peBlockPf
-  mnPEPf <<- mnPEPf
-  vrPEPf <<- vrPEPf
-  ttPEWanePf <<- function(){
-    rnorm(1, mnPEPf, vrPEPf)
-  }
-
-  # Proportion Protected by GS Vaccination
-  GSProtectPf <<- GSProtectPf
-
-  # Proportion of infections Blocked
-  gsBlockPf <<- gsBlockPf
-  mnGSPf <<- mnGSPf
-  vrGSPf <<- vrGSPf
-  ttGSWanePf <<- function(){
-    rnorm(1, PfmeanGSProtect, PfvarGSprotect)
-  }
-
-  #  RDT Probe and Accuracy
-  rdtSensPf <<- rdtSensPf
-  rdtSpecPf <<- rdtSpecPf
-  rdtTest <<- rdtTestPfSI
-
-  #  Light Microscopy Probe and Sensitivity
-  lmSensPf <<- lmSensPf
-  lmSpecPf <<- lmSpecPf
-  lmTest <<- lmTestPfSI
-
-  # add2Q_startPfSI
-  Human$set(which = "private",name = "PfSI.PAR",
-            value = list(
-              #  all non pathogen stuffs here
-                DurationPf <<- DurationPf,
-                LatentPf <<- LatentPf,
-
-              )
-  )
-
-  Human$set(which = "public",name = "getPfSI.PAR",
-            value = function(){
-              return(private$PfSI.PAR)
-            }
-  )
-
-  Human$set(which = "public",name = "setPfSI.PAR",
-            value = function(PfSI.PAR){
-              private$PfSI.PAR = PfSI.PAR
-            }
-  )
-
-
-
   ###################################################################
-  # Start a PfSI Infection
+  # Simulated biting
   ###################################################################
 
-  # event_startPfSI: begin a PfSI infection
-  Human$set(which = "public",name = "event_startPfSI",
+  # event_simbitePfSI: simulated bite event
+  Human$set(which = "public",name = "event_simbitePfSI",
             value = function(tEvent, PAR = NULL){
-              list(tEvent = tFever, PAR = PAR, tag = "infectHuman_PfSI")
+              list(tEvent = tEvent, PAR = PAR, tag = "simbitePfSI")
             }
   )
 
-  # infectHuman_PfSI
-  infectHuman_PfSI <- function(tEvent, PAR, private, self){
-    if(!private$Pathogens$Pf$infected & !private$Pathogens$Pf$chemoprophylaxis){
-      self$trackHist(tEvent = tEvent, event = "I")
-      private$Pathogens$Pf$infected = TRUE
-      private$Pathogens$Pf$t0 = tEvent
-      private$Pathogens$Pf$pfid = PAR$pfid
-      if(runif(1) < FeverPf){
-        self$add2Q_feverPfSI(tEvent = tEvent)
-      }
-      self$add2Q_endPfSI(tEvent = tEvent)
-    }
-  }
-
-  Human$set(which = "public",name = "infectHuman_PfSI",
+  # simbitePfSI
+  Human$set(which = "public",name = "simbitePfSI",
             value = function(tEvent, PAR){
-              if(!private$Pathogens$Pf$infected & !private$Pathogens$Pf$chemoprophylaxis){
-                self$trackHist(tEvent = tEvent, event = "I") # track history
-                private$Pathogens$Pf$infected = TRUE
-                private$Pathogens$Pf$PfObj = PfSI$new(PfID = PAR$PfID, damID = PAR$damID, sireID = PAR$sireID, tInf = tEvent)
-                if(runif(1) < private$PfSI.PAR$FeverPf){
-                  dsfgsdfgdsf3213213213132132132123dsfgsdfgdsf3213213213132132132123dsfgsdfgdsf3213213213132132132123dsfgsdfgdsf3213213213132132132123dsfgsdfgdsf3213213213132132132123dsfgsdfgdsf3213213213132132132123
-                }
-              }
+              # self$probeHost_PfSI()
             }
   )
 
-  # add2Q_startPfSI
-  Human$set(which = "public",name = "add2Q_startPfSI",
+  # add2Q_simbitePfSI
+  Human$set(which = "public",name = "add2Q_simbitePfSI",
             value = function(tEvent, PAR = NULL){
-              self$addEvent2Q(event = event_startPfSI(tEvent = tEvent, PAR = PAR))
+              self$addEvent2Q(event = self$event_infectHumanPfSI(tEvent = tEvent, PAR = PAR))
             }
   )
 
 
-
-  ###################################################################
-  # Fever
-  ###################################################################
-
-  Human$set(which = "public",name = "event_feverPfSI",
-            value = function(tEvent, PAR = NULL){
-              tFever = tEvent + self$ttFeverPf()
-              list(tEvent = tFever, PAR = PAR, tag = "feverPfSI")
-            }
-  )
-
-  Human$set(which = "public",name = "feverPfSI",
-            value = function(tEvent, PAR){
-              self$trackHist(tEvent = tEvent, event = "F")
-              if(runif(1) < private$TreatPf){
-                self$add2Q_treatPfSI(tEvent = tEvent)
-              }
-            }
-  )
-
-  Human$set(which = "public",name = "add2Q_feverPfSI",
-            value = function(tEvent, PAR = NULL){
-              self$addEvent2Q(event = self$event_feverPfSI(tEvent = tEvent, PAR = PAR))
-            }
-  )
-
-
-
-
-
-
-
-  # add2Q_feverPfSI
-  Human$set(which = "public",name = "add2Q_feverPfSI",
-            value = function(tEvent, PAR = NULL){
-              self$addEvent2Q(event = event_feverPfSI(tEvent = tEvent, PAR = PAR))
-            }
-  )
-
-
-  HumanPop$set(which = "private",name = "init.PfSI",
-
-            value = function(PfPR){
-
-              PfID = 1L
-              for(ixH in 1:self$nHum){
-
-                if(runif(1) < PfPR){
-
-                  PfID = PfID + 1L
-                } else {
-                  private$pop[[ix]]$trackHist(tEvent = 0, event = "S")
-                }
-
-              }
-
-            }
-  )
-
-}
-
-
-
-
-
-#' Initialize PfSI Human Infections
-#'
-#' Initialize PfSI module infections in the human population (requires \code{HUMANS} to be defined in the global environment)
-#' \code{PFSI.SETUP()} should be called prior to initializing human infections.
-#'
-#' @param PfPR initial parasite prevalence in the human population
-#' @return modify \code{HUMANS} object in global environment
-#' @examples
-#' PFSI.INIT()
-PFSI.INIT <- function(PfPR){
-  if(exists(x = "LANDSCAPE",where = .GlobalEnv)){
-    if(length(HUMANS)!=LANDSCAPE$nH){
-      stop("HUMANS object not equal to LANDSCAPE$nH")
-    }
-  }
-  if(!exists(x = "tStart",where = .GlobalEnv)){
-    print(paste0("tStart not defined globally; setting initial infection times to 0"))
-    tStart = 0
-  }
-  PfID <<- 1
-  for(ixH in 1:length(HUMANS)){
-    HUMANS[[ixH]]$Pathogens$Pf <<- pathOBJ_PfSI()
-    if(runif(1) < PfPR){
-      infectHuman_PfSI(ixH = ixH,t = tStart,PAR = list(pfid = PfID))
-      PfID <<- PfID + 1
-    } else {
-      PfSIHistory(ixH = ixH,t = tStart,event = "S")
-    }
-  }
 }
