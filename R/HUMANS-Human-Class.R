@@ -124,12 +124,11 @@ Human <- R6::R6Class(classname="Human",
                          return(as.list(self))
                        },
 
-
-
-                      # #  TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING
+                      # # #  TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING
                       # killAPerson = function(ixH, Pointers){
-                      #   Pointers$
-                      # }
+                      #   Pointers$pointHumanPop()$getHuman(ixH)$setAlive(alive = FALSE)
+                      #   print(paste0("human: ",self$getmyID()," has just killed human: ",ixH,", the proof is: ",Pointers$pointHumanPop()$getHuman(ixH)$getAlive()))
+                      # },
 
                        #################################################
                        # Event Queue
