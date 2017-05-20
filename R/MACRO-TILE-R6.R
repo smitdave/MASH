@@ -68,7 +68,7 @@ MacroTile <- R6::R6Class(classname = "MacroTile",
                   #
                   #  }
 
-                  Pointers = function(){
+                  get_Pointers = function(){
                     return(private$Pointers)
                   }
 

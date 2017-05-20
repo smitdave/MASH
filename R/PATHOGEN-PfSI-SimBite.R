@@ -11,7 +11,7 @@
 
 #' Initialize SimBite PfSI Module Parameters (Pathogen)
 #'
-#' Generate a list of parameters PfSI.PAR in \code{\link{HumanPop}} and public methods in \code{\link{Human}}
+#' Generate a list of parameters PfSI_PAR in \code{\link{HumanPop}} and public methods in \code{\link{Human}}
 #'
 #' @param Pf_c 0.15; transmission efficiency: infected human to mosquito
 #' @param Pf_b 0.55; transmission efficiency: infected mosquito to human
@@ -35,9 +35,9 @@
 #' @param rdtSpecPf 0.1; RDT specificity
 #' @param lmSensPf 0.9; Light Microscopy sensitivity
 #' @param lmSpecPf 0.1; Light Microscopy specificity
-#' @return Defines a field (list) PfSI.PAR in \code{\link{HumanPop}} and public methods in \code{\link{Human}}
+#' @return Defines a field (list) PfSI_PAR in \code{\link{HumanPop}} and public methods in \code{\link{Human}}
 #' @examples
-#' SimBite.PfSI.Parameters()
+#' SimBite.PfSI_PARameters()
 #' @export
 SimBitePfSI.Setup <- function(
   N = NULL

@@ -6,7 +6,7 @@
 
 #' Initialize PfSI Module Parameters (Pathogen)
 #'
-#' Generate a list of parameters PfSI.PAR in \code{\link{Human}} and public methods in \code{\link{Human}}
+#' Generate a list of parameters PfSI_PAR in \code{\link{Human}} and public methods in \code{\link{Human}}
 #'
 #' @param Pf_c 0.15; transmission efficiency: infected human to mosquito
 #' @param Pf_b 0.55; transmission efficiency: infected mosquito to human
@@ -30,7 +30,7 @@
 #' @param rdtSpecPf 0.1; RDT specificity
 #' @param lmSensPf 0.9; Light Microscopy sensitivity
 #' @param lmSpecPf 0.1; Light Microscopy specificity
-#' @return Defines a field (list) PfSI.PAR in \code{\link{HumanPop}} and public methods in \code{\link{Human}}
+#' @return Defines a field (list) PfSI_PAR in \code{\link{HumanPop}} and public methods in \code{\link{Human}}
 #' @examples
 #' PfSI.Setup()
 #' @export
@@ -170,27 +170,44 @@ PfSI.Setup <- function(
   # Add PfSI Parameters to 'Human' Class
   ###################################################################
 
-  # PfSI.PAR: list of PfSI parameters added to private field of 'Human' class
-  Human$set(which = "private",name = "PfSI.PAR",
+  # PfSI_PAR: list of PfSI parameters added to private field of 'Human' class
+  Human$set(which = "private",name = "PfSI_PAR",
             value = list(
               #  all non pathogen stuffs here
-                DurationPf <<- DurationPf,
-                LatentPf <<- LatentPf,
+                DurationPf = DurationPf,
+                LatentPf = LatentPf,
 
               )
   )
 
-  # getter for PfSI.PAR
-  Human$set(which = "public",name = "get_PfSI.PAR",
+  # getter for PfSI_PAR
+  Human$set(which = "public",name = "get_PfSI_PAR",
             value = function(){
-              return(private$PfSI.PAR)
+              return(private$PfSI_PAR)
             }
   )
 
-  # setter for PfSI.PAR
-  Human$set(which = "public",name = "set_PfSI.PAR",
-            value = function(PfSI.PAR){
-              private$PfSI.PAR = PfSI.PAR
+  # setter for PfSI_PAR
+  Human$set(which = "public",name = "set_PfSI_PAR",
+            value = function(PfSI_PAR){
+              private$PfSI_PAR = PfSI_PAR
+            }
+  )
+
+
+
+
+  ###################################################################
+  # PfSI: Mosquito to Human infectious bite
+  # Add methods to 'Human' and 'MosquitoFemale' Classes
+  ###################################################################
+
+  # probeHost_PfSI ADD METHOD TO MosquitoFemale CLASS
+
+  # infectiousBite_PfSI
+  Human$set(which = "public",name = "infectiousBite_PfSI",
+            value = function(tBite, PAR){
+
             }
   )
 
@@ -217,7 +234,7 @@ PfSI.Setup <- function(
                 self$trackHist(tEvent = tEvent, event = "I") # track history
                 private$Pathogens$Pf$infected = TRUE
                 private$Pathogens$Pf$PfObj = PfSI$new(PfID = PAR$PfID, damID = PAR$damID, sireID = PAR$sireID, tInf = tEvent)
-                if(runif(1) < private$PfSI.PAR$FeverPf){
+                if(runif(1) < private$PfSI_PAR$FeverPf){
                     self$add2Q_feverPfSI(tEvent = tEvent)
                 }
                 self$add2Q_endPfSI(tEvent = tEvent)
