@@ -46,13 +46,34 @@ PfSI <- R6::R6Class(classname="PfSI",
                      public = list(
 
                        #initializer
-                       initialize = function(PfID){
+                       initialize = function(PfID, damID, sireID, tInf, Pf_c = 0.15, Pf_b = 0.55){
                          private$PfID = PfID
-                         private$hhID = hhID
-                         private$bDay = bDay
+                         private$damID = damID
+                         private$sireID = sireID
+                         private$tInf = tInf
+                         private$Pf_c = Pf_c
+                         private$Pf_b = Pf_b
                        },
 
+                       ########################################
+                       #  Accessors and Setters
+                       ########################################
 
+                       getPfID = function(){
+                         return(private$PfID)
+                       },
+                       getdamID = function(){
+                         return(private$damID)
+                       },
+                       getsireID = function(){
+                         return(private$sireID)
+                       },
+                       gettInf = function(){
+                         return(private$tInf)
+                       },
+                       getPrivate = function(){
+                         return(as.list(private))
+                       }
 
                      ),
 
@@ -61,8 +82,10 @@ PfSI <- R6::R6Class(classname="PfSI",
 
                        PfID = NULL,
                        damID = NULL, # female gametocyte 'mother'
-                       sireID = NULL, # male gametocyte 'father' 
-
+                       sireID = NULL, # male gametocyte 'father'
+                       tInf = NULL, # time of infection
+                       Pf_c = NULL, # transmission efficiency: infected human to mosquito
+                       Pf_b = NULL # transmission efficiency: infected mosquito to human
 
                      )
 

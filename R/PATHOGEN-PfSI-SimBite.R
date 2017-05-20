@@ -39,7 +39,7 @@
 #' @examples
 #' SimBite.PfSI.Parameters()
 #' @export
-SimBite.PfSI.Parameters <- function(
+PfSI.Setup <- function(
 
   ########################################
   #  Parameters
@@ -174,9 +174,7 @@ SimBite.PfSI.Parameters <- function(
   # add2Q_startPfSI
   Human$set(which = "private",name = "PfSI.PAR",
             value = list(
-                # Transmission efficiency
-                Pf_c = Pf_c,
-                Pf_b = Pf_b,
+              #  all non pathogen stuffs here
                 DurationPf <<- DurationPf,
                 LatentPf <<- LatentPf,
 
@@ -195,4 +193,123 @@ SimBite.PfSI.Parameters <- function(
             }
   )
 
+  Human$set(which = "private",name = "infectHuman_PfSI",
+            value = function(tEvent, PAR){
+              if(!private$Pathogens$Pf$infected & !private$Pathogens$Pf$chemoprophylaxis){
+                self$trackHist(tEvent = tEvent, event = "I") # track history
+                private$Pathogens$Pf$infected = TRUE
+                private$Pathogens$Pf$PfObj = PfSI$new(PfID = PAR$PfID, damID = PAR$damID, sireID = PAR$sireID, tInf = tEvent)
+                if(runif(1) < private$PfSI.PAR$FeverPf){
+
+                }
+              }
+            }
+  )
+
+
+  ###################################################################
+  # Fever
+  ###################################################################
+
+
+
+  # infectHuman_PfSI
+  infectHuman_PfSI <- function(tEvent, PAR, private, self){
+    if(!private$Pathogens$Pf$infected & !private$Pathogens$Pf$chemoprophylaxis){
+      self$trackHist(tEvent = tEvent, event = "I")
+      private$Pathogens$Pf$infected = TRUE
+      private$Pathogens$Pf$t0 = tEvent
+      private$Pathogens$Pf$pfid = PAR$pfid
+      if(runif(1) < FeverPf){
+        self$add2Q_feverPfSI(tEvent = tEvent)
+      }
+      self$add2Q_endPfSI(tEvent = tEvent)
+    }
+  }
+
+
+
+  # event_feverPfSI
+  event_feverPfSI <- function(tEvent, PAR = NULL){
+    tFever = tEvent + ttFeverPf()
+    list(tEvent = tFever, PAR = PAR, FUN = feverPfSI)
+  }
+
+  # feverPfSI
+  feverPfSI <- function(tEvent, PAR = NULL, private, self){
+    self$trackHist(tEvent = tEvent, event = "F")
+    if(runif(1) < TreatPf){
+      self$add2Q_treatPfSI(tEvent = tEvent)
+    }
+  }
+  # add2Q_feverPfSI
+  Human$set(which = "public",name = "add2Q_feverPfSI",
+            value = function(tEvent, PAR = NULL){
+              self$addEvent2Q(event = event_feverPfSI(tEvent = tEvent, PAR = PAR))
+            }
+  )
+
+
+  HumanPop$set(which = "private",name = "init.PfSI",
+
+            value = function(PfPR){
+
+              PfID = 1L
+              for(ixH in 1:self$nHum){
+
+                if(runif(1) < PfPR){
+
+                  PfID = PfID + 1L
+                } else {
+                  private$pop[[ix]]$trackHist(tEvent = 0, event = "S")
+                }
+
+              }
+
+            }
+  )
+
+}
+
+
+###################################################################
+# Fever
+###################################################################
+
+# event_feverPfSI
+event_feverPfSI <- function(tEvent, PAR = NULL){
+  tFever = tEvent + ttFeverPf()
+  list(tEvent = tFever, PAR = PAR, FUN = feverPfSI)
+}
+
+
+#' Initialize PfSI Human Infections
+#'
+#' Initialize PfSI module infections in the human population (requires \code{HUMANS} to be defined in the global environment)
+#' \code{PFSI.SETUP()} should be called prior to initializing human infections.
+#'
+#' @param PfPR initial parasite prevalence in the human population
+#' @return modify \code{HUMANS} object in global environment
+#' @examples
+#' PFSI.INIT()
+PFSI.INIT <- function(PfPR){
+  if(exists(x = "LANDSCAPE",where = .GlobalEnv)){
+    if(length(HUMANS)!=LANDSCAPE$nH){
+      stop("HUMANS object not equal to LANDSCAPE$nH")
+    }
+  }
+  if(!exists(x = "tStart",where = .GlobalEnv)){
+    print(paste0("tStart not defined globally; setting initial infection times to 0"))
+    tStart = 0
+  }
+  PfID <<- 1
+  for(ixH in 1:length(HUMANS)){
+    HUMANS[[ixH]]$Pathogens$Pf <<- pathOBJ_PfSI()
+    if(runif(1) < PfPR){
+      infectHuman_PfSI(ixH = ixH,t = tStart,PAR = list(pfid = PfID))
+      PfID <<- PfID + 1
+    } else {
+      PfSIHistory(ixH = ixH,t = tStart,event = "S")
+    }
+  }
 }

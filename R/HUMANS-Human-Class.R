@@ -10,15 +10,6 @@
 
 
 ##########################################
-# Human Life Events
-##########################################
-
-# event_maxDeath: the maximum death time event package
-event_maxDeath <- function(tEvent = 73000, PAR = NULL, tag = "death"){
-  list(tEvent = tEvent, PAR = PAR, tag = tag)
-}
-
-##########################################
 # Human Class Definition
 ##########################################
 
@@ -64,6 +55,7 @@ Human <- R6::R6Class(classname="Human",
                          private$myID = myID
                          private$hhID = hhID
                          private$bDay = bDay
+                         private$eventQ[[1]] = self$event_maxDeath()
                        },
 
                        #################################################
@@ -177,8 +169,13 @@ Human <- R6::R6Class(classname="Human",
                        },
 
                        #################################################
-                       # Events
+                       # Life Events
                        #################################################
+
+                       # event_maxDeath: the maximum death time event package
+                       event_maxDeath = function(tEvent = 73000, PAR = NULL, tag = "death"){
+                         list(tEvent = tEvent, PAR = PAR, tag = tag)
+                       },
 
                        # death: the death event
                        death = function(tEvent, PAR){
@@ -220,7 +217,7 @@ Human <- R6::R6Class(classname="Human",
                        height = 0,
 
                        #Event Queue
-                       eventQ = list(event_maxDeath()), #event queue
+                       eventQ = list(), #event queue
                        queueN = 1, #number of events in queue
 
                        # Event History
@@ -228,10 +225,7 @@ Human <- R6::R6Class(classname="Human",
                        eventT = c(-1),
 
                        # Pathogens
-                       Pathogens = list(
-                         Pf = NULL,
-                         Pv = NULL
-                       )
+                       Pathogens = list()
 
                      )
 

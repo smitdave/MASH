@@ -491,7 +491,7 @@ init.simbitePfSI <- function(){
 
 }
 
-#' Initialize PfSI Module (Pathogen)
+#' Initialize PfSI Module
 #'
 #' Initialize methods in \code{\link{Human}} and \code{\link{HumanPop}} classes for PfSI Pathogen module.
 #'
@@ -577,6 +577,93 @@ init.PfSI <- function(){
   )
 
 }
+
+# #' Initialize PfSI Module (Pathogen)
+# #'
+# #' Initialize methods in \code{\link{Human}} and \code{\link{HumanPop}} classes for PfSI Pathogen module.
+# #'
+# #' @param write me
+# #' @return write me
+# #' @examples
+# #' init.PfSI()
+# #' @export
+# init.PfSI <- function(){
+#
+#   # setPfSI
+#   HumanPop$set(which = "public",name = "init_PfSI",
+#                value = function(){
+#
+#                  print(paste0("initializing PfSI PATHOGEN module"))
+#
+#                  for(i in 1:self$nHum){
+#                    private$pop[[i]]$setPathogensObject(pathogen = "PfSI")
+#                  }
+#                })
+#
+#   # add2Q_startPfSI
+#   Human$set(which = "public",name = "add2Q_startPfSI",
+#             value = function(tEvent, PAR = NULL){
+#               self$addEvent2Q(event = event_startPfSI(tEvent = tEvent, PAR = PAR))
+#             }
+#   )
+#
+#   # add2Q_endPfSI
+#   Human$set(which = "public",name = "add2Q_endPfSI",
+#             value = function(tEvent, PAR = NULL){
+#               self$addEvent2Q(event = event_endPfSI(tEvent = tEvent, PAR = PAR))
+#             }
+#   )
+#
+#   # add2Q_feverPfSI
+#   Human$set(which = "public",name = "add2Q_feverPfSI",
+#             value = function(tEvent, PAR = NULL){
+#               self$addEvent2Q(event = event_feverPfSI(tEvent = tEvent, PAR = PAR))
+#             }
+#   )
+#
+#   # add2Q_treatPfSI
+#   Human$set(which = "public",name = "add2Q_treatPfSI",
+#             value = function(tEvent, PAR = NULL){
+#               self$addEvent2Q(event = event_treatPfSI(tEvent = tEvent, PAR = PAR))
+#             }
+#   )
+#
+#   # add2Q_endprophylaxisPfSI
+#   Human$set(which = "public",name = "add2Q_endprophylaxisPfSI",
+#             value = function(tEvent, PAR = NULL){
+#               self$addEvent2Q(event = event_endprophylaxisPfSI(tEvent = tEvent, PAR = PAR))
+#             }
+#   )
+#
+#   # add2Q_pevaccinatePfSI
+#   Human$set(which = "public",name = "add2Q_pevaccinatePfSI",
+#             value = function(tEvent, PAR = NULL){
+#               self$addEvent2Q(event = event_pevaccinatePfSI(tEvent = tEvent, PAR = PAR))
+#             }
+#   )
+#
+#   # add2Q_pewanePfSI
+#   Human$set(which = "public",name = "add2Q_pewanePfSI",
+#             value = function(tEvent, PAR = NULL){
+#               self$addEvent2Q(event = event_pewanePfSI(tEvent = tEvent, PAR = PAR))
+#             }
+#   )
+#
+#   # add2Q_gsvaccinatePfSI
+#   Human$set(which = "public",name = "add2Q_gsvaccinatePfSI",
+#             value = function(tEvent, PAR = NULL){
+#               self$addEvent2Q(event = event_gsvaccinatePfSI(tEvent = tEvent, PAR = PAR))
+#             }
+#   )
+#
+#   # add2Q_gswanePfSI
+#   Human$set(which = "public",name = "add2Q_gswanePfSI",
+#             value = function(tEvent, PAR = NULL){
+#               self$addEvent2Q(event = event_gswanePfSI(tEvent = tEvent, PAR = PAR))
+#             }
+#   )
+#
+# }
 
 
 ##########################################
