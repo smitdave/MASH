@@ -59,7 +59,7 @@ Human <- R6::R6Class(classname="Human",
                        },
 
                        #################################################
-                       # Accessor Methods
+                       # Accessors, Pointers, and Setters
                        #################################################
 
                        #myID
@@ -90,7 +90,6 @@ Human <- R6::R6Class(classname="Human",
                          return(private$Alive)
                        },
                        set_Alive = function(Alive){
-                        #  if(!is.logical(alive)){stop("alive must be boolean/logical value")}
                          private$Alive = Alive
                        },
 
@@ -107,7 +106,7 @@ Human <- R6::R6Class(classname="Human",
                          )
                        },
 
-                       # accessors
+                       # generics
                        get_Private = function(){
                          return(as.list(private))
                        },
@@ -116,11 +115,22 @@ Human <- R6::R6Class(classname="Human",
                          return(as.list(self))
                        },
 
-                      # # #  TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING TESTING
-                      # killAPerson = function(ixH, Pointers){
-                      #   Pointers$pointHumanPop()$get_Human(ixH)$set_Alive(alive = FALSE)
-                      #   print(paste0("human: ",self$get_myID()," has just killed human: ",ixH,", the proof is: ",Pointers$pointHumanPop()$get_Human(ixH)$get_Alive()))
-                      # },
+                       # Pointers:
+                       # Pointers to enclosing HumanPop$pop
+                       get_PopPointer = function(){
+                         return(private$PopPointer)
+                       },
+                       set_PopPointer = function(PopPointer){
+                         private$PopPointer = PopPointer
+                       },
+                       # Pointers to enclosing HumanPop self
+                       get_SelfPointer = function(){
+                         return(private$SelfPointer)
+                       },
+                       set_SelfPointer = function(SelfPointer){
+                         private$SelfPointer = SelfPointer
+                       },
+
 
                        #################################################
                        # Event Queue
@@ -219,7 +229,11 @@ Human <- R6::R6Class(classname="Human",
                        eventT = c(-1),
 
                        # Pathogens
-                       Pathogens = list()
+                       Pathogens = list(),
+
+                       # Pointers
+                       PopPointer = NULL, # point to HumanPop$pop that encloses this human
+                       SelfPointer = NULL # point to HumanPop's public methods that encloses this human
 
                      )
 

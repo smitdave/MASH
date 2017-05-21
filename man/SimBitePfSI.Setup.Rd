@@ -2,9 +2,9 @@
 % Please edit documentation in R/PATHOGEN-PfSI-SimBite.R
 \name{SimBitePfSI.Setup}
 \alias{SimBitePfSI.Setup}
-\title{Initialize SimBite PfSI Module Parameters (Pathogen)}
+\title{Initialize SimBite PfSI Module}
 \usage{
-SimBitePfSI.Setup(N = NULL)
+SimBitePfSI.Setup()
 }
 \arguments{
 \item{Pf_c}{0.15; transmission efficiency: infected human to mosquito}
@@ -12,44 +12,6 @@ SimBitePfSI.Setup(N = NULL)
 \item{Pf_b}{0.55; transmission efficiency: infected mosquito to human}
 
 \item{DurationPf}{200; duration of infection (How many days does the infection last?)}
-
-\item{LatentPf}{10; latency (How many days after the infectious bite does the infection start?)}
-
-\item{FeverPf}{0.3; probability of fever}
-
-\item{mnFeverPf}{10; mean of Gaussian-distributed timing of fever incident (relative to start of the infection)}
-
-\item{vrFeverPf}{0.1; standard deviation of Gaussian-distributed timing of fever incident (relative to start of the infection)}
-
-\item{TreatPf}{0.5; probability of treatment}
-
-\item{mnTreatPf}{1; timing of treatment (relative to start of the fever)}
-
-\item{mnChemoprophylaxisPf}{32; Prophylaxis, time to susceptibility (duration of protection due to chemoprophylaxis)}
-
-\item{PEProtectPf}{0.99; proportion protected by PE vaccination (probability vaccination successful)}
-
-\item{peBlockPf}{1; proportion of infections blocked by PE vaccination}
-
-\item{mnPEPf}{270; mean duration of protection from PE vaccination}
-
-\item{vrPEPf}{50; standard deviation of protection from PE vaccination}
-
-\item{GSProtectPf}{1; proportion protected by GS vaccination (probability vaccination successful)}
-
-\item{gsBlockPf}{0.9; proportion of infections blocked by GS vaccination}
-
-\item{mnGSPf}{180; mean duration of protection from GS vaccination}
-
-\item{vrGSPf}{20; standard deviation of protection from GS vaccination}
-
-\item{rdtSensPf}{0.9; RDT sensitivity}
-
-\item{rdtSpecPf}{0.1; RDT specificity}
-
-\item{lmSensPf}{0.9; Light Microscopy sensitivity}
-
-\item{lmSpecPf}{0.1; Light Microscopy specificity}
 }
 \value{
 Defines a field (list) PfSI_PAR in \code{\link{HumanPop}} and public methods in \code{\link{Human}}

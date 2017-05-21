@@ -61,8 +61,11 @@ HumanPop <- R6::R6Class(classname = "HumanPop",
                         }
 
                         private$pop = vector(mode="list",length = nHum)
-                        for(ix in 1:nHum){
-                          private$pop[[ix]] = Human$new(myID = hIDs[ix], hhID = hhIDs[ix], bDay = tStart)
+                        for(ixH in 1:nHum){
+                          private$pop[[ixH]] = Human$new(myID = hIDs[ixH], hhID = hhIDs[ixH], bDay = tStart)
+                          # set pointers
+                          private$pop[[ixH]]$set_PopPointer(private$pop)
+                          private$pop[[ixH]]$set_SelfPointer(self)
                         }
 
                         # one day these may need to be active bindings to automatically look these values up when called;

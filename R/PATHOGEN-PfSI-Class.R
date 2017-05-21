@@ -46,7 +46,7 @@ mosquitoPfSI <- R6::R6Class(classname="mosquitoPfSI",
                      public = list(
 
                        #initialize
-                       initialize = function(PfID, tInf, spz = 0L, damID = NULL, sireID = NULL){
+                       initialize = function(PfID = NULL, tInf = NULL, spz = 0L, damID = NULL, sireID = NULL){
                          private$PfID = PfID
                          private$tInf = tInf
                          private$spz = spz
@@ -72,7 +72,7 @@ mosquitoPfSI <- R6::R6Class(classname="mosquitoPfSI",
                        },
                        push_PfID = function(PfID){
                          private$PfID = c(private$PfID,PfID)
-                       }
+                       },
 
                        # tInf
                        get_tInf = function(){

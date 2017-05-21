@@ -238,35 +238,26 @@ PfSI.Setup <- function(
   # probeHost_PfSI:
   # arguments are tBite (time of bite)
   # mosquitoPfSI; the mosquitoPfSI R6 object passed from the biting mosquito
-  # Pointers: pointers
   Human$set(which = "public",name = "probeHost_PfSI",
 
-            value = function(tBite, mosquitoPfSI, ){
-              if(any(mosquitoPfSI$get_spz()>0)){ # sample a clonal variant if multiple
-
+            value = function(tBite, mosquitoPfSI){
+              if(any(mosquitoPfSI$get_spz()>0)){
+                PAR = list(mosquitoPfSI = mosquitoPfSI)
+                self$infectiousBite_PfSI(tBite, PAR)
               }
 
             }
   )
 
-  # probeHost_PfSI: probeHost called from probing(); defined in MBITES-HostEncounter.R
-# infect a human
-probeHost_PfSI <- function(tBite, ixH, ixS, ixM, Pf){
-  if(NOISY == TRUE){print("probeHost")}
-  if(any(Pf$spz>0)){ # sample a clonal variant if multiple
-    PfClonalVar = which(Pf$spz>0)
-    PfIx = sample(x = PfClonalVar, size = 1)
-    # infectiousBite_PfSI(ixH, ixM, tBite, ixS, Pf$PfM[[PfIx]])
-    infectiousBite_PfSI(tBite = tBite, ixH = ixH, ixS = ixS, ixM = ixM, PfM = Pf$PfM[[PfIx]])
-  }
-}
-
   # infectiousBite_PfSI
   Human$set(which = "public",name = "infectiousBite_PfSI",
             value = function(tBite, PAR){
               if(runif(1) < private$Pathogens$Pf$get_b()){
+
+                PfIx = sample(x = which(PAR$mosquitoPfSI$get_spz()>0), size = 1) # sample a clonal variant if multiple
+                PAR = (damID = PfIx, sireID = PfIx)
+
                 tInfStart = tBite + self$ttInfectionPf()
-                # track transmission?
                 self$add2Q_infectHumanPfSI(tEvent = tInfStart, PAR = PAR)
               }
             }
@@ -383,7 +374,9 @@ probeHost_PfSI <- function(tBite, ixH, ixS, ixM, Pf){
               if(!private$Pathogens$Pf$get_infected() & !private$Pathogens$Pf$get_chemoprophylaxis()){
                 self$trackHist(tEvent = tEvent, event = "I") # track history
                 private$Pathogens$Pf$set_infected(TRUE)
-                # private$Pathogens$Pf$set_PfID(PAR$Pointers$pointHumanPop$incrementPfID())
+                private$Pathogens$Pf$push_PfID(self$get_SelfPointer()$incrementPfID())
+                private$Pathogens$Pf$push_damID(PAR$damID)
+                private$Pathogens$Pf$push_sireID(PAR$sireID)
                 if(runif(1) < private$PfSI_PAR$FeverPf){
                     self$add2Q_feverPfSI(tEvent = tEvent)
                 }
