@@ -1,8 +1,12 @@
-########################################
-#  PFSI Setup
-#  Sean Wu
-#  April 5, 2017
-########################################
+#################################################################
+#
+#   MASH
+#   R6-ified
+#   PfSI Setup
+#   Sean Wu
+#   May 21, 2017
+#
+#################################################################
 
 
 #' Initialize PfSI Module Parameters (Pathogen)
@@ -151,16 +155,17 @@ PfSI.Setup <- function(
   # Add PfSI Utilities to 'HumanPop' Class
   ###################################################################
 
+  # PfID counter
+  HumanPop$set(which = "private",name = "PfID",
+            value = 0L
+  )
+
   # whenever a new liver-stage infection manifests in a human we increment the PfID counter and return the new PfID
   HumanPop$set(which = "public",name = "increment_PfID",
             value = function(){
-              private$PfID = PfID + 1L
+              private$PfID = private$PfID + 1L
               return(private$PfID)
             }
-  )
-
-  HumanPop$set(which = "private",name = "PfID",
-            value = 0L
   )
 
   # initialize PfSI infections with parasite prevalence PfPR
@@ -201,14 +206,14 @@ PfSI.Setup <- function(
 
               # sanity checks
               if(is.null(b)){
-                b = rep(x = 0.55,times = self$numH)
+                b = rep(x = 0.55,times = self$nHum)
               } else {
                 if(length(b)!=self$nHum){
                   stop(paste0("length of b: ",length(b)," must be equal to size of human population: ",self$nHum))
                 }
               }
               if(is.null(c)){
-                c = rep(x = 0.15,times = self$numH)
+                c = rep(x = 0.15,times = self$nHum)
               } else {
                 if(length(c)!=self$nHum){
                   stop(paste0("length of c: ",length(c)," must be equal to size of human population: ",self$nHum))
@@ -380,7 +385,10 @@ PfSI.Setup <- function(
               if(!private$Pathogens$Pf$get_infected() & !private$Pathogens$Pf$get_chemoprophylaxis()){
                 self$trackHist(tEvent = tEvent, event = "I") # track history
                 private$Pathogens$Pf$set_infected(TRUE)
-                private$Pathogens$Pf$push_PfID(self$get_SelfPointer()$incrementPfID())
+
+                newID = self$get_SelfPointer()$increment_PfID()
+
+                private$Pathogens$Pf$push_PfID(newID)
                 private$Pathogens$Pf$push_damID(PAR$damID)
                 private$Pathogens$Pf$push_sireID(PAR$sireID)
                 if(runif(1) < private$PfSI_PAR$FeverPf){
@@ -405,8 +413,8 @@ PfSI.Setup <- function(
   # event_endPfSI: end a PfSI infection
   Human$set(which = "public",name = "event_endPfSI",
             value = function(tEvent, PAR = NULL){
-              tE = tEvent + self$ttClearPf()
-              list(tEvent = tFever, PAR = PAR, tag = "endPfSI")
+              tEnd = tEvent + self$ttClearPf()
+              list(tEvent = tEnd, PAR = PAR, tag = "endPfSI")
             }
   )
 

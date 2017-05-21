@@ -24,6 +24,8 @@ SimBitePfSI.Setup <- function(
 
 ){
 
+    print(paste0("initializing PfSI SimBite module"))
+
   ###################################################################
   # Simulated biting on 'Human' Class
   ###################################################################
@@ -59,6 +61,7 @@ SimBitePfSI.Setup <- function(
   HumanPop$set(which = "public",name = "queueBites_simBitePfSI",
                value = function(tMax, bitingRate = 1/20){
                  for(ixH in 1:self$nHum){
+                   print(paste0("queueing simulated bites for human: ",ixH))
                    tBite = 0
                    while(tBite < tMax){
                      tBite = tBite + rexp(n = 1,rate = bitingRate)
@@ -71,13 +74,11 @@ SimBitePfSI.Setup <- function(
 
   # queueVaccination
   HumanPop$set(which = "public",name = "queueVaccination_simBitePfSI",
-               value = function(tVaxx, tTreat, fracPop){
-                 for(i in 1:floor(fracPop*self$nHum)){
-                   if(self$verbose){
-                     print(paste0("queueing vaccination for human: ",i))
-                   }
-                   private$pop[[i]]$add2Q_pevaccinatePfSI(tEvent = tVaxx)
-                   private$pop[[i]]$add2Q_treatPfSI(tEvent = tTreat)
+               value = function(tVaccine, tTreat, fracPop){
+                 for(ixH in 1:floor(fracPop*self$nHum)){
+                   print(paste0("queueing vaccination for human: ",ixH))
+                   private$pop[[ixH]]$add2Q_pevaccinatePfSI(tEvent = tVaxx)
+                   private$pop[[ixH]]$add2Q_treatPfSI(tEvent = tTreat)
                  }
                }
   )

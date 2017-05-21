@@ -56,7 +56,7 @@ mosquitoPfSI <- R6::R6Class(classname="mosquitoPfSI",
 
                        #finalize
                        finalize = function(){
-                         print(paset0("mosquitoPfSI object PfID: ",PfID," was garbage collected!"))
+                        #  print(paste0("mosquitoPfSI object PfID: ",PfID," was garbage collected!"))
                        },
 
                        ########################################
@@ -178,7 +178,7 @@ humanPfSI <- R6::R6Class(classname="humanPfSI",
 
                        #finalize
                        finalize = function(){
-                         print(paset0("humanPfSI object PfID: ",PfID," was garbage collected!"))
+                        #  print(paste0("humanPfSI object PfID: ",PfID," was garbage collected!"))
                        },
 
                        ########################################
