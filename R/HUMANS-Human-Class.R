@@ -71,6 +71,9 @@ Human <- R6::R6Class(classname="Human",
                        get_hhID = function(){
                          return(private$hhID)
                        },
+                       set_hhID = function(hhID){
+                         private$hhID = hhID
+                       },
 
                        #bDay
                        get_bDay = function(){
@@ -86,11 +89,9 @@ Human <- R6::R6Class(classname="Human",
                        get_Alive = function(){
                          return(private$Alive)
                        },
-                       set_Alive = function(alive){
-                         if(!is.logical(alive)){
-                           stop("alive must be boolean/logical value")
-                         }
-                         private$Alive = alive
+                       set_Alive = function(Alive){
+                        #  if(!is.logical(alive)){stop("alive must be boolean/logical value")}
+                         private$Alive = Alive
                        },
 
                        #queueN
@@ -104,15 +105,6 @@ Human <- R6::R6Class(classname="Human",
                            events = private$events,
                            eventT = private$eventT
                          )
-                       },
-
-                       # Pathogens
-                       get_Pf = function(){
-                         return(private$Pathogens$Pf)
-                       },
-
-                       get_Pv = function(){
-                         return(private$Pathogens$Pv)
                        },
 
                        # accessors

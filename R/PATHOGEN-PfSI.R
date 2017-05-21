@@ -214,8 +214,9 @@ PfSI.Setup <- function(
                 }
               }
 
+              # set pathogens
               for(ixH in 1:self$nHum){
-                private$pop[[ixH]]$set_humanPfSI(PfID = -1L, b = b[ixH], c = c[ixH])
+                private$pop[[ixH]]$set_humanPfSI(PfID = NULL, b = b[ixH], c = c[ixH])
               }
 
             },
@@ -227,6 +228,64 @@ PfSI.Setup <- function(
   ###################################################################
 
   # DO THIS WHEN MOSQUITOES EXIST
+
+
+  ###################################################################
+  # PfSI: Mosquito to Human infectious bite
+  # Add methods to 'Human' Class
+  ###################################################################
+
+  # probeHost_PfSI: arguments are tBite (time of bite) and mosquitoPfSI; the mosquitoPfSI R6 object passed from the biting mosquito
+  Human$set(which = "public",name = "probeHost_PfSI",
+            value = function(tBite, mosquitoPfSI){
+              
+            }
+  )
+
+  # probeHost_PfSI: probeHost called from probing(); defined in MBITES-HostEncounter.R
+# infect a human
+probeHost_PfSI <- function(tBite, ixH, ixS, ixM, Pf){
+  if(NOISY == TRUE){print("probeHost")}
+  if(any(Pf$spz>0)){ # sample a clonal variant if multiple
+    PfClonalVar = which(Pf$spz>0)
+    PfIx = sample(x = PfClonalVar, size = 1)
+    # infectiousBite_PfSI(ixH, ixM, tBite, ixS, Pf$PfM[[PfIx]])
+    infectiousBite_PfSI(tBite = tBite, ixH = ixH, ixS = ixS, ixM = ixM, PfM = Pf$PfM[[PfIx]])
+  }
+}
+
+  # infectiousBite_PfSI
+  Human$set(which = "public",name = "infectiousBite_PfSI",
+            value = function(tBite, PAR){
+              if(runif(1) < private$Pathogens$Pf$get_b()){
+                tInfStart = tBite + self$ttInfectionPf()
+                # track transmission?
+                self$add2Q_infectHumanPfSI(tEvent = tInfStart, PAR = PAR)
+              }
+            }
+  )
+
+
+  ###################################################################
+  # PfSI: Human to Mosquito infectious bite
+  # Add methods to 'MosquitoFemale' Classe
+  ###################################################################
+
+  # infectMosquito_PfSI <- function(tBite, ixH, ixS, ixM){
+  #   with(HUMANS[[ixH]]$Pathogens$Pf,{
+  #     if(infected==TRUE & rbinom(1,1,HUMANS[[ixH]]$Pathogens$Pf$c)){
+  #       infObj = makePfM(ixH, tBite, ixS)
+  #       if(PfTransmission_TRACK){
+  #         trackPfTransmission(M2H = FALSE, tBite = tBite, ixH = ixH, ixS = ixS, ixM = ixM, PfM = infObj$PfM)
+  #       }
+  #       return(infObj)
+  #     } else {
+  #       infObj = list(infected = FALSE)
+  #       return(infObj)
+  #     }
+  #   })
+  # }
+
 
   ###################################################################
   # Add PfSI Timing Functions to 'Human' Class
@@ -286,57 +345,12 @@ PfSI.Setup <- function(
             }
   )
 
-  ###################################################################
-  # PfSI: Mosquito to Human infectious bite
-  # Add methods to 'Human' and 'MosquitoFemale' Classes
-  ###################################################################
-
-  # probeHost_PfSI ADD METHOD TO MosquitoFemale CLASS
-  # # infect a human
-  # probeHost_PfSI <- function(tBite, ixH, ixS, ixM, Pf){
-  #   if(any(Pf$spz)){ # sample a clonal variant if multiple
-  #     PfClonalVar = which(Pf$spz)
-  #     PfIx = sample(x = PfClonalVar, size = 1)
-  #     infectiousBite_PfSI(tBite = tBite, ixH = ixH, ixS = ixS, ixM = ixM, PfM = Pf$PfM[[PfIx]])
-  #   }
-  # }
-
-  # infectiousBite_PfSI
-  Human$set(which = "public",name = "infectiousBite_PfSI",
-            value = function(tBite, PAR){
-              if(runif(1) < private$Pathogens$Pf$get_b()){
-                tInfStart = tBite + self$ttInfectionPf()
-                # track transmission?
-                self$add2Q_infectHumanPfSI(tEvent = tInfStart, PAR = PAR)
-              }
-            }
-  )
-
-  ###################################################################
-  # PfSI: Human to Mosquito infectious bite
-  # Add methods to 'MosquitoFemale' and 'MosquitoPopFemale' Classes
-  ###################################################################
-
-  # infectMosquito_PfSI <- function(tBite, ixH, ixS, ixM){
-  #   with(HUMANS[[ixH]]$Pathogens$Pf,{
-  #     if(infected==TRUE & rbinom(1,1,HUMANS[[ixH]]$Pathogens$Pf$c)){
-  #       infObj = makePfM(ixH, tBite, ixS)
-  #       if(PfTransmission_TRACK){
-  #         trackPfTransmission(M2H = FALSE, tBite = tBite, ixH = ixH, ixS = ixS, ixM = ixM, PfM = infObj$PfM)
-  #       }
-  #       return(infObj)
-  #     } else {
-  #       infObj = list(infected = FALSE)
-  #       return(infObj)
-  #     }
-  #   })
-  # }
-
 
   ###################################################################
   # Add PfSI Events to 'Human' Class
   # 'XX' family of functions for human event queues
   ###################################################################
+
 
   ###################################################################
   # Start a PfSI Infection

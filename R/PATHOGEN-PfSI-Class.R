@@ -46,35 +46,67 @@ mosquitoPfSI <- R6::R6Class(classname="mosquitoPfSI",
                      public = list(
 
                        #initialize
-                       initialize = function(PfID, tBite, damID = NULL, sireID = NULL){
+                       initialize = function(PfID, tInf, spz = 0L, damID = NULL, sireID = NULL){
                          private$PfID = PfID
-                         private$tBite = tBite
+                         private$tInf = tInf
+                         private$spz = spz
                          private$damID = damID
                          private$sireID = sireID
-                         private$infected = TRUE
                        },
 
                        #finalize
                        finalize = function(){
-                         print("i got garbage collected!")
+                         print(paset0("mosquitoPfSI object PfID: ",PfID," was garbage collected!"))
                        },
 
                        ########################################
                        #  Accessors, Pointers, and Setters
                        ########################################
 
+                       # PfID
                        get_PfID = function(){
                          return(private$PfID)
                        },
-                       get_damID = function(){
-                         return(private$damID)
+                       set_PfID = function(PfID){
+                         private$PfID = PfID
                        },
-                       get_sireID = function(){
-                         return(private$sireID)
-                       },
+                       push_PfID = function(PfID){
+                         private$PfID = c(private$PfID,PfID)
+                       }
+
+                       # tInf
                        get_tInf = function(){
                          return(private$tInf)
                        },
+                       set_tInf = function(tInf){
+                         private$tInf = tInf
+                       },
+                       push_tInf = function(){
+                         private$tInf = c(private$tInf,tInf)
+                       },
+
+                       # spz
+                       get_spz = function(){
+                         return(private$spz)
+                       },
+                       set_spz = function(spz){
+                         private$spz = spz
+                       },
+                       push_spz = function(){
+                         private$spz = c(private$spz,spz)
+                       },
+
+                       # damID
+                       get_damID = function(){
+                         return(private$damID)
+                       },
+
+                       # sireID
+                       get_sireID = function(){
+                         return(private$sireID)
+                       },
+
+                       # private
                        get_Private = function(){
                          return(as.list(private))
                        }
@@ -85,10 +117,10 @@ mosquitoPfSI <- R6::R6Class(classname="mosquitoPfSI",
                      private = list(
 
                        PfID = NULL, # pathogen ID
-                       tBite = NULL, # time of infection
+                       tInf = NULL, # time of bite (human to mosquito transmission)
+                       spz = NULL, # sporozoites (may be a vector of multiple clonal variants)
                        damID = NULL, # female gametocyte 'mother'
-                       sireID = NULL, # male gametocyte 'father'
-                       infected = logical(0) # infection status
+                       sireID = NULL # male gametocyte 'father'
 
                      )
 
@@ -171,7 +203,7 @@ humanPfSI <- R6::R6Class(classname="humanPfSI",
                        },
                        push_tInf = function(tInf){
                          private$tInf = c(private$tInf,tInf)
-                       }
+                       },
 
                        get_b = function(){
                          return(private$b)
@@ -231,7 +263,7 @@ humanPfSI <- R6::R6Class(classname="humanPfSI",
                      private = list(
 
                        PfID = NULL, # pathogen ID
-                       tInf = NULL, # time of infection
+                       tInf = NULL, # time of infection (mosquito to human transmission)
                        b = NULL, # transmission efficiency: infected mosquito to human
                        c = NULL, # transmission efficiency: infected human to mosquito
                        damID = NULL, # female gametocyte 'mother'
