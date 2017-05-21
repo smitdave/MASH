@@ -148,19 +148,48 @@ PfSI.Setup <- function(
   )
 
   ###################################################################
-  # Add PfSI Pathogen Object to 'Human' Class
+  # Add PfSI Pathogen Object to 'Human' & 'HumanPop' Class
   ###################################################################
 
-  # Human$set(which = "private",name = "Pathogens",
-  #           value = list(
-  #             Pf = list(
-  #               infected = FALSE,
-  #               chemoprophylaxis = FALSE,
-  #               PfID = NULL
-  #             )
-  #           ),
-  #           overwrite = TRUE
-  # )
+  Human$set(which = "public",name = "set_humanPfSI",
+            value = function(PfID, tInf = NULL, b = 0.55, c = 0.15, damID = NULL, sireID = NULL, infected = FALSE, chemoprophylaxis = FALSE){
+              private$Pathogens$Pf = humanPfSI$new(PfID=PfID,tInf=tInf,b=b,c=c,damID=damID,sireID=sireID,infected=infected,chemoprophylaxis=chemoprophylaxis)
+            },
+            overwrite = TRUE
+  )
+
+  HumanPop$set(which = "public",name = "set_humanPfSI",
+            value = function(b = NULL, c = NULL){
+
+              # sanity checks
+              if(is.null(b)){
+                b = rep(x = 0.55,times = self$numH)
+              } else {
+                if(length(b)!=self$nHum){
+                  stop(paste0("length of b: ",length(b)," must be equal to size of human population: ",self$nHum))
+                }
+              }
+              if(is.null(c)){
+                c = rep(x = 0.15,times = self$numH)
+              } else {
+                if(length(c)!=self$nHum){
+                  stop(paste0("length of c: ",length(c)," must be equal to size of human population: ",self$nHum))
+                }
+              }
+
+              for(ixH in 1:self$nHum){
+                private$pop[[ixH]]$set_humanPfSI(PfID = -1L, b = b[ixH], c = c[ixH])
+              }
+
+            },
+            overwrite = TRUE
+  )
+
+  ###################################################################
+  # Add PfSI Pathogen Object to 'MosquitoFemale' & 'MosquitoPopFemale' Class
+  ###################################################################
+
+  # DO THIS WHEN MOSQUITOES EXIST
 
   ###################################################################
   # Add PfSI Timing Functions to 'Human' Class
@@ -230,7 +259,7 @@ PfSI.Setup <- function(
   # infectiousBite_PfSI
   Human$set(which = "public",name = "infectiousBite_PfSI",
             value = function(tBite, PAR){
-              if(runif(1) < private$Pathogens$PfSI_PAR$Pf_b){
+              if(runif(1) < private$Pathogens$Pf$get_b()){
                 tInfStart = tBite + self$ttInfectionPf()
                 # track transmission?
                 self$add2Q_infectHumanPfSI(tEvent = tInfStart, PAR = PAR)
@@ -265,10 +294,10 @@ PfSI.Setup <- function(
   # infectHumanPfSI
   Human$set(which = "public",name = "infectHumanPfSI",
             value = function(tEvent, PAR){
-              if(!private$Pathogens$Pf$infected & !private$Pathogens$Pf$chemoprophylaxis){
+              if(!private$Pathogens$Pf$get_infected() & !private$Pathogens$Pf$get_chemoprophylaxis()){
                 self$trackHist(tEvent = tEvent, event = "I") # track history
-                private$Pathogens$Pf$infected = TRUE
-                private$Pathogens$Pf$PfID = PAR$get_PfID()
+                private$Pathogens$Pf$set_infected(TRUE)
+                # private$Pathogens$Pf$set_PfID(PAR$)
                 if(runif(1) < private$PfSI_PAR$FeverPf){
                     self$add2Q_feverPfSI(tEvent = tEvent)
                 }
@@ -405,12 +434,15 @@ PfSI.Setup <- function(
 
   Human$set(which = "public",name = "event_pevaccinatePfSI",
             value = function(tEvent, PAR = NULL){
-              list(tEvent = tSusceptible, PAR = PAR, tag = "pevaccinatePfSI")
+              list(tEvent = tEvent, PAR = PAR, tag = "pevaccinatePfSI")
             }
   )
 
   Human$set(which = "public",name = "pevaccinatePfSI",
             value = function(tEvent, PAR){
+
+
+
               # PATHOGENS$Pf IS NOW A CLASS AGAIN...NEED TO ADJUST STUFF ABOVE
               if(rbinom(1,1,PEProtectPf)){
                 HUMANS[[ixH]]$Pathogens$Pf$b <<- Pf_b * (1-peBlockPf)
