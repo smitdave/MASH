@@ -128,10 +128,8 @@ PfSI.Setup <- function(
               vrGSPf = vrGSPf,
               rdtSensPf = rdtSensPf,
               rdtSpecPf = rdtSpecPf,
-              rdtTest = rdtTestPfSI,
               lmSensPf = lmSensPf,
-              lmSpecPf = lmSpecPf,
-              lmTest = lmTestPfSI
+              lmSpecPf = lmSpecPf
             )
   )
 
@@ -156,7 +154,7 @@ PfSI.Setup <- function(
   Human$set(which = "private",name = "Pathogens",
             value = list(
               Pf = list(
-                infected = FALSE.
+                infected = FALSE,
                 chemoprophylaxis = FALSE,
                 PfID = NULL
               )
@@ -339,24 +337,53 @@ PfSI.Setup <- function(
 
 
 
-  HumanPop$set(which = "private",name = "init.PfSI",
+  # HumanPop$set(which = "private",name = "init.PfSI",
+  #
+  #           value = function(PfPR){
+  #
+  #             PfID = 1L
+  #             for(ixH in 1:self$nHum){
+  #
+  #               if(runif(1) < PfPR){
+  #
+  #                 PfID = PfID + 1L
+  #               } else {
+  #                 private$pop[[ix]]$trackHist(tEvent = 0, event = "S")
+  #               }
+  #
+  #             }
+  #
+  #           }
+  # )
 
-            value = function(PfPR){
 
-              PfID = 1L
-              for(ixH in 1:self$nHum){
 
-                if(runif(1) < PfPR){
 
-                  PfID = PfID + 1L
-                } else {
-                  private$pop[[ix]]$trackHist(tEvent = 0, event = "S")
-                }
 
+  ###################################################################
+  # PfSI Diagnostics
+  ###################################################################
+
+  Human$set(which = "public",name = "rdtTest_PfSI",
+            value = function(tEvent, PAR){
+              if(private$Pathogens$Pf$infected){
+                runif(1) < private$PfSI_PAR$rdtSensPf
+              } else {
+                runif(1) < private$PfSI_PAR$rdtSpecPf
               }
-
             }
   )
+
+  Human$set(which = "public",name = "lmTest_PfSI",
+            value = function(tEvent, PAR){
+              if(private$Pathogens$Pf$infected){
+                runif(1) < private$PfSI_PAR$lmSensPf
+              } else {
+                runif(1) < private$PfSI_PAR$lmSpecPf
+              }
+            }
+  )
+
 
 }
 

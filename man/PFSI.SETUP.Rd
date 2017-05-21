@@ -60,7 +60,8 @@ PfSI.Setup(Pf_c = 0.15, Pf_b = 0.55, DurationPf = 200, LatentPf = 10,
 Defines a field (list) PfSI_PAR in \code{\link{HumanPop}} and public methods in \code{\link{Human}}
 }
 \description{
-Generate a list of parameters PfSI_PAR in \code{\link{Human}} and public methods in \code{\link{Human}}
+Generate a list of parameters PfSI_PAR in \code{\link{Human}} and public methods in \code{\link{Human}}; also defines public methods
+in \code{\link{MosquitoFemale}}.
 }
 \examples{
 PfSI.Setup()
