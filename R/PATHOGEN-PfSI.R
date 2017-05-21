@@ -151,16 +151,16 @@ PfSI.Setup <- function(
   # Add PfSI Pathogen Object to 'Human' Class
   ###################################################################
 
-  Human$set(which = "private",name = "Pathogens",
-            value = list(
-              Pf = list(
-                infected = FALSE,
-                chemoprophylaxis = FALSE,
-                PfID = NULL
-              )
-            ),
-            overwrite = TRUE
-  )
+  # Human$set(which = "private",name = "Pathogens",
+  #           value = list(
+  #             Pf = list(
+  #               infected = FALSE,
+  #               chemoprophylaxis = FALSE,
+  #               PfID = NULL
+  #             )
+  #           ),
+  #           overwrite = TRUE
+  # )
 
   ###################################################################
   # Add PfSI Timing Functions to 'Human' Class
@@ -331,6 +331,160 @@ PfSI.Setup <- function(
               }
             }
   )
+
+  ###################################################################
+  # Treatment
+  ###################################################################
+
+  Human$set(which = "public",name = "add2Q_treatPfSI",
+            value = function(tEvent, PAR = NULL){
+              self$addEvent2Q(event = self$event_treatPfSI(tEvent = tEvent, PAR = PAR))
+            }
+  )
+
+  Human$set(which = "public",name = "event_treatPfSI",
+            value = function(tEvent, PAR = NULL){
+              tTreat = tEvent + self$ttTreatPf()
+              list(tEvent = tTreat, PAR = PAR, tag = "treatPfSI")
+            }
+  )
+
+  Human$set(which = "public",name = "treatPfSI",
+            value = function(tEvent, PAR){
+
+              # treat
+              if(private$Pathogens$Pf$infected){
+                private$Pathogens$Pf$infected = FALSE
+                self$trackHist(tEvent = tEvent, event = "S")
+              }
+              private$Pathogens$Pf$chemoprophylaxis = TRUE
+              self$trackHist(tEvent = tEvent, event = "P")
+              # Initiate a period of protection from chemoprophlaxis
+              self$add2Q_endprophylaxisPfSI(tEvent = tEvent)
+
+            }
+  )
+
+  ###################################################################
+  # End of Chemoprophylaxis
+  ###################################################################
+
+  Human$set(which = "public",name = "add2Q_endprophylaxisPfSI",
+            value = function(tEvent, PAR = NULL){
+              self$addEvent2Q(event = self$event_endprophylaxisPfSI(tEvent = tEvent, PAR = PAR))
+            }
+  )
+
+  Human$set(which = "public",name = "event_endprophylaxisPfSI",
+            value = function(tEvent, PAR = NULL){
+              tSusceptible = tEvent + self$ttSusceptiblePf()
+              list(tEvent = tSusceptible, PAR = PAR, tag = "endprophylaxisPfSI")
+            }
+  )
+
+  Human$set(which = "public",name = "endprophylaxisPfSI",
+            value = function(tEvent, PAR){
+
+              # End Prophylaxis
+              self$trackHist(tEvent = tEvent, event = "S")
+              private$Pathogens$Pf$chemoprophylaxis = FALSE
+
+            }
+  )
+
+  ###################################################################
+  # HUMAN PE vaccination functions
+  ###################################################################
+
+  # vaccination
+  Human$set(which = "public",name = "add2Q_pevaccinatePfSI",
+            value = function(tEvent, PAR = NULL){
+              self$addEvent2Q(event = self$event_pevaccinatePfSI(tEvent = tEvent, PAR = PAR))
+            }
+  )
+
+  Human$set(which = "public",name = "event_pevaccinatePfSI",
+            value = function(tEvent, PAR = NULL){
+              list(tEvent = tSusceptible, PAR = PAR, tag = "pevaccinatePfSI")
+            }
+  )
+
+  Human$set(which = "public",name = "pevaccinatePfSI",
+            value = function(tEvent, PAR){
+              # PATHOGENS$Pf IS NOW A CLASS AGAIN...NEED TO ADJUST STUFF ABOVE
+              if(rbinom(1,1,PEProtectPf)){
+                HUMANS[[ixH]]$Pathogens$Pf$b <<- Pf_b * (1-peBlockPf)
+                add2Q_pewanePfSI(ixH, t)
+              }
+
+            }
+  )
+
+
+
+  add2Q_pevaccinatePfSI <- function(ixH, t){
+    addEvent2Q(ixH, event_pevaccinatePfSI(t))
+  }
+
+  event_pevaccinatePfSI <- function(t){
+    list(t = t, PAR = NULL, F = pevaccinate_PfSI, tag = "pevaccinate_PfSI")
+  }
+
+  pevaccinate_PfSI <- function(ixH, t, PAR){
+    if(rbinom(1,1,PEProtectPf)){
+      HUMANS[[ixH]]$Pathogens$Pf$b <<- Pf_b * (1-peBlockPf)
+      add2Q_pewanePfSI(ixH, t)
+    }
+  }
+
+  # waning protection
+  add2Q_pewanePfSI <- function(ixH, t){
+    ttw = t + ttPEWanePf()
+    addEvent2Q(ixH, event_pewanePfSI(ttw))
+  }
+
+  event_pewanePfSI <- function(t){
+    list(t=t, PAR=NULL, F=pewane_PfSI, tag="pewane_PfSI")
+  }
+
+  pewane_PfSI <- function(ixH, t, PAR){
+    HUMANS[[ixH]]$Pathogens$Pf$b <<- Pf_b
+  }
+
+  ###################################################################
+  # HUMAN GS vaccination functions
+  ###################################################################
+
+  # vaccination
+  add2Q_gsvaccinatePfSI <- function(ixH, t){
+    addEvent2Q(ixH, event_gsvaccinatePfSI(t))
+  }
+
+  event_gsvaccinatePfSI <- function(t){
+    list(t=t, PAR=NULL, F=gsvaccinate_PfSI, tag = "gsvaccinate_PfSI")
+  }
+
+  gsvaccinate_PfSI <- function(ixH, t, PAR){
+    if(rbinom(1,1,GSProtectPf)){
+      HUMANS[[ixH]]$Pathogens$Pf$c <<- Pf_c*(1-gsBlockPf)
+      add2Q_gswanePfSI(ixH, t)
+    }
+  }
+
+  # waning protection
+  add2Q_gswanePfSI <- function(ixH, t){
+    ttw = t + ttGSWane()
+    addEvent2Q(ixH, event_gswanePfSI(ttw))
+  }
+
+  event_gswanePfSI <- function(t){
+    list(t=t, PAR=NULL, F=gswane_PfSI, tag = "gswane_PfSI")
+  }
+
+  gswane_PfSI <- function(ixH, t, PAR){
+   HUMANS[[ixH]]$Pathogens$Pf$c <<- Pf_c
+  }
+
 
 
 

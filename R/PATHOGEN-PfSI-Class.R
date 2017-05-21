@@ -133,7 +133,7 @@ pathogenObjHuman_PfSI <- R6::R6Class(classname="pathogenObjHuman_PfSI",
                      public = list(
 
                        #initialize
-                       initialize = function(PfID, tInf, damID = NULL, sireID = NULL){
+                       initialize = function(PfID, tInf, b = 0.55, c = 0.15, damID = NULL, sireID = NULL){
                          private$PfID = PfID
                          private$tInf = tInf
                          private$damID = damID
@@ -152,14 +152,20 @@ pathogenObjHuman_PfSI <- R6::R6Class(classname="pathogenObjHuman_PfSI",
                        get_PfID = function(){
                          return(private$PfID)
                        },
+                       get_tInf = function(){
+                         return(private$tInf)
+                       },
+                       get_b = function(){
+                         return(private$b)
+                       },
+                       get_c = function(){
+                         return(private$c)
+                       },
                        get_damID = function(){
                          return(private$damID)
                        },
                        get_sireID = function(){
                          return(private$sireID)
-                       },
-                       get_tInf = function(){
-                         return(private$tInf)
                        },
                        get_Private = function(){
                          return(as.list(private))
@@ -171,9 +177,11 @@ pathogenObjHuman_PfSI <- R6::R6Class(classname="pathogenObjHuman_PfSI",
                      private = list(
 
                        PfID = NULL, # pathogen ID
+                       tInf = NULL, # time of infection
+                       b = NULL, # transmission efficiency: infected mosquito to human
+                       c = NULL, # transmission efficiency: infected human to mosquito
                        damID = NULL, # female gametocyte 'mother'
-                       sireID = NULL, # male gametocyte 'father'
-                       tInf = NULL # time of infection
+                       sireID = NULL # male gametocyte 'father'
 
                      )
 
