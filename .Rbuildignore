@@ -6,3 +6,4 @@
 ^\.travis\.yml$     # Used for continuous integration testing with travis
 notes.txt           # notes file
 test.R              # R file for testing MASH
+^test.*\.R$ # all testing files
