@@ -235,10 +235,17 @@ PfSI.Setup <- function(
   # Add methods to 'Human' Class
   ###################################################################
 
-  # probeHost_PfSI: arguments are tBite (time of bite) and mosquitoPfSI; the mosquitoPfSI R6 object passed from the biting mosquito
+  # probeHost_PfSI:
+  # arguments are tBite (time of bite)
+  # mosquitoPfSI; the mosquitoPfSI R6 object passed from the biting mosquito
+  # Pointers: pointers
   Human$set(which = "public",name = "probeHost_PfSI",
-            value = function(tBite, mosquitoPfSI){
-              
+
+            value = function(tBite, mosquitoPfSI, ){
+              if(any(mosquitoPfSI$get_spz()>0)){ # sample a clonal variant if multiple
+
+              }
+
             }
   )
 

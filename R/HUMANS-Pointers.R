@@ -2,15 +2,15 @@
 #
 #   MASH
 #   R6-ified
-#   Pointer Class for MACRO
+#   Pointer Class for HUMANS
 #   Sean Wu
 #   May 20, 2016
 #
 #################################################################
 
-#' MACRO Pointer Class Definition
+#' HUMANS Pointer Class Definition
 #'
-#' This is a generic MACRO pointer blah blah ...
+#' This is a generic HUMANS pointer blah blah ...
 #'  this class does some stuff:
 #' * stuff 1
 #' * stuff 2
