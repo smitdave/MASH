@@ -196,16 +196,6 @@ Human <- R6::R6Class(classname="Human",
                        },
 
                        #################################################
-                       # Pathogen Module-specific Functions
-                       #################################################
-
-                      #  set_PathogensObject = function(pathogen){
-                      #    switch(pathogen,
-                      #           PfSI = {private$Pathogens$Pf = pathOBJ_PfSI()}
-                      #    )
-                      #  },
-
-                       #################################################
                        # Auxiliary Functions
                        #################################################
 

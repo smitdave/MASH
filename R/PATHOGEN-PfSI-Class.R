@@ -36,7 +36,7 @@
 #'   \item{\code{cats}}{...}
 #' }
 #' @export
-pathogenObj_MosyPfSI <- R6::R6Class(classname="pathogenObj_MosyPfSI",
+pathogenObjMosquito_PfSI <- R6::R6Class(classname="pathogenObjMosquito_PfSI",
                      portable = TRUE,
                      cloneable = FALSE,
                      lock_class = FALSE,
@@ -46,13 +46,12 @@ pathogenObj_MosyPfSI <- R6::R6Class(classname="pathogenObj_MosyPfSI",
                      public = list(
 
                        #initialize
-                       initialize = function(PfID, tInf, damID = NULL, sireID = NULL, Pf_c = 0.15, Pf_b = 0.55){
+                       initialize = function(PfID, tBite, damID = NULL, sireID = NULL){
                          private$PfID = PfID
-                         private$tInf = tInf
+                         private$tBite = tBite
                          private$damID = damID
                          private$sireID = sireID
-                         private$Pf_c = Pf_c
-                         private$Pf_b = Pf_b
+                         private$infected = TRUE
                        },
 
                        #finalize
@@ -86,11 +85,10 @@ pathogenObj_MosyPfSI <- R6::R6Class(classname="pathogenObj_MosyPfSI",
                      private = list(
 
                        PfID = NULL, # pathogen ID
+                       tBite = NULL, # time of infection
                        damID = NULL, # female gametocyte 'mother'
                        sireID = NULL, # male gametocyte 'father'
-                       tInf = NULL, # time of infection
-                       Pf_c = NULL, # transmission efficiency: infected human to mosquito
-                       Pf_b = NULL # transmission efficiency: infected mosquito to human
+                       infected = logical(0) # infection status
 
                      )
 
@@ -125,7 +123,7 @@ pathogenObj_MosyPfSI <- R6::R6Class(classname="pathogenObj_MosyPfSI",
 #'   \item{\code{cats}}{...}
 #' }
 #' @export
-pathogenObj_HumanPfSI <- R6::R6Class(classname="pathogenObj_HumanPfSI",
+pathogenObjHuman_PfSI <- R6::R6Class(classname="pathogenObjHuman_PfSI",
                      portable = TRUE,
                      cloneable = FALSE,
                      lock_class = FALSE,
@@ -135,13 +133,11 @@ pathogenObj_HumanPfSI <- R6::R6Class(classname="pathogenObj_HumanPfSI",
                      public = list(
 
                        #initialize
-                       initialize = function(PfID, tInf, damID = NULL, sireID = NULL, Pf_c = 0.15, Pf_b = 0.55){
+                       initialize = function(PfID, tInf, damID = NULL, sireID = NULL){
                          private$PfID = PfID
                          private$tInf = tInf
                          private$damID = damID
                          private$sireID = sireID
-                         private$Pf_c = Pf_c
-                         private$Pf_b = Pf_b
                        },
 
                        #finalize
@@ -177,9 +173,7 @@ pathogenObj_HumanPfSI <- R6::R6Class(classname="pathogenObj_HumanPfSI",
                        PfID = NULL, # pathogen ID
                        damID = NULL, # female gametocyte 'mother'
                        sireID = NULL, # male gametocyte 'father'
-                       tInf = NULL, # time of infection
-                       Pf_c = NULL, # transmission efficiency: infected human to mosquito
-                       Pf_b = NULL # transmission efficiency: infected mosquito to human
+                       tInf = NULL # time of infection
 
                      )
 
