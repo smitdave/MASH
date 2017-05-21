@@ -31,7 +31,8 @@ SimBitePfSI.Setup <- function(
   # add2Q_simbitePfSI
   Human$set(which = "public",name = "add2Q_simbitePfSI",
             value = function(tEvent, PAR = NULL){
-              self$addEvent2Q(event = self$event_infectHumanPfSI(tEvent = tEvent, PAR = PAR))
+              PAR$mosquitoPfSI = mosquitoPfSI$new(PfID = -1L, tInf = -1L, spz = 1L, damID = -1L, sireID = -1L)
+              self$addEvent2Q(event = self$event_simbitePfSI(tEvent = tEvent, PAR = PAR))
             }
   )
 
@@ -45,7 +46,7 @@ SimBitePfSI.Setup <- function(
   # simbitePfSI
   Human$set(which = "public",name = "simbitePfSI",
             value = function(tEvent, PAR){
-              # self$probeHost_PfSI()
+              self$probeHost_PfSI(tEvent, PAR$mosquitoPfSI)
             }
   )
 

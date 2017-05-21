@@ -269,6 +269,11 @@ PfSI.Setup <- function(
   # Add methods to 'MosquitoFemale' Classe
   ###################################################################
 
+  # its okay if this function takes as a direct argument humanPfSI;
+  # like probeHost_PfSI, the functions that directly interact between classes are ok to pass these things by name rather than generic PAR
+  # try to reserve generic argument names like PAR when all modification is within-class; ie, when there will be no ambiguity.
+  # do not use when objects are passed between classes
+
   # infectMosquito_PfSI <- function(tBite, ixH, ixS, ixM){
   #   with(HUMANS[[ixH]]$Pathogens$Pf,{
   #     if(infected==TRUE & rbinom(1,1,HUMANS[[ixH]]$Pathogens$Pf$c)){
