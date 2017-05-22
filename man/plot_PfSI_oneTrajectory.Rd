@@ -7,7 +7,10 @@
 plot_PfSI_oneTrajectory(ixH, oneHistory, tMax)
 }
 \arguments{
-\item{Pf_c}{0.15; transmission efficiency: infected human to mosquito}
+\item{a}{parameter}
+}
+\value{
+do something
 }
 \description{
 write me

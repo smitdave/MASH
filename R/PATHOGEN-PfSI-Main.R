@@ -534,8 +534,8 @@ PfSI.Setup <- function(
 
   Human$set(which = "public",name = "pevaccinatePfSI",
             value = function(tEvent, PAR){
-
               if(runif(1) < private$PfSI_PAR$PEProtectPf){
+                self$trackHist(tEvent = tEvent, event = "PEvaxx")
                 private$Pathogens$Pf$set_b(private$PfSI_PAR$Pf_b * (1-private$PfSI_PAR$peBlockPf))
                 self$add2Q_pewanePfSI(tEvent = tEvent)
               }
@@ -558,6 +558,7 @@ PfSI.Setup <- function(
 
   Human$set(which = "public",name = "pewanePfSI",
             value = function(tEvent, PAR){
+              self$trackHist(tEvent = tEvent, event = "PEwane")
               private$Pathogens$Pf$set_b(private$PfSI_PAR$Pf_b)
             }
   )
@@ -581,8 +582,8 @@ PfSI.Setup <- function(
 
   Human$set(which = "public",name = "gsvaccinatePfSI",
             value = function(tEvent, PAR){
-
               if(runif(1) < private$PfSI_PAR$GSProtectPf){
+                self$trackHist(tEvent = tEvent, event = "GSvaxx")
                 private$Pathogens$Pf$set_c(private$PfSI_PAR$Pf_c * (1-private$PfSI_PAR$gsBlockPf))
                 self$add2Q_gswanePfSI(tEvent = tEvent)
               }
@@ -605,6 +606,7 @@ PfSI.Setup <- function(
 
   Human$set(which = "public",name = "gswanePfSI",
             value = function(tEvent, PAR){
+              self$trackHist(tEvent = tEvent, event = "GSwane")
               private$Pathogens$Pf$set_c(private$PfSI_PAR$Pf_c)
             }
   )
