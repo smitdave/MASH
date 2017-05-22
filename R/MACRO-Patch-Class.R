@@ -53,18 +53,24 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                  public = list(
 
                    # class initialize
-                   initialize = function(N, RMparameters=NULL, layingProportions=NULL){
+                   initialize = function(N){
                      private$N = N
 
-                    #  testing stuff, delete later
-                     private$kappa = rnorm(1e2)
+                     private$PfTypes = vector(mode="list",length=N)
+                     for(ixP in 1:N){
+                       private$PfTypes[[ixP]] = patchPf(damID = NULL, sireID = NULL)
+                     }
                    },
 
                    ########################################
                    #  Accessors, Pointers, and Setters
                    ########################################
 
-                   # hhID
+                   get_N = function(){
+                     return(private$N)
+                   },
+
+                   # Houses
                    get_hhID = function(ix = NULL){
                      if(is.null(ix)){
                        return(hhID)
@@ -73,7 +79,7 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                      }
                    },
 
-                   # biting weights
+                   # Biting weights
                    get_bWeightHuman = function(ix = NULL){
                      if(is.null(ix)){
                        return(private$bWeightHuman)
@@ -122,7 +128,7 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                      }
                    },
 
-                   # net infectiousness
+                   # Net infectiousness
                    get_Q = function(ix = NULL){
                      if(is.null(ix)){
                        return(private$Q)
@@ -171,61 +177,143 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                    },
 
                    # Egg laying
-                   get_humanIDs = function(ix = NULL){
+                   get_aquaID = function(ix = NULL){
                      if(is.null(ix)){
-                       return(private$humanIDs)
+                       return(private$aquaID)
                      } else {
-                       return(private$humanIDs[[ix]])
+                       return(private$aquaID[ix])
                      }
                    },
-                   set_humanIDs = function(humanIDs, ix = NULL){
+                   set_aquaID = function(aquaID, ix = NULL){
                      if(!is.null(ix)){
-                       private$humanIDs[[ix]] = humanIDs
+                       private$aquaID[ix] = aquaID
                      } else {
-                       private$humanIDs = humanIDs
+                       private$aquaID = aquaID
                      }
                    },
 
-                   get_humanIDs = function(ix = NULL){
+                   get_aquaP = function(ix = NULL){
                      if(is.null(ix)){
-                       return(private$humanIDs)
+                       return(private$aquaP)
                      } else {
-                       return(private$humanIDs[[ix]])
+                       return(private$aquaP[ix])
                      }
                    },
-                   set_humanIDs = function(humanIDs, ix = NULL){
+                   set_aquaP = function(aquaP, ix = NULL){
                      if(!is.null(ix)){
-                       private$humanIDs[[ix]] = humanIDs
+                       private$aquaP[ix] = aquaP
                      } else {
-                       private$humanIDs = humanIDs
+                       private$aquaP = aquaP
                      }
                    },
 
-                   get_humanIDs = function(ix = NULL){
+                   get_aquaNewM = function(ix = NULL){
                      if(is.null(ix)){
-                       return(private$humanIDs)
+                       return(private$aquaNewM)
                      } else {
-                       return(private$humanIDs[[ix]])
+                       return(private$aquaNewM[ix])
                      }
                    },
-                   set_humanIDs = function(humanIDs, ix = NULL){
+                   set_aquaNewM = function(aquaNewM, ix = NULL){
                      if(!is.null(ix)){
-                       private$humanIDs[[ix]] = humanIDs
+                       private$aquaNewM[ix] = aquaNewM
                      } else {
-                       private$humanIDs = humanIDs
+                       private$aquaNewM = aquaNewM
                      }
                    },
 
+                   get_weightAqua = function(ix = NULL){
+                     if(is.null(ix)){
+                       return(private$weightAqua)
+                     } else {
+                       return(private$weightAqua[ix])
+                     }
+                   },
+                   set_weightAqua = function(weightAqua, ix = NULL){
+                     if(!is.null(ix)){
+                       private$weightAqua[ix] = weightAqua
+                     } else {
+                       private$weightAqua = weightAqua
+                     }
+                   },
 
+                   get_weightOvitrap = function(ix = NULL){
+                     if(is.null(ix)){
+                       return(private$weightOvitrap)
+                     } else {
+                       return(private$weightOvitrap[ix])
+                     }
+                   },
+                   set_weightOvitrap = function(weightOvitrap, ix = NULL){
+                     if(!is.null(ix)){
+                       private$weightOvitrap[ix] = weightOvitrap
+                     } else {
+                       private$weightOvitrap = weightOvitrap
+                     }
+                   },
 
+                   # Sugar feeding
+                   get_weightSugar = function(ix = NULL){
+                     if(is.null(ix)){
+                       return(private$weightSugar)
+                     } else {
+                       return(private$weightSugar[ix])
+                     }
+                   },
+                   set_weightSugar = function(weightSugar, ix = NULL){
+                     if(!is.null(ix)){
+                       private$weightSugar[ix] = weightSugar
+                     } else {
+                       private$weightSugar = weightSugar
+                     }
+                   },
 
+                   get_weightBait = function(ix = NULL){
+                     if(is.null(ix)){
+                       return(private$weightBait)
+                     } else {
+                       return(private$weightBait[ix])
+                     }
+                   },
+                   set_weightBait = function(weightBait, ix = NULL){
+                     if(!is.null(ix)){
+                       private$weightBait[ix] = weightBait
+                     } else {
+                       private$weightBait = weightBait
+                     }
+                   },
+
+                   # Mating
+                   get_weightMate = function(ix = NULL){
+                     if(is.null(ix)){
+                       return(private$weightMate)
+                     } else {
+                       return(private$weightMate[ix])
+                     }
+                   },
+                   set_weightMate = function(weightMate, ix = NULL){
+                     if(!is.null(ix)){
+                       private$weightMate[ix] = weightMate
+                     } else {
+                       private$weightMate = weightMate
+                     }
+                   },
+
+                   # Parasite
+                   get_PfTypes = function(ix){
+                     if(is.null(ix)){
+                       return(private$PfTypes)
+                     } else {
+                       return(private$PfTypes[[ix]])
+                     }
+                   }
 
                   ),
 
                   # private methods & fields
                   private = list(
 
-                    N         = NULL, # number of humans
+                    N         = NULL, # number of patches
 
                     # Houses, for effect size estimation
                     # Can use same structures as MICRO for
@@ -257,16 +345,12 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                     weightMate    = NULL,
 
                     # Parasite
-                    PfTypes = list(dameID=NULL, sireID=NULL),
-
-                    RMparameters = NULL,
-
-                    layingProportions = NULL
-
-                  ),
-
-                  # active bindings
-                  active = list(
+                    PfTypes = list()
 
                   )
+
+                  # # active bindings
+                  # active = list(
+                  #
+                  # )
 )

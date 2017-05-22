@@ -2,7 +2,7 @@
 % Please edit documentation in R/MACRO-Human-Methods.R
 \name{MACRO.Humans.Setup}
 \alias{MACRO.Humans.Setup}
-\title{Initialize Additional Methods & Fields in \code{Human} and \code{HumanPop} for MACRO}
+\title{MACRO: Initialize Additional Methods & Fields in \code{Human}}
 \usage{
 MACRO.Humans.Setup()
 }
@@ -13,7 +13,7 @@ MACRO.Humans.Setup()
 does stuff
 }
 \description{
-Write me!
+Write me! \code{\link{Human}}
 }
 \examples{
 MACRO.Humans.Setup()
