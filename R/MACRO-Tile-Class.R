@@ -54,7 +54,7 @@ MacroTile <- R6::R6Class(classname = "MacroTile",
 
                    # class initialize
                    initialize = function(nHum,nPatch){
-                     private$Humans = HumanPop$new(nHum = nHum)
+                     private$HumanPop = HumanPop$new(nHum = nHum)
                      private$Patches = Patch$new(N = nPatch)
                      private$Pointers = macroPointer$new(pointPatch = private$Patches, pointHumanPop = private$Humans)
                    },
@@ -76,7 +76,7 @@ MacroTile <- R6::R6Class(classname = "MacroTile",
 
                   # private methods & fields
                   private = list(
-                    Humans = NULL,
+                    HumanPop = NULL,
                     Patches = NULL,
                     Pointers = NULL
                   ),

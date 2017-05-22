@@ -45,7 +45,7 @@ library(R6)
 #'   \item{\code{coolActiveBinding}}{...}
 #' }
 #' @export
-Patch <- R6::R6Class(classname = "Patch",
+MacroPatch <- R6::R6Class(classname = "MacroPatch",
                  portable = TRUE,
                  cloneable = FALSE,
                  lock_class = FALSE,
