@@ -1,0 +1,28 @@
+#################################################################
+#
+#   MASH
+#   R6-ified
+#   Development Notes
+#   Sean Wu
+#
+#################################################################
+
+
+# naming conventions
+HUMANS/MICRO/MACRO/PATHOGEN/INTERVENTION - Human/HumanPop/Mosquito/MosquitoPop/PfSI/Site/Tile/Emerge,etc - Class/Parameters/Main/Auxiliary.R
+
+# humans for PfSI
+before making any objects, run PfSI.Setup()
+then run SimBitePfSI.Setup()
+
+to initialize first make the HumanPop object then for PfSI you will need to run PfSI.Init(PfPR = XX) on your object.
+
+
+# other conventions:
+* never initialize pointers in the $new() or initialize() functions; initialize after with their setter function $set_POINTER()
+* XX.Init are methods added to OBJECTS already in the environment
+* XX.Setup are FUNCTIONS called before any OBJECTS are created.
+
+# dave MACRO to sean R6 MACRO name changes
+* w = biteWeight
+* ixTrip = ixP (its in the PAR list so its not ambiguous)

@@ -8,7 +8,7 @@
 
 
 #####################################
-# Packages 
+# Packages
 #####################################
 # it's better to unpack these files and commit the raw source
 # git has its own built in compression methods
@@ -34,7 +34,7 @@
 
 
 #####################################
-# OS generated files 
+# OS generated files
 #####################################
 .DS_Store
 .DS_Store?
@@ -46,7 +46,7 @@ Thumbs.db
 
 
 #####################################
-# R runtime files 
+# R runtime files
 #####################################
 .RData
 .RHistory
@@ -55,13 +55,13 @@ Thumbs.db
 
 
 #####################################
-# Junk Directory  
+# Junk Directory
 #####################################
 Archive/
 
 
 #####################################
-# Media and other bloat-prone files 
+# Media and other bloat-prone files
 #####################################
 *.png
 *.jpg
@@ -79,4 +79,3 @@ Archive/
 ######################################
 # User-specific files
 ######################################
-notes.txt
