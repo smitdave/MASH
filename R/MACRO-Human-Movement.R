@@ -122,12 +122,12 @@ takeTrip <- function(tEvent, PAR){
   home = self$patchID
 
   # update home biting weight
-  wHome = self$get_PatchesPointer()$get_wHuman(ixP = home) - self$get_biteWeight()
-  self$get_PatchesPointer()$set_wHuman(ixP = home,wHuman = wHome)
+  wHome = self$get_PatchesPointer()$get_bWeightHuman(ix = home) - self$get_bWeightHuman()
+  self$get_PatchesPointer()$set_bWeightHuman(bWeightHuman = wHome, ix = home)
 
   # update visiting patch biting weight
-  wAway = self$get_PatchesPointer()$get_wHuman(ixP = away) + self$get_biteWeight()
-  self$get_PatchesPointer()$set_wHuman(ixP = away,wHuman = wAway)
+  wAway = self$get_PatchesPointer()$get_bWeightHuman(ix = away) + self$get_bWeightHuman()
+  self$get_PatchesPointer()$set_bWeightHuman(bWeightHuman = wAway, ix = away)
 
   # queue up the voyage home
   tReturn = tEvent + rexp(n = 1, rate = 1 / self$get_travel()$places_length[PAR$ixP])

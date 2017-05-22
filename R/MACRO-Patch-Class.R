@@ -7,11 +7,9 @@
 #
 #############################################
 
-library(R6)
-
 #' MACRO Patch Class Definition
 #'
-#' This is a generic MACRO patch blah blah ...
+#' This is a generic collection MACRO patches blah blah ...
 #'  below i describe the basic structure of the patch. methods and fields for specific COMPONENTS can be found in:
 #' * somewhere 1
 #' * somewhere 2
@@ -66,9 +64,161 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                    #  Accessors, Pointers, and Setters
                    ########################################
 
-                   get_kappa = function(){
-                     return(private$kappa)
-                   }
+                   # hhID
+                   get_hhID = function(ix = NULL){
+                     if(is.null(ix)){
+                       return(hhID)
+                     } else {
+                       return(hhID[[ix]])
+                     }
+                   },
+
+                   # biting weights
+                   get_bWeightHuman = function(ix = NULL){
+                     if(is.null(ix)){
+                       return(private$bWeightHuman)
+                     } else {
+                       return(private$bWeightHuman[ix])
+                     }
+                   },
+                   set_bWeightHuman = function(bWeightHuman, ix = NULL){
+                     # set one element or entire vector
+                     if(!is.null(ix)){
+                       private$bWeightHuman[ix] = bWeightHuman
+                     } else {
+                       private$bWeightHuman = bWeightHuman
+                     }
+                   },
+
+                   get_bWeightZoo = function(ix = NULL){
+                     if(is.null(ix)){
+                       return(private$bWeightZoo)
+                     } else {
+                       return(private$bWeightZoo[ix])
+                     }
+                   },
+                   set_bWeightZoo = function(bWeightZoo, ix = NULL){
+                     # set one element or entire vector
+                     if(!is.null(ix)){
+                       private$bWeightZoo[ix] = bWeightZoo
+                     } else {
+                       private$bWeightZoo = bWeightZoo
+                     }
+                   },
+
+                   get_bWeightZootox = function(ix = NULL){
+                     if(is.null(ix)){
+                       return(private$bWeightZootox)
+                     } else {
+                       return(private$bWeightZootox[ix])
+                     }
+                   },
+                   set_bWeightZootox = function(bWeightZootox, ix = NULL){
+                     # set one element or entire vector
+                     if(!is.null(ix)){
+                       private$bWeightZootox[ix] = bWeightZootox
+                     } else {
+                       private$bWeightZootox = bWeightZootox
+                     }
+                   },
+
+                   # net infectiousness
+                   get_Q = function(ix = NULL){
+                     if(is.null(ix)){
+                       return(private$Q)
+                     } else {
+                       return(private$Q[ix])
+                     }
+                   },
+                   set_Q = function(Q, ix = NULL){
+                     # set one element or entire vector
+                     if(!is.null(ix)){
+                       private$Q[ix] = Q
+                     } else {
+                       private$Q = Q
+                     }
+                   },
+
+                   get_kappa = function(ix = NULL){
+                     if(is.null(ix)){
+                       return(private$kappa)
+                     } else {
+                       return(private$kappa[ix])
+                     }
+                   },
+                   set_kappa = function(kappa, ix = NULL){
+                     # set one element or entire vector
+                     if(!is.null(ix)){
+                       private$kappa[ix] = kappa
+                     } else {
+                       private$kappa = kappa
+                     }
+                   },
+
+                   get_humanIDs = function(ix = NULL){
+                     if(is.null(ix)){
+                       return(private$humanIDs)
+                     } else {
+                       return(private$humanIDs[[ix]])
+                     }
+                   },
+                   set_humanIDs = function(humanIDs, ix = NULL){
+                     if(!is.null(ix)){
+                       private$humanIDs[[ix]] = humanIDs
+                     } else {
+                       private$humanIDs = humanIDs
+                     }
+                   },
+
+                   # Egg laying
+                   get_humanIDs = function(ix = NULL){
+                     if(is.null(ix)){
+                       return(private$humanIDs)
+                     } else {
+                       return(private$humanIDs[[ix]])
+                     }
+                   },
+                   set_humanIDs = function(humanIDs, ix = NULL){
+                     if(!is.null(ix)){
+                       private$humanIDs[[ix]] = humanIDs
+                     } else {
+                       private$humanIDs = humanIDs
+                     }
+                   },
+
+                   get_humanIDs = function(ix = NULL){
+                     if(is.null(ix)){
+                       return(private$humanIDs)
+                     } else {
+                       return(private$humanIDs[[ix]])
+                     }
+                   },
+                   set_humanIDs = function(humanIDs, ix = NULL){
+                     if(!is.null(ix)){
+                       private$humanIDs[[ix]] = humanIDs
+                     } else {
+                       private$humanIDs = humanIDs
+                     }
+                   },
+
+                   get_humanIDs = function(ix = NULL){
+                     if(is.null(ix)){
+                       return(private$humanIDs)
+                     } else {
+                       return(private$humanIDs[[ix]])
+                     }
+                   },
+                   set_humanIDs = function(humanIDs, ix = NULL){
+                     if(!is.null(ix)){
+                       private$humanIDs[[ix]] = humanIDs
+                     } else {
+                       private$humanIDs = humanIDs
+                     }
+                   },
+
+
+
+
 
                   ),
 
@@ -80,29 +230,31 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                     # Houses, for effect size estimation
                     # Can use same structures as MICRO for
                     # consistent modeling of vector control.
-                    hhID      = NULL,
+                    hhID      = list(),
 
                     # How are infectious bites divided up?
-                    w.human   = NULL,
-                    w.zoo     = NULL,
-                    w.zootox  = NULL,
+                    bWeightHuman   = NULL,
+                    bWeightZoo     = NULL,
+                    bWeightZootox  = NULL,
 
                     # Net infectiousness
                     Q         = NULL,
                     kappa     = NULL,
-                    humanIDs  = list(id=NULL, c=NULL),
+                    humanIDs  = list(),
 
                     #Egg laying
-                    aqua      = list(id=NULL, p = NULL, newM = NULL),
-                    w.aqua    = NULL,   # For modeling movement
-                    w.ovitrap = NULL,
+                    aquaID        = NULL,
+                    aquaP         = NULL,
+                    aquaNewM      = NULL,
+                    weightAqua    = NULL,   # For modeling movement
+                    weightOvitrap = NULL,
 
                     #Sugar feeding
-                    w.sugar   = NULL,
-                    w.bait    = NULL,
+                    weightSugar   = NULL,
+                    weightBait    = NULL,
 
                     #Mating
-                    w.mate    = NULL,
+                    weightMate    = NULL,
 
                     # Parasite
                     PfTypes = list(dameID=NULL, sireID=NULL),
