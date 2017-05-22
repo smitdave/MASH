@@ -77,7 +77,7 @@ SimBitePfSI.Setup <- function(
                value = function(tVaccine, tTreat, fracPop){
                  for(ixH in 1:floor(fracPop*self$nHum)){
                    print(paste0("queueing vaccination for human: ",ixH))
-                   private$pop[[ixH]]$add2Q_pevaccinatePfSI(tEvent = tVaxx)
+                   private$pop[[ixH]]$add2Q_pevaccinatePfSI(tEvent = tVaccine)
                    private$pop[[ixH]]$add2Q_treatPfSI(tEvent = tTreat)
                  }
                }

@@ -386,9 +386,11 @@ PfSI.Setup <- function(
                 self$trackHist(tEvent = tEvent, event = "I") # track history
                 private$Pathogens$Pf$set_infected(TRUE)
 
-                newID = self$get_SelfPointer()$increment_PfID()
+                # newID = self$get_SelfPointer()$increment_PfID()
+                # private$Pathogens$Pf$push_PfID(newID)
 
-                private$Pathogens$Pf$push_PfID(newID)
+                private$Pathogens$Pf$push_PfID(self$get_SelfPointer()$increment_PfID())
+
                 private$Pathogens$Pf$push_damID(PAR$damID)
                 private$Pathogens$Pf$push_sireID(PAR$sireID)
                 if(runif(1) < private$PfSI_PAR$FeverPf){
@@ -506,7 +508,6 @@ PfSI.Setup <- function(
 
   Human$set(which = "public",name = "endprophylaxisPfSI",
             value = function(tEvent, PAR){
-
               # End Prophylaxis
               self$trackHist(tEvent = tEvent, event = "S")
               private$Pathogens$Pf$set_chemoprophylaxis(FALSE)
@@ -544,14 +545,14 @@ PfSI.Setup <- function(
   # waning protection
   Human$set(which = "public",name = "add2Q_pewanePfSI",
             value = function(tEvent, PAR = NULL){
-              tWane = tEvent + self$ttPEWanePf()
               self$addEvent2Q(event = self$event_pewanePfSI(tEvent = tEvent, PAR = PAR))
             }
   )
 
   Human$set(which = "public",name = "event_pewanePfSI",
             value = function(tEvent, PAR = NULL){
-              list(tEvent = tEvent, PAR = PAR, tag = "pewanePfSI")
+              tWane = tEvent + self$ttPEWanePf()
+              list(tEvent = tWane, PAR = PAR, tag = "pewanePfSI")
             }
   )
 
@@ -591,14 +592,14 @@ PfSI.Setup <- function(
   # waning protection
   Human$set(which = "public",name = "add2Q_gswanePfSI",
             value = function(tEvent, PAR = NULL){
-              tWane = tEvent + self$ttGSWane()
               self$addEvent2Q(event = self$event_gswanePfSI(tEvent = tEvent, PAR = PAR))
             }
   )
 
   Human$set(which = "public",name = "event_gswanePfSI",
             value = function(tEvent, PAR = NULL){
-              list(tEvent = tEvent, PAR = PAR, tag = "gswanePfSI")
+              tWane = tEvent + self$ttGSWane()
+              list(tEvent = tWane, PAR = PAR, tag = "gswanePfSI")
             }
   )
 
@@ -632,98 +633,10 @@ PfSI.Setup <- function(
             }
   )
 
+  ###################################################################
+  # PfSI Auxiliary Definitions
+  ###################################################################
+
+  PfSI.Auxiliary()
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-# ##########################################
-# # Plotting
-# ##########################################
-#
-# plotPfsiOneTrajectory <- function(ixH, oneHistory, tMax){
-#
-#   times = oneHistory$eventT[-1]
-#   events = oneHistory$events[-1]
-#
-#   # fever
-#   ixF = which(events == "F")
-#   if(length(ixF)>0){
-#     points(x = times[ixF],y = rep(x = ixH,times = length(ixF)),pch=17,cex=0.5,col="red")
-#   }
-#
-#   # prophylaxis
-#   ixP = which(events == "P")
-#   if(length(ixP)>0){
-#     points(x = times[ixP],y = rep(x = ixH,times = length(ixP)),pch=16,cex=0.5,col="blue")
-#   }
-#
-#   # vaccination
-#   ixV = grep(pattern = "vaxx$",x = events)
-#   ixW = grep(pattern = "wane$",x = events)
-#   if(length(ixV)>0){
-#     points(x = times[ixV],y = rep(x = ixH,times = length(ixV)),pch=18,cex=0.5,col="darkorange")
-#   }
-#   if(length(ixW)>0){
-#     points(x = times[ixW],y = rep(x = ixH,times = length(ixW)),pch=18,cex=0.5,col="darkorange4")
-#   }
-#
-#   events = events[-c(ixF,ixV,ixW)]
-#   times = times[-c(ixF,ixV,ixW)]
-#
-#   # state trajectory
-#   if(length(events) > 0){
-#
-#     for(i in 1:(length(events))){
-#
-#       if(i == length(events)){ # final trajectory
-#         if(events[i] == "I"){
-#           segments(x0 = times[i],y0 = ixH,x1 = tMax,y1 = ixH,col = "red",lwd = 2)
-#         }
-#         if(events[i] == "S"){
-#           segments(x0 = times[i],y0 = ixH,x1 = tMax,y1 = ixH,col = "grey70",lwd = 2)
-#         }
-#         if(events[i] == "P"){
-#           segments(x0 = times[i],y0 = ixH,x1 = tMax,y1 = ixH,col = "blue",lwd = 2)
-#         }
-#
-#       } else { # interior trajectory
-#         if(events[i] == "I"){
-#           segments(x0 = times[i],y0 = ixH,x1 = times[i+1],y1 = ixH,col = "red",lwd = 2)
-#         }
-#         if(events[i] == "S"){
-#           segments(x0 = times[i],y0 = ixH,x1 = times[i+1],y1 = ixH,col = "grey70",lwd = 2)
-#         }
-#         if(events[i] == "P"){
-#           segments(x0 = times[i],y0 = ixH,x1 = times[i+1],y1 = ixH,col = "blue",lwd = 2)
-#         }
-#       }
-#
-#     } # end for
-#   } # end state trajectory
-#
-# }
-#
-# plotPfsiTrajectory <- function(history){
-#
-#   tMax = max(sapply(X = history,FUN = function(x){max(x$eventT)}))
-#
-#   plot(1,type="n",xaxt="n",yaxt="n",ylab="Humans",xlab="Time (Years)",xlim=c(0,tMax),ylim=c(0,length(history)))
-#   ttMax = tMax/365
-#   axis(side = 1,at = c(0:ttMax)*365,labels = c(0:ttMax))
-#
-#   for(ixH in 1:length(history)){
-#     plotPfsiOneTrajectory(ixH = ixH,oneHistory = history[[ixH]],tMax = tMax)
-#   }
-#
-# }
