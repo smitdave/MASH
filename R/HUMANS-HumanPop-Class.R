@@ -46,23 +46,23 @@ HumanPop <- R6::R6Class(classname = "HumanPop",
                     public = list(
 
                       # initialize
-                      initialize = function(nHum, tStart = 0, hhIDs = NULL, hIDs = NULL, verbose = FALSE){
+                      initialize = function(nHum, tStart = 0, homeIDs = NULL, humanIDs = NULL, verbose = FALSE){
 
-                        if(is.null(hhIDs)){
-                          hhIDs = 1:nHum
-                        } else if(length(hhIDs)!=nHum){
-                          stop("length of hhIDs not equal to nHum!")
+                        if(is.null(homeIDs)){
+                          homeIDs = 1:nHum
+                        } else if(length(homeIDs)!=nHum){
+                          stop("length of homeIDs not equal to nHum!")
                         }
 
-                        if(is.null(hIDs)){
-                          hIDs = 1:nHum
-                        } else if(length(hIDs)!=nHum){
-                          stop("length of hIDs not equal to nHum!")
+                        if(is.null(humanIDs)){
+                          humanIDs = 1:nHum
+                        } else if(length(humanIDs)!=nHum){
+                          stop("length of humanIDs not equal to nHum!")
                         }
 
                         private$pop = vector(mode="list",length = nHum)
                         for(ixH in 1:nHum){
-                          private$pop[[ixH]] = Human$new(myID = hIDs[ixH], hhID = hhIDs[ixH], bDay = tStart)
+                          private$pop[[ixH]] = Human$new(myID = humanIDs[ixH], hhID = homeIDs[ixH], bDay = tStart)
                           # set pointers
                           private$pop[[ixH]]$set_PopPointer(private$pop)
                           private$pop[[ixH]]$set_SelfPointer(self)
@@ -72,8 +72,8 @@ HumanPop <- R6::R6Class(classname = "HumanPop",
                         # this may need to be done when we have people immigrating and emigrating from patches
                         self$nHum = nHum          # size of human population
                         self$tStart = tStart      # time to start simulating
-                        self$hhIDs = hhIDs        # vector of household IDs
-                        self$hIDs = hIDs          # vector of human IDs
+                        self$homeIDs = homeIDs        # vector of home IDs corresponding to that human's home
+                        self$humanIDs = humanIDs          # vector of human IDs
                         self$verbose = verbose    # print verbose output?
                       },
 
@@ -86,7 +86,7 @@ HumanPop <- R6::R6Class(classname = "HumanPop",
                         if(is.null(ixH)){
                           return(private$pop)
                         } else {
-                          if(!any(self$hIDs == ixH)){ stop(paste0("index: ",ixH," does not match any ID!"))}
+                          if(!any(self$humanIDs == ixH)){ stop(paste0("index: ",ixH," does not match any ID!"))}
                           return(private$pop[[ixH]])
                         }
                       },
@@ -100,7 +100,7 @@ HumanPop <- R6::R6Class(classname = "HumanPop",
                           }
                           return(histories)
                         } else {
-                          if(!any(self$hIDs == ixH)){ stop(paste0("index: ",ixH," does not match any ID!"))}
+                          if(!any(self$humanIDs == ixH)){ stop(paste0("index: ",ixH," does not match any ID!"))}
                           return(private$pop[[ixH]]$get_History())
                         }
                       },
@@ -121,8 +121,8 @@ HumanPop <- R6::R6Class(classname = "HumanPop",
 
                       nHum = NULL,
                       tStart = NULL,
-                      hhIDs = NULL,
-                      hIDs = NULL
+                      homeIDs = NULL,
+                      humanIDs = NULL
 
                     ),
 

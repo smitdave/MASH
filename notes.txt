@@ -22,6 +22,7 @@ to initialize first make the HumanPop object then for PfSI you will need to run 
 * never initialize pointers in the $new() or initialize() functions; initialize after with their setter function $set_POINTER()
 * XX.Init are methods added to OBJECTS already in the environment
 * XX.Setup are FUNCTIONS called before any OBJECTS are created.
+* .Init,.Setup,.Parameters are the only times that period may be used to define thing.
 
 # dave MACRO to sean R6 MACRO name changes
 * w = biteWeight

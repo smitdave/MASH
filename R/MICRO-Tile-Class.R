@@ -12,32 +12,40 @@
 # Patch Definition
 #################################################################
 
-#' MICRO-Tile Class Definition
+#' MICRO Tile Class Definition
 #'
-#' This is a tile blah blah.......
-#'  categorical summary measure \code{A[j]}. This class inherits from \code{\link{GenericModel}} class.
-#'  Defines the fitting algorithm for a regression model \code{A[j] ~ W + ...}.
+#' This is a generic MICRO microsimulation tile blah blah ...
+#' I talk about something here
+#' * somewhere 1
+#' * somewhere 2
+#' @md
 #'
 #' @docType class
 #' @format An \code{\link{R6Class}} generator object
 #' @keywords R6 class
 #' @details
+#' talk about me in detail!
+#' @section public:
 #' \itemize{
-#' \item{\code{reg}} - .
-#' \item{\code{outvar}} - .
-#' \item{\code{levels}} - .
-#' \item{\code{nbins}} - .
+#'   \item{\code{initialize(N)}}{
+#'        talk about me!
+#'        }
+#'   \item{\code{function()}}{
+#'        talk about me!
+#'        }
 #' }
-#' @section Methods:
-#' \describe{
-#'   \item{\code{new(reg, DataStorageClass.g0, ...)}}{...}
-#'   \item{\code{fit(data)}}{...}
-#'   \item{\code{predict(newdata)}}{...}
-#'   \item{\code{predictAeqa(newdata)}}{...}
+#' @section private:
+#' \itemize{
+#'   \item{\code{function()}}{
+#'        talk about me!
+#'        }
+#'   \item{\code{function()}}{
+#'        talk about me!
+#'        }
 #' }
 #' @section Active Bindings:
-#' \describe{
-#'   \item{\code{cats}}{...}
+#' \itemize{
+#'   \item{\code{coolActiveBinding}}{...}
 #' }
 #' @export
 MicroTile <- R6::R6Class(classname = "MicroTile",

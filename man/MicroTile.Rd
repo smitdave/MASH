@@ -3,38 +3,50 @@
 \docType{class}
 \name{MicroTile}
 \alias{MicroTile}
-\title{MICRO-Tile Class Definition}
+\title{MICRO Tile Class Definition}
 \format{An \code{\link{R6Class}} generator object}
 \usage{
 MicroTile
 }
 \description{
-This is a tile blah blah.......
- categorical summary measure \code{A[j]}. This class inherits from \code{\link{GenericModel}} class.
- Defines the fitting algorithm for a regression model \code{A[j] ~ W + ...}.
+This is a generic MICRO microsimulation tile blah blah ...
+I talk about something here
+\itemize{
+\item somewhere 1
+\item somewhere 2
+}
 }
 \details{
-\itemize{
-\item{\code{reg}} - .
-\item{\code{outvar}} - .
-\item{\code{levels}} - .
-\item{\code{nbins}} - .
+talk about me in detail!
 }
-}
-\section{Methods}{
+\section{public}{
 
-\describe{
-  \item{\code{new(reg, DataStorageClass.g0, ...)}}{...}
-  \item{\code{fit(data)}}{...}
-  \item{\code{predict(newdata)}}{...}
-  \item{\code{predictAeqa(newdata)}}{...}
+\itemize{
+\item{\code{initialize(N)}}{
+talk about me!
+}
+\item{\code{function()}}{
+talk about me!
+}
+}
+}
+
+\section{private}{
+
+\itemize{
+\item{\code{function()}}{
+talk about me!
+}
+\item{\code{function()}}{
+talk about me!
+}
 }
 }
 
 \section{Active Bindings}{
 
-\describe{
-  \item{\code{cats}}{...}
+\itemize{
+\item{\code{coolActiveBinding}}{...}
 }
 }
 

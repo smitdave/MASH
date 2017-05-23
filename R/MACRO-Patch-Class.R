@@ -53,7 +53,7 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                  public = list(
 
                    # class initialize
-                   initialize = function(N){
+                   initialize = function(MacroPatch_PAR){
                      private$N = N
 
                      private$PfTypes = vector(mode="list",length=N)

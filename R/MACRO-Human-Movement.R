@@ -51,26 +51,26 @@ travelHabit = function(here, N, n, t=0){
 
 
 
-Human$set(which = "public",name = "infectHumanPfSI",
-          value = function(tEvent, PAR){
-            if(!private$Pathogens$Pf$get_infected() & !private$Pathogens$Pf$get_chemoprophylaxis()){
-              self$trackHist(tEvent = tEvent, event = "I") # track history
-              private$Pathogens$Pf$set_infected(TRUE)
-
-              # newID = self$get_SelfPointer()$increment_PfID()
-              # private$Pathogens$Pf$push_PfID(newID)
-
-              private$Pathogens$Pf$push_PfID(self$get_SelfPointer()$increment_PfID())
-
-              private$Pathogens$Pf$push_damID(PAR$damID)
-              private$Pathogens$Pf$push_sireID(PAR$sireID)
-              if(runif(1) < private$PfSI_PAR$FeverPf){
-                  self$add2Q_feverPfSI(tEvent = tEvent)
-              }
-              self$add2Q_endPfSI(tEvent = tEvent)
-            }
-          }
-)
+# Human$set(which = "public",name = "infectHumanPfSI",
+#           value = function(tEvent, PAR){
+#             if(!private$Pathogens$Pf$get_infected() & !private$Pathogens$Pf$get_chemoprophylaxis()){
+#               self$trackHist(tEvent = tEvent, event = "I") # track history
+#               private$Pathogens$Pf$set_infected(TRUE)
+#
+#               # newID = self$get_SelfPointer()$increment_PfID()
+#               # private$Pathogens$Pf$push_PfID(newID)
+#
+#               private$Pathogens$Pf$push_PfID(self$get_SelfPointer()$increment_PfID())
+#
+#               private$Pathogens$Pf$push_damID(PAR$damID)
+#               private$Pathogens$Pf$push_sireID(PAR$sireID)
+#               if(runif(1) < private$PfSI_PAR$FeverPf){
+#                   self$add2Q_feverPfSI(tEvent = tEvent)
+#               }
+#               self$add2Q_endPfSI(tEvent = tEvent)
+#             }
+#           }
+# )
 
 
 ###################################################################

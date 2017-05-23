@@ -9,7 +9,7 @@
 
 #' MACRO Tile Class Definition
 #'
-#' This is a generic MACRO tile blah blah ...
+#' This is a generic MACRO metapopulation tile blah blah ...
 #'  below i describe the basic structure of the patch. methods and fields for specific COMPONENTS can be found in:
 #' * somewhere 1
 #' * somewhere 2
