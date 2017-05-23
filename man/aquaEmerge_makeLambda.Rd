@@ -4,7 +4,7 @@
 \alias{aquaEmerge_makeLambda}
 \title{Generate Seasonal Emergence (Lambda) for \code{Emerge} model of Aquatic Ecology}
 \usage{
-aquaEmerge_makeLambda(lambda, lambdaWeight = NULLs, offset = 0)
+aquaEmerge_makeLambda(lambda, lambdaWeight = NULL, offset = NULL)
 }
 \arguments{
 \item{lambda}{vector of length equal to number of sites/patches where each element is the number of emerging adult females per human per day averaged over one year}

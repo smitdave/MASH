@@ -15,62 +15,42 @@
 
 #' MACRO \code{Human} Method: travelHabit
 #'
-#' Write me!
+#' Write me! a method for \code{\link{Human}}
 #'
-#' @param a parameter
+#' @param n number of other patches to visit
+#' @param freqMean meanlog
+#' @param freqSd sdlog
 #' @return does stuff
 #' @examples
 #' some_function()
-travelHabit <- function(){
+travelHabit <- function(n, freqMean = 7, freqSd = 2, lengthMean = 2, lengthSd = 1, tNow = 0){
 
-  self$get_PatchesPointer()$get_N()
+  N = self$get_PatchesPointer()$get_N() # how many patches
+  here = self$get_patchID() # where is my home?
 
-}
-
-travelHabit = function(here, N, n, t=0){
-  #NOTE: Modularize
-  #browser()
-  there = sample(c(1:N)[-here],n)
-  howOften = 60+round(rlnorm(n,7,2))
-  meanLengthOfTrip = round(rlnorm(n,2,1))
+  there = sample(x = c(1:N)[-here], size = n) # where do i often go?
+  howOften = 60+round(rlnorm(n,meanlog=freqMean,sdlog=freqSd))
+  meanLengthOfTrip = round(rlnorm(n,meanlog=lengthMean,sdlog=lengthSd))
 
   # set up the next trip
-  nextTripT = t+rexp(1, sum(1/howOften))
-  ixTrip = sample(c(1:n), 1, prob=1/howOften)
+  tTrip = tNow + rexp(n=1,rate=sum(1/howOften))
+  ixTrip = sample(x=c(1:n), size=1, prob=1/howOften)
   away = there[ixTrip]
-  add2Q_takeTrip(ixH, nextTripT,list(there=away,ixTrip=ixTrip))
 
-  list(
-    randomRate = 1/730,
-    nPlaces = n,
-    totFreq = sum(1/howOften),
-    places = list(there=there, frequency=1/howOften, length=meanLengthOfTrip)
+  PAR = list(there = away, ixTravel = ixTrip)
+  self$add2Q_takeTrip(tEvent = tTrip, PAR = PAR)
+
+  return(
+    list(
+      randomRate = 1/730,
+      nPlaces = n,
+      totFreq = sum(1/howOften),
+      places_there = there,
+      places_frequency = 1/howOften,
+      places_length = meanLengthOfTrip
+    )
   )
 }
-
-
-
-
-# Human$set(which = "public",name = "infectHumanPfSI",
-#           value = function(tEvent, PAR){
-#             if(!private$Pathogens$Pf$get_infected() & !private$Pathogens$Pf$get_chemoprophylaxis()){
-#               self$trackHist(tEvent = tEvent, event = "I") # track history
-#               private$Pathogens$Pf$set_infected(TRUE)
-#
-#               # newID = self$get_SelfPointer()$increment_PfID()
-#               # private$Pathogens$Pf$push_PfID(newID)
-#
-#               private$Pathogens$Pf$push_PfID(self$get_SelfPointer()$increment_PfID())
-#
-#               private$Pathogens$Pf$push_damID(PAR$damID)
-#               private$Pathogens$Pf$push_sireID(PAR$sireID)
-#               if(runif(1) < private$PfSI_PAR$FeverPf){
-#                   self$add2Q_feverPfSI(tEvent = tEvent)
-#               }
-#               self$add2Q_endPfSI(tEvent = tEvent)
-#             }
-#           }
-# )
 
 
 ###################################################################
@@ -111,6 +91,10 @@ event_takeTrip <- function(ixH, t, PAR){
 #' Write me!
 #'
 #' @param a parameter
+#' @param PAR a list of length two
+#' * there ID of patch this human will visit
+#' * ixTravel index of the patch this human will visit in their travel destinations
+#' @md
 #' @return does stuff
 #' @examples
 #' some_function()
@@ -130,6 +114,6 @@ takeTrip <- function(tEvent, PAR){
   self$get_PatchesPointer()$set_bWeightHuman(bWeightHuman = wAway, ix = away)
 
   # queue up the voyage home
-  tReturn = tEvent + rexp(n = 1, rate = 1 / self$get_travel()$places_length[PAR$ixP])
+  tReturn = tEvent + rexp(n = 1, rate = 1 / self$get_travel()$places_length[PAR$ixTravel])
   self$add2Q_returnHome(tEvent = tReturn, PAR = NULL)
 }

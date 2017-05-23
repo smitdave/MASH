@@ -7,6 +7,12 @@
 takeTrip(tEvent, PAR)
 }
 \arguments{
+\item{PAR}{a list of length two
+\itemize{
+\item there ID of patch this human will visit
+\item ixTravel index of the patch this human will visit in their travel destinations
+}}
+
 \item{a}{parameter}
 }
 \value{

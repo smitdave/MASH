@@ -4,16 +4,21 @@
 \alias{travelHabit}
 \title{MACRO \code{Human} Method: travelHabit}
 \usage{
-travelHabit(here, N, n, t = 0)
+travelHabit(n, freqMean = 7, freqSd = 2, lengthMean = 2, lengthSd = 1,
+  tNow = 0)
 }
 \arguments{
-\item{a}{parameter}
+\item{n}{number of other patches to visit}
+
+\item{freqMean}{meanlog}
+
+\item{freqSd}{sdlog}
 }
 \value{
 does stuff
 }
 \description{
-Write me!
+Write me! a method for \code{\link{Human}}
 }
 \examples{
 some_function()

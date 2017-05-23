@@ -38,11 +38,12 @@ MACRO.Patch.Parameters <- function(
 
     humanIDs,
 
-    aquaModel = "emerge"
+    aquaModel = "emerge",
+    ... # named parameters to be passed to specific aquaModel generating function
 
   ){
 
-    PAR = list(
+    MacroPatch_PAR = list(
         N   = N,
         hhID = hhID,
 
@@ -55,52 +56,35 @@ MACRO.Patch.Parameters <- function(
         humanIDs  = humanIDs,
 
         #Egg laying
-        aquaID        = NULL,
-        aquaP         = NULL,
-        aquaNewM      = NULL,
-        weightAqua    = NULL,   # For modeling movement
-        weightOvitrap = NULL
+        aquaID        = 1L:N,
+        aquaP         = rep(1,N),
+        aquaNewM      = rep(0,N),
+        weightAqua    = rep(0,N),   # For modeling movement
+        weightOvitrap = rep(0,N),
 
+        weightSugar   = rep(0,N),
+        weightBait    = rep(0,N),
+
+        weightMate    = rep(0,N)
       )
 
   if(aquaModel == "emerge"){
 
+    emergeArgs = names(sapply(match.call(), deparse))[-1]
+    if(!"lambda" %in% emergeArgs){
+      stop("please specify the vector 'lambda' when using the 'Emerge' module of Aquatic Ecology")
+    }
+    PAR$season = aquaEmerge_makeLambda(...)
+    PAR$ImagoQ = rep(0,N)
+    PAR$EggQ = rep(0,N)
 
   } else if(aquaModel == "EL4P"){
 
+    # PAR$something = aquaEL4P_makeMACRO(...)
+
   } else {
-    stop("aquaModel must be a value in 'emerge' or 'EL4P'!")
+    stop("aquaModel must be a value in 'emerge' or 'EL4P'")
   }
 
+  return(MacroPatch_PAR)
 }
-
-
-
-# hhID      = list(),
-#
-# # How are infectious bites divided up?
-# bWeightHuman   = NULL,
-# bWeightZoo     = NULL,
-# bWeightZootox  = NULL,
-#
-# # Net infectiousness
-# Q         = NULL,
-# kappa     = NULL,
-# humanIDs  = list(),
-#
-# #Egg laying
-# aquaID        = NULL,
-# aquaP         = NULL,
-# aquaNewM      = NULL,
-# weightAqua    = NULL,   # For modeling movement
-# weightOvitrap = NULL,
-#
-# #Sugar feeding
-# weightSugar   = NULL,
-# weightBait    = NULL,
-#
-# #Mating
-# weightMate    = NULL,
-#
-# # Parasite
-# PfTypes = list()

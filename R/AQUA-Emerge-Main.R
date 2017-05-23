@@ -42,13 +42,13 @@
 #' @examples
 #' aquaEmerge_makeLambda(lambda = c(2,3,4))
 #' @export
-aquaEmerge_makeLambda <- function(lambda, lambdaWeight = NULLs, offset = 0){
+aquaEmerge_makeLambda <- function(lambda, lambdaWeight = NULL, offset = NULL){
 
   N = length(lambda)
   if(is.null(lambdaWeight)){lambdaWeight = rgamma(n = N,shape = 1,rate = 1)}
 
   K = lambda*lambdaWeight / sum(lambdaWeight)
-  offset = rep(offset,length=N)
+  if(is.null(offset)){offset = rep(0,length=N)}
 
   lambda = vector(mode="list",length=N)
   for(ix in 1:N){
