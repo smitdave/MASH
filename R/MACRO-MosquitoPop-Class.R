@@ -69,23 +69,117 @@ MacroMosquitoPop <- R6::R6Class(classname = "MacroMosquitoPop",
                    # class initialize
                    initialize = function(nPatches = 10, maxEIP = 10, RMparameters){
 
-                      private$maxEIP = maxEIP
-                      private$nPatches = nPatches
-
-                      private$RMparameters = RMparameters
-                      private$psi = diag(nPatches)
-
-                      private$MP = list(
-                        M=rep(10, nPatches),
-                        Y=rep(0, nPatches),
-                        Z=rep(0, nPatches),
-                        ZZ = matrix(0,maxEIP,nPatches),
-                      )
-
-                      private$P = RMparameters$p^c(1:maxEIP)
-                      private$Psi = private$psi
+                     M   = rep(10L, N), # mosquito density
+                     Y   = rep(0L, N), # infected (incubating)
+                     Z   = rep(0L, N), # infectious
+                     ZZ  = matrix(data=0L,nrow=maxEIP,ncol=N), # each ro
+                     P   = p^c(1:maxEIP) # survival over EIP
 
 
+                   },
+
+                   #################################################
+                   # Getters and Setters
+                   #################################################
+
+                   # p: daily survival; lifetime is geometric(p)
+                   get_p = function(){
+                     return(private$p)
+                   },
+                   set_p = function(p){
+                     private$p = p
+                   },
+
+                   # f: feeding rate
+                   get_f = function(){
+                     return(private$f)
+                   },
+                   set_f = function(f){
+                     private$f = f
+                   },
+
+                   # Q: human blood index
+                   get_Q = function(){
+                     return(private$Q)
+                   },
+                   set_Q = function(Q){
+                     private$Q = Q
+                   },
+
+                   # v: daily egg laying rate
+                   get_v = function(){
+                     return(private$v)
+                   },
+                   set_v = function(v){
+                     private$v = v
+                   },
+
+                   # maxEIP: maximum length of EIP
+                   get_maxEIP = function(){
+                     return(private$maxEIP)
+                   },
+                   set_maxEIP = function(maxEIP){
+                     private$maxEIP = maxEIP
+                   },
+
+                   # M: mosquito density
+                   get_M = function(){
+                     return(private$M)
+                   },
+                   set_M = function(M){
+                     private$M = M
+                   },
+
+                   # Y: incubating mosquitoes
+                   get_Y = function(){
+                     return(private$Y)
+                   },
+                   set_Y = function(Y){
+                     private$Y = Y
+                   },
+
+                   # Z: infectious mosquitoes
+                   get_Z = function(){
+                     return(private$Z)
+                   },
+                   set_Z = function(Z){
+                     private$Z = Z
+                   },
+
+                   # ZZ: mosquito progression through EIP
+                   get_ZZ = function(){
+                     return(private$ZZ)
+                   },
+                   set_ZZ = function(ZZ){
+                     private$ZZ = ZZ
+                   },
+
+                   # P: fraction of cohort to survive over EIP
+                   get_P = function(){
+                     return(private$P)
+                   },
+                   set_P = function(P){
+                     private$P = P
+                   },
+
+                   #################################################
+                   # Pointers
+                   #################################################
+
+                   # PatchesPointer
+                   get_PatchesPointer = function(){
+                     return(private$PatchesPointer)
+                   },
+                   set_PatchesPointer = function(PatchesPointer){
+                     private$PatchesPointer = PatchesPointer
+                   },
+
+                   # HumansPointer
+                   get_HumansPointer = function(){
+                     return(private$HumansPointer)
+                   },
+                   set_HumansPointer = function(HumansPointer){
+                     private$HumansPointer = HumansPointer
                    }
 
                   ),
@@ -93,18 +187,30 @@ MacroMosquitoPop <- R6::R6Class(classname = "MacroMosquitoPop",
                   # private methods & fields
                   private = list(
 
+                    # RM parameters
+                    p = NULL,
+                    f = NULL,
+                    Q = NULL,
+                    v = NULL,
                     maxEIP = NULL,
-                    nPatches = NULL,
-                    MP = NULL,
-                    RMparameters = NULL,
-                    psi = NULL,
-                    P = NULL,
-                    Psi = NULL
+
+                    # Life stages
+                    M   = NULL, # mosquito density
+                    Y   = NULL, # infected (incubating)
+                    Z   = NULL, # infectious
+                    ZZ  = NULL, # each row is the number that will be added to the infectious state on that day
+
+                    # Survival & Dispersion
+                    P   = NULL,
+
+                    # Pointers
+                    PatchesPointer = NULL, # point to the enclosing Patches (a network of patches) in this metapopulation TILE (MACRO)
+                    HumansPointer = NULL # point to the HumanPop class that also lives in this metapopulation TILE
 
                   ),
 
-                  # active bindings
-                  active = list(
-
-                  )
+                  # # active bindings
+                  # active = list(
+                  #
+                  # )
 )

@@ -59,7 +59,7 @@ Human <- R6::R6Class(classname="Human",
                        },
 
                        #################################################
-                       # Accessors, Pointers, and Setters
+                       # Getters and Setters
                        #################################################
 
                        #myID
@@ -115,7 +115,10 @@ Human <- R6::R6Class(classname="Human",
                          return(as.list(self))
                        },
 
-                       # Pointers:
+                       #################################################
+                       # Pointers
+                       #################################################
+
                        # Pointers to enclosing HumanPop$pop
                        get_PopPointer = function(){
                          return(private$PopPointer)

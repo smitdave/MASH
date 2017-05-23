@@ -47,7 +47,7 @@ set_myEIR <- function(myEIR){
 #' some_function()
 expectedBites <- function(){
   here = self$get_location() # where am i now?
-  newEIR = self$get_biteWeight() *
+  newEIR = self$get_biteWeight() * self$get_MosquitoPointer()
 
 HUMANS[[ixH]]$w*with(LANDSCAPE$MPop,{f*Z[here]})/with(LANDSCAPE, w.human[here]+w.zoo[here]+w.zootox[here])
 
