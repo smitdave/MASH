@@ -386,10 +386,10 @@ PfSI.Setup <- function(
                 self$trackHist(tEvent = tEvent, event = "I") # track history
                 private$Pathogens$Pf$set_infected(TRUE)
 
-                # newID = self$get_SelfPointer()$increment_PfID()
+                # newID = self$get_HumansPointer()$increment_PfID()
                 # private$Pathogens$Pf$push_PfID(newID)
 
-                private$Pathogens$Pf$push_PfID(self$get_SelfPointer()$increment_PfID())
+                private$Pathogens$Pf$push_PfID(self$get_HumansPointer()$increment_PfID())
 
                 private$Pathogens$Pf$push_damID(PAR$damID)
                 private$Pathogens$Pf$push_sireID(PAR$sireID)
@@ -639,6 +639,6 @@ PfSI.Setup <- function(
   # PfSI Auxiliary Definitions
   ###################################################################
 
-  PfSI.Auxiliary()
+  PfSI.Auxiliary.Setup()
 
 }

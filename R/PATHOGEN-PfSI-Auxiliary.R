@@ -18,7 +18,7 @@
 #' @examples
 #'
 #' @export
-PfSI.Auxiliary <- function(){
+PfSI.Auxiliary.Setup <- function(){
 
   print(paste0("initializing PfSI auxiliary methods"))
 

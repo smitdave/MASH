@@ -55,7 +55,7 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                    # class initialize
                    initialize = function(MacroPatch_PAR){
                      private$N = N
-
+                     stop("WRITE ME")
                      private$PfTypes = vector(mode="list",length=N)
                      for(ixP in 1:N){
                        private$PfTypes[[ixP]] = patchPf(damID = NULL, sireID = NULL)

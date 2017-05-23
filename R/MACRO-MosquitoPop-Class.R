@@ -57,7 +57,7 @@
 #'   \item{\code{coolActiveBinding}}{...}
 #' }
 #' @export
-MosquitoPop <- R6::R6Class(classname = "MosquitoPop",
+MacroMosquitoPop <- R6::R6Class(classname = "MacroMosquitoPop",
                  portable = TRUE,
                  cloneable = FALSE,
                  lock_class = FALSE,

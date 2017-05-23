@@ -124,11 +124,11 @@ Human <- R6::R6Class(classname="Human",
                          private$PopPointer = PopPointer
                        },
                        # Pointers to enclosing HumanPop self
-                       get_SelfPointer = function(){
-                         return(private$SelfPointer)
+                       get_HumansPointer = function(){
+                         return(private$HumansPointer)
                        },
-                       set_SelfPointer = function(SelfPointer){
-                         private$SelfPointer = SelfPointer
+                       set_HumansPointer = function(HumansPointer){
+                         private$HumansPointer = HumansPointer
                        },
 
 
@@ -233,7 +233,7 @@ Human <- R6::R6Class(classname="Human",
 
                        # Pointers
                        PopPointer = NULL, # point to HumanPop$pop that encloses this human
-                       SelfPointer = NULL # point to HumanPop's public methods that encloses this human
+                       HumansPointer = NULL # point to HumanPop's public methods that encloses this human
 
                      )
 

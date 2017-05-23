@@ -67,7 +67,6 @@ SimBitePfSI.Setup <- function(
                      tBite = tBite + rexp(n = 1,rate = bitingRate)
                      private$pop[[ixH]]$add2Q_simbitePfSI(tEvent = tBite)
                    }
-                  #  private$pop[[i]]$trackHist(tEvent = self$tStart,event = "S")
                  }
                }
   )

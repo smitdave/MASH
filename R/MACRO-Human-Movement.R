@@ -13,6 +13,30 @@
 # travelHabit: initialize inter-patch travel
 ###################################################################
 
+#' Get \code{Human} travel
+#'
+#' Write me!
+#'
+#' @param a parameter
+#' @return does stuff
+#' @examples
+#' some_function()
+get_travel <- function(){
+  return(private$travel)
+}
+
+#' Set \code{Human} travel
+#'
+#' Write me!
+#'
+#' @param a parameter
+#' @return does stuff
+#' @examples
+#' some_function()
+set_travel <- function(travel){
+  private$travel = travel
+}
+
 #' MACRO \code{Human} Method: travelHabit
 #'
 #' Write me! a method for \code{\link{Human}}
@@ -40,16 +64,15 @@ travelHabit <- function(n, freqMean = 7, freqSd = 2, lengthMean = 2, lengthSd = 
   PAR = list(there = away, ixTravel = ixTrip)
   self$add2Q_takeTrip(tEvent = tTrip, PAR = PAR)
 
-  return(
-    list(
-      randomRate = 1/730,
-      nPlaces = n,
-      totFreq = sum(1/howOften),
-      places_there = there,
-      places_frequency = 1/howOften,
-      places_length = meanLengthOfTrip
-    )
-  )
+  travel = list(
+        randomRate = 1/730,
+        nPlaces = n,
+        totFreq = sum(1/howOften),
+        places_there = there,
+        places_frequency = 1/howOften,
+        places_length = meanLengthOfTrip
+      )
+  self$set_travel(travel)
 }
 
 
@@ -82,7 +105,7 @@ add2Q_takeTrip <- function(tEvent, PAR = NULL){
 #' @return does stuff
 #' @examples
 #' some_function()
-event_takeTrip <- function(ixH, t, PAR){
+event_takeTrip <- function(tEvent, PAR){
   list(tEvent = tEvent, PAR = PAR, tag = "takeTrip")
 }
 
@@ -116,4 +139,64 @@ takeTrip <- function(tEvent, PAR){
   # queue up the voyage home
   tReturn = tEvent + rexp(n = 1, rate = 1 / self$get_travel()$places_length[PAR$ixTravel])
   self$add2Q_returnHome(tEvent = tReturn, PAR = NULL)
+}
+
+
+###################################################################
+# Take a trip to another patch
+###################################################################
+
+#' add2Q_returnHome
+#'
+#' Write me!
+#'
+#' @param a parameter
+#' @return does stuff
+#' @examples
+#' some_function()
+add2Q_returnHome <- function(tEvent, PAR = NULL){
+  self$addEvent2Q(event = self$event_returnHome(tEvent = tEvent, PAR = PAR))
+}
+
+#' event_returnHome
+#'
+#' Write me!
+#'
+#' @param a parameter
+#' @return does stuff
+#' @examples
+#' some_function()
+event_returnHome = function(ixH, t){
+  list(tEvent = tEvent, PAR = PAR, tag = "returnHome")
+}
+
+#' returnHome
+#'
+#' Write me!
+#'
+#' @param a parameter
+#' @return does stuff
+#' @examples
+#' some_function()
+returnHome = function(tEvent, PAR){
+
+  away = self$get_location()
+  home = self$get_patchID()
+  self$set_location(home) # go home
+
+  # update home biting weight
+  wHome = self$get_PatchesPointer()$get_bWeightHuman(ix = home) + self$get_bWeightHuman()
+  self$get_PatchesPointer()$set_bWeightHuman(bWeightHuman = wHome, ix = home)
+
+  # update visiting patch biting weight
+  wAway = self$get_PatchesPointer()$get_bWeightHuman(ix = away) - self$get_bWeightHuman()
+  self$get_PatchesPointer()$set_bWeightHuman(bWeightHuman = wAway, ix = away)
+
+  #Schedule next trip
+  tTrip = tEvent + rexp(n=1,rate=sum(self$get_travel()$totFreq))
+  ixTrip = sample(x = nPlaces, size = 1, prob = self$get_travel()$places_frequency)
+  away = self$get_travel()$places_there[ixTrip]
+
+  PAR = list(there = away, ixTravel = ixTrip) # trip parameters
+  self$add2Q_takeTrip(tEvent = tTrip, PAR = PAR) # add the trip
 }

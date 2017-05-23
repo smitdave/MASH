@@ -65,7 +65,7 @@ HumanPop <- R6::R6Class(classname = "HumanPop",
                           private$pop[[ixH]] = Human$new(myID = humanIDs[ixH], hhID = homeIDs[ixH], bDay = tStart)
                           # set pointers
                           private$pop[[ixH]]$set_PopPointer(private$pop)
-                          private$pop[[ixH]]$set_SelfPointer(self)
+                          private$pop[[ixH]]$set_HumansPointer(self)
                         }
 
                         # one day these may need to be active bindings to automatically look these values up when called;
