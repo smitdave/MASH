@@ -13,7 +13,7 @@ oneDay_emerge_MACRO()
 does stuff
 }
 \description{
-Write me!
+Queue the ImagoQ
 }
 \examples{
 some_function()
