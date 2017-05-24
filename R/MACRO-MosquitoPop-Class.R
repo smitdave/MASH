@@ -137,27 +137,51 @@ MacroMosquitoPop <- R6::R6Class(classname = "MacroMosquitoPop",
                    },
 
                    # M: mosquito density
-                   get_M = function(){
-                     return(private$M)
+                   get_M = function(ix){
+                     if(!is.null(ix)){
+                       return(private$M[ix])
+                     } else {
+                      return(private$M)
+                     }
                    },
-                   set_M = function(M){
-                     private$M = M
+                   set_M = function(M, ix = NULL){
+                     if(!is.null(ix)){
+                       private$M[ix] = M
+                     } else {
+                      private$M = M
+                     }
                    },
 
                    # Y: incubating mosquitoes
-                   get_Y = function(){
-                     return(private$Y)
+                   get_Y = function(ix){
+                     if(!is.null(ix)){
+                       return(private$Y[ix])
+                     } else {
+                      return(private$Y)
+                     }
                    },
-                   set_Y = function(Y){
-                     private$Y = Y
+                   set_Y = function(Y, ix = NULL){
+                     if(!is.null(ix)){
+                       private$Y[ix] = Y
+                     } else {
+                      private$Y = Y
+                     }
                    },
 
                    # Z: infectious mosquitoes
-                   get_Z = function(){
-                     return(private$Z)
+                   get_Z = function(ix){
+                     if(!is.null(ix)){
+                       return(private$Z[ix])
+                     } else {
+                      return(private$Z)
+                     }
                    },
-                   set_Z = function(Z){
-                     private$Z = Z
+                   set_Z = function(Z, ix = NULL){
+                     if(!is.null(ix)){
+                       private$Z[ix] = Z
+                     } else {
+                      private$Z = Z
+                     }
                    },
 
                    # ZZ: mosquito progression through EIP
