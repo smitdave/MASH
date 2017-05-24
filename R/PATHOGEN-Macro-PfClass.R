@@ -59,10 +59,10 @@ patchPf <- R6::R6Class(classname="patchPf",
                          private$sireID = sireID
                        },
 
-                       #finalize
-                       finalize = function(){
-                        #  print(paste0("mosquitoPfSI object PfID: ",PfID," was garbage collected!"))
-                       },
+                      #  #finalize
+                      #  finalize = function(){
+                      #   #  print(paste0("mosquitoPfSI object PfID: ",PfID," was garbage collected!"))
+                      #  },
 
                        ########################################
                        #  Accessors, Pointers, and Setters

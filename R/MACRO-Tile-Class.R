@@ -77,5 +77,5 @@ MacroTile <- R6::R6Class(classname = "MacroTile",
                     Patches = NULL,
                     MosquitoPop = NULL
                   )
-                  
+
 )
