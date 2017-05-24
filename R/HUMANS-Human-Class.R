@@ -3,7 +3,7 @@
 #   MASH
 #   R6-ified
 #   Class definition for human
-#   Sean Wu
+#   David Smith, Hector Sanchez, Sean Wu
 #   May 19, 2016
 #
 #################################################################

@@ -2,7 +2,7 @@
 #
 # Alpha version of MACRO
 # R6 secret sauce version
-# David Smith & Sean Wu
+# David Smith & David Smith, Hector Sanchez, Sean Wu
 # May 11, 2017
 #
 #############################################
@@ -57,16 +57,14 @@ MacroTile <- R6::R6Class(classname = "MacroTile",
                      private$HumanPop = HumanPop$new(nHum = nHum)
                      private$Patches = Patch$new(N = nPatch)
                      private$MosquitoPop = MacroMosquitoPop$new()
+
                      # set everyones pointers to each other
+
                    },
 
                    # oneDayRM
                    oneDayRM = function(){
                      stop("sean hasn't written me yet!")
-                   },
-
-                   get_Pointers = function(){
-                     return(private$Pointers)
                    }
 
                   ),

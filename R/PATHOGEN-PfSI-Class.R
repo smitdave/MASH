@@ -3,7 +3,7 @@
 #   MASH-R6
 #   PATHOGEN component
 #   PfSI module R6 class definitions
-#   Sean Wu
+#   David Smith, Hector Sanchez, Sean Wu
 #   May 19, 2016
 #
 #################################################################

@@ -1,11 +1,12 @@
-#############################################
+#################################################################
 #
-# Alpha version of MACRO
-# R6 secret sauce version
-# David Smith & Sean Wu
-# May 11, 2017
+#   MASH
+#   R6-ified
+#   MACRO MosquitoPop Class Definition
+#   David Smith, Hector Sanchez, Sean Wu
+#   May 22, 2016
 #
-#############################################
+#################################################################
 
 #' MACRO Mosquito Population Class Definition
 #'
@@ -74,7 +75,7 @@ MacroMosquitoPop <- R6::R6Class(classname = "MacroMosquitoPop",
 
                      private$p = RMparameters$p
                      private$f = RMparameters$f
-                     private$Q = RMparameters$Q
+                     private$Q = rep(RMparameters$Q,N)
                      private$v = RMparameters$v
                      private$maxEIP = RMparameters$maxEIP
 
@@ -88,6 +89,8 @@ MacroMosquitoPop <- R6::R6Class(classname = "MacroMosquitoPop",
                      private$Y   = rep(0L, N) # infected (incubating)
                      private$Z   = rep(0L, N) # infectious
                      private$ZZ  = matrix(data=0L,nrow=RMparameters$maxEIP,ncol=N) # each row is the number that will be added to the infectious state on that day
+
+                     private$psi = diag(N) # modularize later
                      private$P   = p^c(1:RMparameters$maxEIP) # survival over EIP
 
                    },
@@ -113,11 +116,19 @@ MacroMosquitoPop <- R6::R6Class(classname = "MacroMosquitoPop",
                    },
 
                    # Q: human blood index
-                   get_Q = function(){
-                     return(private$Q)
+                   get_Q = function(ix){
+                     if(is.null(ix)){
+                       return(private$Q[ix])
+                     } else {
+                      return(private$Q)
+                     }
                    },
-                   set_Q = function(Q){
-                     private$Q = Q
+                   set_Q = function(Q, ix = NULL){
+                     if(is.null(ix)){
+                       private$Q = Q
+                     } else {
+                       private$Q[ix] = Q
+                     }
                    },
 
                    # v: daily egg laying rate
@@ -239,6 +250,7 @@ MacroMosquitoPop <- R6::R6Class(classname = "MacroMosquitoPop",
                     ZZ  = NULL, # each row is the number that will be added to the infectious state on that day
 
                     # Survival & Dispersion
+                    psi = NULL,
                     P   = NULL,
 
                     # Pointers

@@ -2,8 +2,8 @@
 #
 #   MASH
 #   R6-ified
-#   MACRO patch initialization parameters
-#   Sean Wu
+#   MACRO MacroPatch Class Parameters
+#   David Smith, Hector Sanchez, Sean Wu
 #   May 22, 2016
 #
 #################################################################
@@ -81,6 +81,7 @@ MACRO.Patch.Parameters <- function(
   } else if(aquaModel == "EL4P"){
 
     # PAR$something = aquaEL4P_makeMACRO(...)
+    stop("sean hasn't written the routines for MACRO EL4P Aquatic Ecology")
 
   } else {
     stop("aquaModel must be a value in 'emerge' or 'EL4P'")

@@ -4,7 +4,7 @@
 #   R6-ified
 #   Aquatic Ecology for Sites:
 #   Generic Queue Structures and Management for Aquatic Habitats
-#   Hector Sanchez & Sean Wu
+#   Hector Sanchez & David Smith, Hector Sanchez, Sean Wu
 #   May 10, 2017
 #
 #################################################################

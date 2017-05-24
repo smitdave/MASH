@@ -3,7 +3,7 @@
 #   MASH
 #   R6-ified
 #   SimBite module for PfSI
-#   Sean Wu
+#   David Smith, Hector Sanchez, Sean Wu
 #   May 19, 2016
 #
 #################################################################

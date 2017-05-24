@@ -3,7 +3,7 @@
 #   MASH
 #   R6-ified
 #   Generic Methods & Fields for HUMAN for Pf PATHOGEN component
-#   Sean Wu
+#   David Smith, Hector Sanchez, Sean Wu
 #   May 19, 2016
 #
 #################################################################

@@ -3,7 +3,7 @@
 #   MASH
 #   R6-ified
 #   Well-mixed Patch Class
-#   Hector Sanchez & Sean Wu
+#   Hector Sanchez & David Smith, Hector Sanchez, Sean Wu
 #   May 9, 2017
 #
 #################################################################

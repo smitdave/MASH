@@ -3,7 +3,7 @@
 #   MASH
 #   R6-ified
 #   Class definition for Pf PATHOGEN component for MACRO
-#   Sean Wu
+#   David Smith, Hector Sanchez, Sean Wu
 #   May 22, 2016
 #
 #################################################################

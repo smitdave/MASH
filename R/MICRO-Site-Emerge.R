@@ -4,7 +4,7 @@
 #   R6-ified
 #   Aquatic Ecology for Sites:
 #   Specific Functions for "Emerge" Module
-#   Hector Sanchez & Sean Wu
+#   Hector Sanchez & David Smith, Hector Sanchez, Sean Wu
 #   May 10, 2017
 #
 #################################################################

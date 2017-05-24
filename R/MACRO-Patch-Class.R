@@ -1,11 +1,12 @@
-#############################################
+#################################################################
 #
-# Alpha version of MACRO
-# R6 secret sauce version
-# David Smith & Sean Wu
-# May 11, 2017
+#   MASH
+#   R6-ified
+#   MACRO MacroPatch Class Definition
+#   David Smith, Hector Sanchez, Sean Wu
+#   May 22, 2016
 #
-#############################################
+#################################################################
 
 #' MACRO Patch Class Definition
 #'
@@ -125,22 +126,22 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                      }
                    },
 
-                   # Net infectiousness
-                   get_Q = function(ix = NULL){
-                     if(is.null(ix)){
-                       return(private$Q)
-                     } else {
-                       return(private$Q[ix])
-                     }
-                   },
-                   set_Q = function(Q, ix = NULL){
-                     # set one element or entire vector
-                     if(!is.null(ix)){
-                       private$Q[ix] = Q
-                     } else {
-                       private$Q = Q
-                     }
-                   },
+                  #  # Net infectiousness
+                  #  get_Q = function(ix = NULL){
+                  #    if(is.null(ix)){
+                  #      return(private$Q)
+                  #    } else {
+                  #      return(private$Q[ix])
+                  #    }
+                  #  },
+                  #  set_Q = function(Q, ix = NULL){
+                  #    # set one element or entire vector
+                  #    if(!is.null(ix)){
+                  #      private$Q[ix] = Q
+                  #    } else {
+                  #      private$Q = Q
+                  #    }
+                  #  },
 
                    get_kappa = function(ix = NULL){
                      if(is.null(ix)){
@@ -314,7 +315,7 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                     bWeightZootox  = NULL,
 
                     # Net infectiousness
-                    Q         = NULL,
+                    # Q         = NULL, in MacroMosquitoPop
                     kappa     = NULL,
                     humanIDs  = list(),
 
@@ -325,12 +326,17 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                     weightAqua    = NULL,   # For modeling movement
                     weightOvitrap = NULL,
 
-                    #Sugar feeding
+                    # Sugar feeding
                     weightSugar   = NULL,
                     weightBait    = NULL,
 
-                    #Mating
-                    weightMate    = NULL
+                    # Mating
+                    weightMate    = NULL,
+
+                    # Pointers
+                    TilePointer = NULL, # point to the enclosing metapopulation TILE (MACRO)
+                    MosquitoPointer = NULL, # point to the MacroMosquitoPop in this enclosing metapopulation TILE (MACRO)
+                    HumansPointer = NULL # point to the HumanPop in this enclosing metapopulation TILE (MACRO)
 
                   )
 

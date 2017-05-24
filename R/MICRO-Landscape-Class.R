@@ -3,7 +3,7 @@
 #   MASH
 #   R6-ified
 #   Minimal Landscape for Well-mixed Patch
-#   Hector Sanchez & Sean Wu
+#   Hector Sanchez & David Smith, Hector Sanchez, Sean Wu
 #   May 9, 2017
 #
 #################################################################

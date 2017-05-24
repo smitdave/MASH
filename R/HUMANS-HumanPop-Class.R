@@ -3,7 +3,7 @@
 #   MASH
 #   R6-ified
 #   Class definition for human population
-#   Sean Wu
+#   David Smith, Hector Sanchez, Sean Wu
 #   December 10, 2016
 #
 #################################################################

@@ -4,7 +4,7 @@
 #   R6-ified
 #   PfSI Auxiiary
 #   Define parameters and plotting routines
-#   Sean Wu
+#   David Smith, Hector Sanchez, Sean Wu
 #   May 21, 2017
 #
 #################################################################

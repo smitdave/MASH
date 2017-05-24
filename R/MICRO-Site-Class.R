@@ -3,7 +3,7 @@
 #   MASH
 #   R6-ified
 #   Site Classes
-#   Hector Sanchez & Sean Wu
+#   Hector Sanchez & David Smith, Hector Sanchez, Sean Wu
 #   April 28, 2017
 #
 #################################################################

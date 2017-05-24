@@ -3,7 +3,7 @@
 #   MASH
 #   R6-ified
 #   Additional Human Methods & Fields for MACRO
-#   Sean Wu
+#   David Smith, Hector Sanchez, Sean Wu
 #   May 21, 2017
 #
 #################################################################

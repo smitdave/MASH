@@ -3,7 +3,7 @@
 #   MASH
 #   R6-ified
 #   Human Movement-related Methods for MACRO
-#   Sean Wu
+#   David Smith, Hector Sanchez, Sean Wu
 #   May 21, 2017
 #
 #################################################################

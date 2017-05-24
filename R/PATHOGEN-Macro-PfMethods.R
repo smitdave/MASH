@@ -3,7 +3,7 @@
 #   MASH
 #   R6-ified
 #   Methods & Fields for Pf PATHOGEN component for MACRO to modify MacroPatch
-#   Sean Wu
+#   David Smith, Hector Sanchez, Sean Wu
 #   May 23, 2016
 #
 #################################################################

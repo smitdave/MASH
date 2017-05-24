@@ -3,7 +3,7 @@
 #   MASH
 #   R6-ified
 #   Auxiliary Functions for 'Emerge' model of aquatic ecology
-#   Sean Wu
+#   David Smith, Hector Sanchez, Sean Wu
 #   May 19, 2016
 #
 #################################################################
