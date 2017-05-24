@@ -103,4 +103,4 @@ initialize_patchPf = function(MacroPatch_PAR){
   for(ixP in 1:N){
     private$PfTypes[[ixP]] = patchPf(damID = NULL, sireID = NULL)
   }
-},
+}
