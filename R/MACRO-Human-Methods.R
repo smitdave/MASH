@@ -65,6 +65,25 @@ MACRO.Humans.Setup <- function(){
   )
 
   #############################################
+  # TilePointer: point to the Patches (a network of patches) in this metapopulation TILE (MACRO)
+  #############################################
+
+  Human$set(which = "private",name = "TilePointer",
+            value = NULL,
+            overwrite = TRUE
+  )
+
+  Human$set(which = "public",name = "get_TilePointer",
+            value = get_TilePointer,
+            overwrite = TRUE
+  )
+
+  Human$set(which = "public",name = "set_TilePointer",
+            value = set_TilePointer,
+            overwrite = TRUE
+  )
+
+  #############################################
   # PatchesPointer: point to the Patches (a network of patches) in this metapopulation TILE (MACRO)
   #############################################
 
@@ -253,6 +272,32 @@ get_patchID <- function(){
 #' some_function()
 set_patchID <- function(patchID){
   private$patchID = patchID
+}
+
+# TilePointer
+
+#' Get \code{Human} \code{MacroTile} Pointer
+#'
+#' Write me!
+#'
+#' @param a parameter
+#' @return does stuff
+#' @examples
+#' some_function()
+get_TilePointer <- function(){
+  return(private$TilePointer)
+}
+
+#' Set \code{Human} \code{MacroTile} Pointer
+#'
+#' Write me!
+#'
+#' @param a parameter
+#' @return does stuff
+#' @examples
+#' some_function()
+set_TilePointer <- function(TilePointer){
+  private$TilePointer = TilePointer
 }
 
 # PatchesPointer

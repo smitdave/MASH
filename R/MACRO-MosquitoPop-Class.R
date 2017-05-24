@@ -67,7 +67,10 @@ MacroMosquitoPop <- R6::R6Class(classname = "MacroMosquitoPop",
                  # public methods & fields
                  public = list(
 
-                   # class initialize
+                   #################################################
+                   # Initialize
+                   #################################################
+
                    # N: number of patches
                    # M_density: mosquito density at each patch
                    # RMparameters: a list of RM parameters
@@ -215,6 +218,14 @@ MacroMosquitoPop <- R6::R6Class(classname = "MacroMosquitoPop",
                    # Pointers
                    #################################################
 
+                   # TilePointer
+                   get_TilePointer = function(){
+                     return(private$TilePointer)
+                   },
+                   set_TilePointer = function(TilePointer){
+                     private$TilePointer = TilePointer
+                   },
+
                    # PatchesPointer
                    get_PatchesPointer = function(){
                      return(private$PatchesPointer)
@@ -254,6 +265,7 @@ MacroMosquitoPop <- R6::R6Class(classname = "MacroMosquitoPop",
                     P   = NULL,
 
                     # Pointers
+                    TilePointer = NULL, # point to the enclosing metapopulation TILE (MACRO)
                     PatchesPointer = NULL, # point to the enclosing Patches (a network of patches) in this metapopulation TILE (MACRO)
                     HumansPointer = NULL # point to the HumanPop class that also lives in this metapopulation TILE
 

@@ -60,9 +60,9 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
 
                    },
 
-                   ########################################
-                   #  Accessors, Pointers, and Setters
-                   ########################################
+                   #################################################
+                   # Getters and Setters
+                   #################################################
 
                    get_N = function(){
                      return(private$N)
@@ -295,6 +295,34 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                      } else {
                        private$weightMate = weightMate
                      }
+                   },
+
+                   #################################################
+                   # Pointers
+                   #################################################
+
+                   # point to the enclosing metapopulation TILE (MACRO)
+                   get_TilePointer = function(){
+                     return(private$TilePointer)
+                   },
+                   set_TilePointer = function(TilePointer){
+                     private$TilePointer = TilePointer
+                   },
+
+                   # point to the MacroMosquitoPop in this enclosing metapopulation TILE (MACRO)
+                   get_MosquitoPointer = function(){
+                     return(private$MosquitoPointer)
+                   },
+                   set_MosquitoPointer = function(MosquitoPointer){
+                     private$MosquitoPointer = MosquitoPointer
+                   },
+
+                   # point to the HumanPop in this enclosing metapopulation TILE (MACRO)
+                   get_HumansPointer = function(){
+                     return(private$HumansPointer)
+                   },
+                   set_HumansPointer = function(HumansPointer){
+                     private$HumansPointer = HumansPointer
                    }
 
                   ),

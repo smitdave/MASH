@@ -16,22 +16,24 @@
 # for now just add methods straight to class object; can make a seperate MACRO.MosquitoPop.Setup() later if necessary.
 
 # EIP:
-MacroMosquitoPop$set(which = "public",name = "getEIP",
-          value = getEIP_MacroMosquitoPop,
-          overwrite = TRUE
-)
-
 getEIP_MacroMosquitoPop <- function(tNow){
   # update later
   return(10L)
 }
 
-# Oviposition:
 MacroMosquitoPop$set(which = "public",name = "getEIP",
           value = getEIP_MacroMosquitoPop,
           overwrite = TRUE
 )
 
+# Oviposition:
 layEggs_MacroMosquitoPop <- function(tNow){
-  
+  for(ixP in 1:self$get_PatchesPointer()$get_N()){
+
+  }
 }
+
+MacroMosquitoPop$set(which = "public",name = "getEIP",
+          value = layEggs_MacroMosquitoPop,
+          overwrite = TRUE
+)
