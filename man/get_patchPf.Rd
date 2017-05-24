@@ -4,7 +4,7 @@
 \alias{get_patchPf}
 \title{Pf: Get \code{MacroPatch} Patch Pf Population}
 \usage{
-get_patchPf(ix)
+get_patchPf(ix = NULL)
 }
 \arguments{
 \item{a}{parameter}

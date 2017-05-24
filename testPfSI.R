@@ -25,6 +25,8 @@ pop1$queueBites_simBitePfSI(tMax = tMax,bitingRate = 1/15)
 pop1$queueVaccination_simBitePfSI(tVaccine = (365*1),tTreat = (365*1)+1,fracPop = 0.75)
 pop1$simHumans(tPause = tMax+10)
 
+pop1$get_History()
+
 # simulate many human populations
 library(parallel)
 simPars = replicate(n = 10,expr = PfSI.Parameters(),simplify = FALSE)

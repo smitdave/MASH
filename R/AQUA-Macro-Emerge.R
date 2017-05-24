@@ -19,6 +19,21 @@
 #' @export
 MACRO.Patch.Emerge.Setup <- function(){
 
+  #################################################################
+  # Methods
+  #################################################################
+
+    # when written, this should clear out the EggQ because its not used in Emerge
+    # MacroPatch$set(which = "private",name = "oneDay_emerge"
+    #           value = oneDay_emerge_MACRO,
+    #           overwrite = TRUE
+    # )
+
+
+  #################################################################
+  # Getters & Setters
+  #################################################################
+
   # season: lambda emergence for each patch
   MacroPatch$set(which = "private",name = "season",
             value = NULL,
@@ -69,15 +84,6 @@ MACRO.Patch.Emerge.Setup <- function(){
             overwrite = TRUE
   )
 
-
-
-
-  # when written, this should clear out the EggQ because its not used in Emerge
-  # MacroPatch$set(which = "private",name = "oneDay_emerge"
-  #           value = oneDay_emerge_MACRO,
-  #           overwrite = TRUE
-  # )
-
 }
 
 
@@ -99,8 +105,6 @@ addCohort <- function(){
   self$get_MosquitoPointer()$set_M(M = newM, ix = NULL)
 }
 
-
-
 #' MACRO: Calculate Emerging Adults from ImagoQ for \code{MacroPatch}
 #'
 #' Write me! does this for all patches
@@ -109,7 +113,9 @@ addCohort <- function(){
 #' @return does stuff
 #' @examples
 #' some_function()
-recruitRM <- function(Patches){
+emergingAdults <- function(){
+
+
   addUp = function(i){
     ix = Patches$aqua[[i]]$id
     sum(Patches$ImagoQ[ix])
