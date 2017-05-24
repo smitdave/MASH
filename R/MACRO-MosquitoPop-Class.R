@@ -119,7 +119,7 @@ MacroMosquitoPop <- R6::R6Class(classname = "MacroMosquitoPop",
                    },
 
                    # Q: human blood index
-                   get_Q = function(ix){
+                   get_Q = function(ix = NULL){
                      if(is.null(ix)){
                        return(private$Q[ix])
                      } else {
@@ -151,7 +151,7 @@ MacroMosquitoPop <- R6::R6Class(classname = "MacroMosquitoPop",
                    },
 
                    # M: mosquito density
-                   get_M = function(ix){
+                   get_M = function(ix = NULL){
                      if(!is.null(ix)){
                        return(private$M[ix])
                      } else {
@@ -167,7 +167,7 @@ MacroMosquitoPop <- R6::R6Class(classname = "MacroMosquitoPop",
                    },
 
                    # Y: incubating mosquitoes
-                   get_Y = function(ix){
+                   get_Y = function(ix = NULL){
                      if(!is.null(ix)){
                        return(private$Y[ix])
                      } else {
@@ -183,7 +183,7 @@ MacroMosquitoPop <- R6::R6Class(classname = "MacroMosquitoPop",
                    },
 
                    # Z: infectious mosquitoes
-                   get_Z = function(ix){
+                   get_Z = function(ix = NULL){
                      if(!is.null(ix)){
                        return(private$Z[ix])
                      } else {

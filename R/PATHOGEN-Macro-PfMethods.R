@@ -63,7 +63,7 @@ MACRO.patchPf.Setup <- function(){
 #' @return does stuff
 #' @examples
 #' get_patchPf()
-get_patchPf = function(ix){
+get_patchPf = function(ix = NULL){
   if(is.null(ix)){
     return(private$patchPf)
   } else {

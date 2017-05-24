@@ -29,11 +29,12 @@ MacroMosquitoPop$set(which = "public",name = "getEIP",
 # Oviposition:
 layEggs_MacroMosquitoPop <- function(tNow){
   for(ixP in 1:self$get_PatchesPointer()$get_N()){
-
+    EggQixP = private$M[ixP] * self$get_PatchesPointer()$get_aquaP(ix = ixP) * private$v * private$f
+    self$get_PatchesPointer()$set_EggQ(EggQixP, ix = ixP)
   }
 }
 
-MacroMosquitoPop$set(which = "public",name = "getEIP",
+MacroMosquitoPop$set(which = "public",name = "layEggs",
           value = layEggs_MacroMosquitoPop,
           overwrite = TRUE
 )
