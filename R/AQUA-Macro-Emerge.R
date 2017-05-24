@@ -51,36 +51,36 @@ MACRO.Patch.Emerge.Setup <- function(){
   )
 
   # ImagoQ: queue for emerging adults
-  MacroPatch$set(which = "private",name = "ImagoQ",
+  MacroPatch$set(which = "private",name = "PatchesImagoQ",
             value = NULL,
             overwrite = TRUE
   )
 
-  MacroPatch$set(which = "public",name = "get_ImagoQ",
-            value = get_ImagoQ,
+  MacroPatch$set(which = "public",name = "get_PatchesImagoQ",
+            value = get_PatchesImagoQ,
             overwrite = TRUE
   )
 
-  MacroPatch$set(which = "public",name = "set_ImagoQ",
-            value = set_ImagoQ,
+  MacroPatch$set(which = "public",name = "set_PatchesImagoQ",
+            value = set_PatchesImagoQ,
             overwrite = TRUE
   )
 
   # eventually may need push_ImagoQ and push_EggQ when doing mosquito genetics in MACRO; ie it will push to ImagoQ[[PATCH]][[EMERGING_PACKET_OF_MOSY]]
 
   # EggQ: queue for egg batches (not used in Emerge; here for compatibility with mosquito ecology models only)
-  MacroPatch$set(which = "private",name = "EggQ",
+  MacroPatch$set(which = "private",name = "PatchesEggQ",
             value = NULL,
             overwrite = TRUE
   )
 
-  MacroPatch$set(which = "public",name = "get_EggQ",
-            value = get_EggQ,
+  MacroPatch$set(which = "public",name = "get_PatchesEggQ",
+            value = get_PatchesEggQ,
             overwrite = TRUE
   )
 
-  MacroPatch$set(which = "public",name = "set_EggQ",
-            value = set_EggQ,
+  MacroPatch$set(which = "public",name = "set_PatchesEggQ",
+            value = set_PatchesEggQ,
             overwrite = TRUE
   )
 
@@ -90,6 +90,7 @@ MACRO.Patch.Emerge.Setup <- function(){
 #################################################################
 # Methods
 #################################################################
+
 
 
 #' MACRO: Calculate Emerging Adults for \code{MacroPatch}
@@ -115,12 +116,28 @@ addCohort <- function(){
 #' some_function()
 emergingAdults <- function(){
 
+  # EVERY TIME STEP,CHECK READY QUEUES AND EMERGE THEM, ZERO OUT EMERGED SPOTS
 
-  addUp = function(i){
-    ix = Patches$aqua[[i]]$id
-    sum(Patches$ImagoQ[ix])
-  }
-  sapply(1:Patches$N, addUp)
+  # as for manage_PatchesImagoQ queue length management; we need to check when in the original Emerge module of MASH.MBPT we did the management and duplicate it
+
+  # # grab slots that are ready to emerge
+  # tNow = self$get_TilePointer()$get_tNow()
+  # newM = vector(mode="integer",length=private$N)
+  # for(ixP in 1:private$N){
+  #
+  #   newAdultsIx = which(private$PatchesImagoQ[[ixP]]$tEmerge <= tNow)
+  #   newM[[ixP]] = vapply(X = private$PatchesImagoQ[[ixP]][newAdultsIx],FUN = function(x){x$N},FUN.VALUE = numeric(1))
+  #
+  #
+  #
+  #   private$PatchesImagoQ[[ixP]][newAdultsIx]
+  # }
+  #
+  # addUp = function(i){
+  #   ix = Patches$aqua[[i]]$id
+  #   sum(Patches$ImagoQ[ix])
+  # }
+  # sapply(1:Patches$N, addUp)
 }
 
 #' Get \code{MacroPatch} Seasonal Emergence
@@ -140,6 +157,37 @@ oneDay_emerge_MACRO <- function(tNow){
 
 
 #################################################################
+# Queue Management
+#################################################################
+
+#' Extend \code{MacroPatch} ImagoQ (Emerging Adults Queue)
+#'
+#' Extend the ImagoQ for patch \code{ixP}
+#'
+#' @param a parameter
+#' @return does stuff
+#' @examples
+#' some_function()
+extend_PatchesImagoQ <- function(ixP, N=10L){
+  private$PatchesImagoQ[[ixP]] = c(private$PatchesImagoQ[[ixP]],allocImagoQ(N))
+}
+
+#' Manage \code{MacroPatch} ImagoQ (Emerging Adults Queue)
+#'
+#' If all the ImagoQ slots for patch \code{ixP} are full then call \code{\link{extend_PatchesImagoQ}}
+#'
+#' @param a parameter
+#' @return does stuff
+#' @examples
+#' some_function()
+manage_PatchesImagoQ <- function(ixP, N=10L){
+  if(all(vapply(X = private$PatchesImagoQ[[ixP]],FUN = function(x){x$N},FUN.VALUE = numeric(1)) != 0)){
+    self$extend_PatchesImagoQ(ixP=ixP,N=N)
+  }
+}
+
+
+#################################################################
 # Getters & Setters
 #################################################################
 
@@ -152,11 +200,11 @@ oneDay_emerge_MACRO <- function(tNow){
 #' @return does stuff
 #' @examples
 #' some_function()
-get_season <- function(ix = NULL){
-  if(is.null(ix)){
+get_season <- function(ixP = NULL){
+  if(is.null(ixP)){
     return(private$season)
   } else {
-    return(private$season[[ix]])
+    return(private$season[[ixP]])
   }
 }
 
@@ -168,11 +216,11 @@ get_season <- function(ix = NULL){
 #' @return does stuff
 #' @examples
 #' some_function()
-set_season <- function(season, ix = NULL){
-  if(is.null(ix)){
+set_season <- function(season, ixP = NULL){
+  if(is.null(ixP)){
     private$season = season
   } else {
-    private$season[[ix]] = season
+    private$season[[ixP]] = season
   }
 }
 
@@ -184,11 +232,11 @@ set_season <- function(season, ix = NULL){
 #' @return does stuff
 #' @examples
 #' some_function()
-get_ImagoQ <- function(ix = NULL){
-  if(is.null(ix)){
-    return(private$ImagoQ)
+get_PatchesImagoQ <- function(ixP = NULL){
+  if(is.null(ixP)){
+    return(private$PatchesImagoQ)
   } else {
-    return(private$ImagoQ[[ix]])
+    return(private$PatchesImagoQ[[ixP]])
   }
 }
 
@@ -200,11 +248,11 @@ get_ImagoQ <- function(ix = NULL){
 #' @return does stuff
 #' @examples
 #' some_function()
-set_ImagoQ <- function(ImagoQ, ix = NULL){
-  if(is.null(ix)){
-    private$ImagoQ = ImagoQ
+set_PatchesImagoQ <- function(PatchesImagoQ, ixP = NULL){
+  if(is.null(ixP)){
+    private$PatchesImagoQ = PatchesImagoQ
   } else {
-    private$ImagoQ[[ix]] = ImagoQ
+    private$PatchesImagoQ[[ixP]] = PatchesImagoQ
   }
 }
 
@@ -216,11 +264,11 @@ set_ImagoQ <- function(ImagoQ, ix = NULL){
 #' @return does stuff
 #' @examples
 #' some_function()
-get_EggQ <- function(ix = NULL){
-  if(is.null(ix)){
-    return(private$EggQ)
+get_PatchesEggQ <- function(ixP = NULL){
+  if(is.null(ixP)){
+    return(private$PatchesEggQ)
   } else {
-    return(private$EggQ[[ix]])
+    return(private$PatchesEggQ[[ixP]])
   }
 }
 
@@ -232,10 +280,10 @@ get_EggQ <- function(ix = NULL){
 #' @return does stuff
 #' @examples
 #' some_function()
-set_EggQ <- function(EggQ, ix = NULL){
-  if(is.null(ix)){
-    private$EggQ = EggQ
+set_PatchesEggQ <- function(PatchesEggQ, ixP = NULL){
+  if(is.null(ixP)){
+    private$PatchesEggQ = PatchesEggQ
   } else {
-    private$EggQ[[ix]] = EggQ
+    private$PatchesEggQ[[ixP]] = PatchesEggQ
   }
 }

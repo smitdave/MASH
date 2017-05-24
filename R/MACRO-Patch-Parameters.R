@@ -32,11 +32,12 @@ MACRO.Patch.Parameters <- function(
     # houses
     hhID,
 
+    # humans
+    humanIDs,
+
     # Biting weights
     bWeightZoo1 = 1,
     bWeightZoo2 = 1,
-
-    humanIDs,
 
     aquaModel = "emerge",
     ... # named parameters to be passed to specific aquaModel generating function
@@ -75,8 +76,8 @@ MACRO.Patch.Parameters <- function(
       stop("please specify the vector 'lambda' when using the 'Emerge' module of Aquatic Ecology")
     }
     MacroPatch_PAR$season = aquaEmerge_makeLambda(...)
-    MacroPatch_PAR$ImagoQ = allocImagoQ(N)
-    MacroPatch_PAR$EggQ = allocEggQ(N)
+    MacroPatch_PAR$PatchesImagoQ = replicate(n = N,allocImagoQ(10L),simplify = FALSE)
+    MacroPatch_PAR$PatchesEggQ = replicate(n = N,allocEggQ(10L),simplify = FALSE)
 
   } else if(aquaModel == "EL4P"){
 

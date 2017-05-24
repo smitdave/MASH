@@ -65,12 +65,20 @@ MacroTile <- R6::R6Class(classname = "MacroTile",
                    # oneDayRM
                    oneDayRM = function(){
                      stop("sean hasn't written me yet!")
+                   },
+
+                   get_tNow(){
+                     return(private$tNow)
+                   },
+                   set_tNow(tNow){
+                     private$tNow = tNow
                    }
 
                   ),
 
                   # private methods & fields
                   private = list(
+                    tNow = NULL,
                     HumanPop = NULL,
                     Patches = NULL,
                     MosquitoPop = NULL
