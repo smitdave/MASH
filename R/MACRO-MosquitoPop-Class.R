@@ -67,14 +67,28 @@ MacroMosquitoPop <- R6::R6Class(classname = "MacroMosquitoPop",
                  public = list(
 
                    # class initialize
-                   initialize = function(nPatches = 10, maxEIP = 10, RMparameters){
+                   # N: number of patches
+                   # M_density: mosquito density at each patch
+                   # RMparameters: a list of RM parameters
+                   initialize = function(N, M_density, RMparameters){
 
-                     M   = rep(10L, N), # mosquito density
-                     Y   = rep(0L, N), # infected (incubating)
-                     Z   = rep(0L, N), # infectious
-                     ZZ  = matrix(data=0L,nrow=maxEIP,ncol=N), # each ro
-                     P   = p^c(1:maxEIP) # survival over EIP
+                     private$p = RMparameters$p
+                     private$f = RMparameters$f
+                     private$Q = RMparameters$Q
+                     private$v = RMparameters$v
+                     private$maxEIP = RMparameters$maxEIP
 
+                     if(length(M_density)==1){
+                       private$M = rep(M_density,N) # mosquito density
+                     } else if(length(M_density)!=N){
+                       stop("M_density must either be of length 1 or equal to N!")
+                     } else {
+                       private$M = M_density
+                     }
+                     private$Y   = rep(0L, N) # infected (incubating)
+                     private$Z   = rep(0L, N) # infectious
+                     private$ZZ  = matrix(data=0L,nrow=RMparameters$maxEIP,ncol=N) # each row is the number that will be added to the infectious state on that day
+                     private$P   = p^c(1:RMparameters$maxEIP) # survival over EIP
 
                    },
 
@@ -207,10 +221,6 @@ MacroMosquitoPop <- R6::R6Class(classname = "MacroMosquitoPop",
                     PatchesPointer = NULL, # point to the enclosing Patches (a network of patches) in this metapopulation TILE (MACRO)
                     HumansPointer = NULL # point to the HumanPop class that also lives in this metapopulation TILE
 
-                  ),
+                  )
 
-                  # # active bindings
-                  # active = list(
-                  #
-                  # )
 )

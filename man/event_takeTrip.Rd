@@ -4,7 +4,7 @@
 \alias{event_takeTrip}
 \title{event_takeTrip}
 \usage{
-event_takeTrip(ixH, t, PAR)
+event_takeTrip(tEvent, PAR)
 }
 \arguments{
 \item{a}{parameter}

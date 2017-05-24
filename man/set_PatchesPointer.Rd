@@ -2,7 +2,7 @@
 % Please edit documentation in R/MACRO-Human-Methods.R
 \name{set_PatchesPointer}
 \alias{set_PatchesPointer}
-\title{Set \code{Human} patchID}
+\title{Set \code{Human} \code{MacroPatch} Pointer}
 \usage{
 set_PatchesPointer(PatchesPointer)
 }

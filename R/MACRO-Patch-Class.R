@@ -56,10 +56,7 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                    initialize = function(MacroPatch_PAR){
                      private$N = N
                      stop("WRITE ME")
-                     private$PfTypes = vector(mode="list",length=N)
-                     for(ixP in 1:N){
-                       private$PfTypes[[ixP]] = patchPf(damID = NULL, sireID = NULL)
-                     }
+
                    },
 
                    ########################################
@@ -297,15 +294,6 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                      } else {
                        private$weightMate = weightMate
                      }
-                   },
-
-                   # Parasite
-                   get_PfTypes = function(ix){
-                     if(is.null(ix)){
-                       return(private$PfTypes)
-                     } else {
-                       return(private$PfTypes[[ix]])
-                     }
                    }
 
                   ),
@@ -342,15 +330,8 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                     weightBait    = NULL,
 
                     #Mating
-                    weightMate    = NULL,
-
-                    # Parasite
-                    PfTypes = list()
+                    weightMate    = NULL
 
                   )
 
-                  # # active bindings
-                  # active = list(
-                  #
-                  # )
 )

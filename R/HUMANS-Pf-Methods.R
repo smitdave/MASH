@@ -39,7 +39,7 @@ Pf.HUMANS.Setup <- function(){
 
   #initialize
   Human$set(which = "public",name = "initialize",
-            value = initializePf,
+            value = initialize_Pf,
             overwrite = TRUE
   )
 
@@ -77,7 +77,7 @@ set_biteWeightPf <- function(biteWeight){
 #' @return does stuff
 #' @examples
 #' set_biteWeight()
-initializePf <- function(myID, hhID, bDay, biteWeight){
+initialize_Pf <- function(myID, hhID, bDay, biteWeight){
   private$myID = myID
   private$hhID = hhID
   private$bDay = bDay

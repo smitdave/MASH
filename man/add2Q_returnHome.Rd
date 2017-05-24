@@ -4,7 +4,7 @@
 \alias{add2Q_returnHome}
 \title{add2Q_returnHome}
 \usage{
-add2Q_returnHome(ixH, t)
+add2Q_returnHome(tEvent, PAR = NULL)
 }
 \arguments{
 \item{a}{parameter}

@@ -4,7 +4,7 @@
 \alias{returnHome}
 \title{returnHome}
 \usage{
-returnHome(ixH, t, PAR = NULL)
+returnHome(tEvent, PAR)
 }
 \arguments{
 \item{a}{parameter}

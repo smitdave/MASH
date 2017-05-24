@@ -24,7 +24,7 @@
 #' @export
 MACRO.Humans.Setup <- function(){
 
-  print(paste0("initializing MACRO component methods & fields"))
+  print(paste0("initializing MACRO component methods & fields for Human Class"))
 
   #############################################
   # location: where the human is now

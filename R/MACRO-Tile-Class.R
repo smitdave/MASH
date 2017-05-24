@@ -56,7 +56,8 @@ MacroTile <- R6::R6Class(classname = "MacroTile",
                    initialize = function(nHum,nPatch){
                      private$HumanPop = HumanPop$new(nHum = nHum)
                      private$Patches = Patch$new(N = nPatch)
-                     private$Pointers = macroPointer$new(pointPatch = private$Patches, pointHumanPop = private$Humans)
+                     private$MosquitoPop = MacroMosquitoPop$new()
+                     # set everyones pointers to each other
                    },
 
                    # oneDayRM
@@ -64,13 +65,9 @@ MacroTile <- R6::R6Class(classname = "MacroTile",
                      stop("sean hasn't written me yet!")
                    },
 
-                  #  testPointers = function(){
-                  #
-                  #  }
-
-                  get_Pointers = function(){
-                    return(private$Pointers)
-                  }
+                   get_Pointers = function(){
+                     return(private$Pointers)
+                   }
 
                   ),
 
@@ -78,11 +75,7 @@ MacroTile <- R6::R6Class(classname = "MacroTile",
                   private = list(
                     HumanPop = NULL,
                     Patches = NULL,
-                    Pointers = NULL
-                  ),
-
-                  # active bindings
-                  active = list(
-
+                    MosquitoPop = NULL
                   )
+                  
 )
