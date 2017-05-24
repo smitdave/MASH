@@ -102,88 +102,59 @@ MACRO.Patch.Emerge.Setup <- function(){
 #' @examples
 #' some_function()
 addCohort <- function(){
-  newM = self$get_MosquitoPointer()$get_M() + self$emergingAdults()
+  newM = self$get_MosquitoPointer()$get_M() + self$emergingAdults_MACRO()
   self$get_MosquitoPointer()$set_M(M = newM, ix = NULL)
 }
 
 #' MACRO: Calculate Emerging Adults from ImagoQ for \code{MacroPatch}
 #'
-#' Write me! does this for all patches
+#' Write me! does this for all patches. Goes from ImagoQ to a vector of adults to be born, and zeros out
 #'
 #' @param a parameter
 #' @return does stuff
 #' @examples
 #' some_function()
-emergingAdults <- function(){
+emergingAdults_MACRO <- function(){
 
   # EVERY TIME STEP,CHECK READY QUEUES AND EMERGE THEM, ZERO OUT EMERGED SPOTS
 
   # as for manage_PatchesImagoQ queue length management; we need to check when in the original Emerge module of MASH.MBPT we did the management and duplicate it
 
-  # # grab slots that are ready to emerge
-  # tNow = self$get_TilePointer()$get_tNow()
-  # newM = vector(mode="integer",length=private$N)
-  # for(ixP in 1:private$N){
-  #
-  #   newAdultsIx = which(private$PatchesImagoQ[[ixP]]$tEmerge <= tNow)
-  #   newM[[ixP]] = vapply(X = private$PatchesImagoQ[[ixP]][newAdultsIx],FUN = function(x){x$N},FUN.VALUE = numeric(1))
-  #
-  #
-  #
-  #   private$PatchesImagoQ[[ixP]][newAdultsIx]
-  # }
-  #
-  # addUp = function(i){
-  #   ix = Patches$aqua[[i]]$id
-  #   sum(Patches$ImagoQ[ix])
-  # }
-  # sapply(1:Patches$N, addUp)
+  # grab slots that are ready to emerge
+  tNow = self$get_TilePointer()$get_tNow()
+  newM = vector(mode="integer",length=private$N)
+  for(ixP in 1:private$N){
+
+    newAdultsIx = vapply(X = private$PatchesImagoQ[[ixP]],FUN = function(x){x$tEmerge <= tNow},FUN.VALUE = logical(1))
+
+
+    newAdults[[ixP]] = vapply(X = private$PatchesImagoQ[[ixP]][newAdultsIx],FUN = function(x){x$N},FUN.VALUE = numeric(1))
+
+
+
+    private$PatchesImagoQ[[ixP]][newAdultsIx]
+  }
+
+
 }
 
 #' Get \code{MacroPatch} Seasonal Emergence
 #'
-#' Write me!
+#' Queue the ImagoQ
 #'
 #' @param a parameter
 #' @return does stuff
 #' @examples
 #' some_function()
-oneDay_emerge_MACRO <- function(tNow){
-  lambdaExact = sapply(LANDSCAPE$aquaSites,function(x){x$season[floor(tNow)%%365+1]}) #exact emergence rates
+oneDay_emerge_MACRO <- function(){
 
-  nSites = length(lambdaExact)
-  rpois(n = nSites,lambda = lambdaExact)
-}
-
-
-#################################################################
-# Queue Management
-#################################################################
-
-#' Extend \code{MacroPatch} ImagoQ (Emerging Adults Queue)
-#'
-#' Extend the ImagoQ for patch \code{ixP}
-#'
-#' @param a parameter
-#' @return does stuff
-#' @examples
-#' some_function()
-extend_PatchesImagoQ <- function(ixP, N=10L){
-  private$PatchesImagoQ[[ixP]] = c(private$PatchesImagoQ[[ixP]],allocImagoQ(N))
-}
-
-#' Manage \code{MacroPatch} ImagoQ (Emerging Adults Queue)
-#'
-#' If all the ImagoQ slots for patch \code{ixP} are full then call \code{\link{extend_PatchesImagoQ}}
-#'
-#' @param a parameter
-#' @return does stuff
-#' @examples
-#' some_function()
-manage_PatchesImagoQ <- function(ixP, N=10L){
-  if(all(vapply(X = private$PatchesImagoQ[[ixP]],FUN = function(x){x$N},FUN.VALUE = numeric(1)) != 0)){
-    self$extend_PatchesImagoQ(ixP=ixP,N=N)
+  tNow = self$get_TilePointer()$get_tNow()
+  lambdaExact = vapply(X = private$season,FUN = function(x){x[floor(tNow)%%365+1]},FUN.VALUE = numeric(1))
+  lambdaN = rpois(n = length(lambdaExact),lambda = lambdaExact)
+  for(ixP in 1:private$N){
+    self$set_PatchesImagoQ(PatchesImagoQ = newImago(N = lambdaN[ixP], tEmerge = tNow), ixP = ixP)
   }
+
 }
 
 

@@ -4,7 +4,7 @@
 \alias{oneDay_emerge_MACRO}
 \title{Get \code{MacroPatch} Seasonal Emergence}
 \usage{
-oneDay_emerge_MACRO(tNow)
+oneDay_emerge_MACRO()
 }
 \arguments{
 \item{a}{parameter}

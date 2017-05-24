@@ -4,7 +4,7 @@
 \alias{get_season}
 \title{Get \code{MacroPatch} Seasonal Emergence}
 \usage{
-get_season(ix = NULL)
+get_season(ixP = NULL)
 }
 \arguments{
 \item{a}{parameter}

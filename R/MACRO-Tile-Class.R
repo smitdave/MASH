@@ -67,10 +67,10 @@ MacroTile <- R6::R6Class(classname = "MacroTile",
                      stop("sean hasn't written me yet!")
                    },
 
-                   get_tNow(){
+                   get_tNow = function(){
                      return(private$tNow)
                    },
-                   set_tNow(tNow){
+                   set_tNow = function(tNow){
                      private$tNow = tNow
                    }
 

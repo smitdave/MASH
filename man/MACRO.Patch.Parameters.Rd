@@ -4,7 +4,7 @@
 \alias{MACRO.Patch.Parameters}
 \title{Initialize MACRO Patch Parameters for \code{MacroPatch}}
 \usage{
-MACRO.Patch.Parameters(N, hhID, bWeightZoo1 = 1, bWeightZoo2 = 1, humanIDs,
+MACRO.Patch.Parameters(N, hhID, humanIDs, bWeightZoo1 = 1, bWeightZoo2 = 1,
   aquaModel = "emerge", ...)
 }
 \arguments{
