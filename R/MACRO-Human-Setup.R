@@ -24,7 +24,73 @@
 #' @export
 MACRO.Humans.Setup <- function(){
 
-  print(paste0("initializing MACRO component methods & fields for Human Class"))
+  print(paste0("initializing MACRO component methods & fields for Human & HumanPop Class"))
+
+  #############################################
+  # HumanPop methods
+  #############################################
+
+  #############################################
+  # TilePointer: point to the Patches (a network of patches) in this metapopulation TILE (MACRO)
+  #############################################
+
+  HumanPop$set(which = "private",name = "TilePointer",
+            value = NULL,
+            overwrite = TRUE
+  )
+
+  HumanPop$set(which = "public",name = "get_TilePointer",
+            value = get_TilePointer,
+            overwrite = TRUE
+  )
+
+  HumanPop$set(which = "public",name = "set_TilePointer",
+            value = set_TilePointer,
+            overwrite = TRUE
+  )
+
+  #############################################
+  # PatchesPointer: point to the Patches (a network of patches) in this metapopulation TILE (MACRO)
+  #############################################
+
+  HumanPop$set(which = "private",name = "PatchesPointer",
+            value = NULL,
+            overwrite = TRUE
+  )
+
+  HumanPop$set(which = "public",name = "get_PatchesPointer",
+            value = get_PatchesPointer,
+            overwrite = TRUE
+  )
+
+  HumanPop$set(which = "public",name = "set_PatchesPointer",
+            value = set_PatchesPointer,
+            overwrite = TRUE
+  )
+
+  #############################################
+  # MosquitoPointer: point to the Mosquito population in this metapopulation TILE (MACRO)
+  #############################################
+
+  HumanPop$set(which = "private",name = "MosquitoPointer",
+            value = NULL,
+            overwrite = TRUE
+  )
+
+  HumanPop$set(which = "public",name = "get_MosquitoPointer",
+            value = get_MosquitoPointer,
+            overwrite = TRUE
+  )
+
+  HumanPop$set(which = "public",name = "set_MosquitoPointer",
+            value = set_MosquitoPointer,
+            overwrite = TRUE
+  )
+
+
+  #############################################
+  # Human methods
+  #############################################
 
   #############################################
   # location: where the human is now
@@ -218,6 +284,16 @@ MACRO.Humans.Setup <- function(){
 
   Human$set(which = "public",name = "expectedBites",
             value = expectedBites,
+            overwrite = TRUE
+  )
+
+  Human$set(which = "public",name = "add2Q_Bites",
+            value = add2Q_Bites,
+            overwrite = TRUE
+  )
+
+  HumanPop$set(which = "public",name = "queueInfectiousBites",
+            value = queueInfectiousBites,
             overwrite = TRUE
   )
 

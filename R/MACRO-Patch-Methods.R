@@ -23,25 +23,46 @@
 # Biting & Kappa:
 #################################################################
 
-#' Set \code{MacroPatch} sumKappa
+#' Update \code{MacroPatch} kappa For a Patch
 #'
-#' generate local human biting propensity kappa
+#' Generate human biting propensity kappa at a single Patch
+#'
+#' @param ixP index of patch
+#' @return does stuff
+#' @examples
+#' some_function()
+sumKappa <- function(ixP){
+  ixH = self$get_humanIDs(ixP)
+  kappaH = numeric(1)
+  for(ixHH in ixH){
+    kappaH = kappaH + (self$get_HumansPointer()$get_Human(ixHH)$get_humanPfSI()$get_b() * self$get_HumansPointer()$get_Human(ixHH)$get_biteWeight())
+  }
+  return(kappaH)
+}
+
+# set sumKappa
+MacroPatch$set(which = "public",name = "sumKappa",
+          value = sumKappa,
+          overwrite = TRUE
+)
+
+#' Set \code{MacroPatch} updateKappa
+#'
+#' Update normalized biting propensities for all patches
 #'
 #' @param a parameter
 #' @return does stuff
 #' @examples
 #' some_function()
-sumKappa <- function(){
-  
+updateKappa <- function(){
+  for(ixP in 1:private$N){
+    private$kappa[ixP] = private$kappa[ixP] + self$sumKappa(ixP) # update human component of kappa
+    private$kappa[ixP] = private$kappa[ixP] / sum(private$bWeightHuman[ixP],private$bWeightZoo[ixP],private$bWeightZootox[ixP]) # normalize by all biting
+  }
 }
 
-# sumKappa = function(ixH){
-#   here = HUMANS[[ixH]]$loc
-#   LANDSCAPE$kappa[here] <<- LANDSCAPE$kappa[here] + HUMANS[[ixH]]$Pathogens$Pf$c*HUMANS[[ixH]]$w
-# }
-
-
-# updateKappa = function(){
-#   for(ixH in 1:nHumans) sumKappa(ixH)
-#   LANDSCAPE$kappa <<- with(LANDSCAPE,kappa/(w.human+w.zoo+w.zootox))
-# }
+# set sumKappa
+MacroPatch$set(which = "public",name = "updateKappa",
+          value = updateKappa,
+          overwrite = TRUE
+)

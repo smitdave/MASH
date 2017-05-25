@@ -11,6 +11,11 @@
 # naming conventions
 HUMANS/MICRO/MACRO/PATHOGEN/INTERVENTION - Human/HumanPop/Mosquito/MosquitoPop/PfSI/Site/Tile/Emerge,etc - Class/Parameters/Main/Auxiliary.R
 
+* XX - XX - Setup.R: these files define functions of the same name XX.XX.Setup(); they may only define simple setters/getters
+* XX - XX - SomeMethods: these files define methods/fields that are initialized in the above XX - XX - Setup.R function; example:
+  MACRO-Human-Movement.R
+
+
 # humans for PfSI
 before making any objects, run PfSI.Setup()
 then run SimBitePfSI.Setup()

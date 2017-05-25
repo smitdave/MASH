@@ -201,6 +201,13 @@ PfSI.Setup <- function(
             overwrite = TRUE
   )
 
+  Human$set(which = "public",name = "get_humanPfSI",
+            value = function(){
+              return(private$Pathogens$Pf)
+            },
+            overwrite = TRUE
+  )
+
   HumanPop$set(which = "public",name = "set_humanPfSI",
             value = function(b = NULL, c = NULL){
 

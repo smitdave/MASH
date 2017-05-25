@@ -52,17 +52,33 @@ expectedBites <- function(){
 }
 
 
+#' MACRO \code{Human} Method: addBites2Q
+#'
+#' Write me! a method for \code{\link{Human}}
+#'
+#' @param a parameter
+#' @return does stuff
+#' @examples
+#' some_function()
+add2Q_Bites <- function(tEvent, PAR){
+  if(PAR$nBites > 0){
+    self$add2Q_simbitePfSI(tEvent = tEvent)
+  }
+}
 
-
-
-
-# addBites2Q = function(ixH, time, N){
-#   if(N>0) add2Q_simbitePfSI(ixH, TIME, PAR=Pf0)
-# }
-# 
-# queueInfectiousBites= function(){
-#   for(ixH in 1:nHumans){
-#     nBites = rnbinom(1, mu=expectedBites(ixH), size = .1)
-#     addBites2Q(ixH, TIME, nBites)
-#   }
-# }
+#' MACRO \code{HumanPop} Method: queueInfectiousBites
+#'
+#' Write me! a method for \code{\link{HumanPop}}
+#'
+#' @param a parameter
+#' @return does stuff
+#' @examples
+#' some_function()
+queueInfectiousBites <- function(){
+  for(ixH in 1:self$nHum){
+    private$pop[[ixH]]$expectedBites() # update expectedBites (EIR)
+    mu = private$pop[[ixH]]$get_myEIR() # my expected EIR
+    nBites = rnbinom(n = 1,mu = mu, size = 0.1) # number of bites
+    private$pop[[ixH]]$add2Q_Bites(tEvent = self$get_TilePointer()$get_tNow(), PAR = list(nBites = nBites)) # add bites to queue
+  }
+}

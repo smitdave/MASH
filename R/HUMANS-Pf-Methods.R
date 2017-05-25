@@ -15,11 +15,11 @@
 #' @param a parameter
 #' @return does stuff
 #' @examples
-#' Pf.HUMANS.Setup()
+#' HumanPf.Setup()
 #' @export
-Pf.HUMANS.Setup <- function(){
+HumanPf.Setup <- function(){
 
-  print(paste0("initializing shared Pf PATHOGEN component methods & fields"))
+  print(paste0("initializing shared Pf PATHOGEN component methods in Human Class"))
 
   # personal biting propensity
   Human$set(which = "private",name = "biteWeight",
