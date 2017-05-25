@@ -23,11 +23,23 @@ MACRO.Patch.Emerge.Setup <- function(){
   # Methods
   #################################################################
 
-    # when written, this should clear out the EggQ because its not used in Emerge
-    # MacroPatch$set(which = "private",name = "oneDay_emerge"
-    #           value = oneDay_emerge_MACRO,
-    #           overwrite = TRUE
-    # )
+    # addCohort_MacroEmerge takes the generic name addCohort because it interfaces with the MacroMosquitoPop class
+    MacroPatch$set(which = "private",name = "addCohort"
+              value = addCohort_MacroEmerge,
+              overwrite = TRUE
+    )
+
+    # add adults from lambda to PatchesImagoQ
+    MacroPatch$set(which = "private",name = "emergingAdults_MacroEmerge"
+              value = emergingAdults_MacroEmerge,
+              overwrite = TRUE
+    )
+
+    # helper function to get from ImagoQ to addCohort
+    MacroPatch$set(which = "private",name = "oneDay_MacroEmerge"
+              value = oneDay_MacroEmerge,
+              overwrite = TRUE
+    )
 
 
   #################################################################
@@ -91,8 +103,6 @@ MACRO.Patch.Emerge.Setup <- function(){
 # Methods
 #################################################################
 
-
-
 #' MACRO: Calculate Emerging Adults for \code{MacroPatch}
 #'
 #' Write me! does this for all patches
@@ -101,8 +111,8 @@ MACRO.Patch.Emerge.Setup <- function(){
 #' @return does stuff
 #' @examples
 #' some_function()
-addCohort <- function(){
-  newM = self$get_MosquitoPointer()$get_M() + self$emergingAdults_MACRO()
+addCohort_MacroEmerge <- function(){
+  newM = self$get_MosquitoPointer()$get_M() + self$emergingAdults_MacroEmerge()
   self$get_MosquitoPointer()$set_M(M = newM, ix = NULL)
 }
 
@@ -114,28 +124,17 @@ addCohort <- function(){
 #' @return does stuff
 #' @examples
 #' some_function()
-emergingAdults_MACRO <- function(){
-
-  # EVERY TIME STEP,CHECK READY QUEUES AND EMERGE THEM, ZERO OUT EMERGED SPOTS
-
-  # as for manage_PatchesImagoQ queue length management; we need to check when in the original Emerge module of MASH.MBPT we did the management and duplicate it
+emergingAdults_MacroEmerge <- function(){
 
   # grab slots that are ready to emerge
   tNow = self$get_TilePointer()$get_tNow()
   newM = vector(mode="integer",length=private$N)
   for(ixP in 1:private$N){
-
-    newAdultsIx = vapply(X = private$PatchesImagoQ[[ixP]],FUN = function(x){x$tEmerge <= tNow},FUN.VALUE = logical(1))
-
-
-    newAdults[[ixP]] = vapply(X = private$PatchesImagoQ[[ixP]][newAdultsIx],FUN = function(x){x$N},FUN.VALUE = numeric(1))
-
-
-
-    private$PatchesImagoQ[[ixP]][newAdultsIx]
+    newM[ixP] = private$PatchesImagoQ[[ixP]]$N
+    self$set_PatchesImagoQ(PatchesImagoQ = newImago(),ixP = ixP)
   }
 
-
+  return(newM)
 }
 
 #' Get \code{MacroPatch} Seasonal Emergence
@@ -146,13 +145,14 @@ emergingAdults_MACRO <- function(){
 #' @return does stuff
 #' @examples
 #' some_function()
-oneDay_emerge_MACRO <- function(){
+oneDay_MacroEmerge <- function(){
 
   tNow = self$get_TilePointer()$get_tNow()
   lambdaExact = vapply(X = private$season,FUN = function(x){x[floor(tNow)%%365+1]},FUN.VALUE = numeric(1))
   lambdaN = rpois(n = length(lambdaExact),lambda = lambdaExact)
   for(ixP in 1:private$N){
     self$set_PatchesImagoQ(PatchesImagoQ = newImago(N = lambdaN[ixP], tEmerge = tNow), ixP = ixP)
+    # self$set_PatchesEggQ(PatchesEggQ = newEgg(), ixP = ixP) RESET EGG
   }
 
 }

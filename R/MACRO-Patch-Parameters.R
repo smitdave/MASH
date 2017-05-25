@@ -76,8 +76,8 @@ MACRO.Patch.Parameters <- function(
       stop("please specify the vector 'lambda' when using the 'Emerge' module of Aquatic Ecology")
     }
     MacroPatch_PAR$season = aquaEmerge_makeLambda(...)
-    MacroPatch_PAR$PatchesImagoQ = replicate(n = N,allocImagoQ(10L),simplify = FALSE)
-    MacroPatch_PAR$PatchesEggQ = replicate(n = N,allocEggQ(10L),simplify = FALSE)
+    MacroPatch_PAR$PatchesImagoQ =  newImago()
+    MacroPatch_PAR$PatchesEggQ = newEgg()
 
   } else if(aquaModel == "EL4P"){
 
