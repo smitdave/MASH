@@ -30,15 +30,17 @@ MACRO.Patch.Parameters <- function(
     N,
 
     # houses
-    hhID,
+    hhID, # list
 
     # humans
-    humanIDs,
+    humanIDs, # list
 
     # Biting weights
     bWeightZoo1 = 1,
     bWeightZoo2 = 1,
 
+    # component options
+    pathogenModel = "PatchPf",
     aquaModel = "emerge",
     ... # named parameters to be passed to specific aquaModel generating function
 

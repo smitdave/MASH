@@ -55,11 +55,32 @@ MacroTile <- R6::R6Class(classname = "MacroTile",
 
                    # class initialize
                    initialize = function(nHum,nPatch){
+
+                     # generate objects
                      private$HumanPop = HumanPop$new(nHum = nHum)
                      private$Patches = Patch$new(N = nPatch)
                      private$MosquitoPop = MacroMosquitoPop$new()
 
-                     # set everyones pointers to each other
+                     # Human & HumanPop Pointers (duplicate for Humans in HumanPop$pop)
+                     private$HumanPop$set_TilePointer(self)
+                     private$HumanPop$set_MosquitoPointer(private$MosquitoPop)
+                     private$HumanPop$set_PatchesPointer(private$Patches)
+
+                     for(ixH in 1:private$HumanPop$nHum){
+                       private$HumanPop$get_Human(ixH)$set_TilePointer(self)
+                       private$HumanPop$get_Human(ixH)$set_MosquitoPointer(private$MosquitoPop)
+                       private$HumanPop$get_Human(ixH)$set_PatchesPointer(private$Patches)
+                     }
+
+                     # Patches Pointers
+                     private$Patches$set_TilePointer(self)
+                     private$Patches$set_MosquitoPointer(private$MosquitoPop)
+                     private$Patches$set_HumansPointer(private$HumanPop)
+
+                     # MosquitoPop Pointers
+                     private$MosquitoPop$set_TilePointer(self)
+                     private$MosquitoPop$set_PatchesPointer(private$Patches)
+                     private$MosquitoPop$set_HumansPointer(private$HumanPop)
 
                    },
 

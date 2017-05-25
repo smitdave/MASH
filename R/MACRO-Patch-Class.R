@@ -55,6 +55,9 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
 
                    # class initialize
                    initialize = function(MacroPatch_PAR){
+
+
+                    
                      private$N = N
                      stop("WRITE ME")
 

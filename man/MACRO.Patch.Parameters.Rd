@@ -5,7 +5,7 @@
 \title{Initialize MACRO Patch Parameters for \code{MacroPatch}}
 \usage{
 MACRO.Patch.Parameters(N, hhID, humanIDs, bWeightZoo1 = 1, bWeightZoo2 = 1,
-  aquaModel = "emerge", ...)
+  pathogenModel = "PatchPf", aquaModel = "emerge", ...)
 }
 \arguments{
 \item{N}{number of patches}
