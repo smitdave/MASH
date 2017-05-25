@@ -38,3 +38,20 @@ to initialize first make the HumanPop object then for PfSI you will need to run 
 # files that directly set methods/fields without prompting (not in a .SETUP function)
 * MACRO-MosquitoPop-Methods.R
 * MACRO-Patch-Methods.R
+
+
+### SETUP FUNCTIONS
+* AQUA-Macro-Emerge.R: MACRO.Patch.Emerge.Setup()
+* AQUA-Micro-Main.R: MICRO.Aqua.Setup()
+* HUMANS-Pf-Methods.R: HumanPf.Setup()
+* PATHOGEN-Macro-PfMethods.R: MACRO.patchPf.Setup()
+* PATHOGEN-PfSI-Auxiliary.R: PfSI.Auxiliary.Setup()
+* PATHOGEN-PfSI-Methods.R: PfSI.Setup()
+* PATHOGEN-PfSI-SimBite.R: SimBitePfSI.Setup()
+
+### PARAMETER FUNCTIONS
+* MACRO-Patch-Parameters.R: MACRO.Patch.Parameters()
+* PATHOGEN-PfSI-Parameters.R: PfSI.Parameters()
+
+### INIT FUNCTIONS
+* PATHOGEN-PfSI-Methods.R: PfSI.Init() -> HumanPop

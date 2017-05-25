@@ -1,5 +1,5 @@
 #' @import R6
 #' @import spatstat
 #' @import viridis
-#' @import viridislite
+#' @import viridisLite
 NULL
