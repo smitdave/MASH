@@ -24,19 +24,19 @@ MACRO.Patch.Emerge.Setup <- function(){
   #################################################################
 
     # addCohort_MacroEmerge takes the generic name addCohort because it interfaces with the MacroMosquitoPop class
-    MacroPatch$set(which = "private",name = "addCohort"
+    MacroPatch$set(which = "private",name = "addCohort",
               value = addCohort_MacroEmerge,
               overwrite = TRUE
     )
 
     # add adults from lambda to PatchesImagoQ
-    MacroPatch$set(which = "private",name = "emergingAdults_MacroEmerge"
+    MacroPatch$set(which = "private",name = "emergingAdults_MacroEmerge",
               value = emergingAdults_MacroEmerge,
               overwrite = TRUE
     )
 
     # helper function to get from ImagoQ to addCohort
-    MacroPatch$set(which = "private",name = "oneDay_MacroEmerge"
+    MacroPatch$set(which = "private",name = "oneDay_MacroEmerge",
               value = oneDay_MacroEmerge,
               overwrite = TRUE
     )
