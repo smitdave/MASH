@@ -77,6 +77,26 @@ travelHabit <- function(n, freqMean = 7, freqSd = 2, lengthMean = 2, lengthSd = 
 
 
 ###################################################################
+# humanIDs: interface with MACRO:
+#   * tell the MacroPatch where you are
+###################################################################
+
+#' Set \code{Human} go_Patch
+#'
+#' Update \code{\link{MacroPatch}} list of humanIDs when a human leaves a site \code{old} and goes to a site \code{new}
+#'
+#' @param old old patch (integer index)
+#' @param new new patch (integer index)
+#' @return does stuff
+#' @examples
+#' some_function()
+go_Patch <- function(old, new){
+  self$get_PatchesPointer()$add_humanIDs(oneID=private$myID,ix=new)
+  self$get_PatchesPointer()$remove_humanIDs(oneID=private$myID,ix=old)
+}
+
+
+###################################################################
 # Add MACRO Movement Events to 'Human' Class
 # 'XX' family of functions for human event queues
 ###################################################################
@@ -136,6 +156,9 @@ takeTrip <- function(tEvent, PAR){
   wAway = self$get_PatchesPointer()$get_bWeightHuman(ix = away) + self$get_bWeightHuman()
   self$get_PatchesPointer()$set_bWeightHuman(bWeightHuman = wAway, ix = away)
 
+  # tell the MacroPatch class where you went
+  self$go_Patch(old = home, new = away)
+
   # queue up the voyage home
   tReturn = tEvent + rexp(n = 1, rate = 1 / self$get_travel()$places_length[PAR$ixTravel])
   self$add2Q_returnHome(tEvent = tReturn, PAR = NULL)
@@ -191,6 +214,9 @@ returnHome = function(tEvent, PAR){
   # update visiting patch biting weight
   wAway = self$get_PatchesPointer()$get_bWeightHuman(ix = away) - self$get_bWeightHuman()
   self$get_PatchesPointer()$set_bWeightHuman(bWeightHuman = wAway, ix = away)
+
+  # tell the MacroPatch class where you went
+  self$go_Patch(old = away, new = home)
 
   #Schedule next trip
   tTrip = tEvent + rexp(n=1,rate=sum(self$get_travel()$totFreq))

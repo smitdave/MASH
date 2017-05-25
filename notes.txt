@@ -29,3 +29,7 @@ to initialize first make the HumanPop object then for PfSI you will need to run 
 * w = biteWeight
 * ixTrip = ixP (its in the PAR list so its not ambiguous)
 * PfTypes = patchPf
+
+# files that directly set methods/fields without prompting (not in a .SETUP function)
+* MACRO-MosquitoPop-Methods.R
+* MACRO-Patch-Methods.R

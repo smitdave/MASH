@@ -125,6 +125,12 @@ MACRO.Humans.Setup <- function(){
   # MACRO-Human-Movement.R
   #############################################
 
+  # interface with MacroPatch
+  Human$set(which = "public",name = "go_Patch",
+            value = go_Patch,
+            overwrite = TRUE
+  )
+
   # travel: the human's travel habits
 
   Human$set(which = "private",name = "travel",
@@ -154,40 +160,40 @@ MACRO.Humans.Setup <- function(){
             overwrite = TRUE
   )
 
-  Human$set(which = "public",name = "",
+  Human$set(which = "public",name = "event_takeTrip",
             value = event_takeTrip,
             overwrite = TRUE
   )
 
-  Human$set(which = "public",name = "",
+  Human$set(which = "public",name = "takeTrip",
             value = takeTrip,
             overwrite = TRUE
   )
 
-  Human$set(which = "public",name = "",
-            value = ,
+  Human$set(which = "public",name = "add2Q_returnHome",
+            value = add2Q_returnHome,
             overwrite = TRUE
   )
 
-  Human$set(which = "public",name = "",
-            value = ,
+  Human$set(which = "public",name = "event_returnHome",
+            value = event_returnHome,
             overwrite = TRUE
   )
 
-  Human$set(which = "public",name = "",
-            value = ,
+  Human$set(which = "public",name = "returnHome",
+            value = returnHome,
             overwrite = TRUE
   )
 
-  Human$set(which = "public",name = "",
-            value = ,
-            overwrite = TRUE
-  )
-
-  Human$set(which = "public",name = "",
-            value = ,
-            overwrite = TRUE
-  )
+  # Human$set(which = "public",name = "",
+  #           value = ,
+  #           overwrite = TRUE
+  # )
+  #
+  # Human$set(which = "public",name = "",
+  #           value = ,
+  #           overwrite = TRUE
+  # )
 
   #############################################
   # MACRO-Human-Biting.R

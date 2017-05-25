@@ -68,13 +68,37 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                      return(private$N)
                    },
 
-                   # Houses
+                   # Houses (what household IDs are at each patch?)
                    get_hhID = function(ix = NULL){
                      if(is.null(ix)){
                        return(hhID)
                      } else {
                        return(hhID[[ix]])
                      }
+                   },
+
+                   # Humans (where are people?)
+                   get_humanIDs = function(ix = NULL){
+                     if(is.null(ix)){
+                       return(private$humanIDs)
+                     } else {
+                       return(private$humanIDs[[ix]])
+                     }
+                   },
+                   set_humanIDs = function(humanIDs, ix = NULL){
+                     if(is.null(ix)){
+                       private$humanIDs = humanIDs
+                     } else {
+                       private$humanIDs[[ix]] = humanIDs
+                     }
+                   },
+                   add_humanIDs = function(oneID, ix){
+                     # add a person to a patch
+                     private$humanIDs[[ix]] = c(private$humanIDs[[ix]],oneID)
+                   },
+                   remove_humanIDs = function(oneID, ix){
+                     # remove a person from a patch
+                     private$humanIDs[[ix]] = private$humanIDs[[ix]][-which(private$humanIDs[[ix]]==oneID)]
                    },
 
                    # Biting weights
@@ -336,6 +360,7 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                     # Can use same structures as MICRO for
                     # consistent modeling of vector control.
                     hhID      = list(),
+                    humanID   = NULL, # which humans are currently here?
 
                     # How are infectious bites divided up?
                     bWeightHuman   = NULL,

@@ -1,11 +1,12 @@
-#############################################
+#################################################################
 #
-# Alpha version of MACRO
-# R6 secret sauce version
-# David Smith & David Smith, Hector Sanchez, Sean Wu
-# May 11, 2017
+#   MASH
+#   R6-ified
+#   MACRO MacroTile Class Parameters
+#   David Smith, Hector Sanchez, Sean Wu
+#   May 11, 2016
 #
-#############################################
+#################################################################
 
 #' MACRO Tile Class Definition
 #'
