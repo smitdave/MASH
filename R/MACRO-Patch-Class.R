@@ -183,21 +183,6 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                      }
                    },
 
-                   get_humanIDs = function(ix = NULL){
-                     if(is.null(ix)){
-                       return(private$humanIDs)
-                     } else {
-                       return(private$humanIDs[[ix]])
-                     }
-                   },
-                   set_humanIDs = function(humanIDs, ix = NULL){
-                     if(!is.null(ix)){
-                       private$humanIDs[[ix]] = humanIDs
-                     } else {
-                       private$humanIDs = humanIDs
-                     }
-                   },
-
                    # Egg laying
                    get_aquaID = function(ix = NULL){
                      if(is.null(ix)){
@@ -360,7 +345,6 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                     # Can use same structures as MICRO for
                     # consistent modeling of vector control.
                     hhID      = list(),
-                    humanID   = NULL, # which humans are currently here?
 
                     # How are infectious bites divided up?
                     bWeightHuman   = NULL,
