@@ -16,13 +16,20 @@ PfSI.Setup()
 SimBitePfSI.Setup()
 
 # simulate a single human population
-pop = HumanPop$new(nHum = 10)
+nHumans = 1e3
+popDemographics = list(nHumans=nHumans,
+                       sitePops=rep(1,nHumans),
+                       siteHumanID=as.list(1:nHumans),
+                       homeHumanID=rep(1,nHumans),
+                       siteAges=rep(0,nHumans))
+HumanPop_PAR = HumanPop.Parameters(nPatch = 1,demographics = popDemographics)
+pop = HumanPop$new(HumanPop_PAR)
 pop$PfSI.Init(PfPR = 0)
 
 tMax = 365*5
 
-pop$queueBites_simBitePfSI(tMax = tMax,bitingRate = 1/15)
-pop$queueVaccination_simBitePfSI(tVaccine = (365*1),tTreat = (365*1)+1,fracPop = 0.75)
+pop$queueBites_SimBitePfSI(tMax = tMax,bitingRate = 1/15)
+pop$queueVaccination_SimBitePfSI(tVaccine = (365*1),tTreat = (365*1)+1,fracPop = 0.75)
 pop$simHumans(tPause = tMax+10)
 
 pop$get_History()
@@ -30,7 +37,7 @@ pop$get_History()
 # simulate a single human population with negbinom biting
 # see ?queueBitesNegBinom_SimBitePfSI for details
 rm(pop)
-pop = HumanPop$new(nHum = 10)
+pop = HumanPop$new(HumanPop_PAR)
 pop$PfSI.Init(PfPR = 0)
 
 tMax = 365*5

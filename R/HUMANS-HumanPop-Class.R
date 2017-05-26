@@ -46,49 +46,9 @@ HumanPop <- R6::R6Class(classname = "HumanPop",
                     public = list(
 
                       # initialize
-                      # initialize = function(nHumans, tStart = 0, homeIDs = NULL, humanIDs = NULL){
                       initialize = function(HumanPop_PAR){
 
-                        # if(is.null(homeIDs)){
-                        #   homeIDs = 1:nHumans
-                        # } else if(length(homeIDs)!=nHumans){
-                        #   stop("length of homeIDs not equal to nHumans!")
-                        # }
-                        #
-                        # if(is.null(humanIDs)){
-                        #   humanIDs = 1:nHumans
-                        # } else if(length(humanIDs)!=nHumans){
-                        #   stop("length of humanIDs not equal to nHumans!")
-                        # }
-                        #
-                        # private$pop = vector(mode="list",length = nHumans)
-                        # for(ixH in 1:nHumans){
-                        #   private$pop[[ixH]] = Human$new(myID = humanIDs[ixH], hhID = homeIDs[ixH], bDay = tStart)
-                        #   # set pointers
-                        #   private$pop[[ixH]]$set_PopPointer(private$pop)
-                        #   private$pop[[ixH]]$set_HumansPointer(self)
-                        # }
-                        #
-                        # # one day these may need to be active bindings to automatically look these values up when called;
-                        # # this may need to be done when we have people immigrating and emigrating from patches
-                        # self$nHumans = nHumans          # size of human population
-                        # self$tStart = tStart      # time to start simulating
-                        # self$homeIDs = homeIDs        # vector of home IDs corresponding to that human's home
-                        # self$humanIDs = humanIDs          # vector of human IDs
-
                         with(HumanPop_PAR,{
-
-                          # if(is.null(homeIDs)){
-                          #   homeIDs = 1:nHumans
-                          # } else if(length(homeIDs)!=nHumans){
-                          #   stop("length of homeIDs not equal to nHumans!")
-                          # }
-                          #
-                          # if(is.null(humanIDs)){
-                          #   humanIDs = 1:nHumans
-                          # } else if(length(humanIDs)!=nHumans){
-                          #   stop("length of humanIDs not equal to nHumans!")
-                          # }
 
                           private$pop = vector(mode="list",length = nHumans)
                           for(ixH in 1:nHumans){

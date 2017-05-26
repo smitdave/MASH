@@ -155,7 +155,7 @@ SimBite_WaitingTime <- function(nH, meanWaitingTime, days = 365, shape = 5, plot
   for(i in 1:nH){
     t = 0
     times = NULL
-    print(paste0("i: ",i))
+    # print(paste0("i: ",i))
     while(t < days){
       t = t + rexp(n = 1,rate = rRates[i])
       times = c(times,t)
@@ -207,7 +207,7 @@ SimBite_MeanBites <- function(nH, meanNumberBites, days = 365, shape = 5, plot =
   for(i in 1:nH){
     t = 0
     times = NULL
-    print(paste0("i: ",i))
+    # print(paste0("i: ",i))
     while(t < days){
       t = t + rexp(n = 1,rate = rRates[i])
       times = c(times,t)
