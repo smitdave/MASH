@@ -8,7 +8,7 @@
 #
 #################################################################
 
-#' MICRO-HumanPop Class Definition
+#' HumanPop Class Definition
 #'
 #' This is a a human population blah blah ...
 #'

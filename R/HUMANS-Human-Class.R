@@ -13,7 +13,7 @@
 # Human Class Definition
 ##########################################
 
-#' MICRO-Human Class Definition
+#' Human Class Definition
 #'
 #' This is a generic human being blah blah ...
 #' Each instance of a \code{Human} lives in a \code{\link{HumanPop}}
