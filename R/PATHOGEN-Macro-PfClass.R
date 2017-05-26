@@ -44,7 +44,7 @@
 #'   \item{\code{coolActiveBinding}}{...}
 #' }
 #' @export
-PatchPf <- R6::R6Class(classname="PatchPf",
+MacroPatchPf <- R6::R6Class(classname="MacroPatchPf",
                      portable = TRUE,
                      cloneable = FALSE,
                      lock_class = FALSE,

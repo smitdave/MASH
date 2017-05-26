@@ -28,20 +28,24 @@
 #' @export
 MACRO.Tile.Parameters <- function(
 
-  N,
+  N = 10,
   patchSize = 20,
-  patchMin = 10
+  patchMin = 10,
+  aquaEcology = list(aquaModel="emerge",lambda=rep(10,10))
 
   ){
-
+    # browser()
     demographics = sitePops(N=N,siteSize=patchSize,siteMin=patchMin)
     HumanPop_PAR = HumanPop.Parameters(nSite = N, demographics = demographics)
 
     patch_hhID_helper = rle(x = demographics$homeHumanID)
     patch_hhID = mapply(FUN = function(x,y){
-        rep(x = val,times=y)
+        rep(x = x,times=y)
       },x=patch_hhID_helper$values,y=patch_hhID_helper$lengths)
-    MacroPatch_PAR = MACRO.Patch.Parameters(N=N, hhID=patch_hhID, humanIDs=demographics$siteHumanID)
+    if(aquaEcology$aquaModel=="emerge"){
+      MacroPatch_PAR = MACRO.Patch.Parameters(N=N, hhID=patch_hhID, humanIDs=demographics$siteHumanID, aquaModel = "emerge",lambda = aquaEcology$lambda)
+    }
+
 
     MacroMosquitoPop_PAR = MACRO.MosquitoPop.Parameters(N=N)
 

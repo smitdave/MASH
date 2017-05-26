@@ -104,15 +104,15 @@ MACRO.Patch.Parameters <- function(
     MacroPatch_PAR$pathogenModel = pathogenModel
 
     PatchPf = vector(mode="list",length=N)
-    for(ixP in 1:N){PatchPf[[ixP]] = PatchPf$new(damID = NULL, sireID = NULL)}
+    for(ixP in 1:N){PatchPf[[ixP]] = MacroPatchPf$new(damID = NULL, sireID = NULL)}
     MacroPatch_PAR$PatchPf = PatchPf
 
   } else if(pathogenModel == "none"){
 
     MacroPatch_PAR$pathogenModel = pathogenModel
-    stop("sean hasn't written the routines for MACRO none PATHOGEN module")
+    stop("sean hasn't written the routines for MACRO 'none' PATHOGEN module")
   } else {
-    stop("pathogenModel msut be a value in 'PatchPf' or 'none'")
+    stop("pathogenModel must be a value in 'PatchPf' or 'none'")
   }
 
   return(MacroPatch_PAR)

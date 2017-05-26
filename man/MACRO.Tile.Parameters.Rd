@@ -4,7 +4,8 @@
 \alias{MACRO.Tile.Parameters}
 \title{Initialize MACRO Tile Parameters for \code{MacroTile}}
 \usage{
-MACRO.Tile.Parameters(N, patchSize = 20, patchMin = 10)
+MACRO.Tile.Parameters(N = 10, patchSize = 20, patchMin = 10,
+  aquaEcology = list(aquaModel = "emerge", lambda = rep(10, 10)))
 }
 \arguments{
 \item{N}{number of patches}
