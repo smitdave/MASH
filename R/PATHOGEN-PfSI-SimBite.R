@@ -82,6 +82,12 @@ SimBitePfSI.Setup <- function(
                }
   )
 
+  # queueBitesNegBinom_SimBitePfSI
+  HumanPop$set(which = "public",name = "queueBitesNegBinom_SimBitePfSI",
+               value = queueBitesNegBinom_SimBitePfSI,
+               overwrite = TRUE
+  )
+
 }
 
 
@@ -91,13 +97,15 @@ SimBitePfSI.Setup <- function(
 
 #' PfSI SimBite \code{\link{HumanPop}} Method: Generate Negative Binomial Biting Distribution
 #'
-#' 
+#' Wrapper method for \code{\link{SimBite_MeanBites}} to queue simulated bites on a human population.
 #'
 #' @param tMax maximum time to queue bites
 #' @param meanNumberBites population mean number of bites (over time period equal to \code{days})
 #' @param shape shape parameter of gamma-distributed variation in individual biting rate (higher values lead to more normally distributed cumulative biting counts)
 #' @param plot visualize biting distribution and negative binomial fit
 #' @return modify \code{\link{Human}} object with \code{\link{add2Q_SimBitePfSI}}
+#' @examples
+#' HumanPop$queueBitesNegBinom_SimBitePfSI()
 #' @export
 queueBitesNegBinom_SimBitePfSI <- function(tMax, meanNumberBites, shape = 5, plot = TRUE){
   popBites = SimBite_MeanBites(nH = self$nHum, meanNumberBites=meanNumberBites, days=tMax, shape=shape, plot=plot)

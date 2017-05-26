@@ -16,7 +16,7 @@ SimBite_WaitingTime(nH, meanWaitingTime, days = 365, shape = 5,
 
 \item{shape}{shape parameter of gamma-distributed variation in individual biting rate (higher values lead to more normally distributed cumulative biting counts)}
 
-\item{plot}{visualize process?}
+\item{plot}{visualize biting distribution and negative binomial fit}
 }
 \value{
 a list of length \code{nH}; each element is the arrivial times of bites on that individual
