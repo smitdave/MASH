@@ -16,8 +16,7 @@
 #' MICRO-Human Class Definition
 #'
 #' This is a generic human being blah blah ...
-#'  categorical summary measure \code{A[j]}. This class inherits from \code{\link{GenericModel}} class.
-#'  Defines the fitting algorithm for a regression model \code{A[j] ~ W + ...}.
+#' Each instance of a \code{Human} lives in a \code{\link{HumanPop}}
 #'
 #' @docType class
 #' @format An \code{\link{R6Class}} generator object

@@ -88,19 +88,19 @@ set_PatchPf = function(PatchPf, ix = NULL){
 }
 
 
-#' Pf: Initialize \code{Human}
-#'
-#' Write me!
-#'
-#' @param a parameter
-#' @return does stuff
-#' @examples
-#' set_biteWeight()
-initialize_PatchPf = function(MacroPatch_PAR){
-  private$N = N
-  stop("WRITE ME")
-  private$PatchPf = vector(mode="list",length=N)
-  for(ixP in 1:N){
-    private$PfTypes[[ixP]] = PatchPf(damID = NULL, sireID = NULL)
-  }
-}
+# #' Pf: Initialize \code{Human}
+# #'
+# #' Write me!
+# #'
+# #' @param a parameter
+# #' @return does stuff
+# #' @examples
+# #' set_biteWeight()
+# initialize_PatchPf = function(MacroPatch_PAR){
+#   private$N = N
+#   stop("WRITE ME")
+#   private$PatchPf = vector(mode="list",length=N)
+#   for(ixP in 1:N){
+#     private$PatchPf[[ixP]] = PatchPf(damID = NULL, sireID = NULL)
+#   }
+# }

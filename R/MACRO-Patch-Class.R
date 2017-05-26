@@ -56,10 +56,52 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                    # class initialize
                    initialize = function(MacroPatch_PAR){
 
+                     with(MacroPatch_PAR,{ # enter MacroPatch_PAR environment
 
-                    
-                     private$N = N
-                     stop("WRITE ME")
+                       # initialize shared parameters
+                       private$N = N
+                       private$hhID = hhID
+                       private$humanIDs = humanIDs
+                       private$bWeightHuman = bWeightHuman
+                       private$bWeightZoo = bWeightZoo
+                       private$bWeightZootox = bWeightZootox
+                       private$Q = Q
+                       private$kappa = kappa
+                       private$aquaID = aquaID
+                       private$aquaP = aquaP
+                       private$aquaNewM = aquaNewM
+                       private$weightAqua = weightAqua
+                       private$weightOvitrap = weightOvitrap
+                       private$weightSugar = weightSugar
+                       private$weightBait = weightBait
+                       private$weightMate = weightMate
+
+                       # initialize AQUATIC ECOLOGY
+                       if(aquaModel == "emerge"){
+
+                         private$season = season
+                         private$PatchesImagoQ =  PatchesImagoQ
+                         private$PatchesEggQ = PatchesEggQ
+
+                       } else if(aquaModel == "EL4P"){
+                         stop("sean hasn't written the routines for MACRO EL4P Aquatic Ecology")
+                       } else {
+                         stop("aquaModel must be a value in 'emerge' or 'EL4P'")
+                       }
+
+                       # initialize PATHOGEN
+                       if(pathogenModel == "PatchPf"){
+
+                         MacroPatch_PAR$pathogenModel = pathogenModel
+                         private$PatchPf = PatchPf
+
+                       } else if(pathogenModel == "none"){
+                         stop("sean hasn't written the routines for MACRO none PATHOGEN module")
+                       } else {
+                         stop("pathogenModel msut be a value in 'PatchPf' or 'none'")
+                       }
+
+                      }) # exit MacroPatch_PAR environment
 
                    },
 
@@ -348,6 +390,7 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                     # Can use same structures as MICRO for
                     # consistent modeling of vector control.
                     hhID      = list(),
+                    humanIDs  = list(),
 
                     # How are infectious bites divided up?
                     bWeightHuman   = NULL,
@@ -357,7 +400,6 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                     # Net infectiousness
                     # Q         = NULL, in MacroMosquitoPop
                     kappa     = NULL,
-                    humanIDs  = list(),
 
                     #Egg laying
                     aquaID        = NULL,
