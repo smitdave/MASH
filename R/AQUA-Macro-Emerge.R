@@ -118,7 +118,7 @@ addCohort_MacroEmerge <- function(){
 
 #' MACRO: Calculate Emerging Adults from ImagoQ for \code{MacroPatch}
 #'
-#' Write me! does this for all patches. Goes from ImagoQ to a vector of adults to be born, and zeros out
+#' Write me! does this for all patches. generates a vector of emerging adults, and zeros out the ImagoQ
 #'
 #' @param a parameter
 #' @return does stuff

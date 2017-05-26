@@ -2,7 +2,7 @@
 #
 #   MASH
 #   R6-ified
-#   MACRO MacroTile Class Parameters
+#   MACRO MacroTile Class Definition
 #   David Smith, Hector Sanchez, Sean Wu
 #   May 11, 2016
 #
@@ -54,11 +54,11 @@ MacroTile <- R6::R6Class(classname = "MacroTile",
                  public = list(
 
                    # class initialize
-                   initialize = function(nHum,nPatch){
+                   initialize = function(MacroTile_PAR){
 
                      # generate objects
-                     private$HumanPop = HumanPop$new(nHum = nHum)
-                     private$Patches = Patch$new(N = nPatch)
+                     private$HumanPop = HumanPop$new(nHumans = nHumans)
+                     private$Patches = MacroPatch$new(N = nPatch)
                      private$MosquitoPop = MacroMosquitoPop$new()
 
                      # Human & HumanPop Pointers (duplicate for Humans in HumanPop$pop)
@@ -66,7 +66,7 @@ MacroTile <- R6::R6Class(classname = "MacroTile",
                      private$HumanPop$set_MosquitoPointer(private$MosquitoPop)
                      private$HumanPop$set_PatchesPointer(private$Patches)
 
-                     for(ixH in 1:private$HumanPop$nHum){
+                     for(ixH in 1:private$HumanPop$nHumans){
                        private$HumanPop$get_Human(ixH)$set_TilePointer(self)
                        private$HumanPop$get_Human(ixH)$set_MosquitoPointer(private$MosquitoPop)
                        private$HumanPop$get_Human(ixH)$set_PatchesPointer(private$Patches)

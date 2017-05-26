@@ -176,7 +176,7 @@ PfSI.Setup <- function(
               private$PfID = 1L
               self$set_humanPfSI(b,c)
 
-              for(ixH in 1:self$nHum){
+              for(ixH in 1:self$nHumans){
 
                 if(runif(1) < PfPR){
                   private$pop[[ixH]]$infectHumanPfSI(tEvent = tStart, PAR = list(damID=-1L,sireID=-1L))
@@ -213,22 +213,22 @@ PfSI.Setup <- function(
 
               # sanity checks
               if(is.null(b)){
-                b = rep(x = 0.55,times = self$nHum)
+                b = rep(x = 0.55,times = self$nHumans)
               } else {
-                if(length(b)!=self$nHum){
-                  stop(paste0("length of b: ",length(b)," must be equal to size of human population: ",self$nHum))
+                if(length(b)!=self$nHumans){
+                  stop(paste0("length of b: ",length(b)," must be equal to size of human population: ",self$nHumans))
                 }
               }
               if(is.null(c)){
-                c = rep(x = 0.15,times = self$nHum)
+                c = rep(x = 0.15,times = self$nHumans)
               } else {
-                if(length(c)!=self$nHum){
-                  stop(paste0("length of c: ",length(c)," must be equal to size of human population: ",self$nHum))
+                if(length(c)!=self$nHumans){
+                  stop(paste0("length of c: ",length(c)," must be equal to size of human population: ",self$nHumans))
                 }
               }
 
               # set pathogens
-              for(ixH in 1:self$nHum){
+              for(ixH in 1:self$nHumans){
                 private$pop[[ixH]]$set_humanPfSI(PfID = NULL, b = b[ixH], c = c[ixH])
               }
 

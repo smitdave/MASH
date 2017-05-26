@@ -50,10 +50,11 @@ Human <- R6::R6Class(classname="Human",
                      public = list(
 
                        #initialize
-                       initialize = function(myID, hhID, bDay){
+                       initialize = function(myID, hhID, bDay, biteWeight){
                          private$myID = myID
                          private$hhID = hhID
                          private$bDay = bDay
+                         private$biteWeight = biteWeight
                          private$eventQ[[1]] = self$event_maxDeath()
                        },
 
@@ -77,6 +78,9 @@ Human <- R6::R6Class(classname="Human",
                        #bDay
                        get_bDay = function(){
                          return(private$bDay)
+                       },
+                       set_bDay = function(bDay){
+                         private$bDay = bDay
                        },
 
                        #eventQ
@@ -103,6 +107,14 @@ Human <- R6::R6Class(classname="Human",
                            events = private$events,
                            eventT = private$eventT
                          )
+                       },
+
+                       # Health & Related
+                       get_biteWeightPf = function(){
+                         return(private$biteWeight)
+                       },
+                       set_biteWeightPf = function(biteWeight){
+                         private$biteWeight = biteWeight
                        },
 
                        # generics
@@ -229,6 +241,9 @@ Human <- R6::R6Class(classname="Human",
                        # Event History
                        events = c("init"),
                        eventT = c(-1),
+
+                       # Health & Related
+                       biteWeight = NULL,
 
                        # Pathogens
                        Pathogens = list(),

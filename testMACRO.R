@@ -19,8 +19,9 @@ MACRO.Humans.Setup()
 PfSI.Setup()
 SimBitePfSI.Setup()
 
-# setup Human
-HumanPf.Setup()
-
 # MACRO Patch initialization
 MACRO.Patch.Emerge.Setup() # 'Emerge' model
+
+# MACRO - Emergence
+MacroPatch$oneDay_MacroEmerge()
+MacroPatch$addCohort_MacroEmerge()

@@ -18,6 +18,8 @@ HUMANS/MICRO/MACRO/PATHOGEN/INTERVENTION - Human/HumanPop/Mosquito/MosquitoPop/P
 * XX - XX - SomeMethods: these files define methods/fields that are initialized in the above XX - XX - Setup.R function; example:
   MACRO-Human-Movement.R
 
+# things start being called -Methods.R then if needed they can split.
+
 
 # humans for PfSI
 before making any objects, run PfSI.Setup()
@@ -27,7 +29,9 @@ to initialize first make the HumanPop object then for PfSI you will need to run 
 
 
 # other conventions:
-* never initialize pointers in the $new() or initialize() functions; initialize after with their setter function $set_POINTER()
+* never initialize pointers in the $new() or initialize() functions; initialize after with their setter function $set_POINTER():
+  * except in HumanPop where pointers for the Human objects to point up to HumanPop.
+  * possibly needed for mosquitoes.
 * XX.Init are methods added to OBJECTS already in the environment
 * XX.Setup are FUNCTIONS called before any OBJECTS are created.
 * .Init,.Setup,.Parameters are the only times that period may be used to define thing.
@@ -46,15 +50,18 @@ to initialize first make the HumanPop object then for PfSI you will need to run 
 ### SETUP FUNCTIONS
 * AQUA-Macro-Emerge.R: MACRO.Patch.Emerge.Setup()
 * AQUA-Micro-Main.R: MICRO.Aqua.Setup()
-* HUMANS-Pf-Methods.R: HumanPf.Setup()
 * PATHOGEN-Macro-PfMethods.R: MACRO.patchPf.Setup()
 * PATHOGEN-PfSI-Auxiliary.R: PfSI.Auxiliary.Setup()
 * PATHOGEN-PfSI-Methods.R: PfSI.Setup()
 * PATHOGEN-PfSI-SimBite.R: SimBitePfSI.Setup()
 
 ### PARAMETER FUNCTIONS
-* MACRO-Patch-Parameters.R: MACRO.Patch.Parameters()
 * PATHOGEN-PfSI-Parameters.R: PfSI.Parameters()
+* MACRO-Patch-Parameters.R: MACRO.Patch.Parameters()
+* HUMANS-HumanPop-Parameters.R: HumanPop.Parameters()
+* MacroMosquitoPop-Parameters.R: MACRO.MosquitoPop.Parameters()
+* MACRO-Tile-Parameters.R: MACRO.Tile.Parameters()
+
 
 ### INIT FUNCTIONS
 * PATHOGEN-PfSI-Methods.R: PfSI.Init() -> HumanPop

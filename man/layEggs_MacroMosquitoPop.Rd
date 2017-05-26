@@ -2,7 +2,7 @@
 % Please edit documentation in R/MACRO-MosquitoPop-Methods.R
 \name{layEggs_MacroMosquitoPop}
 \alias{layEggs_MacroMosquitoPop}
-\title{Set \code{MacroMosquitoPop} layEggs}
+\title{\code{MacroMosquitoPop} layEggs}
 \usage{
 layEggs_MacroMosquitoPop(tNow)
 }

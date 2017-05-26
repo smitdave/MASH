@@ -10,7 +10,7 @@
 
 
 #################################################################
-# Methods
+# EIP
 #################################################################
 
 # for now just add methods straight to class object; can make a seperate MACRO.MosquitoPop.Setup() later if necessary.
@@ -33,7 +33,12 @@ MacroMosquitoPop$set(which = "public",name = "getEIP",
           overwrite = TRUE
 )
 
-#' Set \code{MacroMosquitoPop} layEggs
+
+#################################################################
+# Oviposition
+#################################################################
+
+#' \code{MacroMosquitoPop} layEggs
 #'
 #' oviposition
 #'
@@ -50,5 +55,59 @@ layEggs_MacroMosquitoPop <- function(tNow){
 
 MacroMosquitoPop$set(which = "public",name = "layEggs",
           value = layEggs_MacroMosquitoPop,
+          overwrite = TRUE
+)
+
+#################################################################
+# oneDay_RM (daily Ross-Macdonald difference equations)
+#################################################################
+
+#' Set \code{MacroMosquitoPop} oneDay_RM
+#'
+#' Daily Ross-Macdonald difference/diffusion equations for mosquito dynamics.
+#' These equations are likely inefficient; see optimizing BLAS/LAPACK and copying less matricies for a faster down the line implementation.
+#'
+#' @param a parameter
+#' @return does stuff
+#' @examples
+#' some_function()
+oneDay_RM <- function(){
+
+  #Mosquito Survival
+  M = private$p * private$M
+  Y = private$p * private$Y
+  Z = private$p * private$Z
+  ZZ = private$ZZ
+
+  # Infected Mosquitoes
+  Y0 = private$f * private$Q * private$PatchesPointer$get_kappa() * (M - Y)
+  Y = Y + Y0
+
+  # Migration
+  if(!is.null(private$psi)){
+     M = private$psi %*% M
+     Y = private$psi %*% Y
+     Z = private$psi %*% Z + ZZ[1,]
+  }
+
+  ZZ[-private$maxEIP,] = ZZ[-1,]
+  ZZ[private$maxEIP,] = 0
+
+  EIP = self$getEIP(t)
+  if(!is.null(private$psi)){
+    ZZ[EIP,] = ZZ[EIP,] + private$P[EIP] * private$Psi %*% Y0
+  } else {
+    ZZ[EIP,] = ZZ[EIP,] + private$P[EIP] * Y0
+  }
+
+  private$M = M
+  private$Y = Y
+  private$Z = Z
+  private$ZZ = ZZ
+
+}
+
+MacroMosquitoPop$set(which = "public",name = "oneDay_RM",
+          value = oneDay_RM,
           overwrite = TRUE
 )

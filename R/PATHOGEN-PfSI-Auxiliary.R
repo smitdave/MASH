@@ -29,7 +29,7 @@ PfSI.Auxiliary.Setup <- function(){
   # set PfSI_PAR for a HumanPop; this is useful for simulating multiple populations with different parameter values
   HumanPop$set(which = "public",name = "set_PfSI_PAR",
             value = function(PfSI_PAR){
-              for(ixH in 1:self$nHum){
+              for(ixH in 1:self$nHumans){
                 private$pop[[ixH]]$set_PfSI_PAR(PfSI_PAR)
               }
             }

@@ -60,7 +60,7 @@ SimBitePfSI.Setup <- function(
   # queueBites
   HumanPop$set(which = "public",name = "queueBites_SimBitePfSI",
                value = function(tMax, bitingRate = 1/20){
-                 for(ixH in 1:self$nHum){
+                 for(ixH in 1:self$nHumans){
                    print(paste0("queueing simulated bites for human: ",ixH))
                    tBite = 0
                    while(tBite < tMax){
@@ -74,7 +74,7 @@ SimBitePfSI.Setup <- function(
   # queueVaccination
   HumanPop$set(which = "public",name = "queueVaccination_SimBitePfSI",
                value = function(tVaccine, tTreat, fracPop){
-                 for(ixH in 1:floor(fracPop*self$nHum)){
+                 for(ixH in 1:floor(fracPop*self$nHumans)){
                    print(paste0("queueing vaccination for human: ",ixH))
                    private$pop[[ixH]]$add2Q_pevaccinatePfSI(tEvent = tVaccine)
                    private$pop[[ixH]]$add2Q_treatPfSI(tEvent = tTreat)
@@ -108,8 +108,8 @@ SimBitePfSI.Setup <- function(
 #' HumanPop$queueBitesNegBinom_SimBitePfSI()
 #' @export
 queueBitesNegBinom_SimBitePfSI <- function(tMax, meanNumberBites, shape = 5, plot = TRUE){
-  popBites = SimBite_MeanBites(nH = self$nHum, meanNumberBites=meanNumberBites, days=tMax, shape=shape, plot=plot)
-  for(ixH in 1:self$nHum){
+  popBites = SimBite_MeanBites(nH = self$nHumans, meanNumberBites=meanNumberBites, days=tMax, shape=shape, plot=plot)
+  for(ixH in 1:self$nHumans){
     for(ixB in popBites[[ixH]]){
       private$pop[[ixH]]$add2Q_SimBitePfSI(tEvent = ixB)
     }

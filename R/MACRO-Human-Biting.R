@@ -75,7 +75,7 @@ add2Q_Bites <- function(tEvent, PAR){
 #' @examples
 #' some_function()
 queueInfectiousBites <- function(){
-  for(ixH in 1:self$nHum){
+  for(ixH in 1:self$nHumans){
     private$pop[[ixH]]$expectedBites() # update expectedBites (EIR)
     mu = private$pop[[ixH]]$get_myEIR() # my expected EIR
     nBites = rnbinom(n = 1,mu = mu, size = 0.1) # number of bites
