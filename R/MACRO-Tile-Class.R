@@ -86,10 +86,10 @@ MacroTile <- R6::R6Class(classname = "MacroTile",
 
                    },
 
-                   # oneDayRM
-                   oneDayRM = function(){
-                     stop("sean hasn't written me yet!")
-                   },
+                  #  # oneDayRM
+                  #  simMacro = function(){
+                  #    stop("sean hasn't written me yet!")
+                  #  },
 
                    get_tNow = function(){
                      return(private$tNow)

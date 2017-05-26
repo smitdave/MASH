@@ -46,7 +46,7 @@ pop$queueBitesNegBinom_SimBitePfSI(tMax = tMax, meanNumberBites = 100, plot = FA
 pop$simHumans(tPause = tMax+10)
 pop$get_History()
 
-# simulate many human populations
+# simulate many human populations in parallel
 library(parallel)
 simPars = replicate(n = 10,expr = PfSI.Parameters(),simplify = FALSE)
 simParOut = parallel::mclapply(X = simPars,FUN = function(x,PAR){
