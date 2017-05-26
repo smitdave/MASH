@@ -94,7 +94,7 @@ MacroMosquitoPop <- R6::R6Class(classname = "MacroMosquitoPop",
                      private$ZZ  = matrix(data=0L,nrow=MacroMosquitoPop_PAR$maxEIP,ncol=N) # each row is the number that will be added to the infectious state on that day
 
                      private$psi = MacroMosquitoPop_PAR$psi
-                     private$P   = p^c(1:MacroMosquitoPop_PAR$maxEIP) # survival over EIP
+                     private$P   = MacroMosquitoPop_PAR$p^c(1:MacroMosquitoPop_PAR$maxEIP) # survival over EIP
 
                    },
 

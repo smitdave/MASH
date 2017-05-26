@@ -42,20 +42,20 @@ pop$PfSI.Init(PfPR = 0)
 
 tMax = 365*5
 
-pop$queueBitesNegBinom_SimBitePfSI(tMax = tMax, meanNumberBites = 100, plot = TRUE)
+pop$queueBitesNegBinom_SimBitePfSI(tMax = tMax, meanNumberBites = 100, plot = FALSE)
 pop$simHumans(tPause = tMax+10)
 pop$get_History()
 
 # simulate many human populations
 library(parallel)
 simPars = replicate(n = 10,expr = PfSI.Parameters(),simplify = FALSE)
-simParOut = parallel::mclapply(X = simPars,FUN = function(x){
-  pop = HumanPop$new(nHum = 10)
+simParOut = parallel::mclapply(X = simPars,FUN = function(x,PAR){
+  pop = HumanPop$new(PAR)
   pop$set_PfSI_PAR(x)
   pop$PfSI.Init(PfPR = 0)
   tMax = 365*5
-  pop$queueBites_simBitePfSI(tMax = tMax,bitingRate = 1/15)
-  pop$queueVaccination_simBitePfSI(tVaccine = (365*1),tTreat = (365*1)+1,fracPop = 0.75)
+  pop$queueBites_SimBitePfSI(tMax = tMax,bitingRate = 1/15)
+  pop$queueVaccination_SimBitePfSI(tVaccine = (365*1),tTreat = (365*1)+1,fracPop = 0.75)
   pop$simHumans(tPause = tMax+10)
   pop$get_History()
-})
+},PAR=HumanPop_PAR)

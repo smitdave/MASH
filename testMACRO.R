@@ -22,6 +22,9 @@ SimBitePfSI.Setup()
 # MACRO Patch initialization
 MACRO.Patch.Emerge.Setup() # 'Emerge' model
 
-# MACRO - Emergence
-MacroPatch$oneDay_MacroEmerge()
-MacroPatch$addCohort_MacroEmerge()
+tileParameters = MACRO.Tile.Parameters(N = 10)
+tile = MacroTile$new(MacroTile_PAR = tileParameters)
+
+# # MACRO - Emergence
+# MacroPatch$oneDay_MacroEmerge()
+# MacroPatch$addCohort_MacroEmerge()
