@@ -62,7 +62,7 @@ expectedBites <- function(){
 #' some_function()
 add2Q_Bites <- function(tEvent, PAR){
   if(PAR$nBites > 0){
-    self$add2Q_simbitePfSI(tEvent = tEvent)
+    self$add2Q_SimBitePfSI(tEvent = tEvent)
   }
 }
 

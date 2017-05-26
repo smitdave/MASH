@@ -8,6 +8,9 @@
 #################################################################
 
 
+### TO-DO:
+1. Add aging to Human and HumanPop
+
 # naming conventions
 HUMANS/MICRO/MACRO/PATHOGEN/INTERVENTION - Human/HumanPop/Mosquito/MosquitoPop/PfSI/Site/Tile/Emerge,etc - Class/Parameters/Main/Auxiliary.R
 
@@ -55,3 +58,20 @@ to initialize first make the HumanPop object then for PfSI you will need to run 
 
 ### INIT FUNCTIONS
 * PATHOGEN-PfSI-Methods.R: PfSI.Init() -> HumanPop
+
+
+### BIYONKA CODE HELP:
+1. Need help seperating function definitions from XX.Setup() files in:
+  * PATHOGEN-PfSI-SimBite.R
+  * PATHOGEN-PfSI-Methods.R
+
+
+### Conventions for Documentation:
+1. Methods
+  *
+
+2. XX.Setup() functions
+
+3. XX.Parameters() functions
+
+4. XX.Init() functions
