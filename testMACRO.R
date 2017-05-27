@@ -22,10 +22,12 @@ SimBitePfSI.Setup()
 # MACRO Patch initialization
 MACRO.Patch.Emerge.Setup() # 'Emerge' model
 
-tileParameters = MACRO.Tile.Parameters(N = 10)
+tileParameters = MACRO.Tile.Parameters(N = 1)
 tile = MacroTile$new(MacroTile_PAR = tileParameters)
 
 tile$init_humanInf(PfPR = 0.5)
 
-debug(tile$simMacro)
-tile$simMacro(5)
+# debug(tile$simMacro)
+tile$simMacro(100)
+
+tile$get_HumanPop()$get_History()

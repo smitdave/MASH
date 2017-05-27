@@ -87,10 +87,9 @@ MacroTile <- R6::R6Class(classname = "MacroTile",
 
                    },
 
-                  #  # oneDayRM
-                  #  simMacro = function(){
-                  #    stop("sean hasn't written me yet!")
-                  #  },
+                  #################################################################
+                  # Getters & Setters
+                  #################################################################
 
                    get_tNow = function(){
                      return(private$tNow)
@@ -99,7 +98,25 @@ MacroTile <- R6::R6Class(classname = "MacroTile",
                      private$tNow = tNow
                    },
 
+                   get_MacroTile_PAR = function(){
+                     return(private$MacroTile_PAR)
+                   },
+
+                   get_HumanPop = function(){
+                     return(private$HumanPop)
+                   },
+
+                   get_Patches = function(){
+                     return(private$Patches)
+                   },
+
+                   get_MosquitoPop = function(){
+                     return(private$MosquitoPop)
+                   },
+
                    ## TAKE OUT LATER
+                   # it should live wherever we set up what pathogen model is being used?????
+                   # maybe it gets added in PfSI.Setup()
                    init_humanInf = function(PfPR){
                      message("this function is bad and sean should feel bad (he wrote this)")
                      private$HumanPop$PfSI.Init(PfPR)

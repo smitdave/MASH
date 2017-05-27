@@ -10,6 +10,8 @@
 
 ### TO-DO:
 1. Add aging to Human and HumanPop
+2. Fix the shitty PfPR init in MacroTile
+3. Better data logging for MacroTile
 
 # naming conventions
 HUMANS/MICRO/MACRO/PATHOGEN/INTERVENTION - Human/HumanPop/Mosquito/MosquitoPop/PfSI/Site/Tile/Emerge,etc - Class/Parameters/Main/Auxiliary.R
