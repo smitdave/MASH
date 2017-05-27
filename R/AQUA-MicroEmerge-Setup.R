@@ -22,9 +22,9 @@
 #' @param dunno sdf
 #' @return stuff
 #' @examples
-#' init.Emerge()
+#' Aqua.Emerge.Setup()
 #' @export
-init.Emerge <- function(){
+MICRO.Emerge.Setup <- function(){
 
   message("initializing 'Emerge' module for Aquatic Ecology")
 

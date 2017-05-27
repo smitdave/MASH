@@ -53,6 +53,7 @@ to initialize first make the HumanPop object then for PfSI you will need to run 
 ### SETUP FUNCTIONS
 * AQUA-Macro-Emerge.R: MACRO.Patch.Emerge.Setup()
 * AQUA-Micro-Main.R: MICRO.Aqua.Setup()
+* AQUA-MicroEmerge-Setup.R: MICRO.Emerge.Setup()
 * PATHOGEN-Macro-PfMethods.R: MACRO.patchPf.Setup()
 * PATHOGEN-PfSI-Auxiliary.R: PfSI.Auxiliary.Setup()
 * PATHOGEN-PfSI-Methods.R: PfSI.Setup()
