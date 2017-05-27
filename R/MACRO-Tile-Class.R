@@ -70,9 +70,15 @@ MacroTile <- R6::R6Class(classname = "MacroTile",
                      private$HumanPop$set_PatchesPointer(private$Patches)
 
                      for(ixH in 1:private$HumanPop$nHumans){
+                       # pointers
                        private$HumanPop$get_Human(ixH)$set_TilePointer(self)
                        private$HumanPop$get_Human(ixH)$set_MosquitoPointer(private$MosquitoPop)
                        private$HumanPop$get_Human(ixH)$set_PatchesPointer(private$Patches)
+                       # travel
+                       private$HumanPop$get_Human(ixH)$set_location(MacroTile_PAR$HumanPop_PAR$homeIDs[ixH])
+                       private$HumanPop$get_Human(ixH)$set_patchID(MacroTile_PAR$HumanPop_PAR$homeIDs[ixH])
+                       private$HumanPop$get_Human(ixH)$travelHabit(n=3)
+
                      }
 
                      # Patches Pointers

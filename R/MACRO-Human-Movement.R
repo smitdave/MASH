@@ -145,15 +145,15 @@ takeTrip <- function(tEvent, PAR){
 
   # take the trip
   away = PAR$there
-  self$loc = away
-  home = self$patchID
+  private$location = away
+  home = private$patchID
 
   # update home biting weight
-  wHome = self$get_PatchesPointer()$get_bWeightHuman(ix = home) - self$get_bWeightHuman()
+  wHome = self$get_PatchesPointer()$get_bWeightHuman(ix = home) - self$get_biteWeight()
   self$get_PatchesPointer()$set_bWeightHuman(bWeightHuman = wHome, ix = home)
 
   # update visiting patch biting weight
-  wAway = self$get_PatchesPointer()$get_bWeightHuman(ix = away) + self$get_bWeightHuman()
+  wAway = self$get_PatchesPointer()$get_bWeightHuman(ix = away) + self$get_biteWeight()
   self$get_PatchesPointer()$set_bWeightHuman(bWeightHuman = wAway, ix = away)
 
   # tell the MacroPatch class where you went
@@ -189,7 +189,7 @@ add2Q_returnHome <- function(tEvent, PAR = NULL){
 #' @return does stuff
 #' @examples
 #' some_function()
-event_returnHome = function(ixH, t){
+event_returnHome = function(tEvent, PAR){
   list(tEvent = tEvent, PAR = PAR, tag = "returnHome")
 }
 
@@ -203,16 +203,16 @@ event_returnHome = function(ixH, t){
 #' some_function()
 returnHome = function(tEvent, PAR){
 
-  away = self$get_location()
-  home = self$get_patchID()
-  self$set_location(home) # go home
+  away = private$location
+  home = private$patchID
+  private$location = home  # go home
 
   # update home biting weight
-  wHome = self$get_PatchesPointer()$get_bWeightHuman(ix = home) + self$get_bWeightHuman()
+  wHome = self$get_PatchesPointer()$get_bWeightHuman(ix = home) + self$get_biteWeight()
   self$get_PatchesPointer()$set_bWeightHuman(bWeightHuman = wHome, ix = home)
 
   # update visiting patch biting weight
-  wAway = self$get_PatchesPointer()$get_bWeightHuman(ix = away) - self$get_bWeightHuman()
+  wAway = self$get_PatchesPointer()$get_bWeightHuman(ix = away) - self$get_biteWeight()
   self$get_PatchesPointer()$set_bWeightHuman(bWeightHuman = wAway, ix = away)
 
   # tell the MacroPatch class where you went
@@ -220,7 +220,7 @@ returnHome = function(tEvent, PAR){
 
   #Schedule next trip
   tTrip = tEvent + rexp(n=1,rate=sum(self$get_travel()$totFreq))
-  ixTrip = sample(x = nPlaces, size = 1, prob = self$get_travel()$places_frequency)
+  ixTrip = sample(x = private$travel$nPlaces, size = 1, prob = private$travel$places_frequency)
   away = self$get_travel()$places_there[ixTrip]
 
   PAR = list(there = away, ixTravel = ixTrip) # trip parameters
