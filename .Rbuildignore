@@ -7,3 +7,4 @@
 notes.txt           # notes file
 testPfSI.R              # R file for testing MASH
 ^test.*\.R$ # all testing files
+^docs$
