@@ -25,6 +25,7 @@ MACRO.Patch.Emerge.Setup() # 'Emerge' model
 tileParameters = MACRO.Tile.Parameters(N = 10)
 tile = MacroTile$new(MacroTile_PAR = tileParameters)
 
-# # MACRO - Emergence
-# MacroPatch$oneDay_MacroEmerge()
-# MacroPatch$addCohort_MacroEmerge()
+tile$init_humanInf(PfPR = 0.5)
+
+debug(tile$simMacro)
+tile$simMacro(5)

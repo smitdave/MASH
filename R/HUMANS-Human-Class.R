@@ -110,10 +110,10 @@ Human <- R6::R6Class(classname="Human",
                        },
 
                        # Health & Related
-                       get_biteWeightPf = function(){
+                       get_biteWeight = function(){
                          return(private$biteWeight)
                        },
-                       set_biteWeightPf = function(biteWeight){
+                       set_biteWeight = function(biteWeight){
                          private$biteWeight = biteWeight
                        },
 

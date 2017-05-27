@@ -62,6 +62,7 @@ MacroTile <- R6::R6Class(classname = "MacroTile",
                      private$MosquitoPop = MacroMosquitoPop$new(N = MacroTile_PAR$N, MacroMosquitoPop_PAR = MacroTile_PAR$MacroMosquitoPop_PAR)
 
                      private$tNow = 0
+                     private$MacroTile_PAR = MacroTile_PAR
 
                      # Human & HumanPop Pointers (duplicate for Humans in HumanPop$pop)
                      private$HumanPop$set_TilePointer(self)
@@ -96,6 +97,12 @@ MacroTile <- R6::R6Class(classname = "MacroTile",
                    },
                    set_tNow = function(tNow){
                      private$tNow = tNow
+                   },
+
+                   ## TAKE OUT LATER
+                   init_humanInf = function(PfPR){
+                     message("this function is bad and sean should feel bad (he wrote this)")
+                     private$HumanPop$PfSI.Init(PfPR)
                    }
 
                   ),
@@ -103,6 +110,7 @@ MacroTile <- R6::R6Class(classname = "MacroTile",
                   # private methods & fields
                   private = list(
                     tNow = NULL,
+                    MacroTile_PAR = NULL,
                     HumanPop = NULL,
                     Patches = NULL,
                     MosquitoPop = NULL
