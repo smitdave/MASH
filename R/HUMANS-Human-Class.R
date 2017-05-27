@@ -118,7 +118,7 @@ Human <- R6::R6Class(classname="Human",
                        },
 
                        # generics
-                       get_Private = function(){
+                       get_public = function(){
                          return(as.list(private))
                        },
 

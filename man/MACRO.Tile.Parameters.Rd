@@ -5,7 +5,7 @@
 \title{Initialize MACRO Tile Parameters for \code{MacroTile}}
 \usage{
 MACRO.Tile.Parameters(N = 10, patchSize = 20, patchMin = 10,
-  aquaEcology = list(aquaModel = "emerge", lambda = rep(10, 10)))
+  aquaModel = "emerge", aquaPars = list(lambda = rep(10, 10)))
 }
 \arguments{
 \item{N}{number of patches}
@@ -14,7 +14,13 @@ MACRO.Tile.Parameters(N = 10, patchSize = 20, patchMin = 10,
 
 \item{patchMin}{passed to \code{\link{sitePops}}}
 
-\item{more}{eventually want to pass more params to \code{\link{MACRO.Patch.Parameters}}}
+\item{aquaModel}{character in 'Emerge', 'EL4P}
+
+\item{aquaPars}{Aquatic Ecology module specific parameters (see \code{\link{MACRO.Patch.Parameters}} for details)
+\itemize{
+\item Emerge: list with elements 'lambda'
+\item EL4P: list with elements
+}}
 }
 \value{
 return a list

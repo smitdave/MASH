@@ -214,6 +214,11 @@ MacroMosquitoPop <- R6::R6Class(classname = "MacroMosquitoPop",
                      private$P = P
                    },
 
+                   # generic accessors
+                   get_private = function(){
+                     return(as.list(private))
+                   },
+
                    #################################################
                    # Pointers
                    #################################################

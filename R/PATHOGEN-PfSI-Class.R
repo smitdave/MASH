@@ -107,7 +107,7 @@ mosquitoPfSI <- R6::R6Class(classname="mosquitoPfSI",
                        },
 
                        # private
-                       get_Private = function(){
+                       get_public = function(){
                          return(as.list(private))
                        }
 
@@ -253,7 +253,7 @@ humanPfSI <- R6::R6Class(classname="humanPfSI",
                          private$chemoprophylaxis = chemoprophylaxis
                        },
 
-                       get_Private = function(){
+                       get_public = function(){
                          return(as.list(private))
                        }
 

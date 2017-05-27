@@ -21,7 +21,11 @@
 #' @param N number of patches
 #' @param patchSize passed to \code{\link{sitePops}}
 #' @param patchMin passed to \code{\link{sitePops}}
-#' @param more eventually want to pass more params to \code{\link{MACRO.Patch.Parameters}}
+#' @param aquaModel character in 'Emerge', 'EL4P
+#' @param aquaPars Aquatic Ecology module specific parameters (see \code{\link{MACRO.Patch.Parameters}} for details)
+#' * Emerge: list with elements 'lambda'
+#' * EL4P: list with elements
+#' @md
 #' @return return a list
 #' @examples
 #' MACRO.Tile.Parameters()
@@ -31,7 +35,8 @@ MACRO.Tile.Parameters <- function(
   N = 10,
   patchSize = 20,
   patchMin = 10,
-  aquaEcology = list(aquaModel="emerge",lambda=rep(10,10))
+  aquaModel = "emerge",
+  aquaPars = list(lambda=rep(10,10))
 
   ){
     # browser()
@@ -42,8 +47,8 @@ MACRO.Tile.Parameters <- function(
     patch_hhID = mapply(FUN = function(x,y){
         rep(x = x,times=y)
       },x=patch_hhID_helper$values,y=patch_hhID_helper$lengths)
-    if(aquaEcology$aquaModel=="emerge"){
-      MacroPatch_PAR = MACRO.Patch.Parameters(N=N, hhID=patch_hhID, humanIDs=demographics$siteHumanID, aquaModel = "emerge",lambda = aquaEcology$lambda)
+    if(aquaModel=="emerge"){
+      MacroPatch_PAR = MACRO.Patch.Parameters(N=N, hhID=patch_hhID, humanIDs=demographics$siteHumanID, aquaModel = "emerge",lambda = aquaPars$lambda)
     }
 
 
