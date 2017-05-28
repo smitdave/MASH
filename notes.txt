@@ -49,6 +49,7 @@ to initialize first make the HumanPop object then for PfSI you will need to run 
   - set_XX() : set the thing, potentially with (XX, ix) arg for setting an element of list (if ix = NULL set the entire object)
   - push_XX() : push to the end of the thing; useful for growing vectors
   - accumulate_XX() : add to the thing, sort of like XX += YY
+  - track_XX(): add to the history of XX (ie; track_Travel records travel history...) 
 
 # dave MACRO to sean R6 MACRO name changes
 * w = biteWeight

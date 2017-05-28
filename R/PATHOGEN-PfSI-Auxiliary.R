@@ -50,7 +50,7 @@ PfSI.Auxiliary.Setup <- function(){
 #' @return do something
 #' @examples
 #' plot_PfSI_oneTrajectory()
-plot_PfSI_oneTrajectory <- function(ixH, oneHistory, tMax){
+plot_PfsiOneTrajectory <- function(ixH, oneHistory, tMax){
 
   times = oneHistory$eventT[-1]
   events = oneHistory$events[-1]
@@ -131,7 +131,7 @@ plot_PfSI <- function(history){
   axis(side = 1,at = c(0:ttMax)*365,labels = c(0:ttMax))
 
   for(ixH in 1:length(history)){
-    plotPfsiOneTrajectory(ixH = ixH,oneHistory = history[[ixH]],tMax = tMax)
+    plot_PfsiOneTrajectory(ixH = ixH,oneHistory = history[[ixH]],tMax = tMax)
   }
 
 }

@@ -187,7 +187,7 @@ PfSI.Setup <- function(
                 if(runif(1) < PfPR){
                   private$pop[[ixH]]$infectHumanPfSI(tEvent = tStart, PAR = list(damID=-1L,sireID=-1L))
                 } else {
-                  private$pop[[ixH]]$trackHist(tEvent = tStart, event = "S")
+                  private$pop[[ixH]]$track_History(tEvent = tStart, event = "S")
                 }
 
               }
@@ -397,7 +397,7 @@ PfSI.Setup <- function(
   Human$set(which = "public",name = "infectHumanPfSI",
             value = function(tEvent, PAR){
               if(!private$Pathogens$Pf$get_infected() & !private$Pathogens$Pf$get_chemoprophylaxis()){
-                self$trackHist(tEvent = tEvent, event = "I") # track history
+                self$track_History(tEvent = tEvent, event = "I") # track history
                 private$Pathogens$Pf$set_infected(TRUE)
 
                 # newID = self$get_HumansPointer()$increment_PfID()
@@ -438,7 +438,7 @@ PfSI.Setup <- function(
   Human$set(which = "public",name = "endPfSI",
             value = function(tEvent, PAR){
               if(private$Pathogens$Pf$get_infected()){
-                self$trackHist(tEvent = tEvent, event = "S") # track history
+                self$track_History(tEvent = tEvent, event = "S") # track history
                 private$Pathogens$Pf$set_infected(FALSE)
               }
             }
@@ -463,7 +463,7 @@ PfSI.Setup <- function(
 
   Human$set(which = "public",name = "feverPfSI",
             value = function(tEvent, PAR){
-              self$trackHist(tEvent = tEvent, event = "F")
+              self$track_History(tEvent = tEvent, event = "F")
               if(runif(1) < private$PfSI_PAR$TreatPf){
                 self$add2Q_treatPfSI(tEvent = tEvent)
               }
@@ -493,10 +493,10 @@ PfSI.Setup <- function(
               # treat
               if(private$Pathogens$Pf$get_infected()){
                 private$Pathogens$Pf$set_infected(FALSE)
-                self$trackHist(tEvent = tEvent, event = "S")
+                self$track_History(tEvent = tEvent, event = "S")
               }
               private$Pathogens$Pf$set_chemoprophylaxis(TRUE)
-              self$trackHist(tEvent = tEvent, event = "P")
+              self$track_History(tEvent = tEvent, event = "P")
               # Initiate a period of protection from chemoprophlaxis
               self$add2Q_endprophylaxisPfSI(tEvent = tEvent)
 
@@ -523,7 +523,7 @@ PfSI.Setup <- function(
   Human$set(which = "public",name = "endprophylaxisPfSI",
             value = function(tEvent, PAR){
               # End Prophylaxis
-              self$trackHist(tEvent = tEvent, event = "S")
+              self$track_History(tEvent = tEvent, event = "S")
               private$Pathogens$Pf$set_chemoprophylaxis(FALSE)
 
             }
@@ -549,7 +549,7 @@ PfSI.Setup <- function(
   Human$set(which = "public",name = "pevaccinatePfSI",
             value = function(tEvent, PAR){
               if(runif(1) < private$PfSI_PAR$PEProtectPf){
-                self$trackHist(tEvent = tEvent, event = "PEvaxx")
+                self$track_History(tEvent = tEvent, event = "PEvaxx")
                 private$Pathogens$Pf$set_b(private$PfSI_PAR$Pf_b * (1-private$PfSI_PAR$peBlockPf))
                 self$add2Q_pewanePfSI(tEvent = tEvent)
               }
@@ -572,7 +572,7 @@ PfSI.Setup <- function(
 
   Human$set(which = "public",name = "pewanePfSI",
             value = function(tEvent, PAR){
-              self$trackHist(tEvent = tEvent, event = "PEwane")
+              self$track_History(tEvent = tEvent, event = "PEwane")
               private$Pathogens$Pf$set_b(private$PfSI_PAR$Pf_b)
             }
   )
@@ -597,7 +597,7 @@ PfSI.Setup <- function(
   Human$set(which = "public",name = "gsvaccinatePfSI",
             value = function(tEvent, PAR){
               if(runif(1) < private$PfSI_PAR$GSProtectPf){
-                self$trackHist(tEvent = tEvent, event = "GSvaxx")
+                self$track_History(tEvent = tEvent, event = "GSvaxx")
                 private$Pathogens$Pf$set_c(private$PfSI_PAR$Pf_c * (1-private$PfSI_PAR$gsBlockPf))
                 self$add2Q_gswanePfSI(tEvent = tEvent)
               }
@@ -620,7 +620,7 @@ PfSI.Setup <- function(
 
   Human$set(which = "public",name = "gswanePfSI",
             value = function(tEvent, PAR){
-              self$trackHist(tEvent = tEvent, event = "GSwane")
+              self$track_History(tEvent = tEvent, event = "GSwane")
               private$Pathogens$Pf$set_c(private$PfSI_PAR$Pf_c)
             }
   )

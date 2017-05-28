@@ -197,6 +197,33 @@ MACRO.Humans.Setup <- function(){
             overwrite = TRUE
   )
 
+  # travel history:
+
+  Human$set(which = "private",name = "locationH",
+            value = NULL,
+            overwrite = TRUE
+  )
+
+  Human$set(which = "private",name = "tTravel",
+            value = NULL,
+            overwrite = TRUE
+  )
+
+  Human$set(which = "public",name = "track_travel",
+            value = track_travel,
+            overwrite = TRUE
+  )
+
+  Human$set(which = "public",name = "get_travelHistory",
+            value = get_travelHistoryHuman,
+            overwrite = TRUE
+  )
+
+  HumanPop$set(which = "public",name = "get_travelHistory",
+            value = get_travelHistoryHumanPop,
+            overwrite = TRUE
+  )
+
   # travel: the human's travel habits
 
   Human$set(which = "private",name = "travel",

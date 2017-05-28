@@ -64,6 +64,11 @@ travelHabit <- function(n, freqMean = 7, freqSd = 2, lengthMean = 2, lengthSd = 
   PAR = list(there = away, ixTravel = ixTrip)
   self$add2Q_takeTrip(tEvent = tTrip, PAR = PAR)
 
+  if(tNow==0){
+    # initialize history with home patchID
+    self$track_travel(tTravel=tNow,locationH=private$patchID)
+  }
+
   travel = list(
         randomRate = 1/730,
         nPlaces = n,
@@ -73,6 +78,59 @@ travelHabit <- function(n, freqMean = 7, freqSd = 2, lengthMean = 2, lengthSd = 
         places_length = meanLengthOfTrip
       )
   self$set_travel(travel)
+}
+
+
+###################################################################
+# Travel history tracking
+###################################################################
+
+#' Track \code{Human} Travel History
+#'
+#' Write me! Defined in MACRO-Human-Movement.R
+#'
+#' @param tTravel time of trip
+#' @param location destination of trip
+#' @return does stuff
+#' @examples
+#' self$trackTravel(tTravel = 1, location = 1L)
+track_travel <- function(tTravel, locationH){
+  private$locationH = c(private$locationH, locationH)
+  private$tTravel = c(private$tTravel, tTravel)
+}
+
+#' Return \code{Human} Travel History
+#'
+#' Write me! Called as \code{self$get_travelHistory()}  Defined in MACRO-Human-Movement.R
+#'
+#' @return a list
+#' * location: vector of integer locations
+#' * tTravel: vector of numeric trip times
+#' @md
+#' @examples
+#' some_function()
+get_travelHistoryHuman <- function(){
+  list(
+    location = private$locationH,
+    tTravel = private$tTravel
+  )
+}
+
+#' Return \code{HumanPop} Travel History
+#'
+#' Write me! Called as \code{self$get_travelHistory()} Defined in MACRO-Human-Movement.R
+#'
+#' @return a list
+#' @examples
+#' some_function()
+get_travelHistoryHumanPop <- function(){
+
+  travelHistories = vector(mode = "list", length = self$nHumans)
+  for(ixH in 1:self$nHumans){
+    travelHistories[[ixH]] = private$pop[[ixH]]$get_travelHistory()
+  }
+  return(travelHistories)
+
 }
 
 
@@ -148,6 +206,8 @@ takeTrip <- function(tEvent, PAR){
   private$location = away
   home = private$patchID
 
+  self$track_travel(tTravel = tEvent, locationH = away) # history
+
   # update home biting weight
   wHome = self$get_PatchesPointer()$get_bWeightHuman(ix = home) - self$get_bWeight()
   self$get_PatchesPointer()$set_bWeightHuman(bWeightHuman = wHome, ix = home)
@@ -206,6 +266,8 @@ returnHome = function(tEvent, PAR){
   away = private$location
   home = private$patchID
   private$location = home  # go home
+
+  self$track_travel(tTravel = tEvent, locationH = home) # history
 
   # update home biting weight
   wHome = self$get_PatchesPointer()$get_bWeightHuman(ix = home) + self$get_bWeight()

@@ -4,7 +4,7 @@
 \alias{layEggs_MacroMosquitoPop}
 \title{\code{MacroMosquitoPop} layEggs}
 \usage{
-layEggs_MacroMosquitoPop(tNow)
+layEggs_MacroMosquitoPop()
 }
 \arguments{
 \item{a}{parameter}
