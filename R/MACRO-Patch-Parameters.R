@@ -88,8 +88,8 @@ MACRO.Patch.Parameters <- function(
     }
     MacroPatch_PAR$aquaModel = aquaModel
     MacroPatch_PAR$season = aquaEmerge_makeLambda(...)
-    MacroPatch_PAR$PatchesImagoQ =  newImago()
-    MacroPatch_PAR$PatchesEggQ = newEgg()
+    MacroPatch_PAR$PatchesImagoQ =  replicate(n=N,expr=newImago(),simplify=FALSE)
+    MacroPatch_PAR$PatchesEggQ = replicate(n=N,expr=newEgg(),simplify=FALSE)
 
   } else if(aquaModel == "EL4P"){
 

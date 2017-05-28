@@ -251,15 +251,6 @@ MACRO.Humans.Setup <- function(){
             overwrite = TRUE
   )
 
-  # Human$set(which = "public",name = "",
-  #           value = ,
-  #           overwrite = TRUE
-  # )
-  #
-  # Human$set(which = "public",name = "",
-  #           value = ,
-  #           overwrite = TRUE
-  # )
 
   #############################################
   # MACRO-Human-Biting.R
@@ -268,7 +259,7 @@ MACRO.Humans.Setup <- function(){
   # expectedBites
 
   Human$set(which = "private",name = "myEIR",
-            value = NULL,
+            value = 0,
             overwrite = TRUE
   )
 

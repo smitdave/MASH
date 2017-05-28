@@ -46,7 +46,7 @@ MacroMosquitoPop$set(which = "public",name = "getEIP",
 #' @return does stuff
 #' @examples
 #' some_function()
-layEggs_MacroMosquitoPop <- function(tNow){
+layEggs_MacroMosquitoPop <- function(){
   for(ixP in 1:self$get_PatchesPointer()$get_N()){
     EggQixP = private$M[ixP] * self$get_PatchesPointer()$get_aquaP(ix = ixP) * private$v * private$f
     self$get_PatchesPointer()$set_PatchesEggQ(EggQixP, ix = ixP)

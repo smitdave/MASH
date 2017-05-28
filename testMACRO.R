@@ -24,9 +24,6 @@ SimBitePfSI.Setup()
 # MACRO Patch initialization
 MACRO.Patch.Emerge.Setup() # 'Emerge' model
 
-# MACRO specific Human methods
-MACRO.Humans.Setup()
-
 # set debug flags in R6 generator classes before initializing objects
 # HumanPop$debug("queueInfectiousBites")
 # Human$debug("expectedBites")
