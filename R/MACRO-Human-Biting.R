@@ -10,6 +10,51 @@
 
 
 #################################################################
+# Kappa: update the human component of kappa
+#################################################################
+
+#' MACRO: Update \code{Human} kappa For a Patch
+#'
+#' Add my contribution to kappa to current patch (current value of \code{location}).
+#'
+#' @param a parameter
+#' @return does stuff
+#' @examples
+#' some_function()
+sumKappa <- function(){
+  self$get_PatchesPointer()$accumulate_kappa(kappa = (private$bWeight*private$Pathogens$Pf$get_c()), ix = private$location)
+}
+
+# set sumKappa
+Human$set(which = "public",name = "sumKappa",
+          value = sumKappa,
+          overwrite = TRUE
+)
+
+#' MACRO: Update \code{HumanPop} kappa For all Patches
+#'
+#' Update normalized biting propensities (kappa) for all patches.
+#'
+#' @param a parameter
+#' @return does stuff
+#' @examples
+#' some_function()
+updateKappa <- function(){
+  for(ixH in 1:self$nHumans){
+    private$pop[[ixH]]$sumKappa()
+  }
+  newKappa = (self$get_PatchesPointer()$get_kappa() / (self$get_PatchesPointer()$get_bWeightHuman() + self$get_PatchesPointer()$get_bWeightZoo() + self$get_PatchesPointer()$get_bWeightZootox()))
+  self$get_PatchesPointer()$set_kappa(kappa = newKappa)
+}
+
+# set sumKappa
+HumanPop$set(which = "public",name = "updateKappa",
+          value = updateKappa,
+          overwrite = TRUE
+)
+
+
+#################################################################
 # expectedBites: how much do I expect to be bitten at a patch?
 #################################################################
 
@@ -47,7 +92,7 @@ set_myEIR <- function(myEIR){
 #' some_function()
 expectedBites <- function(){
   here = self$get_location() # where am i now?
-  newEIR = self$get_biteWeight() * (self$get_MosquitoPointer()$get_f()*self$get_MosquitoPointer()$get_Z(here)) / (self$get_PatchesPointer()$get_bWeightHuman(here) + self$get_PatchesPointer()$get_bWeightZoo(here) + self$get_PatchesPointer()$get_bWeightZootox(here))
+  newEIR = self$get_bWeight() * (self$get_MosquitoPointer()$get_f()*self$get_MosquitoPointer()$get_Z(here)) / (self$get_PatchesPointer()$get_bWeightHuman(here) + self$get_PatchesPointer()$get_bWeightZoo(here) + self$get_PatchesPointer()$get_bWeightZootox(here))
   self$set_myEIR(newEIR)
 }
 

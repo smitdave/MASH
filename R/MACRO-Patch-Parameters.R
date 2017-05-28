@@ -36,6 +36,7 @@ MACRO.Patch.Parameters <- function(
     humanIDs, # list
 
     # Biting weights
+    bWeightHuman = NULL,
     bWeightZoo1 = 1,
     bWeightZoo2 = 1,
 
@@ -45,6 +46,10 @@ MACRO.Patch.Parameters <- function(
     ... # named parameters to be passed to specific aquaModel generating function
 
   ){
+
+    # if(is.null(bWeightHuman)){
+    #   bWeightHuman = rep(0,N)
+    # }
 
     MacroPatch_PAR = list(
         N   = N,

@@ -95,7 +95,7 @@ set_PatchPf = function(PatchPf, ix = NULL){
 # #' @param a parameter
 # #' @return does stuff
 # #' @examples
-# #' set_biteWeight()
+# #' set_bWeight()
 # initialize_PatchPf = function(MacroPatch_PAR){
 #   private$N = N
 #   stop("WRITE ME")

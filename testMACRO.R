@@ -11,6 +11,8 @@
 rm(list=ls())
 library(MASH.R6)
 
+set.seed(42)
+
 # initialize classes for MACRO
 MACRO.Humans.Setup()
 
@@ -22,10 +24,10 @@ SimBitePfSI.Setup()
 # MACRO Patch initialization
 MACRO.Patch.Emerge.Setup() # 'Emerge' model
 
-tileParameters = MACRO.Tile.Parameters(N = 5)
+tileParameters = MACRO.Tile.Parameters(N = 10)
 tile = MacroTile$new(MacroTile_PAR = tileParameters)
 
-tile$init_humanInf(PfPR = 0.5)
+tile$init_humanInf(PfPR = 0.15)
 
 # debug(tile$simMacro)
 tile$simMacro(1)

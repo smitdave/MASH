@@ -16,7 +16,7 @@ acknowledgements, and examples.
 \seealso{
 Useful links:
 \itemize{
-  \item \url{http://smitdave.github.io/MASH-Development/index.html}
+  \item \url{https://github.com/smitdave/MASH/tree/MASH.R6}
 }
 
 }

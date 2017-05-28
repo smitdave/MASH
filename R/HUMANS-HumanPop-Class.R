@@ -52,7 +52,7 @@ HumanPop <- R6::R6Class(classname = "HumanPop",
 
                           private$pop = vector(mode="list",length = nHumans)
                           for(ixH in 1:nHumans){
-                            private$pop[[ixH]] = Human$new(myID = humanIDs[ixH], hhID = homeIDs[ixH], bDay = bDay[ixH], biteWeight = biteWeight[ixH])
+                            private$pop[[ixH]] = Human$new(myID = humanIDs[ixH], hhID = homeIDs[ixH], bDay = bDay[ixH], bWeight = bWeight[ixH])
                             # set pointers
                             private$pop[[ixH]]$set_PopPointer(private$pop)
                             private$pop[[ixH]]$set_HumansPointer(self)

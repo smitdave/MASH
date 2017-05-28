@@ -12,6 +12,9 @@
 1. Add aging to Human and HumanPop
 2. Fix the shitty PfPR init in MacroTile
 3. Better data logging for MacroTile
+4. For all XX.Setup() functions, add arg 'overwrite' boolean to toggle overwriting. If you do this you cannot
+   have any orphan XX$set() functions anymore
+5. in MacroTile::initialize(), make travelHabit arg 'n' part of HumanPop_PAR
 
 # naming conventions
 HUMANS/MICRO/MACRO/PATHOGEN/INTERVENTION - Human/HumanPop/Mosquito/MosquitoPop/PfSI/Site/Tile/Emerge,etc - Class/Parameters/Main/Auxiliary.R
@@ -47,8 +50,10 @@ to initialize first make the HumanPop object then for PfSI you will need to run 
 
 
 ### files that directly set methods/fields without prompting (not in a .SETUP function)
+## see TO-DO task 5; these will need to be changed.
 * MACRO-MosquitoPop-Methods.R
 * MACRO-Patch-Methods.R
+* MACRO-Human-Biting.R
 
 ### SETUP FUNCTIONS
 * AQUA-Macro-Emerge.R: MACRO.Patch.Emerge.Setup()

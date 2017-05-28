@@ -109,6 +109,7 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                    # Getters and Setters
                    #################################################
 
+                   # N: number of patches
                    get_N = function(){
                      return(private$N)
                    },
@@ -162,6 +163,9 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                        private$bWeightHuman = bWeightHuman
                      }
                    },
+                   accumulate_bWeightHuman = function(bWeightHuman, ix = NULL){
+                     private$bWeightHuman[ix] = private$bWeightHuman[ix] + bWeightHuman
+                   },
 
                    get_bWeightZoo = function(ix = NULL){
                      if(is.null(ix)){
@@ -195,23 +199,6 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                      }
                    },
 
-                  #  # Net infectiousness
-                  #  get_Q = function(ix = NULL){
-                  #    if(is.null(ix)){
-                  #      return(private$Q)
-                  #    } else {
-                  #      return(private$Q[ix])
-                  #    }
-                  #  },
-                  #  set_Q = function(Q, ix = NULL){
-                  #    # set one element or entire vector
-                  #    if(!is.null(ix)){
-                  #      private$Q[ix] = Q
-                  #    } else {
-                  #      private$Q = Q
-                  #    }
-                  #  },
-
                    get_kappa = function(ix = NULL){
                      if(is.null(ix)){
                        return(private$kappa)
@@ -226,6 +213,9 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                      } else {
                        private$kappa = kappa
                      }
+                   },
+                   accumulate_kappa = function(kappa, ix = NULL){
+                     private$kappa[ix] = private$kappa[ix] + kappa
                    },
 
                    # Egg laying

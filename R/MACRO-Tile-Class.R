@@ -77,8 +77,10 @@ MacroTile <- R6::R6Class(classname = "MacroTile",
                        # travel
                        private$HumanPop$get_Human(ixH)$set_location(MacroTile_PAR$HumanPop_PAR$homeIDs[ixH])
                        private$HumanPop$get_Human(ixH)$set_patchID(MacroTile_PAR$HumanPop_PAR$homeIDs[ixH])
-                       private$HumanPop$get_Human(ixH)$travelHabit(n=3)
-
+                       private$HumanPop$get_Human(ixH)$travelHabit(n=2)
+                       # update baseline human biting weight
+                       myPatch = private$HumanPop$get_Human(ixH)$get_patchID()
+                       private$Patches$accumulate_bWeightHuman(bWeightHuman = private$HumanPop$get_Human(ixH)$get_bWeight(), ix = myPatch)
                      }
 
                      # Patches Pointers

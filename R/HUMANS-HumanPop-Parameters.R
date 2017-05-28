@@ -33,6 +33,6 @@ HumanPop.Parameters <- function(nSite, demographics = NULL,...){
     humanIDs = Reduce(f = c,x = demographics$siteHumanID),
     homeIDs = demographics$homeHumanID,
     bDay = -Reduce(f = c,x = demographics$siteAges),
-    biteWeight = bitingWeights
+    bWeight = bitingWeights
   )
 }

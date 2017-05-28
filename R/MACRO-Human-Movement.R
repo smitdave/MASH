@@ -149,11 +149,11 @@ takeTrip <- function(tEvent, PAR){
   home = private$patchID
 
   # update home biting weight
-  wHome = self$get_PatchesPointer()$get_bWeightHuman(ix = home) - self$get_biteWeight()
+  wHome = self$get_PatchesPointer()$get_bWeightHuman(ix = home) - self$get_bWeight()
   self$get_PatchesPointer()$set_bWeightHuman(bWeightHuman = wHome, ix = home)
 
   # update visiting patch biting weight
-  wAway = self$get_PatchesPointer()$get_bWeightHuman(ix = away) + self$get_biteWeight()
+  wAway = self$get_PatchesPointer()$get_bWeightHuman(ix = away) + self$get_bWeight()
   self$get_PatchesPointer()$set_bWeightHuman(bWeightHuman = wAway, ix = away)
 
   # tell the MacroPatch class where you went
@@ -208,11 +208,11 @@ returnHome = function(tEvent, PAR){
   private$location = home  # go home
 
   # update home biting weight
-  wHome = self$get_PatchesPointer()$get_bWeightHuman(ix = home) + self$get_biteWeight()
+  wHome = self$get_PatchesPointer()$get_bWeightHuman(ix = home) + self$get_bWeight()
   self$get_PatchesPointer()$set_bWeightHuman(bWeightHuman = wHome, ix = home)
 
   # update visiting patch biting weight
-  wAway = self$get_PatchesPointer()$get_bWeightHuman(ix = away) - self$get_biteWeight()
+  wAway = self$get_PatchesPointer()$get_bWeightHuman(ix = away) - self$get_bWeight()
   self$get_PatchesPointer()$set_bWeightHuman(bWeightHuman = wAway, ix = away)
 
   # tell the MacroPatch class where you went
