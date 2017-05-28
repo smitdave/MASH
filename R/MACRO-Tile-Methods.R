@@ -29,7 +29,7 @@ simMacro <- function(tMax){
 
     private$HumanPop$simHumans(tPause = private$tNow)
 
-    private$Patches$updateKappa()
+    private$HumanPop$updateKappa()
     private$HumanPop$queueInfectiousBites()
   }
 }

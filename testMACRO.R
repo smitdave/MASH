@@ -30,6 +30,6 @@ tile = MacroTile$new(MacroTile_PAR = tileParameters)
 tile$init_humanInf(PfPR = 0.15)
 
 # debug(tile$simMacro)
-tile$simMacro(1)
+tile$simMacro(1e3)
 
 tile$get_HumanPop()$get_History()
