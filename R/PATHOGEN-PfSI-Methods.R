@@ -137,10 +137,14 @@ PfSI.Setup <- function(
             )
   )
 
-  # getter for PfSI_PAR
+  # getter for PfSI_PAR: ix should be a character eg 'Pf_b'
   Human$set(which = "public",name = "get_PfSI_PAR",
-            value = function(){
-              return(private$PfSI_PAR)
+            value = function(ix = NULL){
+              if(is.null(ix)){
+                return(private$PfSI_PAR)
+              } else {
+                return(private$PfSI_PAR[[ix]])
+              }
             }
   )
 
@@ -171,10 +175,12 @@ PfSI.Setup <- function(
   # initialize PfSI infections with parasite prevalence PfPR
   HumanPop$set(which = "public",name = "PfSI.Init",
 
-            value = function(PfPR, tStart = 0, b = NULL, c = NULL){
+            value = function(PfPR, tStart = 0){
 
               private$PfID = 1L
-              self$set_humanPfSI(b,c)
+              if(is.null(private$Pathogens$Pf)){ # only add the PfSI object if NULL
+                self$set_humanPfSI()
+              }
 
               for(ixH in 1:self$nHumans){
 
@@ -213,14 +219,15 @@ PfSI.Setup <- function(
 
               # sanity checks
               if(is.null(b)){
-                b = rep(x = 0.55,times = self$nHumans)
+                private$pop[[1]]$get_PfSI_PAR()$Pf_b
+                b = rep(x = private$pop[[1]]$get_PfSI_PAR("Pf_b"),times = self$nHumans)
               } else {
                 if(length(b)!=self$nHumans){
                   stop(paste0("length of b: ",length(b)," must be equal to size of human population: ",self$nHumans))
                 }
               }
               if(is.null(c)){
-                c = rep(x = 0.15,times = self$nHumans)
+                c = rep(x = private$pop[[1]]$get_PfSI_PAR("Pf_c"),times = self$nHumans)
               } else {
                 if(length(c)!=self$nHumans){
                   stop(paste0("length of c: ",length(c)," must be equal to size of human population: ",self$nHumans))

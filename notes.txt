@@ -44,6 +44,11 @@ to initialize first make the HumanPop object then for PfSI you will need to run 
 * .Init,.Setup,.Parameters are the only times that period may be used to define thing.
 * when a setter needs to take the object and an index, go set_XX(obj, ix = NULL){...}
 # tag debug lines with DEBUG_TAG
+* generic methods:
+  - get_XX() : return the thing. potentially with ix arg for lists (if ix = NULL then return the whole list)
+  - set_XX() : set the thing, potentially with (XX, ix) arg for setting an element of list (if ix = NULL set the entire object)
+  - push_XX() : push to the end of the thing; useful for growing vectors
+  - accumulate_XX() : add to the thing, sort of like XX += YY
 
 # dave MACRO to sean R6 MACRO name changes
 * w = biteWeight

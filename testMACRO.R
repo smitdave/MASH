@@ -28,6 +28,7 @@ MACRO.Patch.Emerge.Setup() # 'Emerge' model
 # HumanPop$debug("queueInfectiousBites")
 # Human$debug("expectedBites")
 MacroTile$debug("simMacro")
+# MacroTile$debug("initialize")
 
 tileParameters = MACRO.Tile.Parameters(N = 10)
 tile = MacroTile$new(MacroTile_PAR = tileParameters)

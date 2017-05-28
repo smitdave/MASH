@@ -48,8 +48,8 @@ MacroMosquitoPop$set(which = "public",name = "getEIP",
 #' some_function()
 layEggs_MacroMosquitoPop <- function(){
   for(ixP in 1:self$get_PatchesPointer()$get_N()){
-    EggQixP = private$M[ixP] * self$get_PatchesPointer()$get_aquaP(ix = ixP) * private$v * private$f
-    self$get_PatchesPointer()$set_PatchesEggQ(EggQixP, ix = ixP)
+    eggs = private$M[ixP] * self$get_PatchesPointer()$get_aquaP(ix = ixP) * private$v * private$f
+    self$get_PatchesPointer()$set_PatchesEggQ(PatchesEggQ = newEgg(N = eggs, tOviposit = self$get_TilePointer()$get_tNow(), damID = 0L, sireID = 0L, genotype = NULL), ix = ixP)
   }
 }
 
@@ -83,11 +83,13 @@ oneDay_RM <- function(){
   Y0 = private$f * private$Q * private$PatchesPointer$get_kappa() * (M - Y)
   Y = Y + Y0
 
-  # Migration
+  # Migration & Sporozoite Maturation
   if(!is.null(private$psi)){
-     M = private$psi %*% M
-     Y = private$psi %*% Y
-     Z = private$psi %*% Z + ZZ[1,]
+    M = private$psi %*% M
+    Y = private$psi %*% Y
+    Z = private$psi %*% Z + ZZ[1,]
+  } else {
+    Z = Z + ZZ[1,]
   }
 
   ZZ[-private$maxEIP,] = ZZ[-1,]

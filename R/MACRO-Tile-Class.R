@@ -69,6 +69,7 @@ MacroTile <- R6::R6Class(classname = "MacroTile",
                      private$HumanPop$set_MosquitoPointer(private$MosquitoPop)
                      private$HumanPop$set_PatchesPointer(private$Patches)
 
+                     # Human & HumanPop initilization
                      for(ixH in 1:private$HumanPop$nHumans){
                        # pointers
                        private$HumanPop$get_Human(ixH)$set_TilePointer(self)
@@ -82,6 +83,7 @@ MacroTile <- R6::R6Class(classname = "MacroTile",
                        myPatch = private$HumanPop$get_Human(ixH)$get_patchID()
                        private$Patches$accumulate_bWeightHuman(bWeightHuman = private$HumanPop$get_Human(ixH)$get_bWeight(), ix = myPatch)
                      }
+                     private$HumanPop$set_humanPfSI() # set up human PfSI objects
 
                      # Patches Pointers
                      private$Patches$set_TilePointer(self)

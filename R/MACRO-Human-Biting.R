@@ -106,7 +106,7 @@ expectedBites <- function(){
 #' @examples
 #' some_function()
 add2Q_Bites <- function(tEvent, PAR){
-  if(PAR$nBites > 0){
+  for(ixB in 1:PAR$nBites){ # multiple bites in one day; in RM-Macro time is only resolved to day for mosquitoes
     self$add2Q_SimBitePfSI(tEvent = tEvent)
   }
 }
@@ -124,6 +124,8 @@ queueInfectiousBites <- function(){
     private$pop[[ixH]]$expectedBites() # update expectedBites (EIR)
     mu = private$pop[[ixH]]$get_myEIR() # my expected EIR
     nBites = rnbinom(n = 1,mu = mu, size = 0.1) # number of bites
-    private$pop[[ixH]]$add2Q_Bites(tEvent = self$get_TilePointer()$get_tNow(), PAR = list(nBites = nBites)) # add bites to queue
+    if(nBites > 0){
+      private$pop[[ixH]]$add2Q_Bites(tEvent = self$get_TilePointer()$get_tNow(), PAR = list(nBites = nBites)) # add bites to queue
+    }
   }
 }
