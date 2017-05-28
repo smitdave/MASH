@@ -16,6 +16,7 @@
    have any orphan XX$set() functions anymore
 5. in MacroTile::initialize(), make travelHabit arg 'n' part of HumanPop_PAR
 6. HumanPop$debug("queueInfectiousBites"): do debugging: EIR is always 0
+7. check why in HumanPop$tStart is a vector.
 
 # naming conventions
 HUMANS/MICRO/MACRO/PATHOGEN/INTERVENTION - Human/HumanPop/Mosquito/MosquitoPop/PfSI/Site/Tile/Emerge,etc - Class/Parameters/Main/Auxiliary.R

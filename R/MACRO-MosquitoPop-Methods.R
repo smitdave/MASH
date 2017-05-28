@@ -25,7 +25,7 @@
 #' some_function()
 getEIP_MacroMosquitoPop <- function(tNow){
   # update later
-  return(10L)
+  return(2L)
 }
 
 MacroMosquitoPop$set(which = "public",name = "getEIP",

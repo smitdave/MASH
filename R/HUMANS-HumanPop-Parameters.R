@@ -29,7 +29,7 @@ HumanPop.Parameters <- function(nSite, demographics = NULL,...){
 
   list(
     nHumans = demographics$nHumans,
-    tStart = rep(0,demographics$nHumans),
+    tStart = 0,
     humanIDs = Reduce(f = c,x = demographics$siteHumanID),
     homeIDs = demographics$homeHumanID,
     bDay = -Reduce(f = c,x = demographics$siteAges),
