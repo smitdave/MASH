@@ -10,7 +10,7 @@ get_travelHistoryHumanPop()
 a list
 }
 \description{
-Write me! Called as \code{self$get_travelHistory()} Defined in MACRO-Human-Movement.R
+Write me! Called as \code{self$get_travelHistory()} defined in MACRO-Human-Movement.R
 }
 \examples{
 some_function()

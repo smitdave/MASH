@@ -9,34 +9,6 @@
 #
 #################################################################
 
-#' Initialize Auxiliary PfSI Module Methods (Pathogen)
-#'
-#' \code{PfSI.Auxiliary} is called internally by \code{\link{PfSI.Setup}} to initialize functions auxiliary to the main PfSI module definition.
-#'
-#' @param Pf_c 0.15; transmission efficiency: infected human to mosquito
-#' @return Defines a field (list) PfSI_PAR in \code{\link{HumanPop}} and public methods in \code{\link{Human}}
-#' @examples
-#'
-#' @export
-PfSI.Auxiliary.Setup <- function(){
-
-  print(paste0("initializing PfSI auxiliary methods"))
-
-  ##########################################
-  # 'HumanPop' Class Methods
-  ##########################################
-
-  # set PfSI_PAR for a HumanPop; this is useful for simulating multiple populations with different parameter values
-  HumanPop$set(which = "public",name = "set_PfSI_PAR",
-            value = function(PfSI_PAR){
-              for(ixH in 1:self$nHumans){
-                private$pop[[ixH]]$set_PfSI_PAR(PfSI_PAR)
-              }
-            }
-  )
-
-}
-
 
 ####################################################################################
 # PfSI history to continuous time occupancy vector
@@ -69,10 +41,11 @@ util_PfSIHistory <- function(history){
 
   # create time bin for each discrete event
   eventTimes = sort(unlist(lapply(history,function(x){x$eventT})))
-  timeBins = c(min(eventTimes),Filter(f = function(y){y > min(eventTimes)},x = eventTimes))
+  timeBins = c(min(eventTimes),Filter(f = function(xx){xx > min(eventTimes)},x = eventTimes))
+  timeBins = unique(timeBins)
 
   # create empty time series (each element is slice of occupancy vector at that point in time)
-  timeSeries = lapply(X = timeBins, util_PfSISlice) # bins
+  timeSeries = lapply(X = timeBins,FUN = util_PfSISlice) # bins
 
   initState = unique(sapply(history,function(x){x$events[1]})) # initial state
   if(length(initState)>1){ # sanity check

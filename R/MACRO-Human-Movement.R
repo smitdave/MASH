@@ -118,7 +118,7 @@ get_travelHistoryHuman <- function(){
 
 #' Return \code{HumanPop} Travel History
 #'
-#' Write me! Called as \code{self$get_travelHistory()} Defined in MACRO-Human-Movement.R
+#' Write me! Called as \code{self$get_travelHistory()} defined in MACRO-Human-Movement.R
 #'
 #' @return a list
 #' @examples
@@ -287,4 +287,27 @@ returnHome = function(tEvent, PAR){
 
   PAR = list(there = away, ixTravel = ixTrip) # trip parameters
   self$add2Q_takeTrip(tEvent = tTrip, PAR = PAR) # add the trip
+}
+
+
+###################################################################
+# MACRO Human Movement Utilities
+###################################################################
+
+#' Write \code{HumanPop} Travel History to JSON
+#'
+#' Write each \code{Human} travel history as a .json object to a connection. Depends on \code{\link{self$get_travelHistory()}} defined in MACRO-Human-Movement.R
+#'
+#' @param con a connection open for writing
+#' @return none
+#' @examples
+#' HumanPop$json_travelHistory(con = file(description = paste0(directory, "OUTPUT/humanTravel.json"),open = "wt"))
+json_travelHistory <- function(con){
+  travelHist = self$get_travelHistoryHumanPop()
+  humanID = vapply(X = private$pop,FUN = function(x){x$get_myID()},FUN.VALUE = integer(1))
+  names(humanHistories) = paste0("human", humanID)
+  writeLines(text = jsonlite::toJSON(x = travelHist, pretty = TRUE),
+             con = con)
+  print("closing human travel history connection to .json out")
+  close(con)
 }

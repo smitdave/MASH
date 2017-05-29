@@ -278,6 +278,13 @@ MACRO.Humans.Setup <- function(){
             overwrite = TRUE
   )
 
+  # movement related utilities
+
+  Human$set(which = "public",name = "json_travelHistory",
+            value = json_travelHistory,
+            overwrite = TRUE
+  )
+  
 
   #############################################
   # MACRO-Human-Biting.R
