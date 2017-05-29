@@ -4,7 +4,7 @@
 \alias{util_PfSIHistory}
 \title{PfSI: Calculate State Space Occupancy Vector}
 \usage{
-util_PfSIHistory(history, parallel = TRUE)
+util_PfSIHistory(history)
 }
 \arguments{
 \item{history}{human event histories from \code{HumanPop$get_History()}}

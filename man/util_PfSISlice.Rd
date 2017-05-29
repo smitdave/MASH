@@ -13,7 +13,7 @@ util_PfSISlice(time)
 list
 }
 \description{
-Make an empty occupancy vector at a single time slice for the \code{PfSI} module.
+Make an empty occupancy vector at a single time slice for the \code{PfSI} module. This is a helper function called by \code{\link{util_PfSIHistory}}
 }
 \examples{
 util_PfSISlice(time = 0)

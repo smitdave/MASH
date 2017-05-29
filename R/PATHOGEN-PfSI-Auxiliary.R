@@ -62,7 +62,7 @@ PfSI.Auxiliary.Setup <- function(){
 #' @examples
 #' util_PfSIHistory()
 #' @export
-util_PfSIHistory <- function(history, parallel = TRUE){
+util_PfSIHistory <- function(history){
 
   # number of humans
   N = length(history)
@@ -72,48 +72,47 @@ util_PfSIHistory <- function(history, parallel = TRUE){
   timeBins = c(min(eventTimes),Filter(f = function(y){y > min(eventTimes)},x = eventTimes))
 
   # create empty time series (each element is slice of occupancy vector at that point in time)
-  timeSeries = lapply(X = timeBins, oneTime, female = female) # bins
+  timeSeries = lapply(X = timeBins, util_PfSISlice) # bins
 
-  initState = unique(sapply(cohortTraj,function(x){x$state[1]})) # initial state
+  initState = unique(sapply(history,function(x){x$events[1]})) # initial state
   if(length(initState)>1){ # sanity check
     stop("more than one initial state")
   }
 
   # set initial occupancy vector
   switch(initState,
-         "F" = for(i in 1:length(timeSeries)){timeSeries[[i]]$F <- cohortN},
-         "B" = for(i in 1:length(timeSeries)){timeSeries[[i]]$B <- cohortN},
-         "R" = for(i in 1:length(timeSeries)){timeSeries[[i]]$R <- cohortN},
-         "L" = for(i in 1:length(timeSeries)){timeSeries[[i]]$L <- cohortN},
-         "O" = for(i in 1:length(timeSeries)){timeSeries[[i]]$O <- cohortN},
-         "M" = for(i in 1:length(timeSeries)){timeSeries[[i]]$M <- cohortN},
-         "S" = for(i in 1:length(timeSeries)){timeSeries[[i]]$S <- cohortN},
-         "D" = stop("initial state should not be D")
+         "init" = for(i in 1:length(timeSeries)){timeSeries[[i]]$init <- N},
+         "S" = for(i in 1:length(timeSeries)){timeSeries[[i]]$S <- N},
+         "I" = for(i in 1:length(timeSeries)){timeSeries[[i]]$I <- N},
+         "F" = for(i in 1:length(timeSeries)){timeSeries[[i]]$F <- N},
+         "P" = for(i in 1:length(timeSeries)){timeSeries[[i]]$P <- N},
+         "PEvaxx" = for(i in 1:length(timeSeries)){timeSeries[[i]]$PEvaxx <- N},
+         "PEwane" = for(i in 1:length(timeSeries)){timeSeries[[i]]$PEwane <- N},
+         "GSvaxx" = for(i in 1:length(timeSeries)){timeSeries[[i]]$GSvaxx <- N},
+         "GSwane" = for(i in 1:length(timeSeries)){timeSeries[[i]]$GSwane <- N}
   )
 
-  for(ixM in 1:cohortN){ # iterate over mosquitoes
-
-    time = cohortTraj[[ixM]]$time
-    state = cohortTraj[[ixM]]$state
+  # fill occupancy vector for each person
+  for(ixH in 1:N){
+    print(paste0("propagating state for human: ",ixH," of ",N))
+    time = history[[ixH]]$eventT
+    state = history[[ixH]]$events
     for(ixT in 2:length(time)){
-      tIter = which(timeBins >= time[ixT]) # times over which to propagate current state change
+      tIter = which(timeBins >= time[ixT]) # times over which to propagate forward current state
       for(i in tIter){
-        timeSeries[[i]][[state[ixT-1]]] = timeSeries[[i]][[state[ixT-1]]] - 1 # mosy ixM no longer in state[ixT-1] in all times ixT
-        timeSeries[[i]][[state[ixT]]] = timeSeries[[i]][[state[ixT]]] + 1 # mosy ixM in state[ixT] is propagated forward
+        timeSeries[[i]][[state[ixT-1]]] = timeSeries[[i]][[state[ixT-1]]] - 1 # human ixH no longer in state[ixT-1] in all times ixT
+        timeSeries[[i]][[state[ixT]]] = timeSeries[[i]][[state[ixT]]] + 1 # human ixH in state[ixT] is propagated forward
       }
     }
-
   }
 
   return(timeSeries)
-
 }
-
 
 
 #' PfSI: Empty Occupancy Vector
 #'
-#' Make an empty occupancy vector at a single time slice for the \code{PfSI} module.
+#' Make an empty occupancy vector at a single time slice for the \code{PfSI} module. This is a helper function called by \code{\link{util_PfSIHistory}}
 #'
 #' @param time current time slice
 #' @return list
@@ -122,6 +121,7 @@ util_PfSIHistory <- function(history, parallel = TRUE){
 util_PfSISlice <- function(time){
   list(
     time = time,
+    init = 0,
     S = 0,
     I = 0,
     F = 0,
