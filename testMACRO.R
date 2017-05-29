@@ -30,8 +30,9 @@ MACRO.Patch.Emerge.Setup() # 'Emerge' model
 # MacroTile$debug("simMacro")
 # MacroTile$debug("initialize")
 
-tileParameters = MACRO.Tile.Parameters(N = 10,aquaModel = "emerge",aquaPars = list(lambda=rep(50,10)))
-tileParameters$MacroMosquitoPop_PAR$M_density = rep(200,10)
+nPatch = 3
+tileParameters = MACRO.Tile.Parameters(N = nPatch,aquaModel = "emerge",aquaPars = list(lambda=rep(50,10)))
+tileParameters$MacroMosquitoPop_PAR$M_density = rep(200,nPatch)
 tile = MacroTile$new(MacroTile_PAR = tileParameters)
 
 tile$init_humanInf(PfPR = 0.15)
