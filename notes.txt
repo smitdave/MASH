@@ -98,6 +98,10 @@ to initialize first make the HumanPop object then for PfSI you will need to run 
 1. Methods
   *
 
+2. Utilities
+  * how to differentiate between function utilities and method utilities?
+  * prefix all with util_ ? or json_ and csv_ to indicate writing? dunno.
+
 2. XX.Setup() functions
 
 3. XX.Parameters() functions

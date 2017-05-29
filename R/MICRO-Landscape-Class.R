@@ -13,22 +13,19 @@
 # Landscape Definition
 #################################################################
 
-#' MICRO-Landscape Class Definition
+#' MICRO Landscape Class Definition
 #'
-#' This is a landscape blah blah.......
-#'  categorical summary measure \code{A[j]}. This class inherits from \code{\link{GenericModel}} class.
-#'  Defines the fitting algorithm for a regression model \code{A[j] ~ W + ...}.
+#' 
 #'
 #' @docType class
 #' @format An \code{\link{R6Class}} generator object
 #' @keywords R6 class
 #' @details
-#' \itemize{
-#' \item{\code{reg}} - .
-#' \item{\code{outvar}} - .
-#' \item{\code{levels}} - .
-#' \item{\code{nbins}} - .
-#' }
+#'
+#'
+#'
+#'
+#'
 #' @section Methods:
 #' \describe{
 #'   \item{\code{new(reg, DataStorageClass.g0, ...)}}{...}

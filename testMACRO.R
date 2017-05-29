@@ -43,3 +43,4 @@ pfsiHist = tile$get_HumanPop()$get_History()
 plot_PfSI(pfsiHist)
 
 travelHist = tile$get_HumanPop()$get_travelHistory()
+tile$get_HumanPop()$json_travelHistory(con = file(description = "/Users/slwu89/Desktop/OUTPUT/humanTravel.json",open = "wt"))

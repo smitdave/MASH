@@ -303,9 +303,9 @@ returnHome = function(tEvent, PAR){
 #' @examples
 #' HumanPop$json_travelHistory(con = file(description = paste0(directory, "OUTPUT/humanTravel.json"),open = "wt"))
 json_travelHistory <- function(con){
-  travelHist = self$get_travelHistoryHumanPop()
+  travelHist = self$get_travelHistory()
   humanID = vapply(X = private$pop,FUN = function(x){x$get_myID()},FUN.VALUE = integer(1))
-  names(humanHistories) = paste0("human", humanID)
+  names(travelHist) = paste0("human", humanID)
   writeLines(text = jsonlite::toJSON(x = travelHist, pretty = TRUE),
              con = con)
   print("closing human travel history connection to .json out")

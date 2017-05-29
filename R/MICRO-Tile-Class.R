@@ -57,23 +57,27 @@ MicroTile <- R6::R6Class(classname = "MicroTile",
                  # public members
                  public = list(
 
-                   initialize = function(numMosquito,     # number of mosquitoes
-                                         feedN,           # feeding sites
-                                         aquaN,           # aquatic habitat
-                                         pointGen,        # point generation function
-                                         hhSize,          # average number of humans at feeding sites
-                                         hhMin,           # minimum number of humans at feeding sites
-                                         xLim = c(0,1),   # x-axis bounds for simulated points
-                                         yLim = c(0,1),   # y-axis bounds for simulated points
-                                         aquaSD = 0.01,   # standard deviation of aquatic habitat scatter around feeding sites
-                                         ...              # additional named arguments for pointGen
-                                         ){
-
-                    private$sites = Landscape$new()
-                    private$humans
-                    private$mosquito
+                   initialize = function(MicroTile_PAR){
 
                    }
+
+                  #  initialize = function(numMosquito,     # number of mosquitoes
+                  #                        feedN,           # feeding sites
+                  #                        aquaN,           # aquatic habitat
+                  #                        pointGen,        # point generation function
+                  #                        hhSize,          # average number of humans at feeding sites
+                  #                        hhMin,           # minimum number of humans at feeding sites
+                  #                        xLim = c(0,1),   # x-axis bounds for simulated points
+                  #                        yLim = c(0,1),   # y-axis bounds for simulated points
+                  #                        aquaSD = 0.01,   # standard deviation of aquatic habitat scatter around feeding sites
+                  #                        ...              # additional named arguments for pointGen
+                  #                        ){
+                   #
+                  #   private$sites = Landscape$new()
+                  #   private$humans
+                  #   private$mosquito
+                   #
+                  #  }
 
                  ),
 
