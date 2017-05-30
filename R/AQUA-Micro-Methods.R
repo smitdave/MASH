@@ -31,7 +31,7 @@ MICRO.Aqua.Setup <- function(){
   ###########################
 
   # clear the EggQ
-  AquaticSite$set(which = "public",name = "clearEggQ",
+  AquaticSite$set(which = "public",name = "clear_EggQ",
             value = function(){
               fullIx = self$fullIxEggQ
               if(fullIx!=0L){
@@ -85,8 +85,8 @@ MICRO.Aqua.Setup <- function(){
             }
   )
 
-  # get ixQ of full slots: return 0 if none (ACTIVE BINDING)
-  AquaticSite$set(which = "active",name = "fullIxEggQ",
+  # get indices of full slots: return 0 if none (ACTIVE BINDING)
+  AquaticSite$set(which = "public",name = "full_EggQ",
             value = function(){
               fullIx = vapply(X = private$EggQ,FUN = function(x){x$N != 0L},FUN.VALUE = logical(1))
               if(any(!fullIx)){
@@ -97,8 +97,8 @@ MICRO.Aqua.Setup <- function(){
             }
   )
 
-  # get ixQ of empty slots: return 0 if none (ACTIVE BINDING)
-  AquaticSite$set(which = "active",name = "emptyIxEggQ",
+  # get indices of empty slots: return 0 if none (ACTIVE BINDING)
+  AquaticSite$set(which = "public",name = "empty_EggQ",
             value = function(){
               emptyIx = vapply(X = private$EggQ,FUN = function(x){x$N == 0L},FUN.VALUE = logical(1))
               if(any(!emptyIx)){

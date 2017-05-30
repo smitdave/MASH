@@ -53,7 +53,10 @@ MacroTile <- R6::R6Class(classname = "MacroTile",
                  # public methods & fields
                  public = list(
 
-                   # class initialize
+                   #################################################
+                   # Initialize
+                   #################################################
+                   
                    initialize = function(MacroTile_PAR){
 
                      # generate objects

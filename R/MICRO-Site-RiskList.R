@@ -91,15 +91,19 @@ FeedingSite$set(which = "public",name = "extend_riskList",
 #' @param w this human's biting weight
 add_riskList <- function(who, pTm, w){
 
-  newN = private$riskList$N + 1
-  if(newN > private$riskList$maxH){
-    self$extend_riskList()
+  if(who %in% private$riskList$who){
+    riskIx = match(x = who,table = private$riskList$who)
+  } else {
+    riskIx = private$riskList$N + 1
+    if(riskIx > private$riskList$maxH){
+      self$extend_riskList()
+    }
   }
 
-  private$riskList$N         = newN   #update number of humans
-  private$riskList$pTm[newN] = pTm    #update time at risk
-  private$riskList$w[newN]   = w      #update biting weights
-  private$riskList$who[newN] = who    #update who is at risk
+  private$riskList$N           = riskIx   #update number of humans
+  private$riskList$pTm[riskIx] = pTm    #update time at risk
+  private$riskList$w[riskIx]   = w      #update biting weights
+  private$riskList$who[riskIx] = who    #update who is at risk
 }
 
 FeedingSite$set(which = "public",name = "add_riskList",

@@ -52,8 +52,8 @@ Site <- R6::R6Class(classname = "Site",
                    #################################################
 
                    # site index
-                   get_ixS = function(){return(private$ixS)},
-                   set_ixS = function(ixS){private$ixS = ixS},
+                   get_ix = function(){return(private$ix)},
+                   set_ix = function(ix){private$ix = ix},
 
                    # site coordinates
                    get_siteXY = function(){return(private$siteXY)},
@@ -72,7 +72,7 @@ Site <- R6::R6Class(classname = "Site",
                  # private members
                  private = list(
 
-                   ixS = 0L,
+                   ix = 0L,
                    siteXY = vector(mode="numeric",length=2L),
                    searchWt = 0L
 
@@ -124,7 +124,8 @@ FeedingSite <- R6::R6Class(classname = "FeedingSite",
                    # Initialize
                    #################################################
 
-                   initialize = function(ix, siteXY, searchWt, enterP, hazV = 0, hazW = 0, hazI = 0, sugar = NULL){
+                   # maxH: passed to init_riskList
+                   initialize = function(ix, siteXY, searchWt, enterP, hazV = 0, hazW = 0, hazI = 0, sugar = NULL, maxH = 20L){
 
                      private$ix = ix
                      private$siteXY = siteXY
@@ -134,6 +135,9 @@ FeedingSite <- R6::R6Class(classname = "FeedingSite",
                      private$hazI = hazI
                      private$sugar = sugar
                      private$enterP = enterP
+
+                     # init risk list
+                     self$init_riskList(maxH = maxH)
 
                    },
 
@@ -226,35 +230,44 @@ AquaticSite <- R6::R6Class(classname = "AquaticSite",
                  # public members
                  public = list(
 
-                   initialize = function(ix, siteXY, searchWt, lambda, haz = 0){
+                   #################################################
+                   # Initialize
+                   #################################################
+
+                   # maxQ: pre-alloc ImagoQ and EggQ size
+                   initialize = function(ix, siteXY, searchWt, lambda, haz = 0, maxQ = 20L){
 
                      private$ix = ix
                      private$siteXY = siteXY
                      private$searchWt = searchWt
                      private$lambda = lambda
                      private$haz = haz
-                     private$ImagoQ = allocImagoQ(N = 1e2)
-                     private$EggQ = allocEggQ(N = 1e2)
+                     private$ImagoQ = allocImagoQ(N = maxQ)
+                     private$EggQ = allocEggQ(N = maxQ)
 
                    },
 
-                   #  modifiers & accessors
+                   #################################################
+                   # Getters and Setters
+                   #################################################
+
                    get_haz = function(){return(private$haz)},
-                   set_haz = function(newHaz){private$haz <- newHaz},
-
-                   get_lambda = function(){return(private$lambda)},
-                   set_lambda = function(newLambda){private$lambda <- newLambda}
-
+                   set_haz = function(haz){private$haz = haz}
 
                  ),
 
                  # private members
                  private = list(
 
-                   haz = NULL,    # local hazards
-                   lambda = vector(mode="numeric",length=365), # daily emergence
+                   # shared fields
+                   haz = NULL,
                    ImagoQ = NULL,
-                   EggQ = NULL
+                   EggQ = NULL,
+
+                   # Emerge fields
+                   lambda = NULL
+
+                   # EL4P fields
 
                  )
 )

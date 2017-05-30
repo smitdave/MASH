@@ -24,23 +24,34 @@
 #' @examples
 #' Aqua.Emerge.Setup()
 #' @export
-MICRO.Emerge.Setup <- function(){
+MICRO.Emerge.Setup <- function(overwrite = TRUE){
 
   message("initializing 'Emerge' module for Aquatic Ecology")
 
-  #
-  AquaticSite$set(which = "public",name = "oneDay",
-            value = function(){
-
-              # log EggQ
-              if(EggQ_TRACK){
-                trackEggQ(con = NULL)
-              }
-
-              # clear EggQ
-              self$clearEggQ()
-
-            }
+  # oneDay dynamics for landscape
+  Landscape$set(which = "public",name = "oneDay",
+            value = oneDay_MicroEmerge,
+            overwrite = overwrite
   )
 
+}
+
+
+#' MICRO \code{Landscape} Seasonal Emergence
+#'
+#' Queue the ImagoQ for MICRO Emerge aquatic ecology module.
+#'
+#' @param a parameter
+#' @return does stuff
+#' @examples
+#' some_function()
+oneDay_MicroEmerge <- function(){
+  tNow = self$get_TilePointer()$get_tNow()
+}
+
+# called from AquaticSite
+oneDay_MicroEmergeSite <- function(tNow){
+  lambdaExact = private$lambda[floor(tNow)%%365+1]
+  lambdaEmerge = rpois(n = 1,lambda = lambdaExact)
+  
 }

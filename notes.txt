@@ -17,6 +17,8 @@
 5. in MacroTile::initialize(), make travelHabit arg 'n' part of HumanPop_PAR
 6. look into jsonlite::stream_out
 7. getEIP_MacroMosquitoPop should eventually return something besides an integer
+8. See simMacro: need single call to Tile to do all aquatic ecology stuffs; needs to generalize across allocation
+   possible aquatic ecology modules.
 
 ### SOLVED TO-DO:
 6. SOLVED (Z not updating correctly, see MACRO-MosquitoPop-Methods.R) HumanPop$debug("queueInfectiousBites"): do debugging: EIR is always 0
@@ -58,11 +60,15 @@ to initialize first make the HumanPop object then for PfSI you will need to run 
   - extend_XX(): add empty/NULL values to end of lists for memory allocation
   - add_XX(): useful for when you need to add very specific information to something
     with a specific structure (ie: add_riskList)
+  - clear_XX(): zero out all entries in this list object
+  - full_XX(): return indices of full slots (0L if none)
+  - empty_XX(): return indices of empty slots (0L if none)
 
 # dave MACRO to sean R6 MACRO name changes
 * w = biteWeight
 * ixTrip = ixP (its in the PAR list so its not ambiguous)
 * PfTypes = patchPf
+* LANDSCAPE$aquaSites$season is now called lambda
 
 
 ### files that directly set methods/fields without prompting (not in a .SETUP function)
