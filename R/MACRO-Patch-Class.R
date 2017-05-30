@@ -117,9 +117,9 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                    # Houses (what household IDs are at each patch?)
                    get_hhID = function(ix = NULL){
                      if(is.null(ix)){
-                       return(hhID)
+                       return(private$hhID)
                      } else {
-                       return(hhID[[ix]])
+                       return(private$hhID[[ix]])
                      }
                    },
 

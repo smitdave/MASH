@@ -15,7 +15,7 @@
 
 #' MICRO Landscape Class Definition
 #'
-#' 
+#'
 #'
 #' @docType class
 #' @format An \code{\link{R6Class}} generator object
@@ -47,50 +47,84 @@ Landscape <- R6::R6Class(classname = "Landscape",
                  # public members
                  public = list(
 
-                  #  initialize
-                   initialize = function(landscape.PAR){
+                  # #  initialize
+                  #  initialize = function(landscape.PAR){
+                  #
+                  #    with(landscape.PAR,{
+                  #
+                  #        #########################################
+                  #        # Generate Feeding Sites
+                  #        #########################################
+                  #
+                  #        private$FeedingSites = vector(mode="list",length=nFeed)
+                  #        for(ix in 1:nFeed){
+                  #          private$FeedingSites[[ix]] = FeedingSite$new(
+                  #            ix = ix,
+                  #            siteXY = c(feedXY$x[ix],feedXY$y[ix]),
+                  #            searchWt = feedWt[ix],
+                  #            enterP = enterP[ix],
+                  #            hazV = hazV[ix],
+                  #            hazW = hazW[ix],
+                  #            hazI = hazI[ix],
+                  #            sugar = sugar[ix])
+                  #        }
+                  #
+                  #        #########################################
+                  #        # Generate Aquatic Habitats
+                  #        #########################################
+                  #
+                  #        private$AquaSites = vector(mode="list",length=nAqua)
+                  #        for(ix in 1:nAqua){
+                  #          private$AquaSites[[ix]] = AquaticSite$new(ix = ix,
+                  #           siteXY = c(aquaXY$x[ix],aquaXY$y[ix]),
+                  #           searchWt = aquaWt[ix],
+                  #           lambda = lambda[[ix]],
+                  #           haz = haz[ix])
+                  #        }
+                  #
+                  #      })
+                  #  },
 
-                     with(landscape.PAR,{
+                  #################################################################
+                  # Getters & Setters
+                  #################################################################
 
-                         #########################################
-                         # Generate Feeding Sites
-                         #########################################
+                  get_FeedingSites = function(ixS = NULL){
+                    return(private$FeedingSites)
+                  },
+                  set_FeedingSites = function(ixS = NULL){
+                    return(private$FeedingSites)
+                  },
 
-                         private$FeedingSites = vector(mode="list",length=nFeed)
-                         for(ix in 1:nFeed){
-                           private$FeedingSites[[ix]] = FeedingSite$new(
-                             ix = ix,
-                             siteXY = c(feedXY$x[ix],feedXY$y[ix]),
-                             searchWt = feedWt[ix],
-                             enterP = enterP[ix],
-                             hazV = hazV[ix],
-                             hazW = hazW[ix],
-                             hazI = hazI[ix],
-                             sugar = sugar[ix])
-                         }
+                  get_AquaSites = function(ixS = NULL){
+                    return(private$AquaSites)
+                  },
+                  set_AquaSites = function(ixS = NULL){
+                    return(private$AquaSites)
+                  },
 
-                         #########################################
-                         # Generate Aquatic Habitats
-                         #########################################
+                  get_SugarSites = function(ixS = NULL){
+                    return(private$AquaSites)
+                  },
+                  set_SugarSites = function(ixS = NULL){
+                    return(private$AquaSites)
+                  },
 
-                         private$AquaSites = vector(mode="list",length=nAqua)
-                         for(ix in 1:nAqua){
-                           private$AquaSites[[ix]] = AquaticSite$new(ix = ix,
-                            siteXY = c(aquaXY$x[ix],aquaXY$y[ix]),
-                            searchWt = aquaWt[ix],
-                            lambda = lambda[[ix]],
-                            haz = haz[ix])
-                         }
+                  get_MatingSites = function(ixS = NULL){
+                    return(private$AquaSites)
+                  },
+                  set_MatingSites = function(ixS = NULL){
+                    if(is.null(ixS)){
+                      return(private$AquaSites[[ixS]])
+                    } else {
+                      return(private$AquaSites)
+                    }
+                  }
 
-                       })
-                   },
 
-                  #  accessors & modifiers
-                  get__FeedingSites = function(){return(private$FeedingSites)},
-                  get_AquaSites = function(){return(private$AquaSites)},
-
-                  get_FeedingSitesIx = function(ix){return(private$FeedingSites[[ix]])},
-                  get_AquaSitesIx = function(ix){return(private$AquaSites[[ix]])}
+                  #################################################################
+                  # Pointers
+                  #################################################################
 
                  ),
 
@@ -98,7 +132,9 @@ Landscape <- R6::R6Class(classname = "Landscape",
                  private = list(
 
                    FeedingSites = NULL,
-                   AquaSites = NULL
+                   AquaSites = NULL,
+                   SugarSites = NULL,
+                   MatingSites = NULL
 
                  )
 )
