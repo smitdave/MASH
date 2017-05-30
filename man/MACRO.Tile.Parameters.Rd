@@ -30,7 +30,7 @@ This is used to generate a list of parameters for \code{\link{MacroTile}} and sh
 \code{MACRO.Tile.Parameters} will generate parameters that are passed to the \code{\link[R6]{initialize}} method of
 the component objects in a tile:
 \itemize{
-\item \code{\link{HumanPop}}: creates parameters by calling \code{\{link{HumanPop.Parameters}}
+\item \code{\link{HumanPop}}: creates parameters by calling \code{\link{HumanPop.Parameters}}
 \item \code{\link{MacroPatch}}: creates parameters by calling \code{\link{MACRO.Patch.Parameters}}
 \item \code{\link{MacroMosquitoPop}}: directly initializes parameters
 }

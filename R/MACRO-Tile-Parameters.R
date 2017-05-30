@@ -13,7 +13,7 @@
 #' This is used to generate a list of parameters for \code{\link{MacroTile}} and should be used during its initialization.
 #' \code{MACRO.Tile.Parameters} will generate parameters that are passed to the \code{\link[R6]{initialize}} method of
 #' the component objects in a tile:
-#' * \code{\link{HumanPop}}: creates parameters by calling \code{\{link{HumanPop.Parameters}}
+#' * \code{\link{HumanPop}}: creates parameters by calling \code{\link{HumanPop.Parameters}}
 #' * \code{\link{MacroPatch}}: creates parameters by calling \code{\link{MACRO.Patch.Parameters}}
 #' * \code{\link{MacroMosquitoPop}}: directly initializes parameters
 #' @md

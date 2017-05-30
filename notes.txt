@@ -60,7 +60,8 @@ to initialize first make the HumanPop object then for PfSI you will need to run 
   - extend_XX(): add empty/NULL values to end of lists for memory allocation
   - add_XX(): useful for when you need to add very specific information to something
     with a specific structure (ie: add_riskList)
-  - clear_XX(): zero out all entries in this list object
+  - clear_XX(): zero out multiple entries in this list object according to some logic
+  - zero_XX(): similar to clear_XX() but takes as an argument an integer index; only zeros out a single element.
   - full_XX(): return indices of full slots (0L if none)
   - empty_XX(): return indices of empty slots (0L if none)
 

@@ -53,5 +53,5 @@ oneDay_MicroEmerge <- function(){
 oneDay_MicroEmergeSite <- function(tNow){
   lambdaExact = private$lambda[floor(tNow)%%365+1]
   lambdaEmerge = rpois(n = 1,lambda = lambdaExact)
-  
+
 }
