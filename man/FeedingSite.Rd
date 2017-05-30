@@ -23,6 +23,8 @@ This is a generic site blah blah ...
 \item another method
 \item even more methods
 \item \code{\link{init_riskList}}: initialize a risk list for this site.
+\item \code{\link{extend_riskList}}: extend a risk list for this site.
+\item \code{\link{add_riskList}}: add to a risk list for this site.
 }
 }
 

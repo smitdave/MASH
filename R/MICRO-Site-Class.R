@@ -100,6 +100,8 @@ Site <- R6::R6Class(classname = "Site",
 #' * another method
 #' * even more methods
 #' * \code{\link{init_riskList}}: initialize a risk list for this site.
+#' * \code{\link{extend_riskList}}: extend a risk list for this site.
+#' * \code{\link{add_riskList}}: add to a risk list for this site.
 #'
 #' @section Active Bindings:
 #' \describe{
