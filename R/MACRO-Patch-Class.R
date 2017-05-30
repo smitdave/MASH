@@ -53,7 +53,10 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                  # public methods & fields
                  public = list(
 
-                   # class initialize
+                   #################################################
+                   # Initialize
+                   #################################################
+                   
                    initialize = function(MacroPatch_PAR){
 
                      with(MacroPatch_PAR,{ # enter MacroPatch_PAR environment

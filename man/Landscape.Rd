@@ -3,23 +3,16 @@
 \docType{class}
 \name{Landscape}
 \alias{Landscape}
-\title{MICRO-Landscape Class Definition}
+\title{MICRO Landscape Class Definition}
 \format{An \code{\link{R6Class}} generator object}
 \usage{
 Landscape
 }
 \description{
-This is a landscape blah blah.......
- categorical summary measure \code{A[j]}. This class inherits from \code{\link{GenericModel}} class.
- Defines the fitting algorithm for a regression model \code{A[j] ~ W + ...}.
+MICRO Landscape Class Definition
 }
 \details{
-\itemize{
-\item{\code{reg}} - .
-\item{\code{outvar}} - .
-\item{\code{levels}} - .
-\item{\code{nbins}} - .
-}
+
 }
 \section{Methods}{
 

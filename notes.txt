@@ -16,6 +16,7 @@
    have any orphan XX$set() functions anymore
 5. in MacroTile::initialize(), make travelHabit arg 'n' part of HumanPop_PAR
 6. look into jsonlite::stream_out
+7. getEIP_MacroMosquitoPop should eventually return something besides an integer
 
 ### SOLVED TO-DO:
 6. SOLVED (Z not updating correctly, see MACRO-MosquitoPop-Methods.R) HumanPop$debug("queueInfectiousBites"): do debugging: EIR is always 0
@@ -54,6 +55,9 @@ to initialize first make the HumanPop object then for PfSI you will need to run 
   - push_XX() : push to the end of the thing; useful for growing vectors
   - accumulate_XX() : add to the thing, sort of like XX += YY
   - track_XX(): add to the history of XX (ie; track_Travel records travel history...)
+  - extend_XX(): add empty/NULL values to end of lists for memory allocation
+  - add_XX(): useful for when you need to add very specific information to something
+    with a specific structure (ie: add_riskList)
 
 # dave MACRO to sean R6 MACRO name changes
 * w = biteWeight
