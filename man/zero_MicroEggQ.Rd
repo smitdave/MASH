@@ -2,7 +2,7 @@
 % Please edit documentation in R/AQUA-Micro-Queues.R
 \name{zero_MicroEggQ}
 \alias{zero_MicroEggQ}
-\title{MICRO \code{AquaticSite} Method: Zero out a slot in the EggQ}
+\title{MICRO \code{\link{AquaticSite}} Method: Zero out a slot in the EggQ}
 \usage{
 zero_MicroEggQ(ixQ)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/AQUA-Micro-Queues.R
 \name{set_MicroEggQ}
 \alias{set_MicroEggQ}
-\title{MICRO \code{AquaticSite} Method: Set the EggQ}
+\title{MICRO \code{\link{AquaticSite}} Method: Set the EggQ}
 \usage{
 set_MicroEggQ(EggQ, ixQ = NULL)
 }

@@ -235,14 +235,21 @@ AquaticSite <- R6::R6Class(classname = "AquaticSite",
                    #################################################
 
                    # maxQ: pre-alloc ImagoQ and EggQ size
-                   initialize = function(ix, siteXY, searchWt, lambda, haz = 0, maxQ = 20L){
+                   initialize = function(ix, siteXY, searchWt, lambda = NULL, haz = 0, maxQ = 20L){
 
+                     # generic fields
                      private$ix = ix
                      private$siteXY = siteXY
                      private$searchWt = searchWt
-                     private$lambda = lambda
                      private$haz = haz
+
+                     # shared Aquatic Ecology fields
                      private$ImagoQ = allocImagoQ(N = maxQ)
+
+                     # Aquatic Ecology Emerge module fields
+                     private$lambda = lambda
+
+                     # Aquatic Ecology EL4P module fields
                      private$EggQ = allocEggQ(N = maxQ)
 
                    },
@@ -262,12 +269,12 @@ AquaticSite <- R6::R6Class(classname = "AquaticSite",
                    # shared fields
                    haz = NULL,
                    ImagoQ = NULL,
-                   EggQ = NULL,
 
                    # Emerge fields
-                   lambda = NULL
+                   lambda = NULL,
 
                    # EL4P fields
+                   EggQ = NULL
 
                  )
 )

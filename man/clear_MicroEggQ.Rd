@@ -2,7 +2,7 @@
 % Please edit documentation in R/AQUA-Micro-Queues.R
 \name{clear_MicroEggQ}
 \alias{clear_MicroEggQ}
-\title{MICRO \code{AquaticSite} Method: Clear the EggQ}
+\title{MICRO \code{\link{AquaticSite}} Method: Clear the EggQ}
 \usage{
 clear_MicroEggQ()
 }

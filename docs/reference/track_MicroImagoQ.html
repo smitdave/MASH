@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MICRO <code>AquaticSite</code> Method: Get indices of full EggQ slots — full_MicroEggQ • MASH.R6</title>
+<title>MICRO <code>AquaticSite</code> Method: Track the ImagoQ — track_MicroImagoQ • MASH.R6</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -73,15 +73,16 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>MICRO <code>AquaticSite</code> Method: Get indices of full EggQ slots</h1>
+    <h1>MICRO <code>AquaticSite</code> Method: Track the ImagoQ</h1>
     </div>
 
     
-    <p>This method finds filled slots in the EggQ; if all slots are empty it returns 0. It is the complement of <code><a href='empty_MicroEggQ.html'>empty_MicroEggQ</a></code>
-This method is bound to <code>AquaticSite$full_EggQ()</code>.</p>
+    <p>Return the total number of emerging adults in this ImagoQ
+This method is bound to <code>AquaticSite$track_ImagoQ()</code>.
+DEV_NOTE: eventually may want to add argument time or something and only accumulate those values tm &lt;= time or something..., also might want to filter genotype</p>
     
 
-    <pre class="usage"><span class='fu'>full_MicroEggQ</span>()</pre>
+    <pre class="usage"><span class='fu'>track_MicroImagoQ</span>()</pre>
         
 
   </div>

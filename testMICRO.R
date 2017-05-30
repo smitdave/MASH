@@ -21,3 +21,6 @@ xx$get_riskList()
 
 xx$add_riskList(who = 3,pTm = 232,w = 4.53)
 xx$get_riskList()
+
+MICRO.Aqua.Setup()
+yy = AquaticSite$new(ix = 1, siteXY = c(0.5,0.5), searchWt = 99, lambda =, haz = 0, maxQ = 20L)

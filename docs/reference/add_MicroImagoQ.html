@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MICRO <code>AquaticSite</code> Method: Get indices of full EggQ slots — full_MicroEggQ • MASH.R6</title>
+<title>MICRO <code>AquaticSite</code> Method: Add emerging adults to the ImagoQ — add_MicroImagoQ • MASH.R6</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -73,21 +73,32 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>MICRO <code>AquaticSite</code> Method: Get indices of full EggQ slots</h1>
+    <h1>MICRO <code>AquaticSite</code> Method: Add emerging adults to the ImagoQ</h1>
     </div>
 
     
-    <p>This method finds filled slots in the EggQ; if all slots are empty it returns 0. It is the complement of <code><a href='empty_MicroEggQ.html'>empty_MicroEggQ</a></code>
-This method is bound to <code>AquaticSite$full_EggQ()</code>.</p>
+    <p>This method adds emerging adults to an ImagoQ, see <code><a href='newImago.html'>newImago</a></code> for the emerging adults structure; it uses <code><a href='empty_MicroImagoQ.html'>empty_MicroImagoQ</a></code> to find empty indices and
+calls <code><a href='extend_MicroImagoQ.html'>extend_MicroImagoQ</a></code> if no empty slots are found.
+This method is bound to <code>AquaticSite$add_ImagoQ()</code>.</p>
     
 
-    <pre class="usage"><span class='fu'>full_MicroEggQ</span>()</pre>
-        
+    <pre class="usage"><span class='fu'>add_MicroImagoQ</span>(<span class='no'>newImago</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>newImago</th>
+      <td><p>a single emerging adults structure, see <code><a href='newImago.html'>newImago</a></code> for the emerging adults structure</p></td>
+    </tr>
+    </table>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
                 </ul>
 
   </div>

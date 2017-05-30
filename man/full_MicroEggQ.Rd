@@ -2,7 +2,11 @@
 % Please edit documentation in R/AQUA-Micro-Queues.R
 \name{full_MicroEggQ}
 \alias{full_MicroEggQ}
-\title{MICRO \code{AquaticSite} Method: Get indices of full EggQ slots}
+\title{MICRO \code{\link{AquaticSite}} Method: Get indices of full EggQ slots}
 \usage{
 full_MicroEggQ()
+}
+\description{
+This method finds filled slots in the EggQ; if all slots are empty it returns 0. It is the complement of \code{\link{empty_MicroEggQ}}
+This method is bound to \code{AquaticSite$full_EggQ()}.
 }

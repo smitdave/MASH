@@ -2,7 +2,7 @@
 % Please edit documentation in R/AQUA-Micro-Queues.R
 \name{track_MicroEggQ}
 \alias{track_MicroEggQ}
-\title{MICRO \code{AquaticSite} Method: Track the EggQ}
+\title{MICRO \code{\link{AquaticSite}} Method: Track the EggQ}
 \usage{
 track_MicroEggQ()
 }

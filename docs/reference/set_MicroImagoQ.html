@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MICRO <code>AquaticSite</code> Method: Get indices of full EggQ slots — full_MicroEggQ • MASH.R6</title>
+<title>MICRO <code>AquaticSite</code> Method: Set the ImagoQ — set_MicroImagoQ • MASH.R6</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -73,21 +73,35 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>MICRO <code>AquaticSite</code> Method: Get indices of full EggQ slots</h1>
+    <h1>MICRO <code>AquaticSite</code> Method: Set the ImagoQ</h1>
     </div>
 
     
-    <p>This method finds filled slots in the EggQ; if all slots are empty it returns 0. It is the complement of <code><a href='empty_MicroEggQ.html'>empty_MicroEggQ</a></code>
-This method is bound to <code>AquaticSite$full_EggQ()</code>.</p>
+    <p>Set either a single slot or the entire ImagoQ.
+This method is bound to <code>AquaticSite$set_ImagoQ()</code>.</p>
     
 
-    <pre class="usage"><span class='fu'>full_MicroEggQ</span>()</pre>
-        
+    <pre class="usage"><span class='fu'>set_MicroImagoQ</span>(<span class='no'>ImagoQ</span>, <span class='kw'>ixQ</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>ImagoQ</th>
+      <td><p>the object to insert; if <code>ixQ = NULL</code> then it should be a full ImagoQ object, see <code><a href='allocImagoQ.html'>allocImagoQ</a></code> for details, else see <code>eggBatch</code> for the structure of a single batch.</p></td>
+    </tr>
+    <tr>
+      <th>ixQ</th>
+      <td><p>if <code>NULL</code> set the entire ImagoQ, else, set the slot <code>ixQ</code></p></td>
+    </tr>
+    </table>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
                 </ul>
 
   </div>

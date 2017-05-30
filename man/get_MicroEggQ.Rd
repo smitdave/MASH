@@ -2,7 +2,7 @@
 % Please edit documentation in R/AQUA-Micro-Queues.R
 \name{get_MicroEggQ}
 \alias{get_MicroEggQ}
-\title{MICRO \code{AquaticSite} Method: Get the EggQ}
+\title{MICRO \code{\link{AquaticSite}} Method: Get the EggQ}
 \usage{
 get_MicroEggQ(ixQ = NULL)
 }
