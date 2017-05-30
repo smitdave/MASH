@@ -7,6 +7,6 @@
 full_MicroImagoQ()
 }
 \description{
-This method finds filled slots in the ImagoQ; if all slots are empty it returns 0. It is the complement of \code{\link{empty_MicroImagoQ}}
+This method finds filled slots in the ImagoQ; if all slots are empty it returns \code{NULL}. It is the complement of \code{\link{empty_MicroImagoQ}}
 This method is bound to \code{AquaticSite$full_ImagoQ()}.
 }

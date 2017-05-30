@@ -8,6 +8,8 @@
 #
 #################################################################
 
+rm(list=ls())
+library(MASH.R6)
 
 xx = FeedingSite$new(ix = 1, siteXY = c(0.5,0.5), searchWt = 0.5, enterP = 0.9, maxH=2)
 xx$add_riskList(who = 1,pTm = 0.5,w = 9)
@@ -22,5 +24,7 @@ xx$get_riskList()
 xx$add_riskList(who = 3,pTm = 232,w = 4.53)
 xx$get_riskList()
 
-MICRO.Aqua.Setup()
-yy = AquaticSite$new(ix = 1, siteXY = c(0.5,0.5), searchWt = 99, lambda =, haz = 0, maxQ = 20L)
+MICRO.Aqua.Setup(module = "emerge",overwrite = TRUE)
+yy = AquaticSite$new(ix = 1, siteXY = c(0.5,0.5), searchWt = 99, lambda = 500, haz = 0, maxQ = 2L)
+yy$get_ImagoQ()
+yy$add_ImagoQ(newImago = newImago(N = 1,tEmerge = 4))

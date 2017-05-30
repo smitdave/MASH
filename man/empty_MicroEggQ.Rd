@@ -7,6 +7,6 @@
 empty_MicroEggQ()
 }
 \description{
-This method finds empty slots in the EggQ; if all slots are full it returns 0. It is the complement of \code{\link{full_MicroEggQ}}
+This method finds empty slots in the EggQ; if all slots are full it returns \code{NULL}. It is the complement of \code{\link{full_MicroEggQ}}
 This method is bound to \code{AquaticSite$empty_EggQ()}.
 }

@@ -159,7 +159,7 @@ MICRO.Aqua.Setup <- function(module = "emerge", overwrite = TRUE){
 #'
 clear_MicroImagoQ <- function(){
   fullIx = self$full_ImagoQ()
-  if(fullIx!=0L){
+  if(!is.null(fullIx)){
     for(ix in fullIx){
       private$ImagoQ[[ix]]$N         = 0L
       private$ImagoQ[[ix]]$tEmerge   = 0
@@ -169,7 +169,6 @@ clear_MicroImagoQ <- function(){
     }
   }
 }
-
 
 
 #' MICRO \code{\link{AquaticSite}} Method: Extend the ImagoQ
@@ -193,7 +192,7 @@ extend_MicroImagoQ <- function(){
 add_MicroImagoQ <- function(newImago){
   # manage ImagoQ
   emptyIx = self$empty_ImagoQ()
-  if(emptyIx==0L){
+  if(is.null(emptyIx)){
     self$extend_ImagoQ()
     emptyIx = self$empty_ImagoQ()
   }
@@ -224,13 +223,13 @@ zero_MicroImagoQ <- function(ixQ){
 
 #' MICRO \code{\link{AquaticSite}} Method: Get indices of full ImagoQ slots
 #'
-#' This method finds filled slots in the ImagoQ; if all slots are empty it returns 0. It is the complement of \code{\link{empty_MicroImagoQ}}
+#' This method finds filled slots in the ImagoQ; if all slots are empty it returns \code{NULL}. It is the complement of \code{\link{empty_MicroImagoQ}}
 #' This method is bound to \code{AquaticSite$full_ImagoQ()}.
 #'
 full_MicroImagoQ <- function(){
   fullIx = vapply(X = private$ImagoQ,FUN = function(x){x$N != 0L},FUN.VALUE = logical(1))
-  if(any(!fullIx)){
-    return(0L)
+  if(all(!fullIx)){
+    return(NULL)
   } else {
     return(which(fullIx))
   }
@@ -240,13 +239,13 @@ full_MicroImagoQ <- function(){
 
 #' MICRO \code{\link{AquaticSite}} Method: Get indices of empty ImagoQ slots
 #'
-#' This method finds empty slots in the ImagoQ; if all slots are full it returns 0. It is the complement of \code{\link{full_MicroImagoQ}}
+#' This method finds empty slots in the ImagoQ; if all slots are full it returns \code{NULL}. It is the complement of \code{\link{full_MicroImagoQ}}
 #' This method is bound to \code{AquaticSite$empty_ImagoQ()}.
 #'
 empty_MicroImagoQ <- function(){
   emptyIx = vapply(X = private$ImagoQ,FUN = function(x){x$N == 0L},FUN.VALUE = logical(1))
-  if(any(!emptyIx)){
-    return(0L)
+  if(all(!emptyIx)){
+    return(NULL)
   } else {
     return(which(emptyIx))
   }
@@ -309,7 +308,7 @@ track_MicroImagoQ <- function(){
 #'
 clear_MicroEggQ <- function(){
   fullIx = self$full_EggQ()
-  if(fullIx!=0L){
+  if(!is.null(fullIx)){
     for(ix in fullIx){
       private$EggQ[[ix]]$N    = 0L
       private$EggQ[[ix]]$tm   = 0
@@ -342,7 +341,7 @@ extend_MicroEggQ <- function(){
 add_MicroEggQ <- function(eggBatch){
   # manage EggQ
   emptyIx = self$empty_EggQ()
-  if(emptyIx==0L){
+  if(is.null(emptyIx)){
     self$extend_EggQ()
     emptyIx = self$empty_EggQ()
   }
@@ -373,13 +372,13 @@ zero_MicroEggQ <- function(ixQ){
 
 #' MICRO \code{\link{AquaticSite}} Method: Get indices of full EggQ slots
 #'
-#' This method finds filled slots in the EggQ; if all slots are empty it returns 0. It is the complement of \code{\link{empty_MicroEggQ}}
+#' This method finds filled slots in the EggQ; if all slots are empty it returns \code{NULL}. It is the complement of \code{\link{empty_MicroEggQ}}
 #' This method is bound to \code{AquaticSite$full_EggQ()}.
 #'
 full_MicroEggQ <- function(){
   fullIx = vapply(X = private$EggQ,FUN = function(x){x$N != 0L},FUN.VALUE = logical(1))
-  if(any(!fullIx)){
-    return(0L)
+  if(all(!fullIx)){
+    return(NULL)
   } else {
     return(which(fullIx))
   }
@@ -389,13 +388,13 @@ full_MicroEggQ <- function(){
 
 #' MICRO \code{\link{AquaticSite}} Method: Get indices of empty EggQ slots
 #'
-#' This method finds empty slots in the EggQ; if all slots are full it returns 0. It is the complement of \code{\link{full_MicroEggQ}}
+#' This method finds empty slots in the EggQ; if all slots are full it returns \code{NULL}. It is the complement of \code{\link{full_MicroEggQ}}
 #' This method is bound to \code{AquaticSite$empty_EggQ()}.
 #'
 empty_MicroEggQ <- function(){
   emptyIx = vapply(X = private$EggQ,FUN = function(x){x$N == 0L},FUN.VALUE = logical(1))
-  if(any(!emptyIx)){
-    return(0L)
+  if(all(!emptyIx)){
+    return(NULL)
   } else {
     return(which(emptyIx))
   }
