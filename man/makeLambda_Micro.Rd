@@ -10,7 +10,7 @@ makeLambda_Micro(aquaPars)
 \item{aquaPars}{a list of the following structure
 \itemize{
 \item N: number of aquatic habitats (required)
-\item lambda: number of emerging adult females per human per day averaged over one year for the entire \code{\link{Landscape}} or \code{\link{MacroPatch}} (required)
+\item lambda: number of emerging adult females per human per day averaged over one year for the entire \code{\link{Landscape}} (required)
 \item lambdaWeight: vector of weights applied to each site (if not specified or set to \code{NULL} initialize to Gamma(1,1) distribution)
 \item offset: vector of seasonal offsets in peak emergence applied to each site (if not specified or set to \code{NULL} initialize to 0 for all sites)
 }}

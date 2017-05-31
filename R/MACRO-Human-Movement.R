@@ -296,7 +296,7 @@ returnHome = function(tEvent, PAR){
 
 #' Write \code{HumanPop} Travel History to JSON
 #'
-#' Write each \code{Human} travel history as a .json object to a connection. Depends on \code{\link{self$get_travelHistory()}} defined in MACRO-Human-Movement.R
+#' Write each \code{\link{Human}} travel history as a .json object to a connection. Depends on \code{\link{get_travelHistoryHumanPop}} defined in MACRO-Human-Movement.R
 #'
 #' @param con a connection open for writing
 #' @return none

@@ -8,6 +8,49 @@
 #
 #################################################################
 
+#################################################################
+# Standalone functions for lambda
+#################################################################
+
+#' MACRO: Generate Seasonal Emergence (Lambda) for \code{Emerge} model of Aquatic Ecology
+#'
+#' Generate lambda for all patches.
+#'
+#' @param aquaPars a list of the following structure
+#'  * lambda: vector of length equal to number of patches \code{\link{MacroPatch}} where each element is the number of emerging adult females per human per day averaged over one year (required)
+#'  * lambdaWeight: vector of weights applied to each site (if not specified or set to \code{NULL} initialize to Gamma(1,1) distribution)
+#'  * offset: vector of seasonal offsets in peak emergence applied to each site (if not specified or set to \code{NULL} initialize to 0 for all sites)
+#' @md
+#' @return list \code{lambda} where each element is the daily emergence for that \code{\link{MacroPatch}}
+#' @examples
+#' makeLambda_Macro(aquaPars = list(lambda=c(5,10,15)))
+#' @export
+makeLambda_Macro <- function(aquaPars){
+
+  with(aquaPars,{
+
+    N = length(lambda)
+    if(!exists("lambdaWeight",inherits = FALSE) || is.null(lambdaWeight)){lambdaWeight = rgamma(n = N,shape = 1,rate = 1)}
+
+    K = lambda*lambdaWeight / sum(lambdaWeight)
+    if(!exists("offset",inherits = FALSE) || is.null(lambdaWeight)){offset = rep(0,length=N)}
+
+    lambdaOut = vector(mode="list",length=N)
+    for(ix in 1:N){
+      lambdaOut[[ix]] = K[ix]*(1+sin(2*pi*(c(1:365)-offset[ix])/365))
+    }
+
+    return(lambdaOut)
+
+  })
+
+}
+
+
+#################################################################
+# Setup
+#################################################################
+
 #' Initialize Additional Methods & Fields in \code{MacroPatch} for Emerge Module of Aquatic Ecology
 #'
 #' Write me! See for parameters that are initialized after this; ie: anything that \code{\link{MACRO.Patch.Parameters}} calls for 'Emerge' should be defined here.
