@@ -2,19 +2,11 @@
 % Please edit documentation in R/AQUA-Micro-Emerge.R
 \name{oneDay_MicroEmerge}
 \alias{oneDay_MicroEmerge}
-\title{MICRO \code{Landscape} Seasonal Emergence}
+\title{MICRO \code{\link{Landscape}} Method: Emerge One Day Dynamics}
 \usage{
 oneDay_MicroEmerge()
 }
-\arguments{
-\item{a}{parameter}
-}
-\value{
-does stuff
-}
 \description{
-Queue the ImagoQ for MICRO Emerge aquatic ecology module.
-}
-\examples{
-some_function()
+Calculate emerging adults for a single aquatic habitat and add them to that site's ImagoQ for all sites.
+This method is bound to \code{Landscape$oneDay_Emerge()}.
 }

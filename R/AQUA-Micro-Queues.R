@@ -26,11 +26,15 @@
 #' @export
 MICRO.Aqua.Setup <- function(module = "emerge", overwrite = TRUE){
 
+  message("initializing Aquatic Ecology component queue methods")
+
   #################################################################
   # Egg Queue: only used in EL4P
   #################################################################
 
   if(module=="EL4P"){
+
+    message("initializing EL4P module queue methods")
 
     # clear the EggQ
     AquaticSite$set(which = "public",name = "clear_EggQ",
@@ -310,11 +314,11 @@ clear_MicroEggQ <- function(){
   fullIx = self$full_EggQ()
   if(!is.null(fullIx)){
     for(ix in fullIx){
-      private$EggQ[[ix]]$N    = 0L
-      private$EggQ[[ix]]$tm   = 0
-      private$EggQ[[ix]]$ix   = 0L
-      private$EggQ[[ix]]$dam  = 0L
-      private$EggQ[[ix]]$sire = 0L
+      private$EggQ[[ix]]$N           = 0L
+      private$EggQ[[ix]]$tOviposit   = 0
+      private$EggQ[[ix]]$damID       = 0L
+      private$EggQ[[ix]]$sireID      = 0L
+      private$EggQ[[ix]]$genotype    = 0L
     }
   }
 }
@@ -346,11 +350,11 @@ add_MicroEggQ <- function(eggBatch){
     emptyIx = self$empty_EggQ()
   }
 
-  private$EggQ[[emptyIx[1]]]$N    = eggBatch$N
-  private$EggQ[[emptyIx[1]]]$tm   = eggBatch$tm
-  private$EggQ[[emptyIx[1]]]$ix   = eggBatch$ix
-  private$EggQ[[emptyIx[1]]]$damID  = eggBatch$damID
-  private$EggQ[[emptyIx[1]]]$sireID = eggBatch$sireID
+  private$EggQ[[ix]]$N           = N
+  private$EggQ[[ix]]$tOviposit   = tOviposit
+  private$EggQ[[ix]]$damID       = damID
+  private$EggQ[[ix]]$sireID      = sireID
+  private$EggQ[[ix]]$genotype    = genotype
 
 }
 
@@ -362,11 +366,11 @@ add_MicroEggQ <- function(eggBatch){
 #'
 #' @param ixQ the slot in the EggQ to zero out
 zero_MicroEggQ <- function(ixQ){
-  private$EggQ[[ixQ]]$N    = 0L
-  private$EggQ[[ixQ]]$tm   = 0
-  private$EggQ[[ixQ]]$ix   = 0L
-  private$EggQ[[ixQ]]$damID  = 0L
-  private$EggQ[[ixQ]]$sireID = 0L
+  private$EggQ[[ixQ]]$N           = 0L
+  private$EggQ[[ixQ]]$tOviposit   = 0
+  private$EggQ[[ixQ]]$damID       = 0L
+  private$EggQ[[ixQ]]$sireID      = 0L
+  private$EggQ[[ixQ]]$genotype    = 0L
 }
 
 

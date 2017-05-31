@@ -16,7 +16,7 @@ newImago(N = 0L, tEmerge = 0L, damID = 0L, sireID = 0L,
 
 \item{sireID}{ID of father}
 
-\item{genotype}{placeholder}
+\item{genotype}{integer genotype identifier}
 }
 \value{
 a named list
@@ -24,6 +24,17 @@ a named list
 \description{
 Generate a new batch of emerging mosquitoes for a slot in an ImagoQ. It can be called from \code{\link{allocImagoQ}}.
 }
+\section{Structure}{
+
+\itemize{
+\item N number of emerging adults
+\item tEmerge time of emergence
+\item damID ID of mother
+\item sireID ID of father
+\item genotype integer genotype identifier
+}
+}
+
 \examples{
 newImago()
 }

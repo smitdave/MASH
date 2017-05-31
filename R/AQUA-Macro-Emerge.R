@@ -151,9 +151,9 @@ oneDay_MacroEmerge <- function(){
 
   tNow = self$get_TilePointer()$get_tNow()
   lambdaExact = vapply(X = private$season,FUN = function(x){x[floor(tNow)%%365+1]},FUN.VALUE = numeric(1))
-  lambdaN = rpois(n = length(lambdaExact),lambda = lambdaExact)
+  lambdaEmerge = rpois(n = length(lambdaExact),lambda = lambdaExact)
   for(ixP in 1:private$N){
-    self$set_PatchesImagoQ(PatchesImagoQ = newImago(N = lambdaN[ixP], tEmerge = tNow), ixP = ixP)
+    self$set_PatchesImagoQ(PatchesImagoQ = newImago(N = lambdaEmerge[ixP], tEmerge = tNow), ixP = ixP)
     # self$set_PatchesEggQ(PatchesEggQ = newEgg(), ixP = ixP) RESET EGG
   }
 

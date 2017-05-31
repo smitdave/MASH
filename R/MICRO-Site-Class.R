@@ -61,11 +61,15 @@ Site <- R6::R6Class(classname = "Site",
 
                    # search weight
                    get_searchWt = function(){return(private$searchWt)},
-                   set_searchWt = function(searchWt){private$searchWt = searchWt}
+                   set_searchWt = function(searchWt){private$searchWt = searchWt},
 
                    #################################################
                    # Pointers
                    #################################################
+
+                   # landscape pointer
+                   get_LandscapePointer = function(){return(private$LandscapePointer)},
+                   set_LandscapePointer = function(LandscapePointer){private$LandscapePointer = LandscapePointer}
 
                  ),
 
@@ -74,9 +78,10 @@ Site <- R6::R6Class(classname = "Site",
 
                    ix = 0L,
                    siteXY = vector(mode="numeric",length=2L),
-                   searchWt = 0L
+                   searchWt = 0L,
 
                    # Pointers
+                   LandscapePointer = NULL
 
                  )
 )
@@ -250,7 +255,10 @@ AquaticSite <- R6::R6Class(classname = "AquaticSite",
                      private$lambda = lambda
 
                      # Aquatic Ecology EL4P module fields
-                     private$EggQ = allocEggQ(N = maxQ)
+                     if(is.null(lambda)){
+                      private$EggQ = allocEggQ(N = maxQ)
+                     }
+
 
                    },
 

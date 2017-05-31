@@ -192,7 +192,18 @@ Landscape <- R6::R6Class(classname = "Landscape",
                   },
                   set_HumansPointer = function(HumansPointer){
                     private$HumansPointer = HumansPointer
-                  }
+                  },
+
+
+                  #################################################################
+                  # Public Fields
+                  #################################################################
+
+                  # Number of Sites
+                  FeedingSitesN = NULL,
+                  AquaSitesN = NULL,
+                  SugarSitesN = NULL,
+                  MatingSitesN = NULL
 
                  ),
 

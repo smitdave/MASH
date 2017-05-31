@@ -25,6 +25,17 @@ a named list
 This function is a low-level utility to generate a null placeholder value for an egg batch in EggQ.
 It is called by \code{\link{allocEggQ}} and \code{\link{extendEggQ}}.
 }
+\section{Structure}{
+
+\itemize{
+\item N number of emerging adults
+\item tOviposit time of oviposition
+\item damID ID of mother
+\item sireID ID of father
+\item genotype integer genotype identifier
+}
+}
+
 \examples{
 newEgg()
 }

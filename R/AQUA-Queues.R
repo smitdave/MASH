@@ -21,7 +21,16 @@
 #' @param tEmerge time this batch will emerge
 #' @param damID ID of mother
 #' @param sireID ID of father
-#' @param genotype placeholder
+#' @param genotype integer genotype identifier
+#'
+#' @section Structure:
+#' * N number of emerging adults
+#' * tEmerge time of emergence
+#' * damID ID of mother
+#' * sireID ID of father
+#' * genotype integer genotype identifier
+#' @md
+#'
 #' @return a named list
 #' @examples
 #' newImago()
@@ -64,6 +73,15 @@ allocImagoQ <- function(N){
 #' @param damID ID of mother
 #' @param sireID ID of father
 #' @param genotype placeholder
+#'
+#' @section Structure:
+#' * N number of emerging adults
+#' * tOviposit time of oviposition
+#' * damID ID of mother
+#' * sireID ID of father
+#' * genotype integer genotype identifier
+#' @md
+#'
 #' @return a named list
 #' @examples
 #' newEgg()

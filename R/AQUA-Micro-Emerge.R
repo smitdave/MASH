@@ -28,30 +28,130 @@ MICRO.Emerge.Setup <- function(overwrite = TRUE){
 
   message("initializing 'Emerge' module for Aquatic Ecology")
 
-  # oneDay dynamics for landscape
-  Landscape$set(which = "public",name = "oneDay",
+  #################################################################
+  # One Day 'Emerge'
+  #################################################################
+
+  AquaticSite$set(which = "public",name = "oneDay_EmergeSite",
+            value = oneDay_MicroEmergeSite,
+            overwrite = overwrite
+  )
+
+  Landscape$set(which = "public",name = "oneDay_Emerge",
             value = oneDay_MicroEmerge,
             overwrite = overwrite
+  )
+
+  Landscape$set(which = "public",name = "emergingAdults_Emerge",
+            value = emergingAdults_MicroEmerge,
+            overwrite = overwrite
+  )
+
+
+
+  #################################################################
+  # Lambda
+  #################################################################
+
+  AquaticSite$set(which = "public",name = "get_lambda",
+            value = get_MicroLambda,
+            overwrite = TRUE
+  )
+
+  AquaticSite$set(which = "public",name = "set_lambda",
+            value = set_MicroLambda,
+            overwrite = TRUE
   )
 
 }
 
 
-#' MICRO \code{Landscape} Seasonal Emergence
+#################################################################
+# Lambda
+#################################################################
+
+#' MICRO \code{\link{AquaticSite}} Method: Get Lambda
 #'
-#' Queue the ImagoQ for MICRO Emerge aquatic ecology module.
+#' Get either a single day lambda or entire vector
+#' This method is bound to \code{AquaticSite$get_lambda()}.
 #'
-#' @param a parameter
+#' @param ixQ if \code{NULL} return the entire vector of lambda, else, return the value corresponding to day \code{ix}
+get_MicroLambda <- function(ix = NULL){
+  if(is.null(ix)){
+    return(private$lambda)
+  } else {
+    return(private$lambda[ix])
+  }
+}
+
+
+#' MICRO \code{\link{AquaticSite}} Method: Set Lambda
+#'
+#' Set either a single day lambda or entire vector
+#' This method is bound to \code{AquaticSite$set_lambda()}.
+#'
+#' @param lambda the object to insert; if \code{ix = NULL} then it should be vector of lambda values, see \code{\link{aquaEmerge_makeLambda}} for details, else it should be a numeric value.
+#' @param ixQ if \code{NULL} set the entire ImagoQ, else, set the slot \code{ixQ}
+set_MicroLambda <- function(lambda, ix = NULL){
+  if(is.null(ix)){
+    private$lambda = lambda
+  } else {
+    private$lambda[ix] = lambda
+  }
+}
+
+
+#################################################################
+# One Day 'Emerge'
+#################################################################
+
+#' MICRO \code{\link{AquaticSite}} Method: Emerge One Day Dynamics
+#'
+#' Calculate emerging adults for a single aquatic habitat and add them to that site's ImagoQ.
+#' This method is bound to \code{AquaticSite$oneDay_EmergeSite()}.
+#'
+#' @param tNow integer time to calculate emergence
+oneDay_MicroEmergeSite <- function(tNow){
+
+  lambdaExact = private$lambda[floor(tNow)%%365+1]
+  lambdaEmerge = rpois(n = 1, lambda = lambdaExact)
+  self$add_ImagoQ(newImago = newImago(N = lambdaEmerge, tEmerge = tNow))
+
+}
+
+
+#' MICRO \code{\link{Landscape}} Method: Emerge One Day Dynamics
+#'
+#' Calculate emerging adults for a single aquatic habitat and add them to that site's ImagoQ for all sites.
+#' This method is bound to \code{Landscape$oneDay_Emerge()}.
+#'
+oneDay_MicroEmerge <- function(){
+  tNow = self$get_TilePointer()$get_tNow()
+  for(ixA in 1:self$AquaSitesN){
+    private$AquaSites[[ixA]]$oneDay_EmergeSite()
+  }
+}
+
+
+#' MICRO \code{\link{Landscape}} Method: Get Emerging Adults from ImagoQ and Zero out ImagoQ
+#'
+#' This method is bound to \code{Landscape$emergingAdults_Emerge()}
+#'
 #' @return does stuff
 #' @examples
 #' some_function()
-oneDay_MicroEmerge <- function(){
-  tNow = self$get_TilePointer()$get_tNow()
+emergingAdults_MicroEmerge <- function(){
+  # use tNow in the TILE and see who is ready to be taken from ImagoQ into the MosyPop.
 }
 
-# called from AquaticSite
-oneDay_MicroEmergeSite <- function(tNow){
-  lambdaExact = private$lambda[floor(tNow)%%365+1]
-  lambdaEmerge = rpois(n = 1,lambda = lambdaExact)
 
+#' MICRO \code{\link{Landscape}} Method: Get Emerging Adults from ImagoQ and Zero out ImagoQ
+#'
+#' This method is bound to \code{Landscape$emergingAdults_Emerge()}
+#'
+#' @return does stuff
+#' @examples
+#' some_function()
+addCohort_MicroEmerge <- function(){
+  stop("write me please!!!")
 }
