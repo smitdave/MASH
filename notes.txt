@@ -20,7 +20,7 @@
 8. See simMacro: need single call to Tile to do all aquatic ecology stuffs; needs to generalize across allocation
    possible aquatic ecology modules.
 9. AQUA-Macro-Emerge.R should be split according to how AQUA-Micro-Queues.R and AQUA-Micro-Emerge.R is structured.
-10. MACRO Emgergence is called season right now...need to change to lambda
+10. MACRO Emergence stuffs is called season right now...need to change to lambda
 
 ### SOLVED TO-DO:
 6. SOLVED (Z not updating correctly, see MACRO-MosquitoPop-Methods.R) HumanPop$debug("queueInfectiousBites"): do debugging: EIR is always 0

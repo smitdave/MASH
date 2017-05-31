@@ -7,13 +7,13 @@
 siteAges(N)
 }
 \arguments{
-\item{N}{size of population (may refer to household or an individual \code{\link{MacroPatch}}) patch}
+\item{N}{size of population (may refer to household \code{\link{FeedingSite}} or an individual \code{\link{MacroPatch}}) patch}
 }
 \value{
 numeric vector
 }
 \description{
-Generate numeric vector of ages
+Generate numeric vector of ages. This function is called in \code{\link{sitePops}}
 }
 \examples{
 hhAges(N = 10)

@@ -7,7 +7,7 @@
 sitePops(N, siteSize = 10, siteMin = 2)
 }
 \arguments{
-\item{N}{size of population (may refer to household or an individual \code{\link{MacroPatch}}) patch}
+\item{N}{number of sites (may refer to household or a \code{\link{MacroPatch}} patch)}
 
 \item{siteSize}{average size of population at sites}
 

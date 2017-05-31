@@ -6,7 +6,7 @@
 \usage{
 MACRO.Patch.Parameters(N, hhID, humanIDs, bWeightHuman = NULL,
   bWeightZoo1 = 1, bWeightZoo2 = 1, pathogenModel = "PatchPf",
-  aquaModel = "emerge", ...)
+  aquaModel = "emerge", aquaPars)
 }
 \arguments{
 \item{N}{number of patches}

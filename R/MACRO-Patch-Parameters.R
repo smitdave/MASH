@@ -43,7 +43,7 @@ MACRO.Patch.Parameters <- function(
     # component options
     pathogenModel = "PatchPf", # {PatchPf, none}
     aquaModel = "emerge",
-    ... # named parameters to be passed to specific aquaModel generating function
+    aquaPars
 
   ){
 
@@ -82,12 +82,12 @@ MACRO.Patch.Parameters <- function(
 
   if(aquaModel == "emerge"){
 
-    emergeArgs = names(sapply(match.call(), deparse))[-1]
-    if(!"lambda" %in% emergeArgs){
-      stop("please specify the vector 'lambda' when using the 'Emerge' module of Aquatic Ecology")
-    }
+    # emergeArgs = names(sapply(match.call(), deparse))[-1]
+    # if(!"lambda" %in% emergeArgs){
+    #   stop("please specify the vector 'lambda' when using the 'Emerge' module of Aquatic Ecology")
+    # }
     MacroPatch_PAR$aquaModel = aquaModel
-    MacroPatch_PAR$season = aquaEmerge_makeLambda(...)
+    MacroPatch_PAR$season = aquaEmerge_makeLambda(aquaPars)
     MacroPatch_PAR$PatchesImagoQ =  replicate(n=N,expr=newImago(),simplify=FALSE)
     MacroPatch_PAR$PatchesEggQ = replicate(n=N,expr=newEgg(),simplify=FALSE)
 

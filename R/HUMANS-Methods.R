@@ -15,9 +15,9 @@
 
 #' Generate Ages for \code{HumanPop}
 #'
-#' Generate numeric vector of ages
+#' Generate numeric vector of ages. This function is called in \code{\link{sitePops}}
 #'
-#' @param N size of population (may refer to household or an individual \code{\link{MacroPatch}}) patch
+#' @param N size of population (may refer to household \code{\link{FeedingSite}} or an individual \code{\link{MacroPatch}}) patch
 #' @return numeric vector
 #' @examples
 #' hhAges(N = 10)
@@ -37,7 +37,7 @@ siteAges <- function(N){
 #'
 #' Site may be defined as a MICRO \code{\link{FeedingSite}} or a MACRO \code{\link{MacroPatch}}.
 #'
-#' @param N size of population (may refer to household or an individual \code{\link{MacroPatch}}) patch
+#' @param N number of sites (may refer to household or a \code{\link{MacroPatch}} patch)
 #' @param siteSize average size of population at sites
 #' @param siteMin minimum size of population at sites
 #' @return list:

@@ -48,7 +48,7 @@ MACRO.Tile.Parameters <- function(
         rep(x = x,times=y)
       },x=patch_hhID_helper$values,y=patch_hhID_helper$lengths)
     if(aquaModel=="emerge"){
-      MacroPatch_PAR = MACRO.Patch.Parameters(N=N, hhID=patch_hhID, humanIDs=demographics$siteHumanID, aquaModel = "emerge",lambda = aquaPars$lambda)
+      MacroPatch_PAR = MACRO.Patch.Parameters(N=N, hhID=patch_hhID, humanIDs=demographics$siteHumanID, aquaModel = "emerge",aquaPars = aquaPars)
     }
 
 

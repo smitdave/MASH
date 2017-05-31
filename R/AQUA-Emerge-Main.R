@@ -42,18 +42,22 @@
 #' @examples
 #' aquaEmerge_makeLambda(lambda = c(2,3,4))
 #' @export
-aquaEmerge_makeLambda <- function(lambda, lambdaWeight = NULL, offset = NULL){
+aquaEmerge_makeLambda <- function(aquaPars){
 
-  N = length(lambda)
-  if(is.null(lambdaWeight)){lambdaWeight = rgamma(n = N,shape = 1,rate = 1)}
+  with(aquaPars,{
 
-  K = lambda*lambdaWeight / sum(lambdaWeight)
-  if(is.null(offset)){offset = rep(0,length=N)}
+    N = length(lambda)
+    if(!exists("lambdaWeight",inherits = FALSE)){lambdaWeight = rgamma(n = N,shape = 1,rate = 1)}
 
-  lambda = vector(mode="list",length=N)
-  for(ix in 1:N){
-    lambda[[ix]] = K[ix]*(1+sin(2*pi*(c(1:365)-offset[ix])/365))
-  }
+    K = lambda*lambdaWeight / sum(lambdaWeight)
+    if(!exists("offset",inherits = FALSE)){offset = rep(0,length=N)}
 
-  return(lambda)
+    lambdaOut = vector(mode="list",length=N)
+    for(ix in 1:N){
+      lambdaOut[[ix]] = K[ix]*(1+sin(2*pi*(c(1:365)-offset[ix])/365))
+    }
+
+    return(lambdaOut)
+  })
+
 }

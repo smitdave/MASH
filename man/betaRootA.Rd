@@ -4,12 +4,12 @@
 \alias{betaRootA}
 \title{Find shape1 (alpha) Parameter of Beta Distribution for Given Mean}
 \usage{
-betaRootA(mean, beta = 20)
+betaRootA(mean, beta = 1)
 }
 \arguments{
 \item{mean}{the mean of the beta distribution}
 
-\item{beta}{= 20 beta parameter of the beta distribution}
+\item{beta}{beta parameter of the beta distribution}
 }
 \value{
 numeric value
@@ -17,7 +17,7 @@ numeric value
 \description{
 Given a user-specified mean value, \code{betaRootA} uses \code{\link{uniroot}} to find the shape1 (alpha)
 parameter of the distribution that will give that mean. Parameter shape2 may also be given as user input, but has
-a default value of 20.
+a default value of 1.
 }
 \examples{
 betaRootA(mean = 0.95, beta = 20)
