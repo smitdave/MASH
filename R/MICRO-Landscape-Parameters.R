@@ -1,4 +1,4 @@
-#################################################################
+####################################################################################
 #
 #   MASH
 #   R6-ified
@@ -6,12 +6,12 @@
 #   Hector Sanchez & David Smith, Hector Sanchez, Sean Wu
 #   May 9, 2017
 #
-#################################################################
+####################################################################################
 
 
-##########################################
+####################################################################################
 # Point Clustering Patterns
-##########################################
+####################################################################################
 
 #' Generate Poisson Point Pattern for Landscape Sites
 #'
@@ -106,9 +106,9 @@ pointsLattice <- function(n, xLim=c(0,1), yLim=c(0,1)){
 }
 
 
-##########################################
+####################################################################################
 # Hazards & Search Weights
-##########################################
+####################################################################################
 
 #' Find shape2 (beta) Parameter of Beta Distribution for Given Mean
 #'
@@ -148,6 +148,11 @@ betaRootA <- function(mean, beta = 20){
   return(rootOut$root)
 }
 
+
+####################################################################################
+# Parameter Generation Functions
+####################################################################################
+
 #' Generate Parameters for Landscape Object
 #'
 #' This function is a specific instantiation of a generic system to generate parameters for a
@@ -156,7 +161,11 @@ betaRootA <- function(mean, beta = 20){
 #'
 #' @param nFeed number of feeding sites (generated via pointGen(...))
 #' @param nAqua number of aquatic habitats
-#' @param pointGen spatial point pattern generation function
+#' @param pointGen character to select spatial point pattern generation function
+#'  * "poisson": \code{\link{pointsPoisson}}
+#'  * "clustered": \code{\link{pointsClustered}}
+#'  * "overdispersed": \code{\link{pointsOverdispersed}}
+#'  * "lattice": \code{\link{pointsLattice}}
 #' @param hhSize average number of humans at feeding sites
 #' @param hhMin minimum number of humans at feeding sites
 #' @param lambda mean emerging females per human per day for entire landscape summing out seasonality
@@ -193,7 +202,7 @@ betaRootA <- function(mean, beta = 20){
 landscape.PAR <- function(
     nFeed,
     nAqua,
-    pointGen,
+    pointGen = "poisson",
     hhSize,
     hhMin,
     lambda,

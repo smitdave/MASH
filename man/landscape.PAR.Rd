@@ -4,16 +4,22 @@
 \alias{landscape.PAR}
 \title{Generate Parameters for Landscape Object}
 \usage{
-landscape.PAR(nFeed, nAqua, pointGen, hhSize, hhMin, lambda, offset = 0,
-  hazV = 0, hazW = 0, hazI = 0, haz = 0, enterP = 1, xLim = c(0, 1),
-  yLim = c(0, 1), aquaSD = 0.025, ...)
+landscape.PAR(nFeed, nAqua, pointGen = "poisson", hhSize, hhMin, lambda,
+  offset = 0, hazV = 0, hazW = 0, hazI = 0, haz = 0, enterP = 1,
+  xLim = c(0, 1), yLim = c(0, 1), aquaSD = 0.025, ...)
 }
 \arguments{
 \item{nFeed}{number of feeding sites (generated via pointGen(...))}
 
 \item{nAqua}{number of aquatic habitats}
 
-\item{pointGen}{spatial point pattern generation function}
+\item{pointGen}{character to select spatial point pattern generation function
+\itemize{
+\item "poisson": \code{\link{pointsPoisson}}
+\item "clustered": \code{\link{pointsClustered}}
+\item "overdispersed": \code{\link{pointsOverdispersed}}
+\item "lattice": \code{\link{pointsLattice}}
+}}
 
 \item{hhSize}{average number of humans at feeding sites}
 

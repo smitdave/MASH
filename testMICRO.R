@@ -25,6 +25,14 @@ xx$add_riskList(who = 3,pTm = 232,w = 4.53)
 xx$get_riskList()
 
 MICRO.Aqua.Setup(module = "emerge",overwrite = TRUE)
+MICRO.Emerge.Setup(overwrite = TRUE)
 yy = AquaticSite$new(ix = 1, siteXY = c(0.5,0.5), searchWt = 99, lambda = 500, haz = 0, maxQ = 2L)
 yy$get_ImagoQ()
 yy$add_ImagoQ(newImago = newImago(N = 1,tEmerge = 4))
+
+yy$set_lambda(lambda = 1:365,ix = NULL)
+yy$get_lambda()
+yy$oneDay_EmergeSite(tNow = 50)
+yy$get_ImagoQ()
+
+yy$clear_ImagoQ()

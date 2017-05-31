@@ -51,43 +51,43 @@ Landscape <- R6::R6Class(classname = "Landscape",
                   # Initialize
                   #################################################
 
-                  # #  initialize
-                  #  initialize = function(landscape.PAR){
-                  #
-                  #    with(landscape.PAR,{
-                  #
-                  #        #########################################
-                  #        # Generate Feeding Sites
-                  #        #########################################
-                  #
-                  #        private$FeedingSites = vector(mode="list",length=nFeed)
-                  #        for(ix in 1:nFeed){
-                  #          private$FeedingSites[[ix]] = FeedingSite$new(
-                  #            ix = ix,
-                  #            siteXY = c(feedXY$x[ix],feedXY$y[ix]),
-                  #            searchWt = feedWt[ix],
-                  #            enterP = enterP[ix],
-                  #            hazV = hazV[ix],
-                  #            hazW = hazW[ix],
-                  #            hazI = hazI[ix],
-                  #            sugar = sugar[ix])
-                  #        }
-                  #
-                  #        #########################################
-                  #        # Generate Aquatic Habitats
-                  #        #########################################
-                  #
-                  #        private$AquaSites = vector(mode="list",length=nAqua)
-                  #        for(ix in 1:nAqua){
-                  #          private$AquaSites[[ix]] = AquaticSite$new(ix = ix,
-                  #           siteXY = c(aquaXY$x[ix],aquaXY$y[ix]),
-                  #           searchWt = aquaWt[ix],
-                  #           lambda = lambda[[ix]],
-                  #           haz = haz[ix])
-                  #        }
-                  #
-                  #      })
-                  #  },
+                  #  initialize
+                   initialize = function(landscape_PAR){
+
+                     with(landscape_PAR,{
+
+                         #########################################
+                         # Generate Feeding Sites
+                         #########################################
+
+                         private$FeedingSites = vector(mode="list",length=nFeed)
+                         for(ix in 1:nFeed){
+                           private$FeedingSites[[ix]] = FeedingSite$new(
+                             ix = ix,
+                             siteXY = c(feedXY$x[ix],feedXY$y[ix]),
+                             searchWt = feedWt[ix],
+                             enterP = enterP[ix],
+                             hazV = hazV[ix],
+                             hazW = hazW[ix],
+                             hazI = hazI[ix],
+                             sugar = sugar[ix])
+                         }
+
+                         #########################################
+                         # Generate Aquatic Habitats
+                         #########################################
+
+                         private$AquaSites = vector(mode="list",length=nAqua)
+                         for(ix in 1:nAqua){
+                           private$AquaSites[[ix]] = AquaticSite$new(ix = ix,
+                            siteXY = c(aquaXY$x[ix],aquaXY$y[ix]),
+                            searchWt = aquaWt[ix],
+                            lambda = lambda[[ix]],
+                            haz = haz[ix])
+                         }
+
+                       })
+                   },
 
                   #################################################################
                   # Getters & Setters

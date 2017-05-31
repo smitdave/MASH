@@ -82,9 +82,9 @@ chosen landscape. Any user-specified function can be written to generate paramet
 return list is in the same format.</p>
     
 
-    <pre class="usage"><span class='fu'>landscape.PAR</span>(<span class='no'>nFeed</span>, <span class='no'>nAqua</span>, <span class='no'>pointGen</span>, <span class='no'>hhSize</span>, <span class='no'>hhMin</span>, <span class='no'>lambda</span>, <span class='kw'>offset</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>hazV</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>hazW</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>hazI</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>haz</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>enterP</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>xLim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>1</span>),
-  <span class='kw'>yLim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>1</span>), <span class='kw'>aquaSD</span> <span class='kw'>=</span> <span class='fl'>0.025</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>landscape.PAR</span>(<span class='no'>nFeed</span>, <span class='no'>nAqua</span>, <span class='kw'>pointGen</span> <span class='kw'>=</span> <span class='st'>"poisson"</span>, <span class='no'>hhSize</span>, <span class='no'>hhMin</span>, <span class='no'>lambda</span>,
+  <span class='kw'>offset</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>hazV</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>hazW</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>hazI</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>haz</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>enterP</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>xLim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>1</span>), <span class='kw'>yLim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>1</span>), <span class='kw'>aquaSD</span> <span class='kw'>=</span> <span class='fl'>0.025</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -99,7 +99,12 @@ return list is in the same format.</p>
     </tr>
     <tr>
       <th>pointGen</th>
-      <td><p>spatial point pattern generation function</p></td>
+      <td><p>character to select spatial point pattern generation function</p><ul>
+<li><p>"poisson": <code><a href='pointsPoisson.html'>pointsPoisson</a></code></p></li>
+<li><p>"clustered": <code><a href='pointsClustered.html'>pointsClustered</a></code></p></li>
+<li><p>"overdispersed": <code><a href='pointsOverdispersed.html'>pointsOverdispersed</a></code></p></li>
+<li><p>"lattice": <code><a href='pointsLattice.html'>pointsLattice</a></code></p></li>
+</ul></td>
     </tr>
     <tr>
       <th>hhSize</th>
