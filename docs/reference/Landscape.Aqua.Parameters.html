@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generate Ages for <code>HumanPop</code> — siteAges • MASH.R6</title>
+<title>MICRO: Generate Parameters for <code>Landscape</code> <code>AquaticSite</code> — Landscape.Aqua.Parameters • MASH.R6</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -73,31 +73,56 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generate Ages for <code>HumanPop</code></h1>
+    <h1>MICRO: Generate Parameters for <code>Landscape</code> <code>AquaticSite</code></h1>
     </div>
 
     
-    <p>Generate numeric vector of ages. This function is called in <code><a href='sitePops.html'>sitePops</a></code></p>
+    <p>This function generates a named list of parameters to initialize all <code><a href='AquaticSite.html'>AquaticSite</a></code> objects on a MICRO <code><a href='Landscape.html'>Landscape</a></code>.</p>
     
 
-    <pre class="usage"><span class='fu'>siteAges</span>(<span class='no'>N</span>)</pre>
+    <pre class="usage"><span class='fu'>Landscape.Aqua.Parameters</span>(<span class='no'>nAqua</span>, <span class='no'>siteXY</span>, <span class='no'>module</span>, <span class='no'>modulePars</span>, <span class='kw'>searchWt</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>haz</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>N</th>
-      <td><p>size of population (may refer to household <code><a href='FeedingSite.html'>FeedingSite</a></code> or an individual <code><a href='MacroPatch.html'>MacroPatch</a></code>) patch</p></td>
+      <th>nAqua</th>
+      <td><p>number of aquatic habitats</p></td>
+    </tr>
+    <tr>
+      <th>siteXY</th>
+      <td><p>two element list of <code>x</code> and <code>y</code> coordinates of aquatic habitats</p></td>
+    </tr>
+    <tr>
+      <th>module</th>
+      <td><p>character</p><ul>
+<li><p>"emerge": initialize parameters for Emerge module of Aquatic Ecology</p></li>
+<li><p>"EL4P": initialize parameters for EL4P module of Aquatic Ecology</p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>modulePars</th>
+      <td><p>additional list of named parameters to be passed to Aquatic Ecology module specific parameter generating functions</p><ul>
+<li><p>Emerge: see for deatils <code><a href='makeLambda_Micro.html'>makeLambda_Micro</a></code></p></li>
+<li><p>EL4P:</p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>searchWt</th>
+      <td><p>vector of searchWt (if <code>NULL</code> initialize to Gamma(1,1) distribution)</p></td>
+    </tr>
+    <tr>
+      <th>haz</th>
+      <td><p>mean value of landing hazards (if <code>!= 0</code> use <code><a href='betaRootA.html'>betaRootA</a></code> to find alpha parameter of beta distribution to give that mean value and produce Beta distributed hazards)</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>numeric vector</p>
+    <p>return a list</p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>hhAges</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; <span class='error'>Error in hhAges(N = 10): could not find function "hhAges"</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -105,9 +130,7 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+          </ul>
 
   </div>
 </div>

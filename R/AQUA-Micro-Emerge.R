@@ -90,7 +90,7 @@ get_MicroLambda <- function(ix = NULL){
 #' Set either a single day lambda or entire vector
 #' This method is bound to \code{AquaticSite$set_lambda()}.
 #'
-#' @param lambda the object to insert; if \code{ix = NULL} then it should be vector of lambda values, see \code{\link{aquaEmerge_makeLambda}} for details, else it should be a numeric value.
+#' @param lambda the object to insert; if \code{ix = NULL} then it should be vector of lambda values, see \code{\link{makeLambda_Macro}} for details, else it should be a numeric value.
 #' @param ixQ if \code{NULL} set the entire ImagoQ, else, set the slot \code{ixQ}
 set_MicroLambda <- function(lambda, ix = NULL){
   if(is.null(ix)){

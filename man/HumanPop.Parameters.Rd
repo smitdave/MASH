@@ -4,10 +4,12 @@
 \alias{HumanPop.Parameters}
 \title{Initialize HumanPop Parameters for \code{HumanPop}}
 \usage{
-HumanPop.Parameters(nSite, demographics = NULL, ...)
+HumanPop.Parameters(nSite, bWeight = NULL, demographics = NULL, ...)
 }
 \arguments{
 \item{nSite}{number of sites (either \code{\link{FeedingSite}} or \code{link{MacroPatch}})}
+
+\item{bWeight}{numeric value (if \code{NULL} biting weights are Gamma(1,1) distributed)}
 
 \item{demographics}{either a list or \code{NULL}; if \code{NULL} then \code{\link{sitePops}} is used to generate these parameters, see that function for details on the list structure that is expected.}
 
@@ -21,4 +23,10 @@ make a list of pars for \code{\link{HumanPop}}
 }
 \examples{
 HumanPop.Parameters(nSite = 5)
+ * nHumans: total human population size
+ * tStart: time to begin simulation
+ * humanIDs: human IDs
+ * homeIDs: site IDs of each human
+ * bDay: birthdays of each human
+ * bWeight: biting weight on humans
 }

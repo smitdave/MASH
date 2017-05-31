@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generate Ages for <code>HumanPop</code> — siteAges • MASH.R6</title>
+<title>MICRO: Generate Parameters for <code>Landscape</code> <code>AquaticSite</code> — Landscape.Feeding.Parameters • MASH.R6</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -73,31 +73,72 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generate Ages for <code>HumanPop</code></h1>
+    <h1>MICRO: Generate Parameters for <code>Landscape</code> <code>AquaticSite</code></h1>
     </div>
 
     
-    <p>Generate numeric vector of ages. This function is called in <code><a href='sitePops.html'>sitePops</a></code></p>
+    <p>This function generates a named list of parameters to initialize all <code><a href='AquaticSite.html'>AquaticSite</a></code> objects on a MICRO <code><a href='Landscape.html'>Landscape</a></code>.</p>
     
 
-    <pre class="usage"><span class='fu'>siteAges</span>(<span class='no'>N</span>)</pre>
+    <pre class="usage"><span class='fu'>Landscape.Feeding.Parameters</span>(<span class='no'>nFeed</span>, <span class='kw'>hhSize</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>hhMin</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+  <span class='kw'>pointGen</span> <span class='kw'>=</span> <span class='st'>"poisson"</span>, <span class='kw'>searchWt</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>enterP</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>hazV</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>hazW</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>hazI</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>N</th>
-      <td><p>size of population (may refer to household <code><a href='FeedingSite.html'>FeedingSite</a></code> or an individual <code><a href='MacroPatch.html'>MacroPatch</a></code>) patch</p></td>
+      <th>nFeed</th>
+      <td><p>number of feeding sites</p></td>
+    </tr>
+    <tr>
+      <th>hhSize</th>
+      <td><p>average number of hosts at feeding sites</p></td>
+    </tr>
+    <tr>
+      <th>hhMin</th>
+      <td><p>minimum number of hosts at feeding sites</p></td>
+    </tr>
+    <tr>
+      <th>pointGen</th>
+      <td><p>character to select spatial point pattern generation function</p><ul>
+<li><p>"poisson": <code><a href='pointsPoisson.html'>pointsPoisson</a></code></p></li>
+<li><p>"clustered": <code><a href='pointsClustered.html'>pointsClustered</a></code></p></li>
+<li><p>"overdispersed": <code><a href='pointsOverdispersed.html'>pointsOverdispersed</a></code></p></li>
+<li><p>"lattice": <code><a href='pointsLattice.html'>pointsLattice</a></code></p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>searchWt</th>
+      <td><p>vector of searchWt (if <code>NULL</code> initialize to Gamma(1,1) distribution)</p></td>
+    </tr>
+    <tr>
+      <th>enterP</th>
+      <td><p>vector of house entry probabilities or single numeric value for all sites (if <code>NULL</code> initialize to Beta(9,1) distribution)</p></td>
+    </tr>
+    <tr>
+      <th>hazV</th>
+      <td><p>mean value for feeding site vegetation landing hazard (if 0 it is set to 0 for all sites)</p></td>
+    </tr>
+    <tr>
+      <th>hazW</th>
+      <td><p>mean value for feeding site outside wall landing hazard (if 0 it is set to 0 for all sites)</p></td>
+    </tr>
+    <tr>
+      <th>hazI</th>
+      <td><p>mean value for feeding site indoor wall landing hazard (if 0 it is set to 0 for all sites)</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>additional named arguments to be passed to the pointGen(nFeed, ...) function</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>numeric vector</p>
+    <p>return a list</p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>hhAges</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; <span class='error'>Error in hhAges(N = 10): could not find function "hhAges"</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -105,9 +146,7 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+          </ul>
 
   </div>
 </div>

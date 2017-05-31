@@ -159,204 +159,78 @@ betaRootA <- function(mean, beta = 1){
 #' chosen landscape. Any user-specified function can be written to generate parameters, as long as the
 #' return list is in the same format.
 #'
-#' @param nFeed number of feeding sites (generated via pointGen(...))
+#' @param nFeed number of feeding sites
 #' @param nAqua number of aquatic habitats
 #' @param pointGen character to select spatial point pattern generation function
 #'  * "poisson": \code{\link{pointsPoisson}}
 #'  * "clustered": \code{\link{pointsClustered}}
 #'  * "overdispersed": \code{\link{pointsOverdispersed}}
 #'  * "lattice": \code{\link{pointsLattice}}
+#' @param module character
+#'  * "emerge": initialize parameters for Emerge module of Aquatic Ecology
+#'  * "EL4P": initialize parameters for EL4P module of Aquatic Ecology
+#' @param modulePars additional list of named parameters to be passed to Aquatic Ecology module specific parameter generating functions
+#'  * Emerge: see for deatils \code{\link{makeLambda_Micro}}
+#'  * EL4P:
 #' @param hhSize average number of humans at feeding sites
 #' @param hhMin minimum number of humans at feeding sites
-#' @param lambda mean emerging females per human per day for entire landscape summing out seasonality
-#' @param offset seasonal offset
 #' @param hazV mean value for feeding site vegetation landing hazard (if 0 it is set to 0 for all sites)
 #' @param hazW mean value for feeding site outside wall landing hazard (if 0 it is set to 0 for all sites)
 #' @param hazI mean value for feeding site indoor wall landing hazard (if 0 it is set to 0 for all sites)
 #' @param haz mean value for aquatic habitat landing hazard (if 0 it is set to 0 for all sites)
+#' @param searchFeed vector of searchWt for feeding sites (if \code{NULL} initialize to Gamma(1,1) distribution)
+#' @param searchAqua vector of searchWt for aquatic habitats (if \code{NULL} initialize to Gamma(1,1) distribution)
+#' @param enterP vector of house entry probabilities or single numeric value for all sites (if \code{NULL} initialize to Beta(9,1) distribution)
 #' @param xLim x-axis bounds for simulated points
 #' @param yLim y-axis bounds for simulated points
 #' @param aquaSD standard deviation of aquatic habitat scatter around feeding sites
 #' @param ... additional named arguments for pointGen()
 #' @return a named list of parameters
-#' * nFeed: number of feeding sites
-#' * nAqua: number of aquatic habitats
-#' * feedXY: 2 element list (x and y coords, respectively)
-#' * feedWt: search weight for feeding sites
-#' * sugar: opportunistic sugar weight at feeding sites
-#' * enterP: probability to enter house
-#' * hazV: feeding site vegetation landing hazards
-#' * hazW: feeding site outside wall landing hazards
-#' * hazI: feeding site indoor wall landing hazards
-#' * humanPop: size of human population at each site
-#' * humanPopIx: id of humans at each site
-#' * humanPopN: total population size
-#' * aquaIx: 'parent' feeding sites of aquatic habitats
-#' * aquaXY: 2 element list (x and y coords, respectively)
-#' * aquaWt: search weight for aquatic habitats
-#' * haz: landing hazard for aquatic habitats
+#' * FeedingSite_PAR: see \code{\link{Landscape.Feeding.Parameters}} for details
+#' * AquaticSite_PAR: see \code{\link{Landscape.Aqua.Parameters}} for details
 #' @md
 #' @examples
 #'
 #' @export
-Landscape.PAR <- function(
+Landscape.Parameters <- function(
     nFeed,
     nAqua,
     pointGen = "poisson",
-    hhSize,
-    hhMin,
-    lambda,
-    offset = 0,
+    module,
+    modulePars,
+    hhSize = 10,
+    hhMin = 2,
     hazV = 0,
     hazW = 0,
     hazI = 0,
     haz = 0,
-    enterP = 1,
+    searchFeed = NULL,
+    searchAqua = NULL,
+    enterP = NULL,
     xLim = c(0,1),
     yLim = c(0,1),
     aquaSD = 0.025,
     ...
   ){
 
-    PAR = list()
+    # Feeding Sites
+    FeedingSite_PAR = Landscape.Feeding.Parameters(nFeed=nFeed,hhSize=hhSize,hhMin=hhMin,pointGen=pointGen,searchWt=searchFeed,enterP=enterP,hazV=hazV,hazW=hazW,hazI=hazI,...)
 
-    PAR$nFeed = nFeed
-    PAR$nAqua = nAqua
-
-    ##############################################
-    # feeding site parameters
-    ##############################################
-
-    # spatial
-    PAR$feedXY = pointGen(nFeed, ...)
-    PAR$feedWt = rgamma(n = nFeed,1,1); PAR$feedWt = PAR$feedWt / sum(PAR$feedWt)
-
-    # sugar
-    PAR$sugar = rgamma(n = nFeed,1,1)
-
-     # house entry
-    if(enterP!=1){
-      alpha = betaRootA(mean = hazV, beta = 20)
-      PAR$enterP = rbeta(n = nFeed, shape1 = alpha, shape2 = 20)
-    } else {
-      PAR$enterP = rep(1,nFeed)
-    }
-
-    # landing hazards
-    if(hazV!=0){ # vegetation landing hazards
-      beta = betaRootB(mean = hazV, alpha = 1)
-      PAR$hazV = rbeta(n = nFeed, shape1 = 1, shape2 = beta)
-    } else {
-      PAR$hazV = rep(0,nFeed)
-    }
-    if(hazW!=0){ # outside wall landing hazards
-      beta = betaRootB(mean = hazW, alpha = 1)
-      PAR$hazW = rbeta(n = nFeed, shape1 = 1, shape2 = beta)
-    } else {
-      PAR$hazW = rep(0,nFeed)
-    }
-    if(hazI!=0){ # indoor wall landing hazards
-      beta = betaRootB(mean = hazI, alpha = 1)
-      PAR$hazI = rbeta(n = nFeed, shape1 = 1, shape2 = beta)
-    } else {
-      PAR$hazI = rep(0,nFeed)
-    }
-
-    # distribute humans
-    hh = hhMin + rpois(n = nFeed,lambda = hhSize - hhMin) # size of human population at each site
-    nH = sum(hh) #number of humans
-    hhIx = vector(mode="list",length=nFeed) #id of humans at each site
-    hhIxI = 0
-    for(i in 1:nFeed){
-      hhIx[[i]] = (hhIxI+1):(hhIxI+hh[i])
-      hhIxI = hhIxI+hh[i]
-    }
-    PAR$humanPop = hh # size of human population at each site
-    PAR$humanPopIx = hhIx # id of humans at each site
-    PAR$humanPopN = nH # total population size
-
-    ##############################################
-    # aquatic habitat parameters
-    ##############################################
-
-    # randomly distribute aquatic habitats nearby feeding site 'parents'
-    PAR$aquaIx = (1:nFeed)[sample(x = 1:nFeed,size = nAqua, replace = TRUE)]
-    PAR$aquaXY = list(
-        x = rnorm(n = nAqua,mean = PAR$feedXY$x[PAR$aquaIx],sd = aquaSD),
-        y = rnorm(n = nAqua,mean = PAR$feedXY$y[PAR$aquaIx],sd = aquaSD)
+    # Aquatic Habitats
+    aquaIx = sample(x = nFeed,size = nAqua,replace = TRUE)
+    aquaXY = list(
+        x = rnorm(n = nAqua,mean = FeedingSite_PAR$siteXY$x[aquaIx],sd = aquaSD),
+        y = rnorm(n = nAqua,mean = FeedingSite_PAR$siteXY$y[aquaIx],sd = aquaSD)
       )
-    PAR$aquaWt = rgamma(n = nAqua,1,1); PAR$aquaWt = PAR$aquaWt / sum(PAR$aquaWt)
 
-    # emergence
-    w = rgamma(n = nAqua,1,1)
-    K = lambda*w / sum(w)
-    offset = rep(offset,length=nAqua)
-    PAR$lambda = vector(mode="list",length=nAqua)
-    for(ix in 1:nAqua){
-      PAR$lambda[[ix]] = K[ix]*(1+sin(2*pi*(c(1:365)-offset[ix])/365))
-    }
+    AquaticSite_PAR = Landscape.Aqua.Parameters(nAqua=nAqua,siteXY=aquaXY,module=module,modulePars=modulePars,searchW=searchAqua,haz=haz)
 
-    # landing hazards
-    if(haz!=0){ # aquatic habitat landing hazards
-      alpha = betaRootA(mean = haz, beta = 1)
-      PAR$haz = rbeta(n = nAqua, shape1 = alpha, shape2 = 1)
-    } else {
-      PAR$haz = rep(0,nAqua)
-    }
+    Landscape_PAR = list(
+      FeedingSite_PAR = FeedingSite_PAR,
+      AquaticSite_PAR = AquaticSite_PAR
+    )
 
-    return(PAR)
-}
-
-
-#' MICRO: Generate Parameters for \code{Landscape} \code{AquaticSite}
-#'
-#' This function generates a named list of parameters to initialize all \code{\link{AquaticSite}} objects on a MICRO \code{\link{Landscape}}.
-#'
-#' @param nAqua number of aquatic habitats
-#' @param siteXY two element list of \code{x} and \code{y} coordinates of aquatic habitats
-#' @param module character
-#'  * "emerge": initialize parameters for Emerge module of Aquatic Ecology
-#'  * "EL4P": initialize parameters for EL4P module of Aquatic Ecology
-#' @param modulePars additional list of named parameters to be passed to Aquatic Ecology module specific parameter generating functions
-#'  * Emerge: see for deatils \code{\link{aquaEmerge_makeLambda}}
-#'  * EL4P:
-#' @param searchWt vector of searchWt (if \code{NULL} initialize to Gamma(1,1) distribution)
-#' @param haz mean value of landing hazards (if \code{!= 0} use \code{\link{betaRootA}} to find alpha parameter of beta distribution to give that mean value and produce Beta distributed hazards)
-#' @return return a list
-#' @md
-#' @export
-Landscape.Aqua.PAR <- function(nAqua, siteXY, module , modulePars, searchWt = NULL, haz = 0){
-
-  Landscape_Aqua_PAR = list()
-  Landscape_Aqua_PAR$nAqua = nAqua
-  Landscape_Aqua_PAR$siteXY = siteXY
-
-  # Search Weights and Landing Hazards
-  if(is.null(searchWt)){
-    Landscape_Aqua_PAR$searchWt = rgamma(n=nAqua,1,1)
-  } else {
-    Landscape_Aqua_PAR$searchWt = searchWt
-  }
-
-  if(haz!=0){
-    alpha = betaRootA(mean = haz, beta = 1)
-    Landscape_Aqua_PAR$haz = rbeta(n = nAqua, shape1 = alpha, shape2 = 1)
-  } else {
-    Landscape_Aqua_PAR$haz = rep(0,nAqua)
-  }
-
-  # Aquatic Ecology modules
-  if(module == "emerge"){
-
-    Landscape_Aqua_PAR$lambda = aquaEmerge_makeLambda(modulePars)
-
-  } else {
-    stop("sean hasnt written EL4P or any other AQUA modules yet!")
-  }
-
-
-  return(Landscape_Aqua_PAR)
-
+    return(Landscape_PAR)
 }
 
 
@@ -365,13 +239,15 @@ Landscape.Aqua.PAR <- function(nAqua, siteXY, module , modulePars, searchWt = NU
 #' This function generates a named list of parameters to initialize all \code{\link{AquaticSite}} objects on a MICRO \code{\link{Landscape}}.
 #'
 #' @param nFeed number of feeding sites
+#' @param hhSize average number of hosts at feeding sites
+#' @param hhMin minimum number of hosts at feeding sites
 #' @param pointGen character to select spatial point pattern generation function
 #'  * "poisson": \code{\link{pointsPoisson}}
 #'  * "clustered": \code{\link{pointsClustered}}
 #'  * "overdispersed": \code{\link{pointsOverdispersed}}
 #'  * "lattice": \code{\link{pointsLattice}}
 #' @param searchWt vector of searchWt (if \code{NULL} initialize to Gamma(1,1) distribution)
-#' @param enterP vector of searchWt (if \code{NULL} initialize to Gamma(1,1) distribution)
+#' @param enterP vector of house entry probabilities or single numeric value for all sites (if \code{NULL} initialize to Beta(9,1) distribution)
 #' @param hazV mean value for feeding site vegetation landing hazard (if 0 it is set to 0 for all sites)
 #' @param hazW mean value for feeding site outside wall landing hazard (if 0 it is set to 0 for all sites)
 #' @param hazI mean value for feeding site indoor wall landing hazard (if 0 it is set to 0 for all sites)
@@ -379,7 +255,7 @@ Landscape.Aqua.PAR <- function(nAqua, siteXY, module , modulePars, searchWt = NU
 #' @return return a list
 #' @md
 #' @export
-Landscape.Feeding.PAR <- function(nFeed, pointGen = "poisson", searchWt = NULL, enterP = 1, ...){
+Landscape.Feeding.Parameters <- function(nFeed, hhSize = 10, hhMin = 2, pointGen = "poisson", searchWt = NULL, enterP = NULL, hazV = 0, hazW = 0, hazI = 0, ...){
 
   Landscape_Feeding_PAR = list()
   Landscape_Feeding_PAR$nFeed = nFeed
@@ -393,7 +269,7 @@ Landscape.Feeding.PAR <- function(nFeed, pointGen = "poisson", searchWt = NULL, 
 
   # Search Weights and Landing Hazards
   if(is.null(searchWt)){
-    Landscape_Feeding_PAR$searchWt = rgamma(n=nAqua,1,1)
+    Landscape_Feeding_PAR$searchWt = rgamma(n=nFeed,1,1)
   } else {
     Landscape_Feeding_PAR$searchWt = searchWt
   }
@@ -420,61 +296,72 @@ Landscape.Feeding.PAR <- function(nFeed, pointGen = "poisson", searchWt = NULL, 
   # sugar
   Landscape_Feeding_PAR$sugar = rgamma(n = nFeed,1,1)
 
-  sitePops()
+  # enter house
+  if(is.null(enterP)){
+    Landscape_Feeding_PAR$enterP = rbeta(nFeed,9,1)
+  } else if(length(enterP)==nFeed){
+    Landscape_Feeding_PAR$enterP = enterP
+  } else if(is.numeric(enterP)){
+    Landscape_Feeding_PAR$enterP = rep(enterP,nFeed)
+  } else {
+    stop("enterP is invalid")
+  }
+
+  return(Landscape_Feeding_PAR)
 }
 
 
+#' MICRO: Generate Parameters for \code{Landscape} \code{AquaticSite}
+#'
+#' This function generates a named list of parameters to initialize all \code{\link{AquaticSite}} objects on a MICRO \code{\link{Landscape}}.
+#'
+#' @param nAqua number of aquatic habitats
+#' @param siteXY two element list of \code{x} and \code{y} coordinates of aquatic habitats
+#' @param module character
+#'  * "emerge": initialize parameters for Emerge module of Aquatic Ecology
+#'  * "EL4P": initialize parameters for EL4P module of Aquatic Ecology
+#' @param modulePars additional list of named parameters to be passed to Aquatic Ecology module specific parameter generating functions
+#'  * Emerge: see for deatils \code{\link{makeLambda_Micro}}
+#'  * EL4P:
+#' @param searchWt vector of searchWt (if \code{NULL} initialize to Gamma(1,1) distribution)
+#' @param haz mean value of landing hazards (if \code{!= 0} use \code{\link{betaRootA}} to find alpha parameter of beta distribution to give that mean value and produce Beta distributed hazards)
+#' @return return a list
+#' @md
+#' @export
+Landscape.Aqua.Parameters <- function(nAqua, siteXY, module , modulePars, searchWt = NULL, haz = 0){
+
+  Landscape_Aqua_PAR = list()
+  Landscape_Aqua_PAR$nAqua = nAqua
+  Landscape_Aqua_PAR$siteXY = siteXY
+
+  # Search Weights and Landing Hazards
+  if(is.null(searchWt)){
+    Landscape_Aqua_PAR$searchWt = rgamma(n=nAqua,1,1)
+  } else {
+    Landscape_Aqua_PAR$searchWt = searchWt
+  }
+
+  if(haz!=0){
+    alpha = betaRootA(mean = haz, beta = 1)
+    Landscape_Aqua_PAR$haz = rbeta(n = nAqua, shape1 = alpha, shape2 = 1)
+  } else {
+    Landscape_Aqua_PAR$haz = rep(0,nAqua)
+  }
+
+  # Aquatic Ecology modules
+  if(module == "emerge"){
+
+    if(nAqua != length(modulePars$lambda)){
+      stop("modulePars lambda must be a vector equal to length of ")
+    }
+
+    Landscape_Aqua_PAR$lambda = makeLambda_Micro(modulePars)
+
+  } else {
+    stop("sean hasnt written EL4P or any other AQUA modules yet!")
+  }
 
 
+  return(Landscape_Aqua_PAR)
 
-# ##############################################
-# # feeding site parameters
-# ##############################################
-#
-# # spatial
-# PAR$feedXY = pointGen(nFeed, ...)
-# PAR$feedWt = rgamma(n = nFeed,1,1); PAR$feedWt = PAR$feedWt / sum(PAR$feedWt)
-#
-# # sugar
-# PAR$sugar = rgamma(n = nFeed,1,1)
-#
-#  # house entry
-# if(enterP!=1){
-#   alpha = betaRootA(mean = hazV, beta = 20)
-#   PAR$enterP = rbeta(n = nFeed, shape1 = alpha, shape2 = 20)
-# } else {
-#   PAR$enterP = rep(1,nFeed)
-# }
-#
-# # landing hazards
-# if(hazV!=0){ # vegetation landing hazards
-#   beta = betaRootB(mean = hazV, alpha = 1)
-#   PAR$hazV = rbeta(n = nFeed, shape1 = 1, shape2 = beta)
-# } else {
-#   PAR$hazV = rep(0,nFeed)
-# }
-# if(hazW!=0){ # outside wall landing hazards
-#   beta = betaRootB(mean = hazW, alpha = 1)
-#   PAR$hazW = rbeta(n = nFeed, shape1 = 1, shape2 = beta)
-# } else {
-#   PAR$hazW = rep(0,nFeed)
-# }
-# if(hazI!=0){ # indoor wall landing hazards
-#   beta = betaRootB(mean = hazI, alpha = 1)
-#   PAR$hazI = rbeta(n = nFeed, shape1 = 1, shape2 = beta)
-# } else {
-#   PAR$hazI = rep(0,nFeed)
-# }
-#
-# # distribute humans
-# hh = hhMin + rpois(n = nFeed,lambda = hhSize - hhMin) # size of human population at each site
-# nH = sum(hh) #number of humans
-# hhIx = vector(mode="list",length=nFeed) #id of humans at each site
-# hhIxI = 0
-# for(i in 1:nFeed){
-#   hhIx[[i]] = (hhIxI+1):(hhIxI+hh[i])
-#   hhIxI = hhIxI+hh[i]
-# }
-# PAR$humanPop = hh # size of human population at each site
-# PAR$humanPopIx = hhIx # id of humans at each site
-# PAR$humanPopN = nH # total population size
+}

@@ -7,7 +7,7 @@
 set_MicroLambda(lambda, ix = NULL)
 }
 \arguments{
-\item{lambda}{the object to insert; if \code{ix = NULL} then it should be vector of lambda values, see \code{\link{aquaEmerge_makeLambda}} for details, else it should be a numeric value.}
+\item{lambda}{the object to insert; if \code{ix = NULL} then it should be vector of lambda values, see \code{\link{makeLambda_Macro}} for details, else it should be a numeric value.}
 
 \item{ixQ}{if \code{NULL} set the entire ImagoQ, else, set the slot \code{ixQ}}
 }

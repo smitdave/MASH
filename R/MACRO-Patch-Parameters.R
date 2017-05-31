@@ -87,7 +87,7 @@ MACRO.Patch.Parameters <- function(
     #   stop("please specify the vector 'lambda' when using the 'Emerge' module of Aquatic Ecology")
     # }
     MacroPatch_PAR$aquaModel = aquaModel
-    MacroPatch_PAR$season = aquaEmerge_makeLambda(aquaPars)
+    MacroPatch_PAR$season = makeLambda_Macro(aquaPars)
     MacroPatch_PAR$PatchesImagoQ =  replicate(n=N,expr=newImago(),simplify=FALSE)
     MacroPatch_PAR$PatchesEggQ = replicate(n=N,expr=newEgg(),simplify=FALSE)
 

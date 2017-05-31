@@ -31,26 +31,28 @@
 # }
 
 
-#' Generate Seasonal Emergence (Lambda) for \code{Emerge} model of Aquatic Ecology
+#' MICRO: Generate Seasonal Emergence (Lambda) for \code{Emerge} model of Aquatic Ecology
 #'
-#' Write me!
+#' Generate lambda for all sites.
 #'
-#' @param lambda vector of length equal to number of sites/patches where each element is the number of emerging adult females per human per day averaged over one year
-#' @param lambdaWeight vector of weights applied to each site
-#' @param offset seasonal offset in peak emergence
-#' @return does stuff
+#' @param aquaPars a list of the following structure
+#'  * N: number of aquatic habitats (required)
+#'  * lambda: number of emerging adult females per human per day averaged over one year for the entire \code{\link{Landscape}} or \code{\link{MacroPatch}} (required)
+#'  * lambdaWeight: vector of weights applied to each site (if not specified or set to \code{NULL} initialize to Gamma(1,1) distribution)
+#'  * offset: vector of seasonal offsets in peak emergence applied to each site (if not specified or set to \code{NULL} initialize to 0 for all sites)
+#' @md
+#' @return list \code{lambda} where each element is the daily emergence for that \code{\link{FeedingSite}}
 #' @examples
-#' aquaEmerge_makeLambda(lambda = c(2,3,4))
+#' makeLambda_Micro(aquaPars= list(lambda = c(2,3,4)))
 #' @export
-aquaEmerge_makeLambda <- function(aquaPars){
+makeLambda_Micro <- function(aquaPars){
 
   with(aquaPars,{
 
-    N = length(lambda)
-    if(!exists("lambdaWeight",inherits = FALSE)){lambdaWeight = rgamma(n = N,shape = 1,rate = 1)}
+    if(!exists("lambdaWeight",inherits = FALSE) || is.null(lambdaWeight)){lambdaWeight = rgamma(n = N,shape = 1,rate = 1)}
 
     K = lambda*lambdaWeight / sum(lambdaWeight)
-    if(!exists("offset",inherits = FALSE)){offset = rep(0,length=N)}
+    if(!exists("offset",inherits = FALSE) || is.null(lambdaWeight)){offset = rep(0,length=N)}
 
     lambdaOut = vector(mode="list",length=N)
     for(ix in 1:N){
@@ -58,6 +60,41 @@ aquaEmerge_makeLambda <- function(aquaPars){
     }
 
     return(lambdaOut)
+  })
+
+}
+
+
+#' MACRO: Generate Seasonal Emergence (Lambda) for \code{Emerge} model of Aquatic Ecology
+#'
+#' Generate lambda for all patches.
+#'
+#' @param aquaPars a list of the following structure
+#'  * lambda: vector of length equal to number of patches \code{\link{MacroPatch}} where each element is the number of emerging adult females per human per day averaged over one year
+#'  * lambdaWeight: vector of weights applied to each site (if not specified or set to \code{NULL} initialize to Gamma(1,1) distribution)
+#'  * offset: vector of seasonal offsets in peak emergence applied to each site (if not specified or set to \code{NULL} initialize to 0 for all sites)
+#' @md
+#' @return list \code{lambda} where each element is the daily emergence for that \code{\link{MacroPatch}}
+#' @examples
+#' makeLambda_Macro(aquaPars = list(lambda=c(5,10,15)))
+#' @export
+makeLambda_Macro <- function(aquaPars){
+
+  with(aquaPars,{
+
+    N = length(lambda)
+    if(!exists("lambdaWeight",inherits = FALSE) || is.null(lambdaWeight)){lambdaWeight = rgamma(n = N,shape = 1,rate = 1)}
+
+    K = lambda*lambdaWeight / sum(lambdaWeight)
+    if(!exists("offset",inherits = FALSE) || is.null(lambdaWeight)){offset = rep(0,length=N)}
+
+    lambdaOut = vector(mode="list",length=N)
+    for(ix in 1:N){
+      lambdaOut[[ix]] = K[ix]*(1+sin(2*pi*(c(1:365)-offset[ix])/365))
+    }
+
+    return(lambdaOut)
+
   })
 
 }
