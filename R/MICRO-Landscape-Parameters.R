@@ -349,6 +349,7 @@ Landscape.Aqua.Parameters <- function(nAqua, siteXY, module , modulePars, search
   }
 
   # Aquatic Ecology modules
+  Landscape_Aqua_PAR$module = module
   if(module == "emerge"){
 
     if(nAqua != length(modulePars$lambda)){

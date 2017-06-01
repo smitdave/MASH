@@ -96,39 +96,36 @@ Landscape <- R6::R6Class(classname = "Landscape",
                          # Generate Feeding Sites
                          #########################################
 
-                         private$FeedingSites = vector(mode="list",length=Landscape_PAR$Landscape_Feeding_PAR$nFeed)
-                         for(ix in 1:Landscape_PAR$Landscape_Feeding_PAR$nFeed){
+                         private$FeedingSites = vector(mode="list",length=Landscape_Feeding_PAR$nFeed)
+                         for(ix in 1:Landscape_Feeding_PAR$nFeed){
+
                            private$FeedingSites[[ix]] = FeedingSite$new(
                              ix = ix,
-                             siteXY = c(Landscape_PAR$Landscape_Feeding_PAR$siteXY$x[ix],Landscape_PAR$Landscape_Feeding_PAR$siteXY$y[ix]),
-                             searchWt = Landscape_PAR$Landscape_Feeding_PAR$searchWt[ix],
-                             enterP = enterP[ix],
-                             hazV = hazV[ix],
-                             hazW = hazW[ix],
-                             hazI = hazI[ix],
-                             sugar = sugar[ix])
-                         }
+                             siteXY = c(Landscape_Feeding_PAR$siteXY$x[ix],Landscape_Feeding_PAR$siteXY$y[ix]),
+                             searchWt = Landscape_Feeding_PAR$searchWt[ix],
+                             enterP = Landscape_Feeding_PAR$enterP[ix],
+                             hazV = Landscape_Feeding_PAR$hazV[ix],
+                             hazW = Landscape_Feeding_PAR$hazW[ix],
+                             hazI = Landscape_Feeding_PAR$hazI[ix],
+                             sugar = Landscape_Feeding_PAR$sugar[ix])
 
-                         private$ix = ix
-                         private$siteXY = siteXY
-                         private$searchWt = searchWt
-                         private$hazV = hazV
-                         private$hazW = hazW
-                         private$hazI = hazI
-                         private$sugar = sugar
-                         private$enterP = enterP
+                         }
 
                          #########################################
                          # Generate Aquatic Habitats
                          #########################################
 
-                         private$AquaSites = vector(mode="list",length=Landscape_PAR$Landscape_Aqua_PAR$nAqua)
-                         for(ix in 1:Landscape_PAR$Landscape_Aqua_PAR$nAqua){
-                           private$AquaSites[[ix]] = AquaticSite$new(ix = ix,
-                            siteXY = c(aquaXY$x[ix],aquaXY$y[ix]),
-                            searchWt = aquaWt[ix],
-                            lambda = lambda[[ix]],
-                            haz = haz[ix])
+                         private$AquaSites = vector(mode="list",length=Landscape_Aqua_PAR$nAqua)
+                         for(ix in 1:Landscape_Aqua_PAR$nAqua){
+
+                           private$AquaSites[[ix]] = AquaticSite$new(
+                            ix = ix,
+                            siteXY = c(Landscape_Aqua_PAR$siteXY$x[ix],Landscape_Aqua_PAR$siteXY$y[ix]),
+                            searchWt = Landscape_Aqua_PAR$searchWt[ix],
+                            module = Landscape_Aqua_PAR$module,
+                            lambda = Landscape_Aqua_PAR$lambda[[ix]],
+                            haz = Landscape_Aqua_PAR$haz[ix])
+
                          }
 
                        })

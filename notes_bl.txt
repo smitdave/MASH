@@ -1,0 +1,23 @@
+#################################################################
+#
+#   MASH
+#   R6-ified
+#   Notes for Biyonka
+#
+#################################################################
+
+### BIYONKA CODE HELP:
+
+### PRIORITY:
+1. Need help seperating function definitions from XX.Setup() files in:
+  * PATHOGEN-PfSI-SimBite.R
+  * PATHOGEN-PfSI-Methods.R
+2. Format to follow for R6Class object documentation is Landscape docs in MICRO-Landscape-Class.R
+3. Research how to write articles, edit .YML, make pkgdown website better
+  * Will need to write full articles in markdown and post as pages / R Package style vignettes.
+  * see http://smitdave.github.io/MASH-Development/index.html pages as example.
+
+### FUTURE WORK:
+1. Research how to use interactive R Shiny apps within package functions:
+  * example: https://github.com/YosefLab/scone/blob/master/R/biplot_interactive.R
+2. Better output to .JSON; especially re jsonlite::stream_out()
