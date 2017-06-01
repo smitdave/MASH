@@ -2,18 +2,13 @@
 % Please edit documentation in R/MICRO-Landscape-Parameters.R
 \name{Landscape.Feeding.Parameters}
 \alias{Landscape.Feeding.Parameters}
-\title{MICRO: Generate Parameters for \code{Landscape} \code{AquaticSite}}
+\title{MICRO: Generate Parameters for \code{\link{Landscape}} \code{\link{FeedingSite}}}
 \usage{
-Landscape.Feeding.Parameters(nFeed, hhSize = 10, hhMin = 2,
-  pointGen = "poisson", searchWt = NULL, enterP = NULL, hazV = 0,
-  hazW = 0, hazI = 0, ...)
+Landscape.Feeding.Parameters(nFeed, pointGen = "poisson", searchWt = NULL,
+  enterP = NULL, hazV = 0, hazW = 0, hazI = 0, ...)
 }
 \arguments{
 \item{nFeed}{number of feeding sites}
-
-\item{hhSize}{average number of hosts at feeding sites}
-
-\item{hhMin}{minimum number of hosts at feeding sites}
 
 \item{pointGen}{character to select spatial point pattern generation function
 \itemize{

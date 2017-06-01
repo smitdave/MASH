@@ -96,18 +96,19 @@ Landscape <- R6::R6Class(classname = "Landscape",
                          # Generate Feeding Sites
                          #########################################
 
-                         private$FeedingSites = vector(mode="list",length=Landscape_Feeding_PAR$nFeed)
-                         for(ix in 1:Landscape_Feeding_PAR$nFeed){
+                         private$FeedingSites = vector(mode="list",length=FeedingSite_PAR$nFeed)
+                         self$FeedingSitesN = FeedingSite_PAR$nFeed
+                         for(ix in 1:FeedingSite_PAR$nFeed){
 
                            private$FeedingSites[[ix]] = FeedingSite$new(
                              ix = ix,
-                             siteXY = c(Landscape_Feeding_PAR$siteXY$x[ix],Landscape_Feeding_PAR$siteXY$y[ix]),
-                             searchWt = Landscape_Feeding_PAR$searchWt[ix],
-                             enterP = Landscape_Feeding_PAR$enterP[ix],
-                             hazV = Landscape_Feeding_PAR$hazV[ix],
-                             hazW = Landscape_Feeding_PAR$hazW[ix],
-                             hazI = Landscape_Feeding_PAR$hazI[ix],
-                             sugar = Landscape_Feeding_PAR$sugar[ix])
+                             siteXY = c(FeedingSite_PAR$siteXY$x[ix],FeedingSite_PAR$siteXY$y[ix]),
+                             searchWt = FeedingSite_PAR$searchWt[ix],
+                             enterP = FeedingSite_PAR$enterP[ix],
+                             hazV = FeedingSite_PAR$hazV[ix],
+                             hazW = FeedingSite_PAR$hazW[ix],
+                             hazI = FeedingSite_PAR$hazI[ix],
+                             sugar = FeedingSite_PAR$sugar[ix])
 
                          }
 
@@ -115,16 +116,17 @@ Landscape <- R6::R6Class(classname = "Landscape",
                          # Generate Aquatic Habitats
                          #########################################
 
-                         private$AquaSites = vector(mode="list",length=Landscape_Aqua_PAR$nAqua)
-                         for(ix in 1:Landscape_Aqua_PAR$nAqua){
+                         private$AquaSites = vector(mode="list",length=AquaticSite_PAR$nAqua)
+                         self$AquaSitesN = AquaticSite_PAR$nAqua
+                         for(ix in 1:AquaticSite_PAR$nAqua){
 
                            private$AquaSites[[ix]] = AquaticSite$new(
                             ix = ix,
-                            siteXY = c(Landscape_Aqua_PAR$siteXY$x[ix],Landscape_Aqua_PAR$siteXY$y[ix]),
-                            searchWt = Landscape_Aqua_PAR$searchWt[ix],
-                            module = Landscape_Aqua_PAR$module,
-                            lambda = Landscape_Aqua_PAR$lambda[[ix]],
-                            haz = Landscape_Aqua_PAR$haz[ix])
+                            siteXY = c(AquaticSite_PAR$siteXY$x[ix],AquaticSite_PAR$siteXY$y[ix]),
+                            searchWt = AquaticSite_PAR$searchWt[ix],
+                            module = AquaticSite_PAR$module,
+                            lambda = AquaticSite_PAR$lambda[[ix]],
+                            haz = AquaticSite_PAR$haz[ix])
 
                          }
 

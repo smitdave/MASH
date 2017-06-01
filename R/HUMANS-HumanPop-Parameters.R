@@ -88,8 +88,8 @@ sitePops <- function(N, siteSize = 10, siteMin = 2){
 #'
 #' @param nSite number of sites (either \code{\link{FeedingSite}} or \code{link{MacroPatch}})
 #' @param bWeight numeric value (if \code{NULL} biting weights are Gamma(1,1) distributed)
-#' @param demographics either a list or \code{NULL}; if \code{NULL} then \code{\link{sitePops}} is used to generate these parameters, see that function for details on the list structure that is expected.
-#' @param ... additional named arguments for \code{\link{sitePops}}
+#' @param siteSize average size of population at sites (passed to \code{\link{sitePops}})
+#' @param siteMin minimum size of population at sites (passed to \code{\link{sitePops}})
 #' @return return a list \code{HumanPop_PAR}
 #' @examples
 #' HumanPop.Parameters(nSite = 5)
@@ -101,11 +101,9 @@ sitePops <- function(N, siteSize = 10, siteMin = 2){
 #'  * bWeight: biting weight on humans
 #' @md
 #' @export
-HumanPop.Parameters <- function(nSite, bWeight = NULL, demographics = NULL, ...){
+HumanPop.Parameters <- function(nSite, bWeight = NULL, siteSize = 10, siteMin = 2){
 
-  if(is.null(demographics)){
-    demographics = sitePops(N=nSite,...)
-  }
+  demographics = sitePops(N=nSite,siteSize=siteSize,siteMin=siteMin)
 
   if(is.null(bWeight)){
     bWeight = rgamma(demographics$nHumans,1,1)

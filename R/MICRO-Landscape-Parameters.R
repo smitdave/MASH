@@ -153,7 +153,7 @@ betaRootA <- function(mean, beta = 1){
 # Parameter Generation Functions
 ####################################################################################
 
-#' MICRO: Generate Parameters for Landscape Object
+#' MICRO: Generate Parameters for \code{\link{Landscape}} Object
 #'
 #' This function is a specific instantiation of a generic system to generate parameters for a
 #' chosen landscape. Any user-specified function can be written to generate parameters, as long as the
@@ -170,10 +170,8 @@ betaRootA <- function(mean, beta = 1){
 #'  * "emerge": initialize parameters for Emerge module of Aquatic Ecology
 #'  * "EL4P": initialize parameters for EL4P module of Aquatic Ecology
 #' @param modulePars additional list of named parameters to be passed to Aquatic Ecology module specific parameter generating functions
-#'  * Emerge: see for deatils \code{\link{makeLambda_Micro}}
+#'  * Emerge: for details see \code{\link{makeLambda_Micro}}
 #'  * EL4P:
-#' @param hhSize average number of humans at feeding sites
-#' @param hhMin minimum number of humans at feeding sites
 #' @param hazV mean value for feeding site vegetation landing hazard (if 0 it is set to 0 for all sites)
 #' @param hazW mean value for feeding site outside wall landing hazard (if 0 it is set to 0 for all sites)
 #' @param hazI mean value for feeding site indoor wall landing hazard (if 0 it is set to 0 for all sites)
@@ -198,8 +196,6 @@ Landscape.Parameters <- function(
     pointGen = "poisson",
     module,
     modulePars,
-    hhSize = 10,
-    hhMin = 2,
     hazV = 0,
     hazW = 0,
     hazI = 0,
@@ -214,7 +210,7 @@ Landscape.Parameters <- function(
   ){
 
     # Feeding Sites
-    FeedingSite_PAR = Landscape.Feeding.Parameters(nFeed=nFeed,hhSize=hhSize,hhMin=hhMin,pointGen=pointGen,searchWt=searchFeed,enterP=enterP,hazV=hazV,hazW=hazW,hazI=hazI,...)
+    FeedingSite_PAR = Landscape.Feeding.Parameters(nFeed=nFeed,pointGen=pointGen,searchWt=searchFeed,enterP=enterP,hazV=hazV,hazW=hazW,hazI=hazI,...)
 
     # Aquatic Habitats
     aquaIx = sample(x = nFeed,size = nAqua,replace = TRUE)
@@ -234,13 +230,11 @@ Landscape.Parameters <- function(
 }
 
 
-#' MICRO: Generate Parameters for \code{Landscape} \code{AquaticSite}
+#' MICRO: Generate Parameters for \code{\link{Landscape}} \code{\link{FeedingSite}}
 #'
 #' This function generates a named list of parameters to initialize all \code{\link{AquaticSite}} objects on a MICRO \code{\link{Landscape}}.
 #'
 #' @param nFeed number of feeding sites
-#' @param hhSize average number of hosts at feeding sites
-#' @param hhMin minimum number of hosts at feeding sites
 #' @param pointGen character to select spatial point pattern generation function
 #'  * "poisson": \code{\link{pointsPoisson}}
 #'  * "clustered": \code{\link{pointsClustered}}
@@ -255,7 +249,7 @@ Landscape.Parameters <- function(
 #' @return return a list
 #' @md
 #' @export
-Landscape.Feeding.Parameters <- function(nFeed, hhSize = 10, hhMin = 2, pointGen = "poisson", searchWt = NULL, enterP = NULL, hazV = 0, hazW = 0, hazI = 0, ...){
+Landscape.Feeding.Parameters <- function(nFeed, pointGen = "poisson", searchWt = NULL, enterP = NULL, hazV = 0, hazW = 0, hazI = 0, ...){
 
   Landscape_Feeding_PAR = list()
   Landscape_Feeding_PAR$nFeed = nFeed
@@ -311,7 +305,7 @@ Landscape.Feeding.Parameters <- function(nFeed, hhSize = 10, hhMin = 2, pointGen
 }
 
 
-#' MICRO: Generate Parameters for \code{Landscape} \code{AquaticSite}
+#' MICRO: Generate Parameters for \code{\link{Landscape}} \code{\link{AquaticSite}}
 #'
 #' This function generates a named list of parameters to initialize all \code{\link{AquaticSite}} objects on a MICRO \code{\link{Landscape}}.
 #'
@@ -351,10 +345,6 @@ Landscape.Aqua.Parameters <- function(nAqua, siteXY, module , modulePars, search
   # Aquatic Ecology modules
   Landscape_Aqua_PAR$module = module
   if(module == "emerge"){
-
-    if(nAqua != length(modulePars$lambda)){
-      stop("modulePars lambda must be a vector equal to length of ")
-    }
 
     Landscape_Aqua_PAR$lambda = makeLambda_Micro(modulePars)
 

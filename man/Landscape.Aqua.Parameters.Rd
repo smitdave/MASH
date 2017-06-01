@@ -2,7 +2,7 @@
 % Please edit documentation in R/MICRO-Landscape-Parameters.R
 \name{Landscape.Aqua.Parameters}
 \alias{Landscape.Aqua.Parameters}
-\title{MICRO: Generate Parameters for \code{Landscape} \code{AquaticSite}}
+\title{MICRO: Generate Parameters for \code{\link{Landscape}} \code{\link{AquaticSite}}}
 \usage{
 Landscape.Aqua.Parameters(nAqua, siteXY, module, modulePars, searchWt = NULL,
   haz = 0)

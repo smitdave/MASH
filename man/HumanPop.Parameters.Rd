@@ -4,16 +4,16 @@
 \alias{HumanPop.Parameters}
 \title{Initialize HumanPop Parameters for \code{HumanPop}}
 \usage{
-HumanPop.Parameters(nSite, bWeight = NULL, demographics = NULL, ...)
+HumanPop.Parameters(nSite, bWeight = NULL, siteSize = 10, siteMin = 2)
 }
 \arguments{
 \item{nSite}{number of sites (either \code{\link{FeedingSite}} or \code{link{MacroPatch}})}
 
 \item{bWeight}{numeric value (if \code{NULL} biting weights are Gamma(1,1) distributed)}
 
-\item{demographics}{either a list or \code{NULL}; if \code{NULL} then \code{\link{sitePops}} is used to generate these parameters, see that function for details on the list structure that is expected.}
+\item{siteSize}{average size of population at sites (passed to \code{\link{sitePops}})}
 
-\item{...}{additional named arguments for \code{\link{sitePops}}}
+\item{siteMin}{minimum size of population at sites (passed to \code{\link{sitePops}})}
 }
 \value{
 return a list \code{HumanPop_PAR}
