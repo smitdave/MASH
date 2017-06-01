@@ -68,6 +68,8 @@ to initialize first make the HumanPop object then for PfSI you will need to run 
   - full_XX(): return indices of full slots (0L if none)
   - empty_XX(): return indices of empty slots (0L if none)
   - init_XX(): used to initalize routines (see init_MacroHuman_travel() in MACRO-Human-Travel.R)
+  - sim_XX(): simulate a thing (eg sim_ActivitySpace)
+    * need to turn simMacro into sim_Macro()
 
 # dave MACRO to sean R6 MACRO name changes
 * w = biteWeight

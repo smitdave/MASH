@@ -152,6 +152,25 @@ MICRO.Humans.Setup <- function(overwrite = TRUE){
   # MICRO-Human-ActivitySpace.R
   #############################################
 
+  Human$set(which = "private",name = "ActivitySpace",
+            value = list(
+              nDaily = 0L,
+              Nplaces = 0L,
+              p = 1,
+              loc = 0L
+            ),
+            overwrite = overwrite
+  )
+
+  Human$set(which = "private",name = "get_ActivitySpace",
+            value = get_MicroHuman_ActivitySpace,
+            overwrite = overwrite
+  )
+
+  Human$set(which = "private",name = "set_ActivitySpace",
+            value = set_MicroHuman_ActivitySpace,
+            overwrite = overwrite
+  )
 
 
 }
