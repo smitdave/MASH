@@ -45,6 +45,8 @@ Mosquito <- R6::R6Class(classname = "Mosquito",
                  # private members
                  private = list(
 
+                   # Biological Fields
+
                    # ID and time
                    id        = NULL,        # mosquito id
                    bDay      = NULL,        # time of emergence
@@ -65,7 +67,10 @@ Mosquito <- R6::R6Class(classname = "Mosquito",
                    damage    = NULL,        # wing tattering
                    energy    = NULL,        # energy reserves
 
-                   history = list()         # history
+                   history = list(),        # history
+
+                   # Pointers
+                   MosquitoPopPointer = NULL
 
                  )
 )
