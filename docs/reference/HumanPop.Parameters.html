@@ -80,7 +80,7 @@
     <p>make a list of pars for <code><a href='HumanPop.html'>HumanPop</a></code></p>
     
 
-    <pre class="usage"><span class='fu'>HumanPop.Parameters</span>(<span class='no'>nSite</span>, <span class='kw'>bWeight</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>demographics</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>HumanPop.Parameters</span>(<span class='no'>nSite</span>, <span class='kw'>bWeight</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>siteSize</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>siteMin</span> <span class='kw'>=</span> <span class='fl'>2</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -94,12 +94,12 @@
       <td><p>numeric value (if <code>NULL</code> biting weights are Gamma(1,1) distributed)</p></td>
     </tr>
     <tr>
-      <th>demographics</th>
-      <td><p>either a list or <code>NULL</code>; if <code>NULL</code> then <code><a href='sitePops.html'>sitePops</a></code> is used to generate these parameters, see that function for details on the list structure that is expected.</p></td>
+      <th>siteSize</th>
+      <td><p>average size of population at sites (passed to <code><a href='sitePops.html'>sitePops</a></code>)</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>additional named arguments for <code><a href='sitePops.html'>sitePops</a></code></p></td>
+      <th>siteMin</th>
+      <td><p>minimum size of population at sites (passed to <code><a href='sitePops.html'>sitePops</a></code>)</p></td>
     </tr>
     </table>
     

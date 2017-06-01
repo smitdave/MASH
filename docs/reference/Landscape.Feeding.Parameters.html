@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MICRO: Generate Parameters for <code>Landscape</code> <code>AquaticSite</code> — Landscape.Feeding.Parameters • MASH.R6</title>
+<title>MICRO: Generate Parameters for <code>Landscape</code> <code>FeedingSite</code> — Landscape.Feeding.Parameters • MASH.R6</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -73,16 +73,15 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>MICRO: Generate Parameters for <code>Landscape</code> <code>AquaticSite</code></h1>
+    <h1>MICRO: Generate Parameters for <code>Landscape</code> <code>FeedingSite</code></h1>
     </div>
 
     
     <p>This function generates a named list of parameters to initialize all <code><a href='AquaticSite.html'>AquaticSite</a></code> objects on a MICRO <code><a href='Landscape.html'>Landscape</a></code>.</p>
     
 
-    <pre class="usage"><span class='fu'>Landscape.Feeding.Parameters</span>(<span class='no'>nFeed</span>, <span class='kw'>hhSize</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>hhMin</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-  <span class='kw'>pointGen</span> <span class='kw'>=</span> <span class='st'>"poisson"</span>, <span class='kw'>searchWt</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>enterP</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>hazV</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>hazW</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>hazI</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>Landscape.Feeding.Parameters</span>(<span class='no'>nFeed</span>, <span class='kw'>pointGen</span> <span class='kw'>=</span> <span class='st'>"poisson"</span>, <span class='kw'>searchWt</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>enterP</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>hazV</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>hazW</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>hazI</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -90,14 +89,6 @@
     <tr>
       <th>nFeed</th>
       <td><p>number of feeding sites</p></td>
-    </tr>
-    <tr>
-      <th>hhSize</th>
-      <td><p>average number of hosts at feeding sites</p></td>
-    </tr>
-    <tr>
-      <th>hhMin</th>
-      <td><p>minimum number of hosts at feeding sites</p></td>
     </tr>
     <tr>
       <th>pointGen</th>
