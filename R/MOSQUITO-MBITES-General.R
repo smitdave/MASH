@@ -22,7 +22,7 @@
 #'
 #'
 #' @return modifies the \code{MosquitoFemale} and \code{MosquitoMale} classes.
-#' @examples
+#' @export
 init.mbitesGeneric <- function(){
 
   # alert user

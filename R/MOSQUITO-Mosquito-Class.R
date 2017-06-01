@@ -12,7 +12,26 @@
 # Generic Mosquito Class
 #################################################################
 
-Mosquito <- R6Class(classname = "Mosquito",
+
+#' MICRO Generic Mosquito Class Definition
+#'
+#' This is a generic Mosquito class definition, it is a superclass for \code{\link{MosquitoFemale}} and \code{\link{MosquitoMale}} and cannot be independently instantiated.
+#'
+#' @docType class
+#' @format An \code{\link{R6Class}} generator object
+#' @keywords R6 class
+#'
+#' @section Methods:
+#'  * **Constructor**
+#'    * none: see \code{\link{MosquitoFemale}} and \code{\link{MosquitoMale}} for inheriting classes
+#'  * **Getters & Setters**
+#'    * get_id:
+#'  * **Pointers**
+#'
+#'
+#' @md
+#' @export
+Mosquito <- R6::R6Class(classname = "Mosquito",
                  portable = TRUE,
                  cloneable = FALSE,
                  lock_class = FALSE,
@@ -56,7 +75,7 @@ Mosquito <- R6Class(classname = "Mosquito",
 # Female Mosquito Class
 #################################################################
 
-MosquitoFemale <- R6Class(classname = "MosquitoFemale",
+MosquitoFemale <- R6::R6Class(classname = "MosquitoFemale",
                           inherit = Mosquito,
                           portable = TRUE,
                           cloneable = FALSE,
@@ -176,7 +195,7 @@ MosquitoFemale <- R6Class(classname = "MosquitoFemale",
 # Male Mosquito Class
 #################################################################
 
-MosquitoMale <- R6Class(classname = "MosquitoMale",
+MosquitoMale <- R6::R6Class(classname = "MosquitoMale",
                         inherit = Mosquito,
                         portable = TRUE,
                         cloneable = FALSE,

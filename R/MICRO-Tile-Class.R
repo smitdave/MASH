@@ -63,6 +63,8 @@ MicroTile <- R6::R6Class(classname = "MicroTile",
 
                    initialize = function(MicroTile_PAR){
 
+                     # set everyone's pointers to each other.
+
                    },
 
                    #################################################################

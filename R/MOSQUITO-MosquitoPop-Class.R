@@ -13,7 +13,7 @@
 # Generic Mosquito Population Class
 #################################################################
 
-MosquitoPop <- R6Class(classname = "MosquitoPop",
+MosquitoPop <- R6::R6Class(classname = "MosquitoPop",
                     portable = TRUE,
                     cloneable = FALSE,
                     lock_class = FALSE,
@@ -36,7 +36,7 @@ MosquitoPop <- R6Class(classname = "MosquitoPop",
 # Female Mosquito Population Class
 #################################################################
 
-MosquitoPopFemale <- R6Class(classname = "MosquitoPopFemale",
+MosquitoPopFemale <- R6::R6Class(classname = "MosquitoPopFemale",
                        inherit = MosquitoPop,
                        portable = TRUE,
                        cloneable = FALSE,
@@ -60,7 +60,7 @@ MosquitoPopFemale <- R6Class(classname = "MosquitoPopFemale",
 # Male Mosquito Population Class
 #################################################################
 
-MosquitoPopMale <- R6Class(classname = "MosquitoPopMale",
+MosquitoPopMale <- R6::R6Class(classname = "MosquitoPopMale",
                              inherit = MosquitoPop,
                              portable = TRUE,
                              cloneable = FALSE,

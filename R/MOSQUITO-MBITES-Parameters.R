@@ -100,6 +100,7 @@
 #' @return a named list of parameters
 #' @examples
 #' P = MBITES.PAR()
+#' @export
 MBITES.PAR <- function(
 
   # landscape creation parameters

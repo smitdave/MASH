@@ -38,7 +38,7 @@
 #'   \item{\code{cats}}{...}
 #' }
 #' @export
-Site <- R6::R6Class(classname = "Site",
+MicroSite <- R6::R6Class(classname = "Site",
                  portable = TRUE,
                  cloneable = FALSE,
                  lock_class = FALSE,
@@ -116,7 +116,7 @@ Site <- R6::R6Class(classname = "Site",
 #' @md
 #' @export
 FeedingSite <- R6::R6Class(classname = "FeedingSite",
-                 inherit = Site,
+                 inherit = MicroSite,
                  portable = TRUE,
                  cloneable = FALSE,
                  lock_class = FALSE,
@@ -226,7 +226,7 @@ FeedingSite <- R6::R6Class(classname = "FeedingSite",
 #' }
 #' @export
 AquaticSite <- R6::R6Class(classname = "AquaticSite",
-                 inherit = Site,
+                 inherit = MicroSite,
                  portable = TRUE,
                  cloneable = FALSE,
                  lock_class = FALSE,

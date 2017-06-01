@@ -32,7 +32,7 @@
 #'
 #'
 #' @return modifies the \code{MosquitoFemale} and \code{MosquitoMale} classes.
-#' @examples
+#' @export
 init.mbitesEnergetics <- function(
 
     SUGAR = TRUE,

@@ -39,9 +39,8 @@ MACRO.Tile.Parameters <- function(
   aquaPars = list(lambda=rep(10,10))
 
   ){
-    # browser()
-    demographics = sitePops(N=N,siteSize=patchSize,siteMin=patchMin)
-    HumanPop_PAR = HumanPop.Parameters(nSite = N, demographics = demographics)
+    
+    HumanPop_PAR = HumanPop.Parameters(nSite = N, siteSize=patchSize,siteMin=patchMin)
 
     patch_hhID_helper = rle(x = demographics$homeHumanID)
     patch_hhID = mapply(FUN = function(x,y){
