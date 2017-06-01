@@ -8,9 +8,11 @@
 #
 #################################################################
 
-# NOTE: ALL OF THIS STUFF NEEDS TO GET INITIALIZED TO THE PROPER CLASSES IN
-# MICRO.Humans.Setup() akin to MACRO.Humans.Setup()
+# see: MICRO-Human-Setup.R: MICRO.Humans.Setup() for initialization to proper classes
 
+#################################################################
+# Getters & Setters
+#################################################################
 
 #' MICRO: Get \code{\link{Human}} ActivitySpace
 #'
@@ -37,6 +39,10 @@ set_MicroHuman_ActivitySpace <- function(nDaily, Nplaces, p, loc){
 }
 
 
+#################################################################
+# Initialize Activity Space
+#################################################################
+
 #' MICRO \code{\link{HumanPop}} Method: Initialize Activity Space
 #'
 #' This function is bound to \code{HumanPop$init_ActivitySpace()}
@@ -45,17 +51,69 @@ set_MicroHuman_ActivitySpace <- function(nDaily, Nplaces, p, loc){
 #'
 init_MicroHumanPop_ActivitySpace <- function(nDaily = 1.4){
 
+  for(ixH in 1:self$nHumans){
+    private$pop[[ixH]]$init_ActivitySpace(nDaily = nDaily)
+  }
+
+}
+
+#' MICRO \code{\link{Human}} Method: Initialize Activity Space
+#'
+#' This function is bound to \code{Human$init_ActivitySpace()}
+#'
+#' @param nDaily average daily number of other sites visited
+#'
+init_MicroHuman_ActivitySpace <- function(nDaily){
+
+  Nplaces = 1 + rpois(n=1,lambda=3)
+  Nplaces = min(Nplaces,self$get_LandscapePointer()$FeedingSitesN)
+  p = rbeta(n=1,shape1=100,shape2=6)
+  loc = sample(x = (1:self$get_LandscapePointer()$FeedingSitesN)[-private$hhID],size = Nplaces)
+
+  # set my ActivitySpace
+  private$ActivitySpace$nDaily = nDaily
+  private$ActivitySpace$Nplaces = Nplaces
+  private$ActivitySpace$p = p
+  private$ActivitySpace$loc = loc
+
 }
 
 
+#################################################################
+# Simulate Activity Space
+#################################################################
+
+#' MICRO \code{\link{HumanPop}} Method: Simulate Activity Space
+#'
+#' This function is bound to \code{HumanPop$sim_ActivitySpace()}
+#'
+sim_MicroHumanPop_ActivitySpace <- function(){
+
+  for(ixH in 1:self$nHumans){
+    private$pop[[ixH]]$sim_ActivitySpace()
+  }
+
+}
 
 
 #' MICRO \code{\link{Human}} Method: Initialize Activity Space
 #'
-#' This function is bound to \code{Human$set_LandscapePointer()}
+#' This function is bound to \code{Human$sim_ActivitySpace()}
 #'
-#' @param LandscapePointer the R6 \code{\link{Landscape}} object to point to
-#'
-init_MicroHuman_ActivitySpace <- function(){
+sim_MicroHuman_ActivitySpace <- function(){
+
+  # add risk at home site
+  pD = rbeta(n=1,shape1=100,shape2=100*(1-private$ActivitySpace$p)/private$ActivitySpace$p) # proportion of time at home site today
+  self$get_LandscapePointer()$get_FeedingSites(private$hhID)$add_riskList(who = private$myID, pTm = pD, w = private$bWeight) # add home site risk to Landscape$FeedingSite
+
+  # add risk from visited sites
+  nD = min(rpois(n=1,lambda=private$ActivitySpace$nDaily),private$ActivitySpace$Nplaces) # draw random number of other sites visited
+  if(nD > 0){
+    # sample sites in loc vector to visit
+    fD = sample(x = Nplaces, size = nD, replace = FALSE)
+    for(ixS in 1:nD){
+      self$get_LandscapePointer()$get_FeedingSites(private$ActivitySpace$loc[fD[ixS]])$add_riskList(who = private$myID, pTm = (1-pD)/nD, w = private$bWeight)
+    }
+  }
 
 }

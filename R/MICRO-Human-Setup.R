@@ -162,13 +162,33 @@ MICRO.Humans.Setup <- function(overwrite = TRUE){
             overwrite = overwrite
   )
 
-  Human$set(which = "private",name = "get_ActivitySpace",
+  Human$set(which = "public",name = "get_ActivitySpace",
             value = get_MicroHuman_ActivitySpace,
             overwrite = overwrite
   )
 
-  Human$set(which = "private",name = "set_ActivitySpace",
+  Human$set(which = "public",name = "set_ActivitySpace",
             value = set_MicroHuman_ActivitySpace,
+            overwrite = overwrite
+  )
+
+  HumanPop$set(which = "public",name = "init_ActivitySpace",
+            value = init_MicroHumanPop_ActivitySpace,
+            overwrite = overwrite
+  )
+
+  Human$set(which = "public",name = "init_ActivitySpace",
+            value = init_MicroHuman_ActivitySpace,
+            overwrite = overwrite
+  )
+
+  HumanPop$set(which = "public",name = "sim_ActivitySpace",
+            value = sim_MicroHumanPop_ActivitySpace,
+            overwrite = overwrite
+  )
+
+  Human$set(which = "public",name = "sim_ActivitySpace",
+            value = sim_MicroHuman_ActivitySpace,
             overwrite = overwrite
   )
 
