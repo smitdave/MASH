@@ -44,4 +44,8 @@ yy$clear_ImagoQ()
 Landscape_PAR = Landscape.Parameters(nFeed = 10,nAqua = 12,module = "emerge",modulePars = list(N=12,lambda=5))
 zz = Landscape$new(Landscape_PAR)
 
+# make a Tile
+MICRO.Humans.Setup(overwrite = TRUE)
 
+MicroTile_PAR = MICRO.Tile.Parameters(nFeed = 5,nAqua = 3,module = "emerge",modulePars = list(N=3,lambda=7))
+tile = MicroTile$new(MicroTile_PAR)

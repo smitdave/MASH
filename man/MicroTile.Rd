@@ -16,37 +16,30 @@ I talk about something here
 \item somewhere 2
 }
 }
-\details{
-talk about me in detail!
-}
-\section{public}{
+\section{Methods}{
 
 \itemize{
-\item{\code{initialize(N)}}{
-talk about me!
-}
-\item{\code{function()}}{
-talk about me!
-}
-}
-}
-
-\section{private}{
-
+\item \strong{Constructor}
 \itemize{
-\item{\code{function()}}{
-talk about me!
-}
-\item{\code{function()}}{
-talk about me!
-}
-}
-}
-
-\section{Active Bindings}{
-
+\item new: initialize a new \code{MicroTile} object
 \itemize{
-\item{\code{coolActiveBinding}}{...}
+\item Arguments:
+\itemize{
+\item \code{MicroTile_PAR}: see \code{\link{MICRO.Tile.Parameters}} for parameter generation function.
+}
+}
+}
+\item \strong{Getters & Setters}
+\itemize{
+\item get_tNow:
+\item set_tNow:
+\item get_MicroTile_PAR:
+\item set_MicroTile_PAR:
+\item get_HumanPop:
+\item get_Landscape:
+\item get_FemalePop:
+\item get_MalePop:
+}
 }
 }
 

@@ -45,6 +45,7 @@
 #' @param hhSize average number of humans at feeding sites
 #' @param hhMin minimum number of humans at feeding sites
 #' @param bWeight numeric value of biting weights on \code{\link{Human}} (if \code{NULL} biting weights are Gamma(1,1) distributed)
+#' @param ... additional named arguments for pointGen()
 #' @return a named list of parameters
 #' * Landscape_PAR: see \code{\link{Landscape.Parameters}} for details
 #' * HumanPop_PAR: see \code{\link{HumanPop.Parameters}} for details
@@ -69,10 +70,13 @@ MICRO.Tile.Parameters <- function(
     aquaSD = 0.025,
     hhSize = 7,
     hhMin = 2,
-    bWeight = NULL
+    bWeight = NULL,
+    ...
   ){
 
-    Landscape_PAR = Landscape.Parameters()
+    Landscape_PAR = Landscape.Parameters(nFeed=nFeed,nAqua=nAqua,pointGen=pointGen,module=module,modulePars=modulePars,
+                                          hazV=hazV,hazW=hazW,hazI=hazI,haz=haz,searchFeed=searchFeed,searchAqua=searchAqua,
+                                          enterP=enterP,xLim=xLim,yLim=yLim,aquaSD=aquaSD,...)
     HumanPop_PAR = HumanPop.Parameters(nSite = nFeed, bWeight = bWeight, siteSize = hhSize, siteMin = hhMin)
 
     MicroTile_PAR = list(Landscape_PAR=Landscape_PAR,HumanPop_PAR=HumanPop_PAR)

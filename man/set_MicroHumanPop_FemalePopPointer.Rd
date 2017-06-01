@@ -4,7 +4,7 @@
 \alias{set_MicroHumanPop_FemalePopPointer}
 \title{MICRO: Set \code{\link{HumanPop}} \code{\link{MosquitoPopFemale}} Pointer}
 \usage{
-set_MicroHumanPop_FemalePopPointer(LandscapePointer)
+set_MicroHumanPop_FemalePopPointer(FemalePopPointer)
 }
 \arguments{
 \item{LandscapePointer}{the R6 \code{\link{MosquitoPopFemale}} object to point to}

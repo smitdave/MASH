@@ -7,7 +7,7 @@
 MICRO.Tile.Parameters(nFeed, nAqua, pointGen = "poisson", module, modulePars,
   hazV = 0, hazW = 0, hazI = 0, haz = 0, searchFeed = NULL,
   searchAqua = NULL, enterP = NULL, xLim = c(0, 1), yLim = c(0, 1),
-  aquaSD = 0.025, hhSize = 7, hhMin = 2, bWeight = NULL)
+  aquaSD = 0.025, hhSize = 7, hhMin = 2, bWeight = NULL, ...)
 }
 \arguments{
 \item{nFeed}{number of feeding sites}
@@ -59,6 +59,8 @@ MICRO.Tile.Parameters(nFeed, nAqua, pointGen = "poisson", module, modulePars,
 \item{hhMin}{minimum number of humans at feeding sites}
 
 \item{bWeight}{numeric value of biting weights on \code{\link{Human}} (if \code{NULL} biting weights are Gamma(1,1) distributed)}
+
+\item{...}{additional named arguments for pointGen()}
 }
 \value{
 a named list of parameters

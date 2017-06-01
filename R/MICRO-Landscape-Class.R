@@ -140,9 +140,9 @@ Landscape <- R6::R6Class(classname = "Landscape",
                   # FeedingSites
                   get_FeedingSites = function(ixS = NULL){
                     if(is.null(ixS)){
-                      return(private$FeedingSites[[ixS]])
-                    } else {
                       return(private$FeedingSites)
+                    } else {
+                      return(private$FeedingSites[[ixS]])
                     }
                   },
                   set_FeedingSites = function(FeedingSites, ixS = NULL){
@@ -156,9 +156,9 @@ Landscape <- R6::R6Class(classname = "Landscape",
                   # AquaSites
                   get_AquaSites = function(ixS = NULL){
                     if(is.null(ixS)){
-                      return(private$AquaSites[[ixS]])
-                    } else {
                       return(private$AquaSites)
+                    } else {
+                      return(private$AquaSites[[ixS]])
                     }
                   },
                   set_AquaSites = function(AquaSites, ixS = NULL){
@@ -172,9 +172,9 @@ Landscape <- R6::R6Class(classname = "Landscape",
                   # SugarSites
                   get_SugarSites = function(ixS = NULL){
                     if(is.null(ixS)){
-                      return(private$MatingSites[[ixS]])
-                    } else {
                       return(private$MatingSites)
+                    } else {
+                      return(private$MatingSites[[ixS]])
                     }
                   },
                   set_SugarSites = function(SugarSites, ixS = NULL){
@@ -188,9 +188,9 @@ Landscape <- R6::R6Class(classname = "Landscape",
                   # MatingSites
                   get_MatingSites = function(ixS = NULL){
                     if(is.null(ixS)){
-                      return(private$MatingSites[[ixS]])
-                    } else {
                       return(private$MatingSites)
+                    } else {
+                      return(private$MatingSites[[ixS]])
                     }
                   },
                   set_MatingSites = function(MatingSites, ixS = NULL){

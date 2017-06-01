@@ -117,6 +117,10 @@ MacroTile <- R6::R6Class(classname = "MacroTile",
                      return(private$MacroTile_PAR)
                    },
 
+                   set_MacroTile_PAR = function(MacroTile_PAR){
+                     private$MacroTile_PAR = MacroTile_PAR
+                   },
+
                    get_HumanPop = function(){
                      return(private$HumanPop)
                    },
