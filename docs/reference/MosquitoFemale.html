@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generate Matern Clustering Point Pattern for Landscape Sites — pointsClustered • MASH.R6</title>
+<title>MICRO Female Mosquito Class Definition — MosquitoFemale • MASH.R6</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -73,65 +73,57 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generate Matern Clustering Point Pattern for Landscape Sites</h1>
+    <h1>MICRO Female Mosquito Class Definition</h1>
     </div>
 
     
-    <p>This function is a low-level utility to generate spatial point patterns for the MICRO-LANDSCAPE point sets.</p>
+    <p>This is a female mosquito class definition for MICRO; it inherits (superclass) from <code><a href='MicroMosquito.html'>MicroMosquito</a></code>.</p>
     
 
-    <pre class="usage"><span class='fu'>pointsClustered</span>(<span class='no'>n</span>, <span class='kw'>meanParents</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>clusteredness</span> <span class='kw'>=</span> <span class='fl'>0.25</span>, <span class='kw'>xLim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>1</span>),
-  <span class='kw'>yLim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>1</span>))</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>n</th>
-      <td><p>number of points to generate</p></td>
-    </tr>
-    <tr>
-      <th>meanParents</th>
-      <td><p>intensity of Poisson process for cluster centers</p></td>
-    </tr>
-    <tr>
-      <th>clusteredness</th>
-      <td><p>control mean scatter of child points around cluster centers</p></td>
-    </tr>
-    <tr>
-      <th>xLim</th>
-      <td><p>a length 2 numeric vector of bounds for the sampling grid</p></td>
-    </tr>
-    <tr>
-      <th>yLim</th>
-      <td><p>a length 2 numeric vector of bounds for the sampling grid</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <pre class="usage"><span class='no'>MosquitoFemale</span></pre>
+        
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>a list with two elements x and y corresponding to the sampled points</p>
+    <p>An <code>R6Class</code> generator object</p>
+    
+    <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
+
+    
+    <ul>
+<li><p><strong>Constructor</strong></p><ul>
+<li><p>new: initialize a new <code>MosquitoFemale</code> object</p><ul>
+<li><p>Arguments:</p><ul>
+<li><p>arg1: something.</p></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Getters &amp; Setters</strong></p><ul>
+<li><p>get_id:</p></li>
+</ul></li>
+<li><p><strong>Pointers</strong></p><ul>
+<li><p>get_FemalePopPointer: get pointer to enclosing <code>MosquitoPopFemale</code></p></li>
+<li><p>set_FemalePopPointer: set pointer to enclosing <code>MosquitoPopFemale</code></p></li>
+<li><p>get_MalePopPointer: get pointer to <code>MosquitoPopMale</code> in same enclosing microsimulation Tile <code><a href='MicroTile.html'>MicroTile</a></code></p></li>
+<li><p>set_MalePopPointer: set pointer to <code>MosquitoPopMale</code> in same enclosing microsimulation Tile <code><a href='MicroTile.html'>MicroTile</a></code></p></li>
+<li><p>get_LandscapePointer: get pointer to <code><a href='Landscape.html'>Landscape</a></code> in same enclosing microsimulation Tile <code><a href='MicroTile.html'>MicroTile</a></code></p></li>
+<li><p>set_LandscapePointer: set pointer to <code><a href='Landscape.html'>Landscape</a></code> in same enclosing microsimulation Tile <code><a href='MicroTile.html'>MicroTile</a></code></p></li>
+<li><p>get_HumansPointer: get pointer to <code><a href='HumanPop.html'>HumanPop</a></code> in same enclosing microsimulation Tile <code><a href='MicroTile.html'>MicroTile</a></code></p></li>
+<li><p>set_HumansPointer: set pointer to <code><a href='HumanPop.html'>HumanPop</a></code> in same enclosing microsimulation Tile <code><a href='MicroTile.html'>MicroTile</a></code></p></li>
+<li><p>get_TilePointer: get pointer to enclosing microsimulation Tile <code><a href='MicroTile.html'>MicroTile</a></code></p></li>
+<li><p>set_TilePointer: set pointer to enclosing microsimulation Tile <code><a href='MicroTile.html'>MicroTile</a></code></p></li>
+</ul></li>
+</ul>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>pointsClustered</span>(<span class='kw'>n</span><span class='kw'>=</span><span class='fl'>10</span>, <span class='kw'>meanParents</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>clusteredness</span> <span class='kw'>=</span> <span class='fl'>.25</span>, <span class='kw'>xLim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>0</span>,<span class='fl'>1</span>), <span class='kw'>yLim</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>0</span>,<span class='fl'>1</span>))</div><div class='output co'>#&gt; $x
-#&gt;  [1] 0.20591417 0.24345026 0.20073992 0.18118065 0.07894503 0.01280815
-#&gt;  [7] 0.02349493 0.13875434 0.55971513 0.91246383
-#&gt; 
-#&gt; $y
-#&gt;  [1] 0.61439335 0.87905640 0.15396062 0.13028685 0.56391204 0.55392260
-#&gt;  [7] 0.61109736 0.54406702 0.08446788 0.99234781
-#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+      <li><a href="#format">Format</a></li>
+
+      <li><a href="#methods">Methods</a></li>
+          </ul>
 
   </div>
 </div>

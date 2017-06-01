@@ -31,7 +31,7 @@
 #'
 #' @md
 #' @export
-Mosquito <- R6::R6Class(classname = "Mosquito",
+MicroMosquito <- R6::R6Class(classname = "Mosquito",
                  portable = TRUE,
                  cloneable = FALSE,
                  lock_class = FALSE,
@@ -67,10 +67,7 @@ Mosquito <- R6::R6Class(classname = "Mosquito",
                    damage    = NULL,        # wing tattering
                    energy    = NULL,        # energy reserves
 
-                   history = list(),        # history
-
-                   # Pointers
-                   MosquitoPopPointer = NULL
+                   history = list()        # history
 
                  )
 )
@@ -80,8 +77,40 @@ Mosquito <- R6::R6Class(classname = "Mosquito",
 # Female Mosquito Class
 #################################################################
 
+
+#' MICRO Female Mosquito Class Definition
+#'
+#' This is a female mosquito class definition for MICRO; it inherits (superclass) from \code{\link{MicroMosquito}}.
+#'
+#'
+#' @docType class
+#' @format An \code{\link{R6Class}} generator object
+#' @keywords R6 class
+#'
+#' @section Methods:
+#'  * **Constructor**
+#'    * new: initialize a new \code{MosquitoFemale} object
+#'      * Arguments:
+#'        * arg1: something.
+#'  * **Getters & Setters**
+#'    * get_id:
+#'  * **Pointers**
+#'    * get_FemalePopPointer: get pointer to enclosing \code{\link{MosquitoPopFemale}}
+#'    * set_FemalePopPointer: set pointer to enclosing \code{\link{MosquitoPopFemale}}
+#'    * get_MalePopPointer: get pointer to \code{\link{MosquitoPopMale}} in same enclosing microsimulation Tile \code{\link{MicroTile}}
+#'    * set_MalePopPointer: set pointer to \code{\link{MosquitoPopMale}} in same enclosing microsimulation Tile \code{\link{MicroTile}}
+#'    * get_LandscapePointer: get pointer to \code{\link{Landscape}} in same enclosing microsimulation Tile \code{\link{MicroTile}}
+#'    * set_LandscapePointer: set pointer to \code{\link{Landscape}} in same enclosing microsimulation Tile \code{\link{MicroTile}}
+#'    * get_HumansPointer: get pointer to \code{\link{HumanPop}} in same enclosing microsimulation Tile \code{\link{MicroTile}}
+#'    * set_HumansPointer: set pointer to \code{\link{HumanPop}} in same enclosing microsimulation Tile \code{\link{MicroTile}}
+#'    * get_TilePointer: get pointer to enclosing microsimulation Tile \code{\link{MicroTile}}
+#'    * set_TilePointer: set pointer to enclosing microsimulation Tile \code{\link{MicroTile}}
+#'
+#'
+#' @md
+#' @export
 MosquitoFemale <- R6::R6Class(classname = "MosquitoFemale",
-                          inherit = Mosquito,
+                          inherit = MicroMosquito,
                           portable = TRUE,
                           cloneable = FALSE,
                           lock_class = FALSE,
@@ -168,12 +197,58 @@ MosquitoFemale <- R6::R6Class(classname = "MosquitoFemale",
 
                               })
 
-                            } # end initializer
+                            }, # end initializer
+
+                            ##############################################################
+                            # Pointers
+                            ##############################################################
+
+                            # MosquitoPopFemale
+                            get_FemalePopPointer = function(){
+                              return(private$FemalePopPointer)
+                            },
+                            set_FemalePopPointer = function(FemalePopPointer){
+                              private$FemalePopPointer = FemalePopPointer
+                            },
+
+                            # MosquitoPopMale
+                            get_MalePopPointer = function(){
+                              return(private$MalePopPointer)
+                            },
+                            set_MalePopPointer = function(MalePopPointer){
+                              private$MalePopPointer = MalePopPointer
+                            },
+
+                            # Landscape
+                            get_LandscapePointer = function(){
+                              return(private$LandscapePointer)
+                            },
+                            set_LandscapePointer = function(LandscapePointer){
+                              private$LandscapePointer = LandscapePointer
+                            },
+
+                            # HumanPop
+                            get_HumansPointer = function(){
+                              return(private$HumansPointer)
+                            },
+                            set_HumansPointer = function(HumansPointer){
+                              private$HumansPointer = HumansPointer
+                            },
+
+                            # MicroTile
+                            get_TilePointer = function(){
+                              return(private$TilePointer)
+                            },
+                            set_TilePointer = function(TilePointer){
+                              private$TilePointer = TilePointer
+                            }
 
                           ),
 
                           # private members
                           private = list(
+
+                            # Biological Fields
 
                             # Egg Batch Variables
                             bmSize = 0,         # the size of the blood meal, relative to max
@@ -189,7 +264,15 @@ MosquitoFemale <- R6::R6Class(classname = "MosquitoFemale",
                             # Infection events
                             hostID  = 0,           # the id of the host: -1::none; 0::not human
                             EIP     = NULL,        # length of extrinstic incubation period
-                            Pf      = list(nInf = 0, tInf = 0, spz = FALSE, PfM = list())
+                            Pf      = NULL,
+
+                            # Pointers
+
+                            FemalePopPointer = NULL,  # Point to enclosing MosquitoPopFemale
+                            MalePopPointer = NULL,    # Point to MosquitoPopMale in the same microsimulation Tile
+                            LandscapePointer = NULL,  # Point to Landscape object in same microsimulation Tile
+                            HumansPointer = NULL,     # Point to HumanPop object in same microsimulation Tile
+                            TilePointer = NULL        # Point to enclosing microsimulation Tile
 
                           )
 
@@ -201,7 +284,7 @@ MosquitoFemale <- R6::R6Class(classname = "MosquitoFemale",
 #################################################################
 
 MosquitoMale <- R6::R6Class(classname = "MosquitoMale",
-                        inherit = Mosquito,
+                        inherit = MicroMosquito,
                         portable = TRUE,
                         cloneable = FALSE,
                         lock_class = FALSE,
