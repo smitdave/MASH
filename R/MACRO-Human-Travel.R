@@ -10,7 +10,7 @@
 
 
 ###################################################################
-# travelHabit: initialize inter-patch travel
+# Travel: initialize inter-patch travel
 ###################################################################
 
 #' Get \code{Human} travel
@@ -37,7 +37,7 @@ set_travel <- function(travel){
   private$travel = travel
 }
 
-#' MACRO \code{Human} Method: travelHabit
+#' MACRO \code{\link{Human}} Method: Initialize Travel
 #'
 #' Write me! a method for \code{\link{Human}}
 #'
@@ -47,7 +47,7 @@ set_travel <- function(travel){
 #' @return does stuff
 #' @examples
 #' some_function()
-travelHabit <- function(n, freqMean = 7, freqSd = 2, lengthMean = 2, lengthSd = 1, tNow = 0){
+init_MacroHuman_travel <- function(n, freqMean = 7, freqSd = 2, lengthMean = 2, lengthSd = 1, tNow = 0){
 
   N = self$get_PatchesPointer()$get_N() # how many patches
   here = self$get_patchID() # where is my home?
@@ -87,7 +87,7 @@ travelHabit <- function(n, freqMean = 7, freqSd = 2, lengthMean = 2, lengthSd = 
 
 #' Track \code{Human} Travel History
 #'
-#' Write me! Defined in MACRO-Human-Movement.R
+#' Write me! Defined in MACRO-Human-Travel.R
 #'
 #' @param tTravel time of trip
 #' @param location destination of trip
@@ -101,7 +101,7 @@ track_travel <- function(tTravel, locationH){
 
 #' Return \code{Human} Travel History
 #'
-#' Write me! Called as \code{self$get_travelHistory()}  Defined in MACRO-Human-Movement.R
+#' Write me! Called as \code{self$get_travelHistory()}  Defined in MACRO-Human-Travel.R
 #'
 #' @return a list
 #' * location: vector of integer locations
@@ -118,7 +118,7 @@ get_travelHistoryHuman <- function(){
 
 #' Return \code{HumanPop} Travel History
 #'
-#' Write me! Called as \code{self$get_travelHistory()} defined in MACRO-Human-Movement.R
+#' Write me! Called as \code{self$get_travelHistory()} defined in MACRO-Human-Travel.R
 #'
 #' @return a list
 #' @examples
@@ -296,7 +296,7 @@ returnHome = function(tEvent, PAR){
 
 #' Write \code{HumanPop} Travel History to JSON
 #'
-#' Write each \code{\link{Human}} travel history as a .json object to a connection. Depends on \code{\link{get_travelHistoryHumanPop}} defined in MACRO-Human-Movement.R
+#' Write each \code{\link{Human}} travel history as a .json object to a connection. Depends on \code{\link{get_travelHistoryHumanPop}} defined in MACRO-Human-Travel.R
 #'
 #' @param con a connection open for writing
 #' @return none

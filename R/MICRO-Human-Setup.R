@@ -12,7 +12,7 @@
 # Initalize Methods & Fields in 'Human' & 'HumanPop'
 #################################################################
 
-#' MACRO: Initialize Additional Methods & Fields in \code{\link{Human}} and \code{\link{HumanPop}}
+#' MICRO: Initialize Additional Methods & Fields in \code{\link{Human}} and \code{\link{HumanPop}}
 #'
 #' Write me! \code{\link{Human}}
 #'
@@ -21,7 +21,7 @@
 #' @examples
 #' MACRO.Humans.Setup()
 #' @export
-MACRO.Humans.Setup <- function(overwrite = TRUE){
+MICRO.Humans.Setup <- function(overwrite = TRUE){
 
   message("initializing MICRO component methods & fields for Human & HumanPop Class")
 

@@ -24,9 +24,12 @@ make a list of pars for \code{\link{HumanPop}}
 \examples{
 HumanPop.Parameters(nSite = 5)
  * nHumans: total human population size
+ * sitePops: vector of population at each site
  * tStart: time to begin simulation
- * humanIDs: human IDs
- * homeIDs: site IDs of each human
- * bDay: birthdays of each human
+ * humanIDs: vector of human IDs
+ * siteHumanIDs: list of human IDs by site
+ * homeIDs: vector of site IDs of each human
+ * siteAges: list of ages of humans by site
+ * bDay: vector of birthdays of each human
  * bWeight: biting weight on humans
 }

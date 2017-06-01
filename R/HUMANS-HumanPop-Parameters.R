@@ -94,10 +94,13 @@ sitePops <- function(N, siteSize = 10, siteMin = 2){
 #' @examples
 #' HumanPop.Parameters(nSite = 5)
 #'  * nHumans: total human population size
+#'  * sitePops: vector of population at each site
 #'  * tStart: time to begin simulation
-#'  * humanIDs: human IDs
-#'  * homeIDs: site IDs of each human
-#'  * bDay: birthdays of each human
+#'  * humanIDs: vector of human IDs
+#'  * siteHumanIDs: list of human IDs by site
+#'  * homeIDs: vector of site IDs of each human
+#'  * siteAges: list of ages of humans by site
+#'  * bDay: vector of birthdays of each human
 #'  * bWeight: biting weight on humans
 #' @md
 #' @export
@@ -113,9 +116,12 @@ HumanPop.Parameters <- function(nSite, bWeight = NULL, siteSize = 10, siteMin = 
 
   list(
     nHumans = demographics$nHumans,
+    sitePops = demographics$sitePops,
     tStart = 0,
     humanIDs = Reduce(f = c,x = demographics$siteHumanID),
+    siteHumanIDs = demographics$siteHumanID,
     homeIDs = demographics$homeHumanID,
+    steAges = demographics$siteAges,
     bDay = -Reduce(f = c,x = demographics$siteAges),
     bWeight = bWeight
   )

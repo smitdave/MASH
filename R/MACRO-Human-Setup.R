@@ -188,7 +188,7 @@ MACRO.Humans.Setup <- function(){
   )
 
   #############################################
-  # MACRO-Human-Movement.R
+  # MACRO-Human-Travel.R
   #############################################
 
   # interface with MacroPatch
@@ -241,8 +241,8 @@ MACRO.Humans.Setup <- function(){
             overwrite = TRUE
   )
 
-  Human$set(which = "public",name = "travelHabit",
-            value = travelHabit,
+  Human$set(which = "public",name = "init_travel",
+            value = init_MacroHuman_travel,
             overwrite = TRUE
   )
 
