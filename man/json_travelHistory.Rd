@@ -13,7 +13,7 @@ json_travelHistory(con)
 none
 }
 \description{
-Write each \code{Human} travel history as a .json object to a connection. Depends on \code{\link{self$get_travelHistory()}} defined in MACRO-Human-Movement.R
+Write each \code{\link{Human}} travel history as a .json object to a connection. Depends on \code{\link{get_travelHistoryHumanPop}} defined in MACRO-Human-Movement.R
 }
 \examples{
 HumanPop$json_travelHistory(con = file(description = paste0(directory, "OUTPUT/humanTravel.json"),open = "wt"))

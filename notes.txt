@@ -102,9 +102,18 @@ to initialize first make the HumanPop object then for PfSI you will need to run 
 
 
 ### BIYONKA CODE HELP:
+
+### PRIORITY:
 1. Need help seperating function definitions from XX.Setup() files in:
   * PATHOGEN-PfSI-SimBite.R
   * PATHOGEN-PfSI-Methods.R
+2. Format to follow for R6Class object documentation is Landscape docs in MICRO-Landscape-Class.R
+3. Research how to write articles, edit .YML, make pkgdown website better
+
+### FUTURE WORK:
+1. Research how to use interactive R Shiny apps within package functions:
+  * example: https://github.com/YosefLab/scone/blob/master/R/biplot_interactive.R
+2. Better output to .JSON; especially re jsonlite::stream_out()
 
 
 ### Conventions for Documentation:

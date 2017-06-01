@@ -2,7 +2,7 @@
 #
 #   MASH
 #   R6-ified
-#   Minimal Landscape Parameters for Well-mixed Patch
+#   MICRO Landscape Class Parameters
 #   Hector Sanchez & David Smith, Hector Sanchez, Sean Wu
 #   May 9, 2017
 #

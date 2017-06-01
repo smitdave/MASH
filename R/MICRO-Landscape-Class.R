@@ -15,28 +15,64 @@
 
 #' MICRO Landscape Class Definition
 #'
-#'
+#' This is a Landscape object that is part of a MICRO microsimulation Tile object, defined in \code{\link{MicroTile}}.
 #'
 #' @docType class
 #' @format An \code{\link{R6Class}} generator object
 #' @keywords R6 class
-#' @details
-#'
-#'
-#'
-#'
 #'
 #' @section Methods:
-#' \describe{
-#'   \item{\code{new(reg, DataStorageClass.g0, ...)}}{...}
-#'   \item{\code{fit(data)}}{...}
-#'   \item{\code{predict(newdata)}}{...}
-#'   \item{\code{predictAeqa(newdata)}}{...}
-#' }
-#' @section Active Bindings:
-#' \describe{
-#'   \item{\code{cats}}{...}
-#' }
+#'  * **Constructor**
+#'    * new: initialize a new \code{Landscape} object
+#'      * Arguments:
+#'        * \code{Landscape_PAR}: see \code{\link{Landscape.Parameters}} for parameter generation function.
+#'  * **Getters & Setters**
+#'    * get_FeedingSites: get \code{private$FeedingSites}
+#'      * Arguments:
+#'        * \code{ixS}: if \code{NULL} return all sites, otherwise return site indexed by \code{ixS}
+#'    * set_FeedingSites: set \code{private$FeedingSites}
+#'      * Arguments:
+#'        * \code{FeedingSites}: replacement object (see below)
+#'        * \code{ixS}: if \code{NULL} replace all sites, otherwise replace site indexed by \code{ixS}
+#'    * get_AquaSites: get \code{private$AquaSites}
+#'      * Arguments:
+#'        * \code{ixS}: if \code{NULL} return all sites, otherwise return site indexed by \code{ixS}
+#'    * set_AquaSites: set \code{private$AquaSites}
+#'      * Arguments:
+#'        * \code{AquaSites}: replacement object (see below)
+#'        * \code{ixS}: if \code{NULL} replace all sites, otherwise replace site indexed by \code{ixS}
+#'    * get_SugarSites: get \code{private$SugarSites}
+#'    * set_SugarSites: set \code{private$SugarSites}
+#'    * get_MatingSites: get \code{private$MatingSites}
+#'    * set_MatingSites: set \code{private$MatingSites}
+#'  * **Pointers**
+#'    * get_TilePointer: get \code{\link{MicroTile}} pointer
+#'    * set_TilePointer: set \code{\link{MicroTile}} pointer
+#'    * get_MosquitoPopFemalePointer:
+#'    * set_MosquitoPopFemalePointer:
+#'    * get_MosquitoPopMalePointer:
+#'    * set_MosquitoPopMalePointer:
+#'    * get_HumansPointer: get \code{\link{HumanPop}} pointer
+#'    * set_HumansPointer: set \code{\link{HumanPop}} pointer
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#' @md
 #' @export
 Landscape <- R6::R6Class(classname = "Landscape",
                  portable = TRUE,
@@ -52,20 +88,20 @@ Landscape <- R6::R6Class(classname = "Landscape",
                   #################################################
 
                   #  initialize
-                   initialize = function(landscape_PAR){
+                   initialize = function(Landscape_PAR){
 
-                     with(landscape_PAR,{
+                     with(Landscape_PAR,{
 
                          #########################################
                          # Generate Feeding Sites
                          #########################################
 
-                         private$FeedingSites = vector(mode="list",length=nFeed)
-                         for(ix in 1:nFeed){
+                         private$FeedingSites = vector(mode="list",length=Landscape_PAR$Landscape_Feeding_PAR$nFeed)
+                         for(ix in 1:Landscape_PAR$Landscape_Feeding_PAR$nFeed){
                            private$FeedingSites[[ix]] = FeedingSite$new(
                              ix = ix,
-                             siteXY = c(feedXY$x[ix],feedXY$y[ix]),
-                             searchWt = feedWt[ix],
+                             siteXY = c(Landscape_PAR$Landscape_Feeding_PAR$siteXY$x[ix],Landscape_PAR$Landscape_Feeding_PAR$siteXY$y[ix]),
+                             searchWt = Landscape_PAR$Landscape_Feeding_PAR$searchWt[ix],
                              enterP = enterP[ix],
                              hazV = hazV[ix],
                              hazW = hazW[ix],
@@ -73,12 +109,21 @@ Landscape <- R6::R6Class(classname = "Landscape",
                              sugar = sugar[ix])
                          }
 
+                         private$ix = ix
+                         private$siteXY = siteXY
+                         private$searchWt = searchWt
+                         private$hazV = hazV
+                         private$hazW = hazW
+                         private$hazI = hazI
+                         private$sugar = sugar
+                         private$enterP = enterP
+
                          #########################################
                          # Generate Aquatic Habitats
                          #########################################
 
-                         private$AquaSites = vector(mode="list",length=nAqua)
-                         for(ix in 1:nAqua){
+                         private$AquaSites = vector(mode="list",length=Landscape_PAR$Landscape_Aqua_PAR$nAqua)
+                         for(ix in 1:Landscape_PAR$Landscape_Aqua_PAR$nAqua){
                            private$AquaSites[[ix]] = AquaticSite$new(ix = ix,
                             siteXY = c(aquaXY$x[ix],aquaXY$y[ix]),
                             searchWt = aquaWt[ix],
