@@ -262,8 +262,8 @@ Landscape <- R6::R6Class(classname = "Landscape",
 
                    # Pointers
                    TilePointer = NULL,                    # point to the enclosing microsimulation TILE (MICRO)
-                   MosquitoPopFemalePointer = NULL,       # point to the MosquitoPopFemale in this enclosing microsimulation TILE (MICRO)
-                   MosquitoPopMalePointer = NULL,         # point to the MosquitoPopMale in this enclosing microsimulation TILE (MICRO)
+                   MosquitoPopFemalePointer = NULL,       # point to the MicroMosquitoPopFemale in this enclosing microsimulation TILE (MICRO)
+                   MosquitoPopMalePointer = NULL,         # point to the MicroMosquitoPopMale in this enclosing microsimulation TILE (MICRO)
                    HumansPointer = NULL                   # point to the HumanPop in this enclosing microsimulation TILE (MICRO)
 
 

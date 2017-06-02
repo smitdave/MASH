@@ -158,7 +158,7 @@ MICRO.Aqua.Setup <- function(module = "emerge", overwrite = TRUE){
 #' MICRO \code{\link{AquaticSite}} Method: Clear the ImagoQ
 #'
 #' Clear out all populated slots in an ImagoQ for the EL4P module of Aquatic Ecology; populated slots are found by calling \code{\link{full_MicroImagoQ}}.
-#' This method should be called after calling adult emergence from the ImagoQ to \code{\link{MosquitoPopFemale}} or \code{\link{MosquitoPopMale}} object (whatever function does this should only move those adults that are ready to go, time-wise). WHEN YOU WRITE THESE FUNCTIONS UPDATE THESE DOCS!
+#' This method should be called after calling adult emergence from the ImagoQ to \code{\link{MicroMosquitoPopFemale}} or \code{\link{MicroMosquitoPopMale}} object (whatever function does this should only move those adults that are ready to go, time-wise). WHEN YOU WRITE THESE FUNCTIONS UPDATE THESE DOCS!
 #' This method is bound to \code{AquaticSite$clear_ImagoQ()}.
 #'
 clear_MicroImagoQ <- function(){

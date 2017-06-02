@@ -242,7 +242,7 @@ set_MicroHumanPop_LandscapePointer <- function(LandscapePointer){
 
 # FemalePopPointer
 
-#' MICRO: Get \code{\link{HumanPop}} \code{\link{MosquitoPopFemale}} Pointer
+#' MICRO: Get \code{\link{HumanPop}} \code{\link{MicroMosquitoPopFemale}} Pointer
 #'
 #' This function is bound to \code{HumanPop$get_FemalePopPointer()}
 #'
@@ -250,11 +250,11 @@ get_MicroHumanPop_FemalePopPointer <- function(){
   return(private$FemalePopPointer)
 }
 
-#' MICRO: Set \code{\link{HumanPop}} \code{\link{MosquitoPopFemale}} Pointer
+#' MICRO: Set \code{\link{HumanPop}} \code{\link{MicroMosquitoPopFemale}} Pointer
 #'
 #' This function is bound to \code{HumanPop$set_FemalePopPointer()}
 #'
-#' @param LandscapePointer the R6 \code{\link{MosquitoPopFemale}} object to point to
+#' @param LandscapePointer the R6 \code{\link{MicroMosquitoPopFemale}} object to point to
 #'
 set_MicroHumanPop_FemalePopPointer <- function(FemalePopPointer){
   private$FemalePopPointer = FemalePopPointer
@@ -307,7 +307,7 @@ set_MicroHuman_LandscapePointer <- function(LandscapePointer){
 
 # FemalePopPointer
 
-#' MICRO: Get \code{\link{Human}} \code{\link{MosquitoPopFemale}} Pointer
+#' MICRO: Get \code{\link{Human}} \code{\link{MicroMosquitoPopFemale}} Pointer
 #'
 #' This function is bound to \code{Human$get_FemalePopPointer()}
 #'
@@ -315,11 +315,11 @@ get_MicroHuman_FemalePopPointer <- function(){
   return(private$FemalePopPointer)
 }
 
-#' MICRO: Set \code{\link{Human}} \code{\link{MosquitoPopFemale}} Pointer
+#' MICRO: Set \code{\link{Human}} \code{\link{MicroMosquitoPopFemale}} Pointer
 #'
 #' This function is bound to \code{Human$set_FemalePopPointer()}
 #'
-#' @param LandscapePointer the R6 \code{\link{MosquitoPopFemale}} object to point to
+#' @param LandscapePointer the R6 \code{\link{MicroMosquitoPopFemale}} object to point to
 #'
 set_MicroHuman_FemalePopPointer <- function(FemalePopPointer){
   private$FemalePopPointer = FemalePopPointer

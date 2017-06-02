@@ -87,6 +87,55 @@ MicroMosquito <- R6::R6Class(classname = "Mosquito",
 #' @format An \code{\link{R6Class}} generator object
 #' @keywords R6 class
 #'
+#' @section Fields:
+#' * **ID and Time**
+#'    * id: mosquito ID (integer)
+#'    * bDay: time of emergence (numeric)
+#'    * tNow: time of current behavioral state (numeric)
+#'    * tNext: time to next behavioral state change (numeric)
+#'    * genotype: genotype of mosquito (integer)
+#' * **State and Location**
+#'    * state: current behavioral state of mosquito (character)
+#'      * F: Blood Feeding Search Bout
+#'      * B: Blood Feeding Attempt Bout
+#'      * R: Post-Prandial Resting Bout
+#'      * L: Egg Laying Search Bout
+#'      * O: Egg Laying Attempt Bout
+#'      * S: Sugar Feeding Attempt Bout
+#'      * M: Female Mating Bout
+#'      * E: Estivation Bout
+#'      * D: Death
+#'    * stateNew: next behavioral state of mosquito (see above)
+#'    * inPointSet: class of site (character)
+#'      * f: feeding site \code{\link{FeedingSite}}
+#'      * l: aquatic habitat \code{\link{AquaticSite}}
+#'      * s: sugar feeding site \code{\link{SugarSite}}
+#'      * m: mating site \code{\link{MatingSite}}
+#'    * ix: index of site (integer)
+#'    * MATURE: mature (logical)
+#'    * ALIVE: alive or dead? (logical)
+#' * **Other State Fields**
+#'    * lspot: landing spot (character)
+#'      * l: Leave the area
+#'      * r: Reattempt Without Resting
+#'      * v: Rest on vegetation
+#'      * w: Rest on the Outside wall of a structure
+#'      * i: Rest on the Inside wall of a structure
+#'    * damage: wing tattering (numeric)
+#'    * energy: energy reserves (numeric)
+#'    * history: list; see \code{\link{MosquitoFemaleHistory}}
+#' * **Egg Production**
+#'    * bmSize: the size of the blood meal, relative to max
+#'    * batch: female eggs in batch
+#'    * eggT: the minimum time before eggs are mature
+#'    * eggP: the mimimum provision for eggs to mature
+#' * **Maturation & Reproduction**
+#'    * sire: ID of mate
+#'    * energyPreG: pre-gonotrophic energy requirement
+#'    * hostID: the id of the host: -1 zoo, 0 null host, otherwise human ID
+#' * **Pathogen Module Specific Fields**
+#'    * Pathogen: Module specific Pathogen object
+#'      * PfSI: \code{\link{mosquitoPfSI}}
 #' @section Methods:
 #'  * **Constructor**
 #'    * new: initialize a new \code{MosquitoFemale} object
@@ -95,10 +144,10 @@ MicroMosquito <- R6::R6Class(classname = "Mosquito",
 #'  * **Getters & Setters**
 #'    * get_id:
 #'  * **Pointers**
-#'    * get_FemalePopPointer: get pointer to enclosing \code{\link{MosquitoPopFemale}}
-#'    * set_FemalePopPointer: set pointer to enclosing \code{\link{MosquitoPopFemale}}
-#'    * get_MalePopPointer: get pointer to \code{\link{MosquitoPopMale}} in same enclosing microsimulation Tile \code{\link{MicroTile}}
-#'    * set_MalePopPointer: set pointer to \code{\link{MosquitoPopMale}} in same enclosing microsimulation Tile \code{\link{MicroTile}}
+#'    * get_FemalePopPointer: get pointer to enclosing \code{\link{MicroMosquitoPopFemale}}
+#'    * set_FemalePopPointer: set pointer to enclosing \code{\link{MicroMosquitoPopFemale}}
+#'    * get_MalePopPointer: get pointer to \code{\link{MicroMosquitoPopMale}} in same enclosing microsimulation Tile \code{\link{MicroTile}}
+#'    * set_MalePopPointer: set pointer to \code{\link{MicroMosquitoPopMale}} in same enclosing microsimulation Tile \code{\link{MicroTile}}
 #'    * get_LandscapePointer: get pointer to \code{\link{Landscape}} in same enclosing microsimulation Tile \code{\link{MicroTile}}
 #'    * set_LandscapePointer: set pointer to \code{\link{Landscape}} in same enclosing microsimulation Tile \code{\link{MicroTile}}
 #'    * get_HumansPointer: get pointer to \code{\link{HumanPop}} in same enclosing microsimulation Tile \code{\link{MicroTile}}
@@ -203,7 +252,7 @@ MosquitoFemale <- R6::R6Class(classname = "MosquitoFemale",
                             # Pointers
                             ##############################################################
 
-                            # MosquitoPopFemale
+                            # MicroMosquitoPopFemale
                             get_FemalePopPointer = function(){
                               return(private$FemalePopPointer)
                             },
@@ -211,7 +260,7 @@ MosquitoFemale <- R6::R6Class(classname = "MosquitoFemale",
                               private$FemalePopPointer = FemalePopPointer
                             },
 
-                            # MosquitoPopMale
+                            # MicroMosquitoPopMale
                             get_MalePopPointer = function(){
                               return(private$MalePopPointer)
                             },
@@ -257,19 +306,19 @@ MosquitoFemale <- R6::R6Class(classname = "MosquitoFemale",
                             eggP   = 0,         # the mimimum provision for eggs to mature
 
                             # Maturation & Reproduction
-                            mated       = FALSE,
                             sire        = 0,
                             energyPreG  = NULL,  # pre-gonotrophic energy requirement
+                            hostID        = 0,           # the id of the host: -1::none; 0::not human
+
 
                             # Infection events
-                            hostID  = 0,           # the id of the host: -1::none; 0::not human
-                            EIP     = NULL,        # length of extrinstic incubation period
-                            Pf      = NULL,
+                            EIP           = NULL,        # length of extrinstic incubation period
+                            Pathogen      = NULL,
 
                             # Pointers
 
-                            FemalePopPointer = NULL,  # Point to enclosing MosquitoPopFemale
-                            MalePopPointer = NULL,    # Point to MosquitoPopMale in the same microsimulation Tile
+                            FemalePopPointer = NULL,  # Point to enclosing MicroMosquitoPopFemale
+                            MalePopPointer = NULL,    # Point to MicroMosquitoPopMale in the same microsimulation Tile
                             LandscapePointer = NULL,  # Point to Landscape object in same microsimulation Tile
                             HumansPointer = NULL,     # Point to HumanPop object in same microsimulation Tile
                             TilePointer = NULL        # Point to enclosing microsimulation Tile
@@ -296,3 +345,82 @@ MosquitoMale <- R6::R6Class(classname = "MosquitoMale",
                         # private members
                         private = list()
 )
+
+
+
+
+#################################################################
+# History and Bionomic Objects
+#################################################################
+
+#' \code{\link{MosquitoFemale}} History Object
+#'
+#' Generate the history object for \code{\link{MosquitoFemale}}
+#'
+#' @param stateH state trajectory
+#' @param timeH transition times
+#' @param ixH sites visited (initialized to site of emergence)
+#' @param pSetH point sets visited (initialized to site of emergence)
+#' @param feedAllH number of blood meals
+#' @param feedAllT times of blood meals
+#' @param feedHumanH number of blood meals on human hosts
+#' @param feedHumanT times of blood meals on human hosts
+#' @param feedIxH ids of all blood hosts
+#' @param bmSizeH blood meal sizes
+#' @param batchH size of egg batch
+#' @return list
+#' @examples
+#' MosquitoFemaleHistory(ixH = 0L, pSetH = "l")
+MosquitoFemaleHistory <- function(
+    stateH = NULL,
+    timeH = NULL,
+    ixH,
+    pSetH,
+    feedAllH = 0L,
+    feedAllT = NULL,
+    feedHumanH = 0L,
+    feedHumanT = NULL,
+    feedIxH = NULL,
+    bmSizeH = NULL,
+    batchH = NULL
+  ){
+    list(
+      stateH     = stateH,
+      timeH      = timeH,
+      ixH        = ixH,
+      pSetH      = pSetH,
+      feedAllH   = feedAllH,
+      feedAllT   = feedAllT,
+      feedHumanH = feedHumanH,
+      feedHumanT = feedHumanT,
+      feedIxH    = feedIxH,
+      bmSizeH    = bmSizeH,
+      batchH     = batchH
+      )
+}
+
+
+#' \code{\link{MosquitoMale}} History Object
+#'
+#' Generate the history object for \code{\link{MosquitoMale}}
+#'
+#' @param stateH state trajectory
+#' @param timeH transition times
+#' @param ixH sites visited (initialized to site of emergence)
+#' @param pSetH point sets visited (initialized to site of emergence)
+#' @return list
+#' @examples
+#' MosquitoMaleHistory(ixH = 0L, pSetH = "l")
+MosquitoMaleHistory <- function(
+    stateH = NULL,
+    timeH = NULL,
+    ixH,
+    pSetH
+  ){
+    list(
+      stateH     = stateH,
+      timeH      = timeH,
+      ixH        = ixH,
+      pSetH      = pSetH
+      )
+}

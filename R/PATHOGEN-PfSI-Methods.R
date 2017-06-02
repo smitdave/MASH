@@ -244,7 +244,7 @@ PfSI.Setup <- function(
   )
 
   ###################################################################
-  # Add PfSI Pathogen Object to 'MosquitoFemale' & 'MosquitoPopFemale' Class
+  # Add PfSI Pathogen Object to 'MosquitoFemale' & 'MicroMosquitoPopFemale' Class
   ###################################################################
 
   # DO THIS WHEN MOSQUITOES EXIST

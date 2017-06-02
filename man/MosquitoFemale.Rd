@@ -11,6 +11,80 @@ MosquitoFemale
 \description{
 This is a female mosquito class definition for MICRO; it inherits (superclass) from \code{\link{MicroMosquito}}.
 }
+\section{Fields}{
+
+\itemize{
+\item \strong{ID and time}
+\itemize{
+\item id: mosquito ID (integer)
+\item bDay: time of emergence (numeric)
+\item tNow: time of current behavioral state (numeric)
+\item tNext: time to next behavioral state change (numeric)
+\item genotype: genotype of mosquito (integer)
+}
+\item \strong{State and Location}
+\itemize{
+\item state: current behavioral state of mosquito (character)
+\itemize{
+\item F: Blood Feeding Search Bout
+\item B: Blood Feeding Attempt Bout
+\item R: Post-Prandial Resting Bout
+\item L: Egg Laying Search Bout
+\item O: Egg Laying Attempt Bout
+\item S: Sugar Feeding Attempt Bout
+\item M: Female Mating Bout
+\item E: Estivation Bout
+\item D: Death
+}
+\item stateNew: next behavioral state of mosquito (see above)
+\item inPointSet: class of site (character)
+\itemize{
+\item f: feeding site \code{\link{FeedingSite}}
+\item l: aquatic habitat \code{\link{AquaticSite}}
+\item s: sugar feeding site \code{\link{SugarSite}}
+\item m: mating site \code{\link{MatingSite}}
+}
+\item ix: index of site (integer)
+\item MATURE: mature (logical)
+\item ALIVE: alive or dead? (logical)
+}
+\item \strong{Other State Fields}
+\itemize{
+\item lspot: landing spot (character)
+\itemize{
+\item l: Leave the area
+\item r: Reattempt Without Resting
+\item v: Rest on vegetation
+\item w: Rest on the Outside wall of a structure
+\item i: Rest on the Inside wall of a structure
+}
+\item damage: wing tattering (numeric)
+\item energy: energy reserves (numeric)
+\item history: list; see \code{\link{MosquitoFemaleHistory}}
+}
+\item \strong{Egg Production}
+\itemize{
+\item bmSize: the size of the blood meal, relative to max
+\item batch: female eggs in batch
+\item eggT: the minimum time before eggs are mature
+\item eggP: the mimimum provision for eggs to mature
+}
+\item \strong{Maturation & Reproduction}
+\itemize{
+\item sire: ID of mate
+\item energyPreG: pre-gonotrophic energy requirement
+\item hostID: the id of the host: -1 zoo, 0 null host, otherwise human ID
+}
+\item \strong{Pathogen Module Specific Fields}
+\itemize{
+\item Pathogen: Module specific Pathogen object
+\itemize{
+\item PfSI: \code{\link{mosquitoPfSI}}
+}
+}
+}
+}
+
 \section{Methods}{
 
 \itemize{
