@@ -3,7 +3,7 @@
 #   MASH
 #   R6-ified
 #   MICRO Class definition for mosquito
-#   Hector Sanchez & Sean Wu
+#   David Smith, Hector Sanchez, Sean Wu
 #   April 25, 2017
 #
 #################################################################

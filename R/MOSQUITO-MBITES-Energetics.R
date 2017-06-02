@@ -3,7 +3,7 @@
 #   MASH
 #   R6-ified
 #   MBITES Energetics Method Definitions
-#   Hector Sanchez & Sean Wu
+#   David Smith, Hector Sanchez, Sean Wu
 #   May 8, 2017
 #
 #################################################################

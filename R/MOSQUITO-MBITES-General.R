@@ -3,7 +3,7 @@
 #   MASH
 #   R6-ified
 #   MBITES General Method Definitions
-#   Hector Sanchez & Sean Wu
+#   David Smith, Hector Sanchez, Sean Wu
 #   May 2, 2017
 #
 #################################################################
