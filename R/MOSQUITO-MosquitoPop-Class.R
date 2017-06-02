@@ -13,6 +13,38 @@
 # Generic Mosquito Population Class
 #################################################################
 
+#' MICRO Generic Mosquito Population Class Definition
+#'
+#' This is a generic Mosquito Population class definition, it is a superclass for \code{\link{MicroMosquitoPopFemale}} and \code{\link{MicroMosquitoPopMale}} and cannot be independently instantiated.
+#' It contains methods and fields which are generic to both the male and female populations, described below.
+#'
+#' @docType class
+#' @format An \code{\link{R6Class}} generator object
+#' @keywords R6 class
+#'
+#' @section Fields:
+#' * **Fields**
+#'    * pop: list of \code{\link{MicroMosquitoFemale}} objects
+#'    * MvOb: time of emergence (numeric)
+#'    * tNow: time of current behavioral state (numeric)
+#'    * tNext: time to next behavioral state change (numeric)
+#'    * genotype: genotype of mosquito (integer)
+#' * **Pointers**
+#'    * state: current behavioral state of mosquito (character)
+#'      * M: Male Mating Bout
+#'      * S: Sugar Feeding Attempt Bout
+#'      * R: Male Resting Bout
+#' @section Methods:
+#'  * **Constructor**
+#'    * new: initialize a new \code{MicroMosquitoMale} object
+#'      * Arguments:
+#'        * arg1: something.
+#'  * **Getters & Setters**
+#'    * a getter:
+#'  * **Pointers**
+#'    * a pointer
+#' @md
+#' @export
 MicroMosquitoPop <- R6::R6Class(classname = "MosquitoPop",
                     portable = TRUE,
                     cloneable = FALSE,
@@ -20,6 +52,8 @@ MicroMosquitoPop <- R6::R6Class(classname = "MosquitoPop",
                     lock_objects = FALSE,
 
                     public = list(
+
+
 
                     ),
 

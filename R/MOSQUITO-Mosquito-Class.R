@@ -15,7 +15,7 @@
 
 #' MICRO Generic Mosquito Class Definition
 #'
-#' This is a generic Mosquito class definition, it is a superclass for \code{\link{MosquitoFemale}} and \code{\link{MosquitoMale}} and cannot be independently instantiated.
+#' This is a generic Mosquito class definition, it is a superclass for \code{\link{MicroMosquitoFemale}} and \code{\link{MicroMosquitoMale}} and cannot be independently instantiated.
 #'
 #' @docType class
 #' @format An \code{\link{R6Class}} generator object
@@ -23,7 +23,7 @@
 #'
 #' @section Methods:
 #'  * **Constructor**
-#'    * none: see \code{\link{MosquitoFemale}} and \code{\link{MosquitoMale}} for inheriting classes
+#'    * none: see \code{\link{MicroMosquitoFemale}} and \code{\link{MicroMosquitoMale}} for inheriting classes
 #'  * **Getters & Setters**
 #'    * get_id:
 #'  * **Pointers**
@@ -138,7 +138,7 @@ MicroMosquito <- R6::R6Class(classname = "Mosquito",
 #'      * PfSI: \code{\link{mosquitoPfSI}}
 #' @section Methods:
 #'  * **Constructor**
-#'    * new: initialize a new \code{MosquitoFemale} object
+#'    * new: initialize a new \code{MicroMosquitoFemale} object
 #'      * Arguments:
 #'        * arg1: something.
 #'  * **Getters & Setters**
@@ -158,7 +158,7 @@ MicroMosquito <- R6::R6Class(classname = "Mosquito",
 #'
 #' @md
 #' @export
-MosquitoFemale <- R6::R6Class(classname = "MosquitoFemale",
+MicroMosquitoFemale <- R6::R6Class(classname = "MicroMosquitoFemale",
                           inherit = MicroMosquito,
                           portable = TRUE,
                           cloneable = FALSE,
@@ -175,76 +175,76 @@ MosquitoFemale <- R6::R6Class(classname = "MosquitoFemale",
 
                             initialize = function(PAR, id, time, ix, genotype = 1L, state = "M", inPointSet = "l"){
 
-                              with(PAR,{
-
-                                ##############################################################
-                                # general moquito parameters
-                                ##############################################################
-
-                                private$id        = id        # mosquito id
-                                private$bDay      = time        # time of emergence
-                                private$tNow      = time        # time of last event
-                                private$tNext     = time        # time to next event
-                                private$genotype  = genotype        # genotype of mosquito
-                                private$state      = state       # {F,B,R,L,O,S,M,E,D}
-                                private$stateNew   = state       # {F,B,R,L,O,S,M,E,D}
-                                private$inPointSet = inPointSet       # class of site {f,l,s,m}
-                                private$ix         = ix       # index of site
-                                private$mature     = FALSE       # mature
-                                private$lspot     = NULL        # landing spot (i: inside wall, w: outside wall, v: outside vegetation, r: feed, l: leave)
-                                private$damage    = 0        # wing tattering
-                                private$energy    = 1        # energy reserves
-
-                                ##############################################################
-                                # female-specific parameters
-                                ##############################################################
-
-                                # Egg Batch Variables
-                                private$bmSize = 0         # the size of the blood meal, relative to max
-                                private$batch  = 0         # female eggs in batch
-                                private$eggT   = 0         # the minimum time before eggs are mature
-                                private$eggP   = 0         # the mimimum provision for eggs to mature
-
-                                # Maturation & Reproduction
-                                private$mated       = FALSE
-                                private$sire        = 0L
-                                private$energyPreG  = energyPreG  # pre-gonotrophic energy requirement
-
-                                # Infection events
-                                private$hostID  = 0L          # the id of the host: -1::none; 0::not human
-                                private$EIP     = EIP        # presence/absence of sporozoites
-
-                                ##############################################################
-                                # initialize event history
-                                ##############################################################
-
-                                private$history = list(
-                                  stateH     = NULL,      # state trajectory
-                                  timeH      = NULL,      # transition times
-                                  ixH        = ix,      # sites visited
-                                  pSetH      = inPointSet,    # point sets visited
-
-                                  feedAllH   = 0L,      # number of blood meals
-                                  feedAllT   = NULL,   # times of blood meals
-                                  feedHumanH = 0L,      # number of blood meals on human hosts
-                                  feedHumanT = NULL,   # times of blood meals on human hosts
-                                  feedIxH    = NULL,   # ids of all blood hosts
-
-                                  bmSizeH    = NULL,
-                                  batchH     = NULL
-                                )
-
-                                private$bionomics = list(
-                                  mBatch = 0L, # mean egg batch size
-                                  tBatch = 0L, # total egg production
-                                  feedAllH = 0L, # total number of bloodmeals
-                                  feedHumanH = 0L, # number of human bloodmeals
-                                  bmInt = 0L, # all bloodmeal intervals
-                                  bmIntH = 0L, # human bloodmeal intervals
-                                  lifespan = 0L # lifespan
-                                )
-
-                              })
+                              # with(PAR,{
+                              #
+                              #   ##############################################################
+                              #   # general moquito parameters
+                              #   ##############################################################
+                              #
+                              #   private$id        = id        # mosquito id
+                              #   private$bDay      = time        # time of emergence
+                              #   private$tNow      = time        # time of last event
+                              #   private$tNext     = time        # time to next event
+                              #   private$genotype  = genotype        # genotype of mosquito
+                              #   private$state      = state       # {F,B,R,L,O,S,M,E,D}
+                              #   private$stateNew   = state       # {F,B,R,L,O,S,M,E,D}
+                              #   private$inPointSet = inPointSet       # class of site {f,l,s,m}
+                              #   private$ix         = ix       # index of site
+                              #   private$mature     = FALSE       # mature
+                              #   private$lspot     = NULL        # landing spot (i: inside wall, w: outside wall, v: outside vegetation, r: feed, l: leave)
+                              #   private$damage    = 0        # wing tattering
+                              #   private$energy    = 1        # energy reserves
+                              #
+                              #   ##############################################################
+                              #   # female-specific parameters
+                              #   ##############################################################
+                              #
+                              #   # Egg Batch Variables
+                              #   private$bmSize = 0         # the size of the blood meal, relative to max
+                              #   private$batch  = 0         # female eggs in batch
+                              #   private$eggT   = 0         # the minimum time before eggs are mature
+                              #   private$eggP   = 0         # the mimimum provision for eggs to mature
+                              #
+                              #   # Maturation & Reproduction
+                              #   private$mated       = FALSE
+                              #   private$sire        = 0L
+                              #   private$energyPreG  = energyPreG  # pre-gonotrophic energy requirement
+                              #
+                              #   # Infection events
+                              #   private$hostID  = 0L          # the id of the host: -1::none; 0::not human
+                              #   private$EIP     = EIP        # presence/absence of sporozoites
+                              #
+                              #   ##############################################################
+                              #   # initialize event history
+                              #   ##############################################################
+                              #
+                              #   private$history = list(
+                              #     stateH     = NULL,      # state trajectory
+                              #     timeH      = NULL,      # transition times
+                              #     ixH        = ix,      # sites visited
+                              #     pSetH      = inPointSet,    # point sets visited
+                              #
+                              #     feedAllH   = 0L,      # number of blood meals
+                              #     feedAllT   = NULL,   # times of blood meals
+                              #     feedHumanH = 0L,      # number of blood meals on human hosts
+                              #     feedHumanT = NULL,   # times of blood meals on human hosts
+                              #     feedIxH    = NULL,   # ids of all blood hosts
+                              #
+                              #     bmSizeH    = NULL,
+                              #     batchH     = NULL
+                              #   )
+                              #
+                              #   private$bionomics = list(
+                              #     mBatch = 0L, # mean egg batch size
+                              #     tBatch = 0L, # total egg production
+                              #     feedAllH = 0L, # total number of bloodmeals
+                              #     feedHumanH = 0L, # number of human bloodmeals
+                              #     bmInt = 0L, # all bloodmeal intervals
+                              #     bmIntH = 0L, # human bloodmeal intervals
+                              #     lifespan = 0L # lifespan
+                              #   )
+                              #
+                              # })
 
                             }, # end initializer
 
@@ -332,7 +332,39 @@ MosquitoFemale <- R6::R6Class(classname = "MosquitoFemale",
 # Male Mosquito Class
 #################################################################
 
-MosquitoMale <- R6::R6Class(classname = "MosquitoMale",
+#' MICRO Male Mosquito Class Definition
+#'
+#' This is a male mosquito class definition for MICRO; it inherits (superclass) from \code{\link{MicroMosquito}}.
+#'
+#'
+#' @docType class
+#' @format An \code{\link{R6Class}} generator object
+#' @keywords R6 class
+#'
+#' @section Fields:
+#' * **ID and Time**
+#'    * id: mosquito ID (integer)
+#'    * bDay: time of emergence (numeric)
+#'    * tNow: time of current behavioral state (numeric)
+#'    * tNext: time to next behavioral state change (numeric)
+#'    * genotype: genotype of mosquito (integer)
+#' * **State and Location**
+#'    * state: current behavioral state of mosquito (character)
+#'      * M: Male Mating Bout
+#'      * S: Sugar Feeding Attempt Bout
+#'      * R: Male Resting Bout
+#' @section Methods:
+#'  * **Constructor**
+#'    * new: initialize a new \code{MicroMosquitoMale} object
+#'      * Arguments:
+#'        * arg1: something.
+#'  * **Getters & Setters**
+#'    * a getter:
+#'  * **Pointers**
+#'    * a pointer
+#' @md
+#' @export
+MicroMosquitoMale <- R6::R6Class(classname = "MicroMosquitoMale",
                         inherit = MicroMosquito,
                         portable = TRUE,
                         cloneable = FALSE,
@@ -353,9 +385,9 @@ MosquitoMale <- R6::R6Class(classname = "MosquitoMale",
 # History and Bionomic Objects
 #################################################################
 
-#' \code{\link{MosquitoFemale}} History Object
+#' \code{\link{MicroMosquitoFemale}} History Object
 #'
-#' Generate the history object for \code{\link{MosquitoFemale}}
+#' Generate the history object for \code{\link{MicroMosquitoFemale}}
 #'
 #' @param stateH state trajectory
 #' @param timeH transition times
@@ -400,9 +432,9 @@ MosquitoFemaleHistory <- function(
 }
 
 
-#' \code{\link{MosquitoMale}} History Object
+#' \code{\link{MicroMosquitoMale}} History Object
 #'
-#' Generate the history object for \code{\link{MosquitoMale}}
+#' Generate the history object for \code{\link{MicroMosquitoMale}}
 #'
 #' @param stateH state trajectory
 #' @param timeH transition times

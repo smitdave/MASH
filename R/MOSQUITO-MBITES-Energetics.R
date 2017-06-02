@@ -22,8 +22,8 @@
 #' Initialize Energetics Methods for M-BITES
 #'
 #' This function initializes generic methods for M-BITES models; please note that the
-#' switches for this function modify only the methods that are added to the MosquitoFemale
-#' and MosquitoMale classes. Different genotypes still depend on the internal list of parameters
+#' switches for this function modify only the methods that are added to the MicroMosquitoFemale
+#' and MicroMosquitoMale classes. Different genotypes still depend on the internal list of parameters
 #' to parameterize these functions and functional forms for equations.
 #'
 #' @param batchSize character switch that should be one of \code{"bms","norm"} for egg batch sizes dependent on bloodmeal size or normally distributed
@@ -31,7 +31,7 @@
 #' @param reFeedType character switch that should be one of \code{"pr","egg"} for refeeding as probability based on size of bloodmeal or based on egg batch size.
 #'
 #'
-#' @return modifies the \code{MosquitoFemale} and \code{MosquitoMale} classes.
+#' @return modifies the \code{MicroMosquitoFemale} and \code{MicroMosquitoMale} classes.
 #' @export
 init.mbitesEnergetics <- function(
 
@@ -96,14 +96,14 @@ init.mbitesEnergetics <- function(
   ##########################################
 
   # rBloodMealSize: random size of blood meal
-  MosquitoFemale$set(which = "public",name = "rBloodMealSize",
+  MicroMosquitoFemale$set(which = "public",name = "rBloodMealSize",
                value = function(){
                  return(rbeta(n=1,private$PAR$bm.a,private$PAR$bm.b))
                }
   )
 
   # bloodEnergetics: manage blood-based mosquito energetics
-  MosquitoFemale$set(which = "public",name = "bloodEnergetics",
+  MicroMosquitoFemale$set(which = "public",name = "bloodEnergetics",
                value = function(){
 
                  private$energy = max(1,(private$energy + private$PAR$B.energy))
@@ -119,7 +119,7 @@ init.mbitesEnergetics <- function(
   )
 
   # bloodMeal: take a blood meal on a host
-  MosquitoFemale$set(which = "public",name = "bloodMeal",
+  MicroMosquitoFemale$set(which = "public",name = "bloodMeal",
                      value = function(){
 
                        private$bmSize = self$rBloodMealSize()
@@ -145,13 +145,13 @@ init.mbitesEnergetics <- function(
 
   if(OVERFEED){
 
-    MosquitoFemale$set(which = "public",name = "pOverFeed",
+    MicroMosquitoFemale$set(which = "public",name = "pOverFeed",
                        value = function(){
                          return(exp(private$PAR$of.a*private$bmSize)/(private$PAR$of.b + exp(private$PAR$of.a*private$bmSize)))
                        }
     )
 
-    MosquitoFemale$set(which = "public",name = "overFeed",
+    MicroMosquitoFemale$set(which = "public",name = "overFeed",
                        value = function(){
                          if(runif(1) < self$pOverFeed){
                            private$stateNew = "D"
@@ -173,13 +173,13 @@ init.mbitesEnergetics <- function(
       #  reFeedF.Pr
       ##############################
 
-      MosquitoFemale$set(which = "public",name = "pReFeed",
+      MicroMosquitoFemale$set(which = "public",name = "pReFeed",
                          value = function(){
                            return((2+private$PAR$rf.b)/(1+private$PAR$rf.b) - exp(private$PAR$rf.a*private$bmSize)/(private$PAR$rf.b + exp(private$PAR$rf.a*private$bmSize)))
                          }
       )
 
-      MosquitoFemale$set(which = "public",name = "reFeed",
+      MicroMosquitoFemale$set(which = "public",name = "reFeed",
                          value = function(){
 
                           if(self$isAlive()){
@@ -199,7 +199,7 @@ init.mbitesEnergetics <- function(
       #  reFeedF.Egg
       ##############################
 
-      MosquitoFemale$set(which = "public",name = "reFeed",
+      MicroMosquitoFemale$set(which = "public",name = "reFeed",
                          value = function(){
 
                            if(self$isAlive()){
@@ -225,7 +225,7 @@ init.mbitesEnergetics <- function(
 
   if(batchSize == "bms"){
 
-    MosquitoFemale$set(which = "public",name = "BatchSize",
+    MicroMosquitoFemale$set(which = "public",name = "BatchSize",
                        value = function(){
                          return(private$bmSize*private$PAR$maxBatch)
                        }
@@ -233,7 +233,7 @@ init.mbitesEnergetics <- function(
 
   } else if(batchSize == "norm"){
 
-    MosquitoFemale$set(which = "public",name = "BatchSize",
+    MicroMosquitoFemale$set(which = "public",name = "BatchSize",
                        value = function(){
                          return(ceiling(rnorm(1, private$PAR$bs.m, private$PAR$bs.v)))
                        }
@@ -245,7 +245,7 @@ init.mbitesEnergetics <- function(
 
   if(eggMatT == "off"){
 
-    MosquitoFemale$set(which = "public",name = "eggMaturationTime",
+    MicroMosquitoFemale$set(which = "public",name = "eggMaturationTime",
                        value = function(){
                          return(0)
                        }
@@ -253,7 +253,7 @@ init.mbitesEnergetics <- function(
 
   } else if(eggMatT == "norm"){
 
-    MosquitoFemale$set(which = "public",name = "eggMaturationTime",
+    MicroMosquitoFemale$set(which = "public",name = "eggMaturationTime",
                        value = function(){
                          max(0,rnorm(1, private$PAR$emt.m, private$PAR$emt.V))
                        }
@@ -263,7 +263,7 @@ init.mbitesEnergetics <- function(
     stop("must specify eggMatT in {'off','norm'}")
   }
 
-  MosquitoFemale$set(which = "public",name = "makeBatches",
+  MicroMosquitoFemale$set(which = "public",name = "makeBatches",
                      value = function(){
                        # #. makeBatches: make an egg batch and deposit on the landscape
                        # #batch: size of egg batch

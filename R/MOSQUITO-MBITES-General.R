@@ -12,8 +12,8 @@
 #' Initialize Generic Methods for M-BITES
 #'
 #' This function initializes generic methods for M-BITES models; please note that the
-#' switches for this function modify only the methods that are added to the MosquitoFemale
-#' and MosquitoMale classes. Different genotypes still depend on the internal list of parameters
+#' switches for this function modify only the methods that are added to the MicroMosquitoFemale
+#' and MicroMosquitoMale classes. Different genotypes still depend on the internal list of parameters
 #' to parameterize these functions and functional forms for equations.
 #'
 #' @param batchSize character switch that should be one of \code{"bms","norm"} for egg batch sizes dependent on bloodmeal size or normally distributed
@@ -21,7 +21,7 @@
 #'
 #'
 #'
-#' @return modifies the \code{MosquitoFemale} and \code{MosquitoMale} classes.
+#' @return modifies the \code{MicroMosquitoFemale} and \code{MicroMosquitoMale} classes.
 #' @export
 init.mbitesGeneric <- function(){
 

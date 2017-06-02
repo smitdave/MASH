@@ -12,7 +12,7 @@
 #' Initialize PfSI Module Parameters (Pathogen)
 #'
 #' Generate a list of parameters PfSI_PAR in \code{\link{Human}} and public methods in \code{\link{Human}}; also defines public methods
-#' in \code{\link{MosquitoFemale}}.
+#' in \code{\link{MicroMosquitoFemale}}.
 #'
 #' @param Pf_c 0.15; transmission efficiency: infected human to mosquito
 #' @param Pf_b 0.55; transmission efficiency: infected mosquito to human
@@ -244,7 +244,7 @@ PfSI.Setup <- function(
   )
 
   ###################################################################
-  # Add PfSI Pathogen Object to 'MosquitoFemale' & 'MicroMosquitoPopFemale' Class
+  # Add PfSI Pathogen Object to 'MicroMosquitoFemale' & 'MicroMosquitoPopFemale' Class
   ###################################################################
 
   # DO THIS WHEN MOSQUITOES EXIST
@@ -286,7 +286,7 @@ PfSI.Setup <- function(
 
   ###################################################################
   # PfSI: Human to Mosquito infectious bite
-  # Add methods to 'MosquitoFemale' Classe
+  # Add methods to 'MicroMosquitoFemale' Classe
   ###################################################################
 
   # its okay if this function takes as a direct argument humanPfSI;
