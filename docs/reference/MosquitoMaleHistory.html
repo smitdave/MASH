@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MICRO: Set <code>HumanPop</code> <code>MicroMosquitoPopFemale</code> Pointer — set_MicroHumanPop_FemalePopPointer • MASH.R6</title>
+<title><code>MicroMosquitoMale</code> History Object — MosquitoMaleHistory • MASH.R6</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -73,31 +73,64 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>MICRO: Set <code>HumanPop</code> <code>MicroMosquitoPopFemale</code> Pointer</h1>
+    <h1><code>MicroMosquitoMale</code> History Object</h1>
     </div>
 
     
-    <p>This function is bound to <code>HumanPop$set_FemalePopPointer()</code></p>
+    <p>Generate the history object for <code><a href='MicroMosquitoMale.html'>MicroMosquitoMale</a></code></p>
     
 
-    <pre class="usage"><span class='fu'>set_MicroHumanPop_FemalePopPointer</span>(<span class='no'>FemalePopPointer</span>)</pre>
+    <pre class="usage"><span class='fu'>MosquitoMaleHistory</span>(<span class='kw'>stateH</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>timeH</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>ixH</span>, <span class='no'>pSetH</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>LandscapePointer</th>
-      <td><p>the R6 <code>MicroMosquitoPopFemale</code> object to point to</p></td>
+      <th>stateH</th>
+      <td><p>state trajectory</p></td>
+    </tr>
+    <tr>
+      <th>timeH</th>
+      <td><p>transition times</p></td>
+    </tr>
+    <tr>
+      <th>ixH</th>
+      <td><p>sites visited (initialized to site of emergence)</p></td>
+    </tr>
+    <tr>
+      <th>pSetH</th>
+      <td><p>point sets visited (initialized to site of emergence)</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>list</p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>MosquitoMaleHistory</span>(<span class='kw'>ixH</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>pSetH</span> <span class='kw'>=</span> <span class='st'>"l"</span>)</div><div class='output co'>#&gt; $stateH
+#&gt; NULL
+#&gt; 
+#&gt; $timeH
+#&gt; NULL
+#&gt; 
+#&gt; $ixH
+#&gt; [1] 0
+#&gt; 
+#&gt; $pSetH
+#&gt; [1] "l"
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#value">Value</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

@@ -101,7 +101,7 @@
 #' @examples
 #' P = MBITES.PAR()
 #' @export
-MBITES.PAR <- function(
+MBITES.Parameters <- function(
 
   # landscape creation parameters
   enterhouse.a = 9, # beta house entry parameters

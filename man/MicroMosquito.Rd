@@ -9,14 +9,14 @@
 MicroMosquito
 }
 \description{
-This is a generic Mosquito class definition, it is a superclass for \code{\link{MosquitoFemale}} and \code{\link{MosquitoMale}} and cannot be independently instantiated.
+This is a generic Mosquito class definition, it is a superclass for \code{\link{MicroMosquitoFemale}} and \code{\link{MicroMosquitoMale}} and cannot be independently instantiated.
 }
 \section{Methods}{
 
 \itemize{
 \item \strong{Constructor}
 \itemize{
-\item none: see \code{\link{MosquitoFemale}} and \code{\link{MosquitoMale}} for inheriting classes
+\item none: see \code{\link{MicroMosquitoFemale}} and \code{\link{MicroMosquitoMale}} for inheriting classes
 }
 \item \strong{Getters & Setters}
 \itemize{

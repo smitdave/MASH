@@ -85,7 +85,7 @@ return list is in the same format.</p>
     <pre class="usage"><span class='fu'>MICRO.Tile.Parameters</span>(<span class='no'>nFeed</span>, <span class='no'>nAqua</span>, <span class='kw'>pointGen</span> <span class='kw'>=</span> <span class='st'>"poisson"</span>, <span class='no'>module</span>, <span class='no'>modulePars</span>,
   <span class='kw'>hazV</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>hazW</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>hazI</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>haz</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>searchFeed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>searchAqua</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>enterP</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>xLim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>1</span>), <span class='kw'>yLim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>1</span>),
-  <span class='kw'>aquaSD</span> <span class='kw'>=</span> <span class='fl'>0.025</span>, <span class='kw'>hhSize</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>hhMin</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>bWeight</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+  <span class='kw'>aquaSD</span> <span class='kw'>=</span> <span class='fl'>0.025</span>, <span class='kw'>hhSize</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>hhMin</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>bWeight</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -172,6 +172,10 @@ return list is in the same format.</p>
     <tr>
       <th>bWeight</th>
       <td><p>numeric value of biting weights on <code><a href='Human.html'>Human</a></code> (if <code>NULL</code> biting weights are Gamma(1,1) distributed)</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>additional named arguments for pointGen()</p></td>
     </tr>
     </table>
     

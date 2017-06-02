@@ -2,7 +2,7 @@
 % Please edit documentation in R/MICRO-Human-Setup.R
 \name{get_MicroHuman_FemalePopPointer}
 \alias{get_MicroHuman_FemalePopPointer}
-\title{MICRO: Get \code{\link{Human}} \code{\link{MosquitoPopFemale}} Pointer}
+\title{MICRO: Get \code{\link{Human}} \code{\link{MicroMosquitoPopFemale}} Pointer}
 \usage{
 get_MicroHuman_FemalePopPointer()
 }

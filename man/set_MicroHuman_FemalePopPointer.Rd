@@ -2,12 +2,12 @@
 % Please edit documentation in R/MICRO-Human-Setup.R
 \name{set_MicroHuman_FemalePopPointer}
 \alias{set_MicroHuman_FemalePopPointer}
-\title{MICRO: Set \code{\link{Human}} \code{\link{MosquitoPopFemale}} Pointer}
+\title{MICRO: Set \code{\link{Human}} \code{\link{MicroMosquitoPopFemale}} Pointer}
 \usage{
 set_MicroHuman_FemalePopPointer(FemalePopPointer)
 }
 \arguments{
-\item{LandscapePointer}{the R6 \code{\link{MosquitoPopFemale}} object to point to}
+\item{LandscapePointer}{the R6 \code{\link{MicroMosquitoPopFemale}} object to point to}
 }
 \description{
 This function is bound to \code{Human$set_FemalePopPointer()}

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MICRO: Set <code>HumanPop</code> <code>MicroMosquitoPopFemale</code> Pointer — set_MicroHumanPop_FemalePopPointer • MASH.R6</title>
+<title>MICRO Male Mosquito Class Definition — MicroMosquitoMale • MASH.R6</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -73,31 +73,70 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>MICRO: Set <code>HumanPop</code> <code>MicroMosquitoPopFemale</code> Pointer</h1>
+    <h1>MICRO Male Mosquito Class Definition</h1>
     </div>
 
     
-    <p>This function is bound to <code>HumanPop$set_FemalePopPointer()</code></p>
+    <p>This is a male mosquito class definition for MICRO; it inherits (superclass) from <code><a href='MicroMosquito.html'>MicroMosquito</a></code>.</p>
     
 
-    <pre class="usage"><span class='fu'>set_MicroHumanPop_FemalePopPointer</span>(<span class='no'>FemalePopPointer</span>)</pre>
+    <pre class="usage"><span class='no'>MicroMosquitoMale</span></pre>
+        
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>An <code>R6Class</code> generator object</p>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>LandscapePointer</th>
-      <td><p>the R6 <code>MicroMosquitoPopFemale</code> object to point to</p></td>
-    </tr>
-    </table>
+    <h2 class="hasAnchor" id="fields"><a class="anchor" href="#fields"></a>Fields</h2>
+
+    
+    <ul>
+<li><p><strong>ID and Time</strong></p><ul>
+<li><p>id: mosquito ID (integer)</p></li>
+<li><p>bDay: time of emergence (numeric)</p></li>
+<li><p>tNow: time of current behavioral state (numeric)</p></li>
+<li><p>tNext: time to next behavioral state change (numeric)</p></li>
+<li><p>genotype: genotype of mosquito (integer)</p></li>
+</ul></li>
+<li><p><strong>State and Location</strong></p><ul>
+<li><p>state: current behavioral state of mosquito (character)</p><ul>
+<li><p>M: Male Mating Bout</p></li>
+<li><p>S: Sugar Feeding Attempt Bout</p></li>
+<li><p>R: Male Resting Bout</p></li>
+</ul></li>
+</ul></li>
+</ul>
+    
+    <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
+
+    
+    <ul>
+<li><p><strong>Constructor</strong></p><ul>
+<li><p>new: initialize a new <code>MicroMosquitoMale</code> object</p><ul>
+<li><p>Arguments:</p><ul>
+<li><p>arg1: something.</p></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p><strong>Getters &amp; Setters</strong></p><ul>
+<li><p>a getter:</p></li>
+</ul></li>
+<li><p><strong>Pointers</strong></p><ul>
+<li><p>a pointer</p></li>
+</ul></li>
+</ul>
     
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#format">Format</a></li>
+
+      <li><a href="#fields">Fields</a></li>
+
+      <li><a href="#methods">Methods</a></li>
+          </ul>
 
   </div>
 </div>

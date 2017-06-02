@@ -2,7 +2,7 @@
 % Please edit documentation in R/MOSQUITO-Mosquito-Class.R
 \name{MosquitoFemaleHistory}
 \alias{MosquitoFemaleHistory}
-\title{\code{\link{MosquitoFemale}} History Object}
+\title{\code{\link{MicroMosquitoFemale}} History Object}
 \usage{
 MosquitoFemaleHistory(stateH = NULL, timeH = NULL, ixH, pSetH,
   feedAllH = 0L, feedAllT = NULL, feedHumanH = 0L, feedHumanT = NULL,
@@ -35,7 +35,7 @@ MosquitoFemaleHistory(stateH = NULL, timeH = NULL, ixH, pSetH,
 list
 }
 \description{
-Generate the history object for \code{\link{MosquitoFemale}}
+Generate the history object for \code{\link{MicroMosquitoFemale}}
 }
 \examples{
 MosquitoFemaleHistory(ixH = 0L, pSetH = "l")

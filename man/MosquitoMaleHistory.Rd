@@ -2,7 +2,7 @@
 % Please edit documentation in R/MOSQUITO-Mosquito-Class.R
 \name{MosquitoMaleHistory}
 \alias{MosquitoMaleHistory}
-\title{\code{\link{MosquitoMale}} History Object}
+\title{\code{\link{MicroMosquitoMale}} History Object}
 \usage{
 MosquitoMaleHistory(stateH = NULL, timeH = NULL, ixH, pSetH)
 }
@@ -19,7 +19,7 @@ MosquitoMaleHistory(stateH = NULL, timeH = NULL, ixH, pSetH)
 list
 }
 \description{
-Generate the history object for \code{\link{MosquitoMale}}
+Generate the history object for \code{\link{MicroMosquitoMale}}
 }
 \examples{
 MosquitoMaleHistory(ixH = 0L, pSetH = "l")

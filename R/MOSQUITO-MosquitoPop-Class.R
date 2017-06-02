@@ -24,25 +24,24 @@
 #'
 #' @section Fields:
 #' * **Fields**
-#'    * pop: list of \code{\link{MicroMosquitoFemale}} objects
-#'    * MvOb: time of emergence (numeric)
-#'    * tNow: time of current behavioral state (numeric)
-#'    * tNext: time to next behavioral state change (numeric)
-#'    * genotype: genotype of mosquito (integer)
+#'    * pop: list of \code{\link{MicroMosquitoFemale}} or \code{\link{MicroMosquitoMale}} objects
+#'    * MvOb: Movement object WRITE ME
+#'    * MBITES_PAR: M-BITES parameters; see \code{\link{MBITES.Parameters}}
 #' * **Pointers**
-#'    * state: current behavioral state of mosquito (character)
-#'      * M: Male Mating Bout
-#'      * S: Sugar Feeding Attempt Bout
-#'      * R: Male Resting Bout
+#'    * LandscapePointer: pointer to \code{\link{Landscape}} object in enclosing microsimulation Tile \code{\link{MicroTile}}
+#'    * HumansPointer: pointer to \code{\link{HumanPop}} object in enclosing microsimulation Tile \code{\link{MicroTile}}
+#'    * TilePointer: pointer to enclosing \code{\link{MicroTile}}
 #' @section Methods:
-#'  * **Constructor**
-#'    * new: initialize a new \code{MicroMosquitoMale} object
-#'      * Arguments:
-#'        * arg1: something.
 #'  * **Getters & Setters**
-#'    * a getter:
+#'    * get_MosquitoIxM: get mosquito corresponding to position \code{IxM} in list (or return all if argument \code{ixM = NULL})
+#'    * get_MosquitoID: get mosquito with private id corresponding to argument \code{ID}
 #'  * **Pointers**
-#'    * a pointer
+#'    * get_LandscapePointer: get pointer to \code{\link{Landscape}} in same enclosing microsimulation Tile \code{\link{MicroTile}}
+#'    * set_LandscapePointer: set pointer to \code{\link{Landscape}} in same enclosing microsimulation Tile \code{\link{MicroTile}}
+#'    * get_HumansPointer: get pointer to \code{\link{HumanPop}} in same enclosing microsimulation Tile \code{\link{MicroTile}}
+#'    * set_HumansPointer: set pointer to \code{\link{HumanPop}} in same enclosing microsimulation Tile \code{\link{MicroTile}}
+#'    * get_TilePointer: get pointer to enclosing microsimulation Tile \code{\link{MicroTile}}
+#'    * set_TilePointer: get pointer to enclosing microsimulation Tile \code{\link{MicroTile}}
 #' @md
 #' @export
 MicroMosquitoPop <- R6::R6Class(classname = "MosquitoPop",
@@ -53,16 +52,48 @@ MicroMosquitoPop <- R6::R6Class(classname = "MosquitoPop",
 
                     public = list(
 
+                      # Getters & Setters
+                      get_MosquitoIxM = function(ixM = NULL){
+                        if(is.null(ixM)){
+                          return(private$pop)
+                        } else {
+                          return(private$pop[[ixM]])
+                        }
+                      },
+                      get_MosquitoID = function(ID){
+                        stop("this hasn't been written yet")
+                      },
 
+                      # Pointers
+                      get_LandscapePointer = function(){
+                        return(private$LandscapePointer)
+                      },
+                      set_LandscapePointer = function(LandscapePointer){
+                        private$LandscapePointer = LandscapePointer
+                      },
+
+                      get_HumansPointer = function(){
+                        return(private$HumansPointer)
+                      },
+                      set_HumansPointer = function(HumansPointer){
+                        private$HumansPointer = HumansPointer
+                      },
+
+                      get_TilePointer = function(){
+                        return(private$TilePointer)
+                      },
+                      set_TilePointer = function(TilePointer){
+                        private$TilePointer = TilePointer
+                      }
 
                     ),
 
                     private = list(
 
                       # Fields
-                      pop = NULL,       # mosquito population
-                      MvOb = NULL,      # movement object
-                      MBITES_PAR = NULL # MBITES Parameters
+                      pop = NULL,        # mosquito population
+                      MvOb = NULL,       # movement object
+                      MBITES_PAR = NULL, # MBITES Parameters
 
                       # Pointers
                       LandscapePointer = NULL,  # Point to Landscape object in same microsimulation Tile
