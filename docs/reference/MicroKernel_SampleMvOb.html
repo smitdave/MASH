@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MICRO Search Kernels: Exact Movement Object Between All Point Sets — MicroKernel_exactAll • MASH.R6</title>
+<title>MICRO Search Kernels: <code>MicroMosquito</code> Sample MvOb — MicroKernel_SampleMvOb • MASH.R6</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -73,43 +73,23 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>MICRO Search Kernels: Exact Movement Object Between All Point Sets</h1>
+    <h1>MICRO Search Kernels: <code>MicroMosquito</code> Sample MvOb</h1>
     </div>
 
     
-    <p>Generate an exact movement object (one-step Markov transition matrix between all sets of sites).
-This function returns nested list of the following form for all site classes in landscape:</p><ul>
-<li><p>S2D: output of <code><a href='MicroKernel_exactMvOb.html'>MicroKernel_exactMvOb</a></code> applied to starting site point set S and destination point set D
-The output, MvAll, will be assigned to <code>private$movement</code> field of <code>MicroMosquitoPop</code>. The specific accessor can be found at <code><a href='get_MicroKernel_movement.html'>get_MicroKernel_movement</a></code>.</p></li>
-</ul>
+    <p>This method is a helper for <code><a href='MicroKernel_moveMe.html'>MicroKernel_moveMe</a></code> and samples the appropriate MvOb in MvAll in the enclosing <code><a href='MicroMosquitoPop.html'>MicroMosquitoPop</a></code> object.</p>
     
 
-    <pre class="usage"><span class='fu'>MicroKernel_exactAll</span>(<span class='no'>Landscape</span>, <span class='kw'>sigma</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>eps</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>beta</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
+    <pre class="usage"><span class='fu'>MicroKernel_SampleMvOb</span>(<span class='no'>MvOb</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>Landscape</th>
-      <td><p>a microsimulation <code><a href='Landscape.html'>Landscape</a></code> object</p></td>
-    </tr>
-    <tr>
-      <th>sigma</th>
-      <td><p>a param</p></td>
-    </tr>
-    <tr>
-      <th>eps</th>
-      <td><p>a param</p></td>
-    </tr>
-    <tr>
-      <th>beta</th>
-      <td><p>a param</p></td>
+      <th>MvOb</th>
+      <td><p>output of <code><a href='MicroKernel_exactMvOb.html'>MicroKernel_exactMvOb</a></code></p></td>
     </tr>
     </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>list of movement objects between all site classes (see above and <code><a href='MicroKernel_exactMvOb.html'>MicroKernel_exactMvOb</a></code>) for details.</p>
     
 
   </div>
@@ -117,9 +97,7 @@ The output, MvAll, will be assigned to <code>private$movement</code> field of <c
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-          </ul>
+                </ul>
 
   </div>
 </div>
