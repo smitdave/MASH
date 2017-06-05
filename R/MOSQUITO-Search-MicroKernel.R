@@ -212,11 +212,11 @@ MicroKernel_SampleMvOb <- function(MvOb){
 
   ixNew = with(MvOb,{
     if(x <= PR[1]){ #no movement
-      return(ix)
+      ix
     } else {
       if(x <= PR[1] + PR[2]){ #near movement
         ixNear = sample(x = 1:length(near$id),size = 1,prob = near$pr)
-        return(near$id[ixNear])
+        near$id[ixNear]
       } else {
         if(x <= sum(PR)){ #around movement
           browser("'around' movement not yet implemented")
@@ -227,11 +227,12 @@ MicroKernel_SampleMvOb <- function(MvOb){
     }
   })
 
+  return(ixNew)
 }
 
 
 #################################################################
-# Class and Module-specific Movement Methods
+# MicroMosquitoFemale and MicroMosquitoMale 'moveMe' Methods
 #################################################################
 
 #' MICRO Search Kernels: \code{\link{MicroMosquitoFemale}} Movement Function for Full M-BITES Lifecycle Model
@@ -304,6 +305,11 @@ MicroKernel_moveMe_Male <- function(){
   private$ix = MicroKernel_SampleMvOb(MvOb)
   private$inPointSet = pSetNew
 }
+
+
+#################################################################
+# MicroMosquitoPopFemale and MicroMosquitoPopMale 'get_movement' Methods
+#################################################################
 
 #' MICRO Search Kernels: \code{\link{MicroMosquitoPopFemale}} Access MvAll Object for Full M-BITES Lifecycle Model
 #'
