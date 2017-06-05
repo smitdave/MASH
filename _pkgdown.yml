@@ -153,7 +153,6 @@ reference:
     desc: Mosquito Bout-based and Individual-based Transmission Ecology Simulation
     contents:
     - init.mbitesEnergetics
-    - init.mbitesGeneric
     - MBITES.Parameters
     - MicroMosquito
     - MicroMosquitoFemale
@@ -161,6 +160,14 @@ reference:
     - MicroMosquitoPop
     - MosquitoFemaleHistory
     - MosquitoMaleHistory
+  - title: M-BITES Generic Methods
+    desc: M-BITES methods shared across lifecycle modules.
+    contents:
+    - matches("MbitesGeneric")
+  - title: M-BITES BRO Methods
+    desc: M-BITES Blood Feeding, Resting, Oviposition lifecycle module.
+    contents:
+    - matches("MbitesBRO")
   - title: MICRO Search Kernels
     desc: Kernel (probability density) based mosquito movement.
     contents:

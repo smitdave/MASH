@@ -9,6 +9,81 @@
 #################################################################
 
 
+#' MBITES: Generic Female Bout for \code{MicroMosquitoFemale}
+#'
+#' Manage lifecycle methods across modules.
+#'
+#' @section Generic Bout:
+#'  * hello.
+#'
+#'
+#'
+#'
+#'
+#' @md
+MbitesGeneric_FemaleBout <- function(){
+
+  # update time and state
+  private$tNow = private$tNext # update time
+  private$state = private$stateNew # update current state
+  self$timingExponential() # update tNext
+
+  # movement
+  self$moveMe()
+
+  # # bout
+  # M = boutFun(M,P,...)
+  #
+  # # energetics
+  # M = energetics(M,P) # MBITES-Energetics.R
+  #
+  # # landing spot
+  # M = landingSpot(M,P) # MBITES-Bouts.R
+  #
+  # # # Intervetions routines
+  # # M=fIRS(M)
+  # # M=fAerialSpray(M)
+  #
+  # # survival
+  # M = surviveResting(M,P) # MBITES-Survival.R
+  # M = surviveFlight(M,P) # MBITES-Survival.R
+  #
+  # # check queueing
+  # M = queueEstivation(M,P) # MBITES-Estivate.R
+  #
+  # # log history
+  # if(P$HISTORY){M = historyTrack(M)}
+
+
+}
+
+#' MBITES: Generic Alive Check for \code{MicroMosquito}
+#'
+#' Check if this mosquito is alive and return a logical value.
+#'  * This method is bound to \code{MicroMosquito$isAlive()}.
+#' @md
+MbitesGeneric_isAlive <- function(){
+  if(private$stateNew == "D" || private$state == "D"){
+    return(FALSE)
+  } else {
+    return(TRUE)
+  }
+}
+
+#' MBITES: Generic Active Check for \code{MicroMosquito}
+#'
+#' Check if this mosquito is active and return a logical value.
+#'  * This method is bound to \code{MicroMosquito$isActive()}.
+#' @md
+MbitesGeneric_isActive <- function(){
+  if(private$state == "E"){
+    return(FALSE)
+  } else {
+    return(self$isAlive())
+  }
+}
+
+
 #' Initialize Generic Methods for M-BITES
 #'
 #' This function initializes generic methods for M-BITES models; please note that the
@@ -23,34 +98,23 @@
 #'
 #' @return modifies the \code{MicroMosquitoFemale} and \code{MicroMosquitoMale} classes.
 #' @export
-init.mbitesGeneric <- function(){
+MbitesGeneric.Setup <- function(overwrite = TRUE){
 
   # alert user
-  message(paste0("initializing M-BITES generic shared methods"))
+  message("initializing M-BITES generic shared methods")
 
   ##############################################################
   # Checks of Life Status
   ##############################################################
 
-  Mosquito$set(which = "public",name = "isAlive",
-            value = function(){
-              if(private$stateNew == "D" || private$state == "D"){
-                return(FALSE)
-              } else {
-                return(TRUE)
-              }
-            }
+  MicroMosquito$set(which = "public",name = "isAlive",
+            value = MbitesGeneric_isAlive,
+            overwrite = overwrite
   )
 
-  Mosquito$set(which = "public",name = "isActive",
-            value = function(){
-              if(private$state == "E"){
-                return(FALSE)
-              } else {
-                return(self$isAlive())
-              }
-
-            }
+  MicroMosquito$set(which = "public",name = "isActive",
+            value = MbitesGeneric_isActive,
+            overwrite = overwrite
   )
 
   ##############################################################

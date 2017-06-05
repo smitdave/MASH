@@ -93,10 +93,6 @@
 #' @param Owts rep(1,5); egg laying attempt bout landing spot weights, see \code{\link{newSpot}}
 #' @param Mwts rep(1,5); mating bout landing spot weights, see \code{\link{newSpot}}
 #' @param Swts rep(1,5); sugar bout landing spot weights, see \code{\link{newSpot}}
-#' @param r 1/38; recovery rate (mean length of infection)
-#' @param b 0.55; vector to human transmission efficiency
-#' @param c 0.15; human to vector transmission efficiency
-#' @param EIP 12; extrinsic incubation period
 #' @return a named list of parameters
 #' @examples
 #' P = MBITES.PAR()
@@ -226,13 +222,7 @@ MBITES.Parameters <- function(
   Lwts = rep(1,5),
   Owts = rep(1,5),
   Mwts = rep(1,5),
-  Swts = rep(1,5),
-
-  # Plasmodium falciparum specifc parameters
-  r = 1/38, # recovery rate (mean length of infection)
-  b = 0.55, # vector to human transmission efficiency
-  c = 0.15, # human to vector transmission efficiency
-  EIP = 12 # extrinsic incubation period
+  Swts = rep(1,5)
 
 ){
 
@@ -304,10 +294,6 @@ MBITES.Parameters <- function(
     #control parameters
     SUGAR=SUGAR, ESTIVATION=ESTIVATION, MATE=MATE, SENESCE=SENESCE, TATTER=TATTER, REFEED=REFEED, OVERFEED=OVERFEED, HISTORY=HISTORY,
 
-    r = r, # recovery rate (mean length of infection)
-    b = b, # vector to human transmission efficiency
-    c = c, # human to vector transmission efficiency
-    EIP = EIP # extrinsic incubation period
   ))
 
 }
