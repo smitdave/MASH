@@ -1,0 +1,28 @@
+---
+title: "To Do"
+author: "Sean Wu"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{ToDo}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+# Dev Team To-do:
+
+### TO-DO:
+  1. Add aging to Human and HumanPop
+  2. Fix the shitty PfPR init in MacroTile
+  3. Better data logging for MacroTile
+  4. For all XX.Setup() functions, add arg 'overwrite' boolean to toggle overwriting. If you do this you cannot have any orphan XX$set() functions anymore
+  5. in MacroTile::initialize(), make travelHabit arg 'n' part of HumanPop_PAR
+  6. look into jsonlite::stream_out
+  7. getEIP_MacroMosquitoPop should eventually return something besides an integer
+  8. See simMacro: need single call to Tile to do all aquatic ecology stuffs; needs to generalize across allocation possible aquatic ecology modules.
+  9. AQUA-Macro-Emerge.R should be split according to how AQUA-Micro-Queues.R and AQUA-Micro-Emerge.R is structured.
+  10. MACRO Emergence stuffs is called season right now...need to change to lambda
+  11. Rename MACRO-Human-Movment.R stuff to MACRO-Human-Travel.R (Movement to Travel) for consistency with online docs.
+
+### SOLVED TO-DO:
+  6. SOLVED (Z not updating correctly, see MACRO-MosquitoPop-Methods.R) HumanPop$debug("queueInfectiousBites"): do debugging: EIR is always 0
+  7. SOVLED (see HUMANS-HumanPop-Parameters.R)check why in HumanPop$tStart is a vector.
