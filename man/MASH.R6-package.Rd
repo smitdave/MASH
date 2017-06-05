@@ -17,6 +17,7 @@ acknowledgements, and examples.
 Useful links:
 \itemize{
   \item \url{https://github.com/smitdave/MASH/tree/MASH.R6}
+  \item Report bugs at \url{https://github.com/smitdave/MASH/issues}
 }
 
 }

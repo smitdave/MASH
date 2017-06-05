@@ -38,8 +38,6 @@ reference:
     - MICRO.Aqua.Setup
     - MICRO.Emerge.Setup
     - MICRO.Tile.Parameters
-    - MicroKernel_DistanceMat
-    - MicroKernel_PowerKernel
     - MicroSite
     - MicroTile
     - oneDay_MicroEmerge
@@ -163,6 +161,14 @@ reference:
     - MicroMosquitoPop
     - MosquitoFemaleHistory
     - MosquitoMaleHistory
+  - title: MICRO Search Kernels
+    desc: Kernel (probability density) based mosquito movement.
+    contents:
+    - MicroKernel_DistanceMat
+    - MicroKernel_PowerKernel
+    - MicroKernel_prSort
+    - MicroKernel_exactMvOb
+    - MicroKernel_exactAll
   - title: Auxiliary
     desc: Miscellaneous MASH classes, methods, fields, and functions
     contents:
