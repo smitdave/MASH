@@ -40,6 +40,13 @@ MicroMosquito <- R6::R6Class(classname = "Mosquito",
                  # public members
                  public = list(
 
+                   get_myPopPointer = function(){
+                     return(private$myPopPointer)
+                   },
+                   set_myPopPointer = function(myPopPointer){
+                     private$myPopPointer = myPopPointer
+                   }
+
                  ),
 
                  # private members
@@ -67,7 +74,10 @@ MicroMosquito <- R6::R6Class(classname = "Mosquito",
                    damage    = NULL,        # wing tattering
                    energy    = NULL,        # energy reserves
 
-                   history = list()        # history
+                   history = list(),        # history
+
+                  #  Pointers
+                  myPopPointer = NULL       # pointer to enclosing pop of appropriate sex
 
                  )
 )
@@ -252,13 +262,13 @@ MicroMosquitoFemale <- R6::R6Class(classname = "MicroMosquitoFemale",
                             # Pointers
                             ##############################################################
 
-                            # MicroMosquitoPopFemale
-                            get_FemalePopPointer = function(){
-                              return(private$FemalePopPointer)
-                            },
-                            set_FemalePopPointer = function(FemalePopPointer){
-                              private$FemalePopPointer = FemalePopPointer
-                            },
+                            # # MicroMosquitoPopFemale
+                            # get_FemalePopPointer = function(){
+                            #   return(private$FemalePopPointer)
+                            # },
+                            # set_FemalePopPointer = function(FemalePopPointer){
+                            #   private$FemalePopPointer = FemalePopPointer
+                            # },
 
                             # MicroMosquitoPopMale
                             get_MalePopPointer = function(){
@@ -317,7 +327,7 @@ MicroMosquitoFemale <- R6::R6Class(classname = "MicroMosquitoFemale",
 
                             # Pointers
 
-                            FemalePopPointer = NULL,  # Point to enclosing MicroMosquitoPopFemale
+                            # FemalePopPointer = NULL,  # Point to enclosing MicroMosquitoPopFemale
                             MalePopPointer = NULL,    # Point to MicroMosquitoPopMale in the same microsimulation Tile
                             LandscapePointer = NULL,  # Point to Landscape object in same microsimulation Tile
                             HumansPointer = NULL,     # Point to HumanPop object in same microsimulation Tile

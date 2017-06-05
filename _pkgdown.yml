@@ -169,6 +169,9 @@ reference:
     - MicroKernel_prSort
     - MicroKernel_exactMvOb
     - MicroKernel_exactAll
+    - MicroKernel_SampleMvOb
+    - MicroKernel_moveMe
+    - SEARCH.MicroKernel.Setup
   - title: Auxiliary
     desc: Miscellaneous MASH classes, methods, fields, and functions
     contents:

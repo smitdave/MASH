@@ -9,6 +9,10 @@
 #################################################################
 
 
+#################################################################
+# Calculate MICRO Search Kernels
+#################################################################
+
 #' MICRO Search Kernels: Calculate Euclidean Distance Matrix
 #'
 #' Given pointers \code{S} and \code{D} to two lists of \code{MicroSite} objects,
@@ -192,4 +196,74 @@ MicroKernel_exactAll <- function(Landscape,sigma=3,eps=0.1,beta=0){
   }
 
   return(MvAll)
+}
+
+#' MICRO Search Kernels: \code{\link{MicroMosquito}} Sample MvOb
+#'
+#' This method is a helper for \code{\link{MicroKernel_moveMe}} and samples the appropriate MvOb in MvAll in the enclosing \code{\link{MicroMosquitoPop}} object.
+#'
+MicroKernel_SampleMvOb <- function(){
+
+}
+
+#' MICRO Search Kernels: \code{\link{MicroMosquito}} Movement Function
+#'
+#' Move one mosquito based site and next behavioral state. This method is bound to \code{MicroMosquito$moveMe()}
+#'
+MicroKernel_moveMe <- function(){
+
+    switch(private$state,
+           F = {switch(private$inPointSet,
+                    f = {private$myPopPointer},
+                    s = ,
+                    m = ,
+                    l =
+                )},
+           L = {switch(private$inPointSet,
+                    f = ,
+                    s = ,
+                    m = ,
+                    l =
+                )},
+           S = {switch(private$inPointSet,
+                    f = ,
+                    s = ,
+                    m = ,
+                    l =
+                )},
+           M = {switch(private$inPointSet,
+                    f = ,
+                    s = ,
+                    m = ,
+                    l =
+                )},
+           {return(NULL)}
+
+    )
+
+}
+move = rMove(ix = M$ix,pSet = M$inPointSet,bState = M$state)
+
+
+#' MICRO Search Kernels: \code{\link{MicroMosquitoPop}} Access MvAll Object
+#'
+#'
+#'
+
+
+#################################################################
+# Initialize Methods
+#################################################################
+
+#' MICRO Search Kernels: Initialize Additional Methods & Fields in \code{MicroMosquitoPop} and \code{MicroMosquito}
+#'
+#' Initialize MICRO Search Kernels module of mosquito search behavior.
+#'
+#' @param a parameter
+#' @return does stuff
+#' @examples
+#' SEARCH.MicroKernel.Setup()
+#' @export
+SEARCH.MicroKernel.Setup <- function(){
+
 }

@@ -52,7 +52,10 @@ MicroMosquitoPop <- R6::R6Class(classname = "MosquitoPop",
 
                     public = list(
 
+                      #################################################################
                       # Getters & Setters
+                      #################################################################
+
                       get_MosquitoIxM = function(ixM = NULL){
                         if(is.null(ixM)){
                           return(private$pop)
@@ -64,7 +67,15 @@ MicroMosquitoPop <- R6::R6Class(classname = "MosquitoPop",
                         stop("this hasn't been written yet")
                       },
 
+                      # generic get_movement method; designed to be overwritten by module-specific parameteric getter
+                      get_movement = function(){
+                        return(private$movement)
+                      },
+
+                      #################################################################
                       # Pointers
+                      #################################################################
+
                       get_LandscapePointer = function(){
                         return(private$LandscapePointer)
                       },
@@ -91,9 +102,9 @@ MicroMosquitoPop <- R6::R6Class(classname = "MosquitoPop",
                     private = list(
 
                       # Fields
-                      pop = NULL,        # mosquito population
-                      MvOb = NULL,       # movement object
-                      MBITES_PAR = NULL, # MBITES Parameters
+                      pop = NULL,               # mosquito population
+                      movement = NULL,          # movement object (type depends on specific SEARCH module)
+                      MBITES_PAR = NULL,        # MBITES Parameters
 
                       # Pointers
                       LandscapePointer = NULL,  # Point to Landscape object in same microsimulation Tile
