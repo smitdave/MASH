@@ -4,10 +4,15 @@
 \alias{SEARCH.MicroKernel.Setup}
 \title{MICRO Search Kernels: Initialize Additional Methods & Fields in \code{MicroMosquitoPop} and \code{MicroMosquito}}
 \usage{
-SEARCH.MicroKernel.Setup(overwrite = TRUE)
+SEARCH.MicroKernel.Setup(MBITES = "BRO", overwrite = TRUE)
 }
 \arguments{
-\item{a}{parameter}
+\item{MBITES}{what M-BITES module to run?
+\itemize{
+\item BRO: Blood Feeding, Resting, Oviposition module
+\item BROM: Blood Feeding, Resting, Oviposition, Mating module
+\item Full: Full life cycle M-BITES module
+}}
 }
 \value{
 does stuff

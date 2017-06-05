@@ -170,7 +170,13 @@ reference:
     - MicroKernel_exactMvOb
     - MicroKernel_exactAll
     - MicroKernel_SampleMvOb
-    - MicroKernel_moveMe
+    - MicroKernel_moveMe_FULL
+    - MicroKernel_moveMe_BRO
+    - MicroKernel_moveMe_BROM
+    - MicroKernel_moveMe_Male
+    - get_MicroKernel_movement_FULL
+    - get_MicroKernel_movement_BRO
+    - get_MicroKernel_movement_BROM
     - SEARCH.MicroKernel.Setup
   - title: Auxiliary
     desc: Miscellaneous MASH classes, methods, fields, and functions

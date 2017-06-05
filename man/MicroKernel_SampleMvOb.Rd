@@ -7,7 +7,10 @@
 MicroKernel_SampleMvOb(MvOb)
 }
 \arguments{
-\item{MvOb}{output of \code{\link{MicroKernel_exactMvOb}}}
+\item{MvOb}{a movement object, see \code{\link{MicroKernel_exactMvOb}}}
+}
+\value{
+new index
 }
 \description{
 This method is a helper for \code{\link{MicroKernel_moveMe}} and samples the appropriate MvOb in MvAll in the enclosing \code{\link{MicroMosquitoPop}} object.
