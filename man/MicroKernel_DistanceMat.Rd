@@ -7,9 +7,9 @@
 MicroKernel_DistanceMat(S, D)
 }
 \arguments{
-\item{S}{pointer to starting sites (for example, Landscape$get_AquaSites())}
+\item{S}{pointer to list of starting sites (for example, Landscape$get_AquaSites())}
 
-\item{D}{pointer to destination sites}
+\item{D}{pointer to list of destination sites}
 }
 \value{
 matrix

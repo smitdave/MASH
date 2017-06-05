@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pf: Set <code>MacroPatch</code> Patch Pf Population — set_PatchPf • MASH.R6</title>
+<title>MICRO Search Kernels: Calculate Power Kernel — MicroKernel_PowerKernel • MASH.R6</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -73,31 +73,46 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Pf: Set <code>MacroPatch</code> Patch Pf Population</h1>
+    <h1>MICRO Search Kernels: Calculate Power Kernel</h1>
     </div>
 
     
-    <p>Write me!</p>
+    <p>Given pointers <code>S</code> and <code>D</code> to two lists of <code>MicroSite</code> objects,
+Calculate one-step Markov transition matrix between sites.</p>
     
 
-    <pre class="usage"><span class='fu'>set_PatchPf</span>(<span class='no'>PatchPf</span>, <span class='kw'>ix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>MicroKernel_PowerKernel</span>(<span class='no'>S</span>, <span class='no'>D</span>, <span class='kw'>sigma</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>eps</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>beta</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>a</th>
-      <td><p>parameter</p></td>
+      <th>S</th>
+      <td><p>pointer to starting sites (for example, Landscape$get_AquaSites())</p></td>
+    </tr>
+    <tr>
+      <th>D</th>
+      <td><p>pointer to destination sites</p></td>
+    </tr>
+    <tr>
+      <th>sigma</th>
+      <td><p>a param</p></td>
+    </tr>
+    <tr>
+      <th>eps</th>
+      <td><p>a param</p></td>
+    </tr>
+    <tr>
+      <th>beta</th>
+      <td><p>a param</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>does stuff</p>
+    <p>matrix</p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='get_PatchPf.html'>get_PatchPf</a></span>()</div><div class='output co'>#&gt; <span class='error'>Error in get_PatchPf(): object 'private' not found</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -105,9 +120,7 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+          </ul>
 
   </div>
 </div>
