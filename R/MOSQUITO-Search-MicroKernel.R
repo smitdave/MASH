@@ -143,6 +143,7 @@ MicroKernel_exactMvOb <- function(S,D,sigma=3,eps=0.1,beta=0){
 #' Generate an exact movement object (one-step Markov transition matrix between all sets of sites).
 #' This function returns nested list of the following form for all site classes in landscape:
 #'  * S2D: output of \code{\link{MicroKernel_exactMvOb}} applied to starting site point set S and destination point set D
+#' The output, MvAll, will be assigned to \code{private$movement} field of \code{MicroMosquitoPop}. The specific accessor can be found at \code{\link{get_MicroKernel_movement}}.
 #'
 #' @param Landscape a microsimulation \code{\link{Landscape}} object
 #' @param sigma a param
@@ -202,7 +203,27 @@ MicroKernel_exactAll <- function(Landscape,sigma=3,eps=0.1,beta=0){
 #'
 #' This method is a helper for \code{\link{MicroKernel_moveMe}} and samples the appropriate MvOb in MvAll in the enclosing \code{\link{MicroMosquitoPop}} object.
 #'
-MicroKernel_SampleMvOb <- function(){
+#' @param MvOb output of \code{\link{MicroKernel_exactMvOb}}
+MicroKernel_SampleMvOb <- function(MvOb){
+
+  x = runif(1)
+
+  ixNew = with(MvOb,{
+    if(x <= PR[1]){ #no movement
+      return(ix)
+    } else {
+      if(x <= PR[1] + PR[2]){ #near movement
+        ixNear = sample(x = 1:length(near$id),size = 1,prob = near$pr)
+        return(near$id[ixNear])
+      } else {
+        if(x <= sum(PR)){ #around movement
+          browser("'around' movement not yet implemented")
+        } else { #moveFar movement
+          browser("'moveFar' movement not yet implemented")
+        }
+      }
+    }
+  })
 
 }
 
@@ -212,44 +233,45 @@ MicroKernel_SampleMvOb <- function(){
 #'
 MicroKernel_moveMe <- function(){
 
-    switch(private$state,
-           F = {switch(private$inPointSet,
-                    f = {private$myPopPointer},
-                    s = ,
-                    m = ,
-                    l =
-                )},
-           L = {switch(private$inPointSet,
-                    f = ,
-                    s = ,
-                    m = ,
-                    l =
-                )},
-           S = {switch(private$inPointSet,
-                    f = ,
-                    s = ,
-                    m = ,
-                    l =
-                )},
-           M = {switch(private$inPointSet,
-                    f = ,
-                    s = ,
-                    m = ,
-                    l =
-                )},
-           {return(NULL)}
-
-    )
+  MvOb = private$myPopPointer$get_MicroKernel_movement(ixS = private$ix, state = private$state, inPointSet = private$inPointSet)
 
 }
-move = rMove(ix = M$ix,pSet = M$inPointSet,bState = M$state)
+# move = rMove(ix = M$ix,pSet = M$inPointSet,bState = M$state)
 
 
 #' MICRO Search Kernels: \code{\link{MicroMosquitoPop}} Access MvAll Object
 #'
+#' Replace generic \code{MicroMosquitoPop$get_movement()} method for MicroKernel module; it will be bound to \code{MicroMosquitoPop$get_movement()}
 #'
-#'
-
+get_MicroKernel_movement <- function(ixS, state, inPointSet){
+  switch(state,
+    F = {
+        if(inPointSet=="f"){return(private$movement$F2F[[ixS]])}
+        if(inPointSet=="s"){return(private$movement$S2F[[ixS]])}
+        if(inPointSet=="m"){return(private$movement$M2F[[ixS]])}
+        if(inPointSet=="l"){return(private$movement$L2F[[ixS]])}
+      },
+    L = {
+        if(inPointSet=="f"){return(private$movement$F2L[[ixS]])}
+        if(inPointSet=="s"){return(private$movement$S2L[[ixS]])}
+        if(inPointSet=="m"){return(private$movement$M2L[[ixS]])}
+        if(inPointSet=="l"){return(private$movement$L2L[[ixS]])}
+      },
+    S = {
+        if(inPointSet=="f"){return(private$movement$F2S[[ixS]])}
+        if(inPointSet=="s"){return(private$movement$S2S[[ixS]])}
+        if(inPointSet=="m"){return(private$movement$M2S[[ixS]])}
+        if(inPointSet=="l"){return(private$movement$L2S[[ixS]])}
+      },
+    M = {
+        if(inPointSet=="f"){return(private$movement$F2M[[ixS]])}
+        if(inPointSet=="s"){return(private$movement$S2M[[ixS]])}
+        if(inPointSet=="m"){return(private$movement$M2M[[ixS]])}
+        if(inPointSet=="l"){return(private$movement$L2M[[ixS]])}
+      },
+    {return(NULL)}
+  )
+}
 
 #################################################################
 # Initialize Methods
@@ -264,6 +286,14 @@ move = rMove(ix = M$ix,pSet = M$inPointSet,bState = M$state)
 #' @examples
 #' SEARCH.MicroKernel.Setup()
 #' @export
-SEARCH.MicroKernel.Setup <- function(){
+SEARCH.MicroKernel.Setup <- function(overwrite = TRUE){
+
+  message("initializing MICRO component methods & fields for MicroMosquitoPop & MicroMosquito Class")
+
+  MicroMosquitoPop$set(which = "public",name = "get_movement",
+            value = get_MicroKernel_movement,
+            overwrite = overwrite
+  )
+
 
 }
