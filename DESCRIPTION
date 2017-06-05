@@ -38,6 +38,7 @@ Description: At the beginning, I had several goals for the project. First, I wan
     -Professor David L Smith, Institute for Health Metrics & Evaluation, University of Washington
 License: MIT License
 URL: https://github.com/smitdave/MASH/tree/MASH.R6
+BugReports: https://github.com/smitdave/MASH/issues
 ByteCompile: yes
 Encoding: UTF-8
 LazyData: true
