@@ -9,6 +9,10 @@
 #################################################################
 
 
+##############################################################
+# Generic Female Bout
+##############################################################
+
 #' MBITES: Generic Female Bout for \code{MicroMosquitoFemale}
 #'
 #' Manage lifecycle methods across modules.
@@ -57,6 +61,11 @@ MbitesGeneric_FemaleBout <- function(){
 
 }
 
+
+##############################################################
+# Checks of Life Status
+##############################################################
+
 #' MBITES: Generic Alive Check for \code{MicroMosquito}
 #'
 #' Check if this mosquito is alive and return a logical value.
@@ -83,6 +92,31 @@ MbitesGeneric_isActive <- function(){
   }
 }
 
+
+##############################################################
+#
+#  HOUSE ENTERING & RESTING BEHAVIOR:
+#  At the end of the search bout, attempt bout, or after Egg
+#  laying a mosquito has entered the area around a feeding
+#  station and either rested or attempted to rest:
+#    l) Leave the area
+#    r) Reattempt Without Resting;
+#    v) Rest on vegetation
+#    w) Rest on the Outside wall of a structure
+#    i) Rest on the Inside wall of a structure
+#
+##############################################################
+
+# XX_getWTS <- function(){} are defined in the appropriate module-specific file.
+
+MbitesGeneric_lspotIx <- function(){
+  
+}
+
+
+##############################################################
+# Setup Function
+##############################################################
 
 #' Initialize Generic Methods for M-BITES
 #'

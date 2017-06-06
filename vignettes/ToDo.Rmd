@@ -12,7 +12,7 @@ vignette: >
 
 ### TO-DO:
   1. Add aging to Human and HumanPop
-  2. Fix the shitty PfPR init in MacroTile
+  2. Fix the PfPR init in MacroTile
   3. Better data logging for MacroTile
   4. For all XX.Setup() functions, add arg 'overwrite' boolean to toggle overwriting. If you do this you cannot have any orphan XX$set() functions anymore
   5. in MacroTile::initialize(), make travelHabit arg 'n' part of HumanPop_PAR
