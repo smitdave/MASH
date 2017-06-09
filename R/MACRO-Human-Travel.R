@@ -301,7 +301,7 @@ MacroHuman_returnHome <- function(tEvent, PAR){
 #' @param con a connection open for writing
 #' @return none
 #' @examples
-#' HumanPop$json_travelHistory(con = file(description = paste0(directory, "OUTPUT/humanTravel.json"),open = "wt"))
+#' HumanPop$MacroHuman_json_travelHistory(con = file(description = paste0(directory, "OUTPUT/humanTravel.json"),open = "wt"))
 MacroHuman_json_travelHistory <- function(con){
   travelHist = self$get_travelHistory()
   humanID = vapply(X = private$pop,FUN = function(x){x$get_myID()},FUN.VALUE = integer(1))

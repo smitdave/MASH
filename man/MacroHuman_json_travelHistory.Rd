@@ -16,5 +16,5 @@ none
 Write each \code{\link{Human}} travel history as a .json object to a connection. Depends on \code{\link{get_travelHistoryHumanPop}} defined in MACRO-Human-Travel.R
 }
 \examples{
-HumanPop$json_travelHistory(con = file(description = paste0(directory, "OUTPUT/humanTravel.json"),open = "wt"))
+HumanPop$MacroHuman_json_travelHistory(con = file(description = paste0(directory, "OUTPUT/humanTravel.json"),open = "wt"))
 }

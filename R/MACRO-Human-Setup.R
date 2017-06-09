@@ -281,7 +281,7 @@ MACRO.Humans.Setup <- function(){
   # movement related utilities
 
   HumanPop$set(which = "public",name = "json_travelHistory",
-            value = json_travelHistory,
+            value = MacroHuman_json_travelHistory,
             overwrite = TRUE
   )
 
