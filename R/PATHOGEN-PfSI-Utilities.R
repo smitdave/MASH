@@ -29,23 +29,28 @@
 #' @md
 #'
 #' @param history human event histories from \code{HumanPop$get_History()}
-#' @param parallel run in parallel
+#' @param cpp use Rcpp helper function \code{\link{util_PfSIoneHistory}}
 #' @return list
 #' @examples
 #' util_PfSIHistory()
 #' @export
-util_PfSIHistory <- function(history){
+util_PfSIHistory <- function(history, cpp = TRUE){
 
   # number of humans
   N = length(history)
 
   # create time bin for each discrete event
-  eventTimes = sort(unlist(lapply(history,function(x){x$eventT})))
-  timeBins = c(min(eventTimes),Filter(f = function(xx){xx > min(eventTimes)},x = eventTimes))
-  timeBins = unique(timeBins)
+  minTime = min(vapply(X = history,FUN = function(x){x$eventT[1]},FUN.VALUE = numeric(1)))
+  timeBins = parallel::mclapply(X = history,FUN = function(X,minTime){
+    Filter(f = function(x){x > minTime},x = X$eventT)
+  },minTime = minTime)
+  timeBins = sort(unique(unlist(timeBins)))
+  timeBins = c(minTime,timeBins)
 
   # create empty time series (each element is slice of occupancy vector at that point in time)
-  timeSeries = lapply(X = timeBins,FUN = util_PfSISlice) # bins
+  timeSeries = t(vapply(X = timeBins,FUN = function(x){
+    util_PfSISlice(time = x)
+  },FUN.VALUE = numeric(10)))
 
   initState = unique(sapply(history,function(x){x$events[1]})) # initial state
   if(length(initState)>1){ # sanity check
@@ -54,29 +59,37 @@ util_PfSIHistory <- function(history){
 
   # set initial occupancy vector
   switch(initState,
-         "init" = for(i in 1:length(timeSeries)){timeSeries[[i]]$init <- N},
-         "S" = for(i in 1:length(timeSeries)){timeSeries[[i]]$S <- N},
-         "I" = for(i in 1:length(timeSeries)){timeSeries[[i]]$I <- N},
-         "F" = for(i in 1:length(timeSeries)){timeSeries[[i]]$F <- N},
-         "P" = for(i in 1:length(timeSeries)){timeSeries[[i]]$P <- N},
-         "PEvaxx" = for(i in 1:length(timeSeries)){timeSeries[[i]]$PEvaxx <- N},
-         "PEwane" = for(i in 1:length(timeSeries)){timeSeries[[i]]$PEwane <- N},
-         "GSvaxx" = for(i in 1:length(timeSeries)){timeSeries[[i]]$GSvaxx <- N},
-         "GSwane" = for(i in 1:length(timeSeries)){timeSeries[[i]]$GSwane <- N}
+         "init" = for(i in 1:nrow(timeSeries)){timeSeries[i,"init"] <- N},
+         "S" = for(i in 1:nrow(timeSeries)){timeSeries[i,"S"] <- N},
+         "I" = for(i in 1:nrow(timeSeries)){timeSeries[i,"I"] <- N},
+         "F" = for(i in 1:nrow(timeSeries)){timeSeries[i,"F"] <- N},
+         "P" = for(i in 1:nrow(timeSeries)){timeSeries[i,"P"] <- N},
+         "PEvaxx" = for(i in 1:nrow(timeSeries)){timeSeries[i,"PEvaxx"] <- N},
+         "PEwane" = for(i in 1:nrow(timeSeries)){timeSeries[i,"PEwane"] <- N},
+         "GSvaxx" = for(i in 1:nrow(timeSeries)){timeSeries[i,"GSvaxx"] <- N},
+         "GSwane" = for(i in 1:nrow(timeSeries)){timeSeries[i,"GSwane"] <- N}
   )
 
   # fill occupancy vector for each person
   for(ixH in 1:N){
     print(paste0("propagating state for human: ",ixH," of ",N))
-    time = history[[ixH]]$eventT
-    state = history[[ixH]]$events
-    for(ixT in 2:length(time)){
-      tIter = which(timeBins >= time[ixT]) # times over which to propagate forward current state
-      for(i in tIter){
-        timeSeries[[i]][[state[ixT-1]]] = timeSeries[[i]][[state[ixT-1]]] - 1 # human ixH no longer in state[ixT-1] in all times ixT
-        timeSeries[[i]][[state[ixT]]] = timeSeries[[i]][[state[ixT]]] + 1 # human ixH in state[ixT] is propagated forward
+    if(cpp){
+      util_PfSIoneHistory(historyIxH = history[[ixH]], timeBins = timeBins, timeSeries = timeSeries){
+    } else {
+      time = history[[ixH]]$eventT
+      state = history[[ixH]]$events
+
+      for(ixT in 2:length(time)){
+        tIter = which(timeBins >= time[ixT]) # times over which to propagate forward current state
+        for(i in tIter){
+
+          timeSeries[i,state[ixT-1]] = timeSeries[i,state[ixT-1]] - 1
+          timeSeries[i,state[ixT]] = timeSeries[i,state[ixT]] +1
+
+        }
       }
     }
+
   }
 
   return(timeSeries)
