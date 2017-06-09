@@ -2,7 +2,7 @@
 #
 #   MASH
 #   R6-ified
-#   PfSI Setup
+#   PfSI Methods
 #   David Smith, Hector Sanchez, Sean Wu
 #   May 21, 2017
 #
@@ -719,7 +719,7 @@ gswanePfSI <- function(tEvent, PAR){
 #'  * if susceptible: false positive is detected with probability \code{rdtSpecPf}, see \code{\link{PfSI.Parameters}}
 #' @md
 rdtTest_PfSI <- function(tEvent, PAR){
-  if(private$Pathogens$Pf$infected){
+  if(private$Pathogens$Pf$get_infected()){
     runif(1) < private$PfSI_PAR$rdtSensPf
   } else {
     runif(1) < private$PfSI_PAR$rdtSpecPf
@@ -733,7 +733,7 @@ rdtTest_PfSI <- function(tEvent, PAR){
 #'  * if susceptible: false positive is detected with probability \code{lmSpecPf}, see \code{\link{PfSI.Parameters}}
 #' @md
 lmTest_PfSI <- function(tEvent, PAR){
-  if(private$Pathogens$Pf$infected){
+  if(private$Pathogens$Pf$get_infected()){
     runif(1) < private$PfSI_PAR$lmSensPf
   } else {
     runif(1) < private$PfSI_PAR$lmSpecPf

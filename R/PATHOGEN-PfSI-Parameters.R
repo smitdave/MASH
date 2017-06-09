@@ -2,8 +2,7 @@
 #
 #   MASH
 #   R6-ified
-#   PfSI Auxiiary
-#   Define parameters and plotting routines
+#   PfSI Parameters
 #   David Smith, Hector Sanchez, Sean Wu
 #   May 21, 2017
 #

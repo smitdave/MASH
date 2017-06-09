@@ -123,9 +123,13 @@ reference:
     - queueBitesNegBinom_SimBitePfSI
     - SimBitePfSI.Setup
   - title: PATHOGEN PfSI
-    desc: The PfSI (Enhanced SIS Model for Plasmodium falciparum Transmission)
+    desc: PfSI (Enhanced SIS Model for Plasmodium falciparum Transmission)
     contents:
     - matches("PfSI")
+  - title: PATHOGEN PfMOI
+    desc: PfMOI (Multiplicity of Infection Compartmental Model for Plasmodium falciparum Transmission)
+    contents:
+    - matches("PfMOI")
   - title: M-BITES
     desc: Mosquito Bout-based and Individual-based Transmission Ecology Simulation
     contents:

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>PfMOI <code>Human</code> Method: Rapid Diagnostic Test — rdtTest_PfSI • MASH</title>
+<title>PfMOI <code>Human</code> Method: Duration of Latency — ttInfectPfMOI • MASH</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -76,24 +76,16 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>PfMOI <code>Human</code> Method: Rapid Diagnostic Test</h1>
+    <h1>PfMOI <code>Human</code> Method: Duration of Latency</h1>
     </div>
 
     
-    <p>Administer RDT to this human.</p><ul>
-<li><p>if infected: true positive is detected with probability <code>rdtSensPf</code>, see <code><a href='PfMOI.Parameters.html'>PfMOI.Parameters</a></code></p></li>
-<li><p>if susceptible: false positive is detected with probability <code>rdtSpecPf</code>, see <code><a href='PfMOI.Parameters.html'>PfMOI.Parameters</a></code></p></li>
-</ul>
-
-    <p>Administer RDT to this human.</p><ul>
-<li><p>if infected: true positive is detected with probability <code>rdtSensPf</code>, see <code><a href='PfSI.Parameters.html'>PfSI.Parameters</a></code></p></li>
-<li><p>if susceptible: false positive is detected with probability <code>rdtSpecPf</code>, see <code><a href='PfSI.Parameters.html'>PfSI.Parameters</a></code></p></li>
-</ul>
+    <p>How many days after the infectious bite does a PfMOI infection start? See <code><a href='PfMOI.Parameters.html'>PfMOI.Parameters</a></code> parameter <code>Pf_latent</code> constant latent period.
+This method is called from <code></code>
+This method is bound to <code>Human$ttInfectPfMOI()</code></p>
     
 
-    <pre class="usage"><span class='fu'>rdtTest_PfSI</span>(<span class='no'>tEvent</span>, <span class='no'>PAR</span>)
-
-<span class='fu'>rdtTest_PfSI</span>(<span class='no'>tEvent</span>, <span class='no'>PAR</span>)</pre>
+    <pre class="usage"><span class='fu'>ttInfectPfMOI</span>()</pre>
         
 
   </div>
