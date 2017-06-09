@@ -74,7 +74,7 @@ util_PfSIHistory <- function(history, cpp = TRUE){
   for(ixH in 1:N){
     print(paste0("propagating state for human: ",ixH," of ",N))
     if(cpp){
-      util_PfSIoneHistory(historyIxH = history[[ixH]], timeBins = timeBins, timeSeries = timeSeries){
+      util_PfSIoneHistory(historyIxH = history[[ixH]], timeBins = timeBins, timeSeries = timeSeries)
     } else {
       time = history[[ixH]]$eventT
       state = history[[ixH]]$events

@@ -4,12 +4,12 @@
 \alias{util_PfSIHistory}
 \title{PfSI: Calculate State Space Occupancy Vector}
 \usage{
-util_PfSIHistory(history)
+util_PfSIHistory(history, cpp = TRUE)
 }
 \arguments{
 \item{history}{human event histories from \code{HumanPop$get_History()}}
 
-\item{parallel}{run in parallel}
+\item{cpp}{use Rcpp helper function \code{\link{util_PfSIoneHistory}}}
 }
 \value{
 list
