@@ -138,7 +138,7 @@ MacroTile <- R6::R6Class(classname = "MacroTile",
                    # maybe it gets added in PfSI.Setup()
                    init_humanInf = function(PfPR){
                      message("this function is bad and sean should feel bad (he wrote this)")
-                     private$HumanPop$PfSI.Init(PfPR)
+                     private$HumanPop$init_PfSI(PfPR)
                    }
 
                   ),

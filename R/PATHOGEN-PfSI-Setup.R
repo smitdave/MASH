@@ -173,7 +173,7 @@ PfSI.Setup <- function(
   )
 
   # initialize PfSI infections with parasite prevalence PfPR
-  HumanPop$set(which = "public",name = "PfSI.Init",
+  HumanPop$set(which = "public",name = "init_PfSI",
 
             value = function(PfPR, tStart = 0){
 
