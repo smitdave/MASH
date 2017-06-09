@@ -15,15 +15,16 @@ library(MASH.R6)
 PfSI.Setup()
 SimBitePfSI.Setup()
 
+
+#################################################################
 # simulate a single human population
+#################################################################
+
 nHumans = 1e3
-popDemographics = list(nHumans=nHumans,
-                       sitePops=rep(1,nHumans),
-                       siteHumanID=as.list(1:nHumans),
-                       homeHumanID=rep(1,nHumans),
-                       siteAges=rep(0,nHumans))
-HumanPop_PAR = HumanPop.Parameters(nPatch = 1,demographics = popDemographics)
+HumanPop_PAR = HumanPop.Parameters(nSite = 1,bWeight = NULL,siteSize = nHumans,siteMin = nHumans)
 pop = HumanPop$new(HumanPop_PAR)
+PfSI_PAR = PfSI.Parameters(TreatPf = 1)
+pop$set_PfSI_PAR(PfSI_PAR = PfSI_PAR)
 pop$PfSI.Init(PfPR = 0)
 
 tMax = 365*5
@@ -34,8 +35,12 @@ pop$simHumans(tPause = tMax+10)
 
 pop$get_History()
 
+
+#################################################################
 # simulate a single human population with negbinom biting
 # see ?queueBitesNegBinom_SimBitePfSI for details
+#################################################################
+
 rm(pop)
 pop = HumanPop$new(HumanPop_PAR)
 pop$PfSI.Init(PfPR = 0)
@@ -46,7 +51,11 @@ pop$queueBitesNegBinom_SimBitePfSI(tMax = tMax, meanNumberBites = 100, plot = FA
 pop$simHumans(tPause = tMax+10)
 pop$get_History()
 
+
+#################################################################
 # simulate many human populations in parallel
+#################################################################
+
 library(parallel)
 simPars = replicate(n = 10,expr = PfSI.Parameters(),simplify = FALSE)
 simParOut = parallel::mclapply(X = simPars,FUN = function(x,PAR){

@@ -110,7 +110,7 @@ MbitesGeneric_isActive <- function(){
 # XX_getWTS <- function(){} are defined in the appropriate module-specific file.
 
 MbitesGeneric_lspotIx <- function(){
-  
+
 }
 
 

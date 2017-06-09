@@ -8,6 +8,10 @@
 #################################################################
 
 
+# links:
+http://kbroman.org/pkg_primer/ how to make packages (better roxygen2 stuff than Hadley's book)
+http://kevinushey.github.io/blog/2015/04/13/debugging-with-lldb/ compiled code (C++) debugger
+
 ### TO-DO:
 1. Add aging to Human and HumanPop
 2. Fix the shitty PfPR init in MacroTile
