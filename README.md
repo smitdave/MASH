@@ -11,9 +11,9 @@
 
 ### System Requirements
 
-1. C++11 compiler support.
-2. GNU make support.
-3. For certain parallel algorithms, users need to be on a Linux or Mac OS system that supports forking (see: https://en.wikipedia.org/wiki/Fork–exec).
+  1. C++11 compiler support.
+  2. GNU make support.
+  3. For certain parallel algorithms, users need to be on a Linux or Mac OS system that supports forking (see: https://en.wikipedia.org/wiki/Fork–exec).
 
 ### Code Optimization
 
