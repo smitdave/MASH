@@ -179,3 +179,7 @@ articles:
     desc: Microsimulation
     contents:
     - test
+  - title: "HUMAN"
+    desc: The Human simulation component of MASH
+    contents:
+      - HumanEventQueue
