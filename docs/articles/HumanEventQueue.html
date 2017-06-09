@@ -80,7 +80,9 @@
 </li>
 </ul>
 <p>Below is a description of how the event queue works and should be followed for any future modules.</p>
-<p>{% highlight r %} addEvent2Q(ixH, event){ … } {% endhighlight %}</p>
+<pre><code>addEvent2Q(ixH, event){
+  ...
+}</code></pre>
 </div>
 <div id="add2q_xx" class="section level3">
 <h3 class="hasAnchor">
@@ -91,7 +93,9 @@
 <li>t: time the event will occur</li>
 <li>PAR: optional argument of generic event parameters</li>
 </ul>
-<p>{% highlight r %} add2Q_XX(ixH, t, PAR){ addEvent2Q(ixH, event_XX(t, PAR)) } {% endhighlight %}</p>
+<pre><code>add2Q_XX(ixH, t, PAR){
+  addEvent2Q(ixH, event_XX(t, PAR))
+}</code></pre>
 </div>
 <div id="event_xx" class="section level3">
 <h3 class="hasAnchor">

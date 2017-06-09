@@ -24,11 +24,11 @@ The event queue is a crucial part of the MASH framework as it handles all events
 
 Below is a description of how the event queue works and should be followed for any future modules.
 
-{% highlight r %}
+```
 addEvent2Q(ixH, event){
   ...
 }
-{% endhighlight %}
+```
 
 ### add2Q_XX
 
@@ -38,11 +38,11 @@ addEvent2Q(ixH, event){
   * t: time the event will occur
   * PAR: optional argument of generic event parameters
 
-{% highlight r %}
+```
 add2Q_XX(ixH, t, PAR){
   addEvent2Q(ixH, event_XX(t, PAR))
 }
-{% endhighlight %}
+```
 
 ### event_XX
 
