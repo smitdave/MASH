@@ -9,7 +9,7 @@
 #################################################################
 
 rm(list=ls())
-library(MASH.R6)
+library(MASH)
 
 MICRO.Aqua.Setup(module = "emerge",overwrite = TRUE)
 MICRO.Emerge.Setup(overwrite = TRUE)

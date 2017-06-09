@@ -6,7 +6,7 @@ reference:
   - title: MASH
     desc: Modular Analysis & Simulation for Human Health
     contents:
-    - MASH.R6
+    - MASH
   - title: MICRO
     desc:  Microsimulation TILE classes, methods, fields, and functions
     contents:

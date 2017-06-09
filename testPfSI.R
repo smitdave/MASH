@@ -9,7 +9,7 @@
 #################################################################
 
 rm(list=ls())
-library(MASH.R6)
+library(MASH)
 
 # setup class methods for PfSI and SimBite modules
 PfSI.Setup()

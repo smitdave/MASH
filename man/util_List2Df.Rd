@@ -16,5 +16,5 @@ data frame
 Convert a list to a data frame.
 }
 \examples{
-util_List2Df(list = lapply(1:100,MASH.R6:::util_PfSISlice))
+util_List2Df(list = lapply(1:100,MASH:::util_PfSISlice))
 }
