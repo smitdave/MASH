@@ -21,7 +21,7 @@
 #' @return does stuff
 #' @examples
 #' some_function()
-get_travel <- function(){
+MacroHuman_get_travel <- function(){
   return(private$travel)
 }
 
@@ -33,7 +33,7 @@ get_travel <- function(){
 #' @return does stuff
 #' @examples
 #' some_function()
-set_travel <- function(travel){
+MacroHuman_set_travel <- function(travel){
   private$travel = travel
 }
 
@@ -47,7 +47,7 @@ set_travel <- function(travel){
 #' @return does stuff
 #' @examples
 #' some_function()
-init_MacroHuman_travel <- function(n, freqMean = 7, freqSd = 2, lengthMean = 2, lengthSd = 1, tNow = 0){
+MacroHuman_init_travel <- function(n, freqMean = 7, freqSd = 2, lengthMean = 2, lengthSd = 1, tNow = 0){
 
   N = self$get_PatchesPointer()$get_N() # how many patches
   here = self$get_patchID() # where is my home?
@@ -94,7 +94,7 @@ init_MacroHuman_travel <- function(n, freqMean = 7, freqSd = 2, lengthMean = 2, 
 #' @return does stuff
 #' @examples
 #' self$trackTravel(tTravel = 1, location = 1L)
-track_travel <- function(tTravel, locationH){
+MacroHuman_track_travel <- function(tTravel, locationH){
   private$locationH = c(private$locationH, locationH)
   private$tTravel = c(private$tTravel, tTravel)
 }
@@ -109,7 +109,7 @@ track_travel <- function(tTravel, locationH){
 #' @md
 #' @examples
 #' some_function()
-get_travelHistoryHuman <- function(){
+MacroHuman_get_travelHistoryHuman <- function(){
   list(
     location = private$locationH,
     tTravel = private$tTravel
@@ -123,7 +123,7 @@ get_travelHistoryHuman <- function(){
 #' @return a list
 #' @examples
 #' some_function()
-get_travelHistoryHumanPop <- function(){
+MacroHuman_get_travelHistoryHumanPop <- function(){
 
   travelHistories = vector(mode = "list", length = self$nHumans)
   for(ixH in 1:self$nHumans){
@@ -148,7 +148,7 @@ get_travelHistoryHumanPop <- function(){
 #' @return does stuff
 #' @examples
 #' some_function()
-go_Patch <- function(old, new){
+MacroHuman_go_Patch <- function(old, new){
   self$get_PatchesPointer()$add_humanIDs(oneID=private$myID,ix=new)
   self$get_PatchesPointer()$remove_humanIDs(oneID=private$myID,ix=old)
 }
@@ -171,7 +171,7 @@ go_Patch <- function(old, new){
 #' @return does stuff
 #' @examples
 #' some_function()
-add2Q_takeTrip <- function(tEvent, PAR = NULL){
+MacroHuman_add2Q_takeTrip <- function(tEvent, PAR = NULL){
   self$addEvent2Q(event = self$event_takeTrip(tEvent = tEvent, PAR = PAR))
 }
 
@@ -183,7 +183,7 @@ add2Q_takeTrip <- function(tEvent, PAR = NULL){
 #' @return does stuff
 #' @examples
 #' some_function()
-event_takeTrip <- function(tEvent, PAR){
+MacroHuman_event_takeTrip <- function(tEvent, PAR){
   list(tEvent = tEvent, PAR = PAR, tag = "takeTrip")
 }
 
@@ -199,7 +199,7 @@ event_takeTrip <- function(tEvent, PAR){
 #' @return does stuff
 #' @examples
 #' some_function()
-takeTrip <- function(tEvent, PAR){
+MacroHuman_takeTrip <- function(tEvent, PAR){
 
   # take the trip
   away = PAR$there
@@ -237,7 +237,7 @@ takeTrip <- function(tEvent, PAR){
 #' @return does stuff
 #' @examples
 #' some_function()
-add2Q_returnHome <- function(tEvent, PAR = NULL){
+MacroHuman_add2Q_returnHome <- function(tEvent, PAR = NULL){
   self$addEvent2Q(event = self$event_returnHome(tEvent = tEvent, PAR = PAR))
 }
 
@@ -249,7 +249,7 @@ add2Q_returnHome <- function(tEvent, PAR = NULL){
 #' @return does stuff
 #' @examples
 #' some_function()
-event_returnHome = function(tEvent, PAR){
+MacroHuman_event_returnHome <- function(tEvent, PAR){
   list(tEvent = tEvent, PAR = PAR, tag = "returnHome")
 }
 
@@ -261,7 +261,7 @@ event_returnHome = function(tEvent, PAR){
 #' @return does stuff
 #' @examples
 #' some_function()
-returnHome = function(tEvent, PAR){
+MacroHuman_returnHome <- function(tEvent, PAR){
 
   away = private$location
   home = private$patchID
@@ -302,7 +302,7 @@ returnHome = function(tEvent, PAR){
 #' @return none
 #' @examples
 #' HumanPop$json_travelHistory(con = file(description = paste0(directory, "OUTPUT/humanTravel.json"),open = "wt"))
-json_travelHistory <- function(con){
+MacroHuman_json_travelHistory <- function(con){
   travelHist = self$get_travelHistory()
   humanID = vapply(X = private$pop,FUN = function(x){x$get_myID()},FUN.VALUE = integer(1))
   names(travelHist) = paste0("human", humanID)

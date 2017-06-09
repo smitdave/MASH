@@ -83,18 +83,9 @@ reference:
     - set_PatchPf
     - set_season
     - simMacro
-    - sumKappa
-    - updateKappa
   - title: HUMAN
     desc: The HUMAN component
     contents:
-    - add2Q_Bites
-    - add2Q_returnHome
-    - add2Q_takeTrip
-    - event_returnHome
-    - event_takeTrip
-    - expectedBites
-    - get_location
     - get_MicroHuman_ActivitySpace
     - get_MicroHuman_FemalePopPointer
     - get_MicroHuman_LandscapePointer
@@ -102,39 +93,21 @@ reference:
     - get_MicroHumanPop_FemalePopPointer
     - get_MicroHumanPop_LandscapePointer
     - get_MicroHumanPop_TilePointer
-    - get_MosquitoPointer
-    - get_myEIR
-    - get_PatchesPointer
-    - get_patchID
-    - get_TilePointer
-    - get_travel
-    - get_travelHistoryHuman
-    - get_travelHistoryHumanPop
-    - go_Patch
     - Human
     - HumanPop.Parameters
     - HumanPop
-    - init_MacroHuman_travel
     - init_MicroHuman_ActivitySpace
     - init_MicroHumanPop_ActivitySpace
-    - json_travelHistory
-    - MACRO.Humans.Setup
     - MICRO.Humans.Setup
-    - queueInfectiousBites
-    - returnHome
-    - set_location
-    - set_MosquitoPointer
-    - set_patchID
-    - set_myEIR
-    - set_PatchesPointer
-    - set_TilePointer
-    - set_travel
     - sim_MicroHuman_ActivitySpace
     - sim_MicroHumanPop_ActivitySpace
     - siteAges
     - sitePops
-    - takeTrip
-    - track_travel
+  - title: MACRO HUMAN Methods
+    desc: Bititng and Travel related methods for MACRO
+    contents:
+    - MACRO.Humans.Setup
+    - matches("MacroHuman")
   - title: PATHOGEN
     desc: The PATHOGEN component
     contents:
