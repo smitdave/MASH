@@ -112,7 +112,9 @@
 <li>F: a function of the form F(ixH, t, PAR) that will execute the event</li>
 <li>tag: string of the event name (used for fast lookup)</li>
 </ul>
-<p>{% highlight r %} event_XX(t, PAR){ list(t = t, PAR = PAR, F = XX, tag = “XX”) } {% endhighlight %}</p>
+<pre><code>event_XX(t, PAR){
+  list(t = t, PAR = PAR, F = XX, tag = "XX")
+}</code></pre>
 </div>
 <div id="xx" class="section level3">
 <h3 class="hasAnchor">
@@ -123,7 +125,10 @@
 <li>t: time the event will occur</li>
 <li>PAR: generic event parameters</li>
 </ul>
-<p>{% highlight r %} XX(ixH, t, PAR){ # preform arbitrary number of operations on human ixH # may itself call functions of add2Q_XX family } {% endhighlight %}</p>
+<pre><code>XX(ixH, t, PAR){
+  # preform arbitrary number of operations on human ixH
+  # may itself call functions of add2Q_XX family
+}</code></pre>
 </div>
 </div>
 <div id="example" class="section level2">
@@ -136,9 +141,31 @@
 <li>
 <code>add2Q_startPfSI()</code> shows the versatility of the PAR argument; virtually any object can be passed in the third slot because it is not directly handled by <code>addEvent2Q()</code> as long as PAR is appropriately handled by other functions in the event family.</li>
 </ul>
-<p>{% highlight r %} add2Q_startPfSI &lt;- function(ixH, t, pfid){ addEvent2Q(ixH, event_startPfSI(t, pfid)) }</p>
-<p>event_startPfSI &lt;- function(t, pfid){ #if(NOISY == TRUE) {print(c(t=t,“adding infection”)); browser()} if(NOISY == TRUE) {print(c(t=t,“adding infection”))} list(t=t, PAR=pfid, F=infectHuman_PfSI, tag=“infectHuman_PfSI”) }</p>
-<p>infectHuman_PfSI &lt;- function(ixH, t, pfid){ if(NOISY == TRUE){print(“infectHuman”)} #Infect if(HUMANS[[ixH]]<span class="math inline">\(Pathogens\)</span>Pf<span class="math inline">\(infected == FALSE &amp; HUMANS[[ixH]]\)</span>Pathogens<span class="math inline">\(Pf\)</span>chemoprophylaxis == FALSE){ if(NOISY==TRUE) print(“Infect”) PfSIHistory(ixH, t, “I”) HUMANS[[ixH]]<span class="math inline">\(Pathogens\)</span>Pf<span class="math inline">\(infected &lt;&lt;- TRUE  HUMANS[[ixH]]\)</span>Pathogens<span class="math inline">\(Pf\)</span>t0 &lt;&lt;- t HUMANS[[ixH]]<span class="math inline">\(Pathogens\)</span>Pf$pfid &lt;&lt;- pfid if(rbinom(1,1,FeverPf)){ add2Q_feverPfSI(ixH, t) } add2Q_endPfSI(ixH, t, pfid) } } {% endhighlight %}</p>
+<pre><code>add2Q_startPfSI &lt;- function(ixH, t, pfid){
+  addEvent2Q(ixH, event_startPfSI(t, pfid))
+}
+
+event_startPfSI &lt;- function(t, pfid){
+  #if(NOISY == TRUE) {print(c(t=t,"adding infection")); browser()}
+  if(NOISY == TRUE) {print(c(t=t,"adding infection"))}
+  list(t=t, PAR=pfid, F=infectHuman_PfSI, tag="infectHuman_PfSI")
+}
+
+infectHuman_PfSI &lt;- function(ixH, t, pfid){
+  if(NOISY == TRUE){print("infectHuman")}
+  #Infect
+  if(HUMANS[[ixH]]$Pathogens$Pf$infected == FALSE &amp; HUMANS[[ixH]]$Pathogens$Pf$chemoprophylaxis == FALSE){
+      if(NOISY==TRUE) print("Infect")
+      PfSIHistory(ixH, t, "I")
+      HUMANS[[ixH]]$Pathogens$Pf$infected &lt;&lt;- TRUE
+      HUMANS[[ixH]]$Pathogens$Pf$t0 &lt;&lt;- t
+      HUMANS[[ixH]]$Pathogens$Pf$pfid &lt;&lt;- pfid
+      if(rbinom(1,1,FeverPf)){
+        add2Q_feverPfSI(ixH, t)
+      }
+      add2Q_endPfSI(ixH, t, pfid)
+    }
+}</code></pre>
 </div>
 </div>
 <div id="human-object" class="section level1">

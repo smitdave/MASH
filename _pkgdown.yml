@@ -183,3 +183,7 @@ articles:
     desc: The Human simulation component of MASH
     contents:
       - HumanEventQueue
+  - title: "PATHOGEN"
+    desc: the Pathogen simulation component of MASH
+    contents:
+      - PathogenPfLOME
