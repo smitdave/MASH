@@ -5,5 +5,7 @@
 ^NEWS\.md$          # A news file written in Markdown
 ^\.travis\.yml$     # Used for continuous integration testing with travis
 notes.txt           # notes file
+notes_bl.txt
 testPfSI.R              # R file for testing MASH
 ^test.*\.R$ # all testing files
+^docs$

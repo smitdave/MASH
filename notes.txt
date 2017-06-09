@@ -8,8 +8,39 @@
 #################################################################
 
 
+# links:
+http://kbroman.org/pkg_primer/ how to make packages (better roxygen2 stuff than Hadley's book)
+http://kevinushey.github.io/blog/2015/04/13/debugging-with-lldb/ compiled code (C++) debugger
+
+### TO-DO:
+1. Add aging to Human and HumanPop
+2. Fix the shitty PfPR init in MacroTile
+3. Better data logging for MacroTile
+4. For all XX.Setup() functions, add arg 'overwrite' boolean to toggle overwriting. If you do this you cannot
+   have any orphan XX$set() functions anymore
+5. in MacroTile::initialize(), make travelHabit arg 'n' part of HumanPop_PAR
+6. look into jsonlite::stream_out
+7. getEIP_MacroMosquitoPop should eventually return something besides an integer
+8. See simMacro: need single call to Tile to do all aquatic ecology stuffs; needs to generalize across allocation
+   possible aquatic ecology modules.
+9. AQUA-Macro-Emerge.R should be split according to how AQUA-Micro-Queues.R and AQUA-Micro-Emerge.R is structured.
+10. MACRO Emergence stuffs is called season right now...need to change to lambda
+11. Rename MACRO-Human-Movment.R stuff to MACRO-Human-Travel.R (Movement to Travel) for consistency with online docs.
+
+### SOLVED TO-DO:
+6. SOLVED (Z not updating correctly, see MACRO-MosquitoPop-Methods.R) HumanPop$debug("queueInfectiousBites"): do debugging: EIR is always 0
+7. SOVLED (see HUMANS-HumanPop-Parameters.R)check why in HumanPop$tStart is a vector.
+
+
 # naming conventions
 HUMANS/MICRO/MACRO/PATHOGEN/INTERVENTION - Human/HumanPop/Mosquito/MosquitoPop/PfSI/Site/Tile/Emerge,etc - Class/Parameters/Main/Auxiliary.R
+
+* XX - XX - Setup.R: these files define functions of the same name XX.XX.Setup(); they may only define simple setters/getters
+* XX - XX - SomeMethods: these files define methods/fields that are initialized in the above XX - XX - Setup.R function; example:
+  MACRO-Human-Movement.R
+
+# things start being called -Methods.R then if needed they can split.
+# XX - XX - Utilities.R contain mostly stand alone utility and plotting functions
 
 # humans for PfSI
 before making any objects, run PfSI.Setup()
@@ -19,13 +50,75 @@ to initialize first make the HumanPop object then for PfSI you will need to run 
 
 
 # other conventions:
-* never initialize pointers in the $new() or initialize() functions; initialize after with their setter function $set_POINTER()
+* never initialize pointers in the $new() or initialize() functions; initialize after with their setter function $set_POINTER():
+  * except in HumanPop where pointers for the Human objects to point up to HumanPop.
+  * possibly needed for mosquitoes.
 * XX.Init are methods added to OBJECTS already in the environment
 * XX.Setup are FUNCTIONS called before any OBJECTS are created.
 * .Init,.Setup,.Parameters are the only times that period may be used to define thing.
 * when a setter needs to take the object and an index, go set_XX(obj, ix = NULL){...}
+# tag debug lines with DEBUG_TAG
+* generic methods:
+  - get_XX() : return the thing. potentially with ix arg for lists (if ix = NULL then return the whole list)
+  - set_XX() : set the thing, potentially with (XX, ix) arg for setting an element of list (if ix = NULL set the entire object)
+  - push_XX() : push to the end of the thing; useful for growing vectors
+  - accumulate_XX() : add to the thing, sort of like XX += YY
+  - track_XX(): add to the history of XX (ie; track_Travel records travel history...)
+  - extend_XX(): add empty/NULL values to end of lists for memory allocation
+  - add_XX(): useful for when you need to add very specific information to something
+    with a specific structure (ie: add_riskList)
+  - clear_XX(): zero out multiple entries in this list object according to some logic
+  - zero_XX(): similar to clear_XX() but takes as an argument an integer index; only zeros out a single element.
+  - full_XX(): return indices of full slots (0L if none)
+  - empty_XX(): return indices of empty slots (0L if none)
+  - init_XX(): used to initalize routines (see init_MacroHuman_travel() in MACRO-Human-Travel.R)
+  - sim_XX(): simulate a thing (eg sim_ActivitySpace)
+    * need to turn simMacro into sim_Macro()
 
 # dave MACRO to sean R6 MACRO name changes
 * w = biteWeight
 * ixTrip = ixP (its in the PAR list so its not ambiguous)
 * PfTypes = patchPf
+* LANDSCAPE$aquaSites$season is now called lambda
+
+
+### files that directly set methods/fields without prompting (not in a .SETUP function)
+## see TO-DO task 4; these will need to be changed.
+* MACRO-MosquitoPop-Methods.R
+* MACRO-Patch-Methods.R
+* MACRO-Human-Biting.R
+
+### SETUP FUNCTIONS
+* AQUA-Macro-Emerge.R: MACRO.Patch.Emerge.Setup()
+* AQUA-Micro-Main.R: MICRO.Aqua.Setup()
+* AQUA-MicroEmerge-Setup.R: MICRO.Emerge.Setup()
+* PATHOGEN-Macro-PfMethods.R: MACRO.patchPf.Setup()
+* PATHOGEN-PfSI-Auxiliary.R: PfSI.Auxiliary.Setup()
+* PATHOGEN-PfSI-Methods.R: PfSI.Setup()
+* PATHOGEN-PfSI-SimBite.R: SimBitePfSI.Setup()
+
+### PARAMETER FUNCTIONS
+* PATHOGEN-PfSI-Parameters.R: PfSI.Parameters()
+* MACRO-Patch-Parameters.R: MACRO.Patch.Parameters()
+* HUMANS-HumanPop-Parameters.R: HumanPop.Parameters()
+* MacroMosquitoPop-Parameters.R: MACRO.MosquitoPop.Parameters()
+* MACRO-Tile-Parameters.R: MACRO.Tile.Parameters()
+
+
+### INIT FUNCTIONS
+* PATHOGEN-PfSI-Methods.R: PfSI.Init() -> HumanPop
+
+
+### Conventions for Documentation:
+1. Methods
+  *
+
+2. Utilities
+  * how to differentiate between function utilities and method utilities?
+  * prefix all with util_ ? or json_ and csv_ to indicate writing? dunno.
+
+2. XX.Setup() functions
+
+3. XX.Parameters() functions
+
+4. XX.Init() functions

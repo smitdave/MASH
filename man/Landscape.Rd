@@ -3,38 +3,75 @@
 \docType{class}
 \name{Landscape}
 \alias{Landscape}
-\title{MICRO-Landscape Class Definition}
+\title{MICRO Landscape Class Definition}
 \format{An \code{\link{R6Class}} generator object}
 \usage{
 Landscape
 }
 \description{
-This is a landscape blah blah.......
- categorical summary measure \code{A[j]}. This class inherits from \code{\link{GenericModel}} class.
- Defines the fitting algorithm for a regression model \code{A[j] ~ W + ...}.
-}
-\details{
-\itemize{
-\item{\code{reg}} - .
-\item{\code{outvar}} - .
-\item{\code{levels}} - .
-\item{\code{nbins}} - .
-}
+This is a Landscape object that is part of a MICRO microsimulation Tile object, defined in \code{\link{MicroTile}}.
 }
 \section{Methods}{
 
-\describe{
-  \item{\code{new(reg, DataStorageClass.g0, ...)}}{...}
-  \item{\code{fit(data)}}{...}
-  \item{\code{predict(newdata)}}{...}
-  \item{\code{predictAeqa(newdata)}}{...}
+\itemize{
+\item \strong{Constructor}
+\itemize{
+\item new: initialize a new \code{Landscape} object
+\itemize{
+\item Arguments:
+\itemize{
+\item \code{Landscape_PAR}: see \code{\link{Landscape.Parameters}} for parameter generation function.
 }
 }
-
-\section{Active Bindings}{
-
-\describe{
-  \item{\code{cats}}{...}
+}
+\item \strong{Getters & Setters}
+\itemize{
+\item get_FeedingSites: get \code{private$FeedingSites}
+\itemize{
+\item Arguments:
+\itemize{
+\item \code{ixS}: if \code{NULL} return all sites, otherwise return site indexed by \code{ixS}
+}
+}
+\item set_FeedingSites: set \code{private$FeedingSites}
+\itemize{
+\item Arguments:
+\itemize{
+\item \code{FeedingSites}: replacement object (see below)
+\item \code{ixS}: if \code{NULL} replace all sites, otherwise replace site indexed by \code{ixS}
+}
+}
+\item get_AquaSites: get \code{private$AquaSites}
+\itemize{
+\item Arguments:
+\itemize{
+\item \code{ixS}: if \code{NULL} return all sites, otherwise return site indexed by \code{ixS}
+}
+}
+\item set_AquaSites: set \code{private$AquaSites}
+\itemize{
+\item Arguments:
+\itemize{
+\item \code{AquaSites}: replacement object (see below)
+\item \code{ixS}: if \code{NULL} replace all sites, otherwise replace site indexed by \code{ixS}
+}
+}
+\item get_SugarSites: get \code{private$SugarSites}
+\item set_SugarSites: set \code{private$SugarSites}
+\item get_MatingSites: get \code{private$MatingSites}
+\item set_MatingSites: set \code{private$MatingSites}
+}
+\item \strong{Pointers}
+\itemize{
+\item get_TilePointer: get \code{\link{MicroTile}} pointer
+\item set_TilePointer: set \code{\link{MicroTile}} pointer
+\item get_MosquitoPopFemalePointer:
+\item set_MosquitoPopFemalePointer:
+\item get_MosquitoPopMalePointer:
+\item set_MosquitoPopMalePointer:
+\item get_HumansPointer: get \code{\link{HumanPop}} pointer
+\item set_HumansPointer: set \code{\link{HumanPop}} pointer
+}
 }
 }
 

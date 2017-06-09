@@ -10,15 +10,22 @@
 
 
 #################################################################
-# Methods
+# EIP
 #################################################################
 
 # for now just add methods straight to class object; can make a seperate MACRO.MosquitoPop.Setup() later if necessary.
 
-# EIP:
+#' Set \code{MacroMosquitoPop} getEIP
+#'
+#' get time dependent EIP
+#'
+#' @param a parameter
+#' @return does stuff
+#' @examples
+#' some_function()
 getEIP_MacroMosquitoPop <- function(tNow){
   # update later
-  return(10L)
+  return(2L)
 }
 
 MacroMosquitoPop$set(which = "public",name = "getEIP",
@@ -26,15 +33,83 @@ MacroMosquitoPop$set(which = "public",name = "getEIP",
           overwrite = TRUE
 )
 
-# Oviposition:
-layEggs_MacroMosquitoPop <- function(tNow){
+
+#################################################################
+# Oviposition
+#################################################################
+
+#' \code{MacroMosquitoPop} layEggs
+#'
+#' oviposition
+#'
+#' @param a parameter
+#' @return does stuff
+#' @examples
+#' some_function()
+layEggs_MacroMosquitoPop <- function(){
   for(ixP in 1:self$get_PatchesPointer()$get_N()){
-    EggQixP = private$M[ixP] * self$get_PatchesPointer()$get_aquaP(ix = ixP) * private$v * private$f
-    self$get_PatchesPointer()$set_EggQ(EggQixP, ix = ixP)
+    eggs = private$M[ixP] * self$get_PatchesPointer()$get_aquaP(ix = ixP) * private$v * private$f
+    self$get_PatchesPointer()$set_PatchesEggQ(PatchesEggQ = newEgg(N = eggs, tOviposit = self$get_TilePointer()$get_tNow(), damID = 0L, sireID = 0L, genotype = NULL), ix = ixP)
   }
 }
 
 MacroMosquitoPop$set(which = "public",name = "layEggs",
           value = layEggs_MacroMosquitoPop,
+          overwrite = TRUE
+)
+
+#################################################################
+# oneDay_RM (daily Ross-Macdonald difference equations)
+#################################################################
+
+#' Set \code{MacroMosquitoPop} oneDay_RM
+#'
+#' Daily Ross-Macdonald difference/diffusion equations for mosquito dynamics.
+#' These equations are likely inefficient; see optimizing BLAS/LAPACK and copying less matricies for a faster down the line implementation.
+#'
+#' @param a parameter
+#' @return does stuff
+#' @examples
+#' some_function()
+oneDay_RM <- function(){
+
+  #Mosquito Survival
+  M = private$p * private$M
+  Y = private$p * private$Y
+  Z = private$p * private$Z
+  ZZ = private$ZZ
+
+  # Infected Mosquitoes
+  Y0 = private$f * private$Q * private$PatchesPointer$get_kappa() * (M - Y)
+  Y = Y + Y0
+
+  # Migration & Sporozoite Maturation
+  if(!is.null(private$psi)){
+    M = private$psi %*% M
+    Y = private$psi %*% Y
+    Z = private$psi %*% Z + ZZ[1,]
+  } else {
+    Z = Z + ZZ[1,]
+  }
+
+  ZZ[-private$maxEIP,] = ZZ[-1,]
+  ZZ[private$maxEIP,] = 0
+
+  EIP = self$getEIP(t)
+  if(!is.null(private$psi)){
+    ZZ[EIP,] = ZZ[EIP,] + private$P[EIP] * private$Psi %*% Y0
+  } else {
+    ZZ[EIP,] = ZZ[EIP,] + private$P[EIP] * Y0
+  }
+
+  private$M = M
+  private$Y = Y
+  private$Z = Z
+  private$ZZ = ZZ
+
+}
+
+MacroMosquitoPop$set(which = "public",name = "oneDay_RM",
+          value = oneDay_RM,
           overwrite = TRUE
 )

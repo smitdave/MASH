@@ -3,38 +3,35 @@
 \docType{class}
 \name{FeedingSite}
 \alias{FeedingSite}
-\title{MICRO-Site Feeding Site Class Definition}
+\title{MICRO Feeding Site Class Definition}
 \format{An \code{\link{R6Class}} generator object}
 \usage{
 FeedingSite
 }
 \description{
 This is a generic site blah blah ...
- This class inherits from \code{\link{Site}} class.
- Defines the fitting algorithm for a regression model \code{A[j] ~ W + ...}.
 }
 \details{
 \itemize{
-\item{\code{reg}} - .
-\item{\code{outvar}} - .
-\item{\code{levels}} - .
-\item{\code{nbins}} - .
+\item some deets
 }
 }
 \section{Methods}{
 
-\describe{
-  \item{\code{new(reg, DataStorageClass.g0, ...)}}{...}
-  \item{\code{fit(data)}}{...}
-  \item{\code{predict(newdata)}}{...}
-  \item{\code{predictAeqa(newdata)}}{...}
+\itemize{
+\item a method
+\item another method
+\item even more methods
+\item \code{\link{init_riskList}}: initialize a risk list for this site.
+\item \code{\link{extend_riskList}}: extend a risk list for this site.
+\item \code{\link{add_riskList}}: add to a risk list for this site.
 }
 }
 
 \section{Active Bindings}{
 
 \describe{
-  \item{\code{cats}}{...}
+\item{\code{cats}}{...}
 }
 }
 

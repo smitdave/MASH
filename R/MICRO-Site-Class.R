@@ -2,7 +2,7 @@
 #
 #   MASH
 #   R6-ified
-#   Site Classes
+#   MICRO Site Classes
 #   Hector Sanchez & David Smith, Hector Sanchez, Sean Wu
 #   April 28, 2017
 #
@@ -12,22 +12,20 @@
 # Generic Site Definition
 #################################################################
 
-#' MICRO-Site Generic Class Definition
+#' MICRO Generic Site Class Definition
 #'
-#' This is a generic site blah blah ...
-#'  categorical summary measure \code{A[j]}. This class inherits from \code{\link{GenericModel}} class.
-#'  Defines the fitting algorithm for a regression model \code{A[j] ~ W + ...}.
+#'
+#'
 #'
 #' @docType class
 #' @format An \code{\link{R6Class}} generator object
 #' @keywords R6 class
 #' @details
-#' \itemize{
-#' \item{\code{reg}} - .
-#' \item{\code{outvar}} - .
-#' \item{\code{levels}} - .
-#' \item{\code{nbins}} - .
-#' }
+#'
+#'
+#'
+#'
+#'
 #' @section Methods:
 #' \describe{
 #'   \item{\code{new(reg, DataStorageClass.g0, ...)}}{...}
@@ -40,7 +38,7 @@
 #'   \item{\code{cats}}{...}
 #' }
 #' @export
-Site <- R6::R6Class(classname = "Site",
+MicroSite <- R6::R6Class(classname = "Site",
                  portable = TRUE,
                  cloneable = FALSE,
                  lock_class = FALSE,
@@ -49,16 +47,29 @@ Site <- R6::R6Class(classname = "Site",
                  # public members
                  public = list(
 
-                  #  modifiers & accessors
+                   #################################################
+                   # Getters and Setters
+                   #################################################
 
-                  get_ix = function(){return(private$ix)},
-                  set_ix = function(newIx){private$ix <- newIx},
+                   # site index
+                   get_ix = function(){return(private$ix)},
+                   set_ix = function(ix){private$ix = ix},
 
-                  get_siteXY = function(){return(private$siteXY)},
-                  set_siteXY = function(newSiteXY){private$siteXY <- newSiteXY},
+                   # site coordinates
+                   get_siteXY = function(){return(private$siteXY)},
+                   set_siteXY = function(newSiteXY){private$siteXY = siteXY},
 
-                  get_searchWt = function(){return(private$searchWt)},
-                  set_searchWt = function(newSearchWt){private$searchWt <- newSearchWt}
+                   # search weight
+                   get_searchWt = function(){return(private$searchWt)},
+                   set_searchWt = function(searchWt){private$searchWt = searchWt},
+
+                   #################################################
+                   # Pointers
+                   #################################################
+
+                   # landscape pointer
+                   get_LandscapePointer = function(){return(private$LandscapePointer)},
+                   set_LandscapePointer = function(LandscapePointer){private$LandscapePointer = LandscapePointer}
 
                  ),
 
@@ -67,7 +78,10 @@ Site <- R6::R6Class(classname = "Site",
 
                    ix = 0L,
                    siteXY = vector(mode="numeric",length=2L),
-                   searchWt = 0L
+                   searchWt = 0L,
+
+                   # Pointers
+                   LandscapePointer = NULL
 
                  )
 )
@@ -77,36 +91,32 @@ Site <- R6::R6Class(classname = "Site",
 # Blood Feeding Site
 #################################################################
 
-#' MICRO-Site Feeding Site Class Definition
+#' MICRO Feeding Site Class Definition
 #'
 #' This is a generic site blah blah ...
-#'  This class inherits from \code{\link{Site}} class.
-#'  Defines the fitting algorithm for a regression model \code{A[j] ~ W + ...}.
 #'
 #' @docType class
 #' @format An \code{\link{R6Class}} generator object
 #' @keywords R6 class
 #' @details
-#' \itemize{
-#' \item{\code{reg}} - .
-#' \item{\code{outvar}} - .
-#' \item{\code{levels}} - .
-#' \item{\code{nbins}} - .
-#' }
+#' * some deets
 #' @section Methods:
-#' \describe{
-#'   \item{\code{new(reg, DataStorageClass.g0, ...)}}{...}
-#'   \item{\code{fit(data)}}{...}
-#'   \item{\code{predict(newdata)}}{...}
-#'   \item{\code{predictAeqa(newdata)}}{...}
-#' }
+#' * a method
+#' * another method
+#' * even more methods
+#' * \code{\link{init_riskList}}: initialize a risk list for this site.
+#' * \code{\link{extend_riskList}}: extend a risk list for this site.
+#' * \code{\link{add_riskList}}: add to a risk list for this site.
+#'
 #' @section Active Bindings:
 #' \describe{
 #'   \item{\code{cats}}{...}
 #' }
+#'
+#' @md
 #' @export
 FeedingSite <- R6::R6Class(classname = "FeedingSite",
-                 inherit = Site,
+                 inherit = MicroSite,
                  portable = TRUE,
                  cloneable = FALSE,
                  lock_class = FALSE,
@@ -115,8 +125,12 @@ FeedingSite <- R6::R6Class(classname = "FeedingSite",
                  # public members
                  public = list(
 
-                  #  initialize
-                   initialize = function(ix, siteXY, searchWt, enterP, hazV = 0, hazW = 0, hazI = 0, sugar = 1){
+                   #################################################
+                   # Initialize
+                   #################################################
+
+                   # maxH: passed to init_riskList
+                   initialize = function(ix, siteXY, searchWt, enterP, hazV = 0, hazW = 0, hazI = 0, sugar = NULL, maxH = 20L){
 
                      private$ix = ix
                      private$siteXY = siteXY
@@ -127,26 +141,38 @@ FeedingSite <- R6::R6Class(classname = "FeedingSite",
                      private$sugar = sugar
                      private$enterP = enterP
 
+                     # init risk list
+                     self$init_riskList(maxH = maxH)
+
                    },
 
-                  #  modifiers & accessors
-                  get_hazV = function(){return(private$hazV)},
-                  set_hazV = function(newHazV){private$hazV <- newHazV},
+                   #################################################
+                   # Getters and Setters
+                   #################################################
 
-                  get_hazW = function(){return(private$hazW)},
-                  set_hazW = function(newHazW){private$hazW <- newHazW},
+                   # vegetation hazards
+                   get_hazV = function(){return(private$hazV)},
+                   set_hazV = function(hazV){private$hazV = hazV},
 
-                  get_hazI = function(){return(private$hazI)},
-                  set_hazI = function(newHazI){private$hazI <- newHazI},
+                   # outside wall hazards
+                   get_hazW = function(){return(private$hazW)},
+                   set_hazW = function(hazW){private$hazW = hazW},
 
-                  get_sugar = function(){return(private$sugar)},
-                  set_sugar = function(newSugar){private$sugar <- newSugar},
+                   # inside wall hazards
+                   get_hazI = function(){return(private$hazI)},
+                   set_hazI = function(hazI){private$hazI = hazI},
 
-                  get_enterP = function(){return(private$enterP)},
-                  set_enterP = function(newEnterP){private$enterP <- newEnterP},
+                   # sugar source (only used in MBITES-BRO and MBITES-BROM)
+                   get_sugar = function(){return(private$sugar)},
+                   set_sugar = function(sugar){private$sugar = sugar},
 
-                  get_riskList = function(){return(private$riskList)},
-                  set_riskList = function(newRiskList){private$riskList <- newRiskList}
+                   # house entry probability
+                   get_enterP = function(){return(private$enterP)},
+                   set_enterP = function(enterP){private$enterP = enterP},
+
+                   # risk list: ixH is the Human$myID to look up
+                   get_riskList = function(){return(private$riskList)},
+                   set_riskList = function(riskList){private$riskList = riskList}
 
                  ),
 
@@ -156,9 +182,9 @@ FeedingSite <- R6::R6Class(classname = "FeedingSite",
                    hazV = NULL,      # vegetation hazards
                    hazW = NULL,      # outside wall hazards
                    hazI = NULL,      # inside wall hazards
-                   sugar = NULL,     # sugar source
+                   sugar = NULL,     # sugar source (only used in MBITES-BRO and MBITES-BROM)
                    enterP = NULL,    # house entry probability
-                   riskList = NULL   # biting risk
+                   riskList = NULL   # risk list for host bloodfeeding
 
                  )
 )
@@ -200,7 +226,7 @@ FeedingSite <- R6::R6Class(classname = "FeedingSite",
 #' }
 #' @export
 AquaticSite <- R6::R6Class(classname = "AquaticSite",
-                 inherit = Site,
+                 inherit = MicroSite,
                  portable = TRUE,
                  cloneable = FALSE,
                  lock_class = FALSE,
@@ -209,34 +235,55 @@ AquaticSite <- R6::R6Class(classname = "AquaticSite",
                  # public members
                  public = list(
 
-                   initialize = function(ix, siteXY, searchWt, lambda, haz = 0){
+                   #################################################
+                   # Initialize
+                   #################################################
 
+                   # maxQ: pre-alloc ImagoQ and EggQ size
+                   initialize = function(ix, siteXY, searchWt, module, lambda = NULL, haz = 0, maxQ = 20L){
+
+                     # generic fields
                      private$ix = ix
                      private$siteXY = siteXY
                      private$searchWt = searchWt
-                     private$lambda = lambda
                      private$haz = haz
-                     private$ImagoQ = allocImagoQ(N = 1e2)
-                     private$EggQ = allocEggQ(N = 1e2)
+
+                     # shared Aquatic Ecology fields
+                     private$ImagoQ = allocImagoQ(N = maxQ)
+
+                     # Aquatic Ecology Emerge module fields
+                     if(module == "emerge"){
+                       # Emerge module
+                       private$lambda = lambda
+                     } else if(module == "EL4P"){
+                       # EL4P module
+                       private$EggQ = allocEggQ(N = maxQ)
+                     } else {
+                       stop("unrecognized module")
+                     }
 
                    },
 
-                   #  modifiers & accessors
+                   #################################################
+                   # Getters and Setters
+                   #################################################
+
                    get_haz = function(){return(private$haz)},
-                   set_haz = function(newHaz){private$haz <- newHaz},
-
-                   get_lambda = function(){return(private$lambda)},
-                   set_lambda = function(newLambda){private$lambda <- newLambda}
-
+                   set_haz = function(haz){private$haz = haz}
 
                  ),
 
                  # private members
                  private = list(
 
-                   haz = NULL,    # local hazards
-                   lambda = vector(mode="numeric",length=365), # daily emergence
+                   # shared fields
+                   haz = NULL,
                    ImagoQ = NULL,
+
+                   # Emerge fields
+                   lambda = NULL,
+
+                   # EL4P fields
                    EggQ = NULL
 
                  )

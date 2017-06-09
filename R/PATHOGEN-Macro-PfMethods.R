@@ -13,7 +13,7 @@
 # Initalize Methods & Fields in 'MacroPatch'
 #################################################################
 
-#' MACRO: Initialize Additional PATHOGEN patchPf Methods & Fields in \code{MacroPatch}
+#' MACRO: Initialize Additional PATHOGEN PatchPf Methods & Fields in \code{MacroPatch}
 #'
 #' Write me! \code{\link{Human}}
 #'
@@ -22,31 +22,31 @@
 #' @examples
 #' MACRO.Humans.Setup()
 #' @export
-MACRO.patchPf.Setup <- function(){
+MACRO.PatchPf.Setup <- function(){
 
-  print(paste0("initializing MACRO patchPf PATHOGEN component methods & fields for MacroPatch Class"))
+  print(paste0("initializing MACRO PatchPf PATHOGEN component methods & fields for MacroPatch Class"))
 
-  # patchPf: patch level Pf populations
-  MacroPatch$set(which = "private",name = "patchPf",
+  # PatchPf: patch level Pf populations
+  MacroPatch$set(which = "private",name = "PatchPf",
             value = NULL,
             overwrite = TRUE
   )
 
-  MacroPatch$set(which = "public",name = "get_patchPf",
+  MacroPatch$set(which = "public",name = "get_PatchPf",
             value = NULL,
             overwrite = TRUE
   )
 
-  MacroPatch$set(which = "public",name = "set_patchPf",
+  MacroPatch$set(which = "public",name = "set_PatchPf",
             value = NULL,
             overwrite = TRUE
   )
 
-  # initialize
-  MacroPatch$set(which = "public",name = "initialize",
-            value = initialize_patchPf,
-            overwrite = TRUE
-  )
+  # # initialize
+  # MacroPatch$set(which = "public",name = "initialize",
+  #           value = initialize_PatchPf,
+  #           overwrite = TRUE
+  # )
 
 }
 
@@ -62,12 +62,12 @@ MACRO.patchPf.Setup <- function(){
 #' @param a parameter
 #' @return does stuff
 #' @examples
-#' get_patchPf()
-get_patchPf = function(ix = NULL){
+#' get_PatchPf()
+get_PatchPf = function(ix = NULL){
   if(is.null(ix)){
-    return(private$patchPf)
+    return(private$PatchPf)
   } else {
-    return(private$patchPf[[ix]])
+    return(private$PatchPf[[ix]])
   }
 }
 
@@ -78,29 +78,29 @@ get_patchPf = function(ix = NULL){
 #' @param a parameter
 #' @return does stuff
 #' @examples
-#' get_patchPf()
-set_patchPf = function(patchPf, ix = NULL){
+#' get_PatchPf()
+set_PatchPf = function(PatchPf, ix = NULL){
   if(!is.null(ix)){
-    private$patchPf[[ix]] = patchPf
+    private$PatchPf[[ix]] = PatchPf
   } else {
-    private$patchPf = patchPf
+    private$PatchPf = PatchPf
   }
 }
 
 
-#' Pf: Initialize \code{Human}
-#'
-#' Write me!
-#'
-#' @param a parameter
-#' @return does stuff
-#' @examples
-#' set_biteWeight()
-initialize_patchPf = function(MacroPatch_PAR){
-  private$N = N
-  stop("WRITE ME")
-  private$patchPf = vector(mode="list",length=N)
-  for(ixP in 1:N){
-    private$PfTypes[[ixP]] = patchPf(damID = NULL, sireID = NULL)
-  }
-}
+# #' Pf: Initialize \code{Human}
+# #'
+# #' Write me!
+# #'
+# #' @param a parameter
+# #' @return does stuff
+# #' @examples
+# #' set_bWeight()
+# initialize_PatchPf = function(MacroPatch_PAR){
+#   private$N = N
+#   stop("WRITE ME")
+#   private$PatchPf = vector(mode="list",length=N)
+#   for(ixP in 1:N){
+#     private$PatchPf[[ixP]] = PatchPf(damID = NULL, sireID = NULL)
+#   }
+# }

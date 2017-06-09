@@ -1,3 +1,3 @@
-#' @import R6
-#' @import spatstat
+#'@import Rcpp
+#'@useDynLib MASH.R6
 NULL

@@ -8,6 +8,49 @@
 #
 #################################################################
 
+#################################################################
+# Standalone functions for lambda
+#################################################################
+
+#' MACRO: Generate Seasonal Emergence (Lambda) for \code{Emerge} model of Aquatic Ecology
+#'
+#' Generate lambda for all patches.
+#'
+#' @param aquaPars a list of the following structure
+#'  * lambda: vector of length equal to number of patches \code{\link{MacroPatch}} where each element is the number of emerging adult females per human per day averaged over one year (required)
+#'  * lambdaWeight: vector of weights applied to each site (if not specified or set to \code{NULL} initialize to Gamma(1,1) distribution)
+#'  * offset: vector of seasonal offsets in peak emergence applied to each site (if not specified or set to \code{NULL} initialize to 0 for all sites)
+#' @md
+#' @return list \code{lambda} where each element is the daily emergence for that \code{\link{MacroPatch}}
+#' @examples
+#' makeLambda_Macro(aquaPars = list(lambda=c(5,10,15)))
+#' @export
+makeLambda_Macro <- function(aquaPars){
+
+  with(aquaPars,{
+
+    N = length(lambda)
+    if(!exists("lambdaWeight",inherits = FALSE) || is.null(lambdaWeight)){lambdaWeight = rgamma(n = N,shape = 1,rate = 1)}
+
+    K = lambda*lambdaWeight / sum(lambdaWeight)
+    if(!exists("offset",inherits = FALSE) || is.null(lambdaWeight)){offset = rep(0,length=N)}
+
+    lambdaOut = vector(mode="list",length=N)
+    for(ix in 1:N){
+      lambdaOut[[ix]] = K[ix]*(1+sin(2*pi*(c(1:365)-offset[ix])/365))
+    }
+
+    return(lambdaOut)
+
+  })
+
+}
+
+
+#################################################################
+# Setup
+#################################################################
+
 #' Initialize Additional Methods & Fields in \code{MacroPatch} for Emerge Module of Aquatic Ecology
 #'
 #' Write me! See for parameters that are initialized after this; ie: anything that \code{\link{MACRO.Patch.Parameters}} calls for 'Emerge' should be defined here.
@@ -19,15 +62,29 @@
 #' @export
 MACRO.Patch.Emerge.Setup <- function(){
 
+  print(paste0("initializing MACRO 'Emerge' Module Methods for 'MacroPatch' Class"))
+
   #################################################################
   # Methods
   #################################################################
 
-    # when written, this should clear out the EggQ because its not used in Emerge
-    # MacroPatch$set(which = "private",name = "oneDay_emerge"
-    #           value = oneDay_emerge_MACRO,
-    #           overwrite = TRUE
-    # )
+    # addCohort_MacroEmerge takes the generic name addCohort because it interfaces with the MacroMosquitoPop class
+    MacroPatch$set(which = "public",name = "addCohort_MacroEmerge",
+              value = addCohort_MacroEmerge,
+              overwrite = TRUE
+    )
+
+    # add adults from lambda to PatchesImagoQ
+    MacroPatch$set(which = "public",name = "emergingAdults_MacroEmerge",
+              value = emergingAdults_MacroEmerge,
+              overwrite = TRUE
+    )
+
+    # helper function to get from ImagoQ to addCohort
+    MacroPatch$set(which = "public",name = "oneDay_MacroEmerge",
+              value = oneDay_MacroEmerge,
+              overwrite = TRUE
+    )
 
 
   #################################################################
@@ -91,8 +148,6 @@ MACRO.Patch.Emerge.Setup <- function(){
 # Methods
 #################################################################
 
-
-
 #' MACRO: Calculate Emerging Adults for \code{MacroPatch}
 #'
 #' Write me! does this for all patches
@@ -101,41 +156,30 @@ MACRO.Patch.Emerge.Setup <- function(){
 #' @return does stuff
 #' @examples
 #' some_function()
-addCohort <- function(){
-  newM = self$get_MosquitoPointer()$get_M() + self$emergingAdults_MACRO()
+addCohort_MacroEmerge <- function(){
+  newM = self$get_MosquitoPointer()$get_M() + self$emergingAdults_MacroEmerge()
   self$get_MosquitoPointer()$set_M(M = newM, ix = NULL)
 }
 
 #' MACRO: Calculate Emerging Adults from ImagoQ for \code{MacroPatch}
 #'
-#' Write me! does this for all patches. Goes from ImagoQ to a vector of adults to be born, and zeros out
+#' Write me! does this for all patches. generates a vector of emerging adults, and zeros out the ImagoQ
 #'
 #' @param a parameter
 #' @return does stuff
 #' @examples
 #' some_function()
-emergingAdults_MACRO <- function(){
-
-  # EVERY TIME STEP,CHECK READY QUEUES AND EMERGE THEM, ZERO OUT EMERGED SPOTS
-
-  # as for manage_PatchesImagoQ queue length management; we need to check when in the original Emerge module of MASH.MBPT we did the management and duplicate it
+emergingAdults_MacroEmerge <- function(){
 
   # grab slots that are ready to emerge
   tNow = self$get_TilePointer()$get_tNow()
   newM = vector(mode="integer",length=private$N)
   for(ixP in 1:private$N){
-
-    newAdultsIx = vapply(X = private$PatchesImagoQ[[ixP]],FUN = function(x){x$tEmerge <= tNow},FUN.VALUE = logical(1))
-
-
-    newAdults[[ixP]] = vapply(X = private$PatchesImagoQ[[ixP]][newAdultsIx],FUN = function(x){x$N},FUN.VALUE = numeric(1))
-
-
-
-    private$PatchesImagoQ[[ixP]][newAdultsIx]
+    newM[ixP] = private$PatchesImagoQ[[ixP]]$N
+    self$set_PatchesImagoQ(PatchesImagoQ = newImago(),ixP = ixP)
   }
 
-
+  return(newM)
 }
 
 #' Get \code{MacroPatch} Seasonal Emergence
@@ -146,13 +190,14 @@ emergingAdults_MACRO <- function(){
 #' @return does stuff
 #' @examples
 #' some_function()
-oneDay_emerge_MACRO <- function(){
+oneDay_MacroEmerge <- function(){
 
   tNow = self$get_TilePointer()$get_tNow()
   lambdaExact = vapply(X = private$season,FUN = function(x){x[floor(tNow)%%365+1]},FUN.VALUE = numeric(1))
-  lambdaN = rpois(n = length(lambdaExact),lambda = lambdaExact)
+  lambdaEmerge = rpois(n = length(lambdaExact),lambda = lambdaExact)
   for(ixP in 1:private$N){
-    self$set_PatchesImagoQ(PatchesImagoQ = newImago(N = lambdaN[ixP], tEmerge = tNow), ixP = ixP)
+    self$set_PatchesImagoQ(PatchesImagoQ = newImago(N = lambdaEmerge[ixP], tEmerge = tNow), ixP = ixP)
+    # self$set_PatchesEggQ(PatchesEggQ = newEgg(), ixP = ixP) RESET EGG
   }
 
 }

@@ -34,7 +34,7 @@
 #' \itemize{
 #'   \item{maxEIP: maximum value of extrinsic incubation period}
 #'   \item{nPatches: number of patches in \code{\link{Tile}}}
-#'   \item{RMparameters}{
+#'   \item{MacroMosquitoPop_PAR}{
 #'      \itemize{
 #'          \item{p: the probability of surviving one day}
 #'          \item{f: the proportion of mosquitoes that blood feed each day}
@@ -73,28 +73,28 @@ MacroMosquitoPop <- R6::R6Class(classname = "MacroMosquitoPop",
 
                    # N: number of patches
                    # M_density: mosquito density at each patch
-                   # RMparameters: a list of RM parameters
-                   initialize = function(N, M_density, RMparameters){
+                   # MacroMosquitoPop_PAR: a list of RM parameters
+                   initialize = function(N, MacroMosquitoPop_PAR){
 
-                     private$p = RMparameters$p
-                     private$f = RMparameters$f
-                     private$Q = rep(RMparameters$Q,N)
-                     private$v = RMparameters$v
-                     private$maxEIP = RMparameters$maxEIP
+                     private$p = MacroMosquitoPop_PAR$p
+                     private$f = MacroMosquitoPop_PAR$f
+                     private$Q = MacroMosquitoPop_PAR$Q
+                     private$v = MacroMosquitoPop_PAR$v
+                     private$maxEIP = MacroMosquitoPop_PAR$maxEIP
 
-                     if(length(M_density)==1){
-                       private$M = rep(M_density,N) # mosquito density
-                     } else if(length(M_density)!=N){
+                     if(length(MacroMosquitoPop_PAR$M_density)==1){
+                       private$M = rep(MacroMosquitoPop_PAR$M_density,N) # mosquito density
+                     } else if(length(MacroMosquitoPop_PAR$M_density)!=N){
                        stop("M_density must either be of length 1 or equal to N!")
                      } else {
-                       private$M = M_density
+                       private$M = MacroMosquitoPop_PAR$M_density
                      }
                      private$Y   = rep(0L, N) # infected (incubating)
                      private$Z   = rep(0L, N) # infectious
-                     private$ZZ  = matrix(data=0L,nrow=RMparameters$maxEIP,ncol=N) # each row is the number that will be added to the infectious state on that day
+                     private$ZZ  = matrix(data=0L,nrow=MacroMosquitoPop_PAR$maxEIP,ncol=N) # each row is the number that will be added to the infectious state on that day
 
-                     private$psi = diag(N) # modularize later
-                     private$P   = p^c(1:RMparameters$maxEIP) # survival over EIP
+                     private$psi = MacroMosquitoPop_PAR$psi
+                     private$P   = MacroMosquitoPop_PAR$p^c(1:MacroMosquitoPop_PAR$maxEIP) # survival over EIP
 
                    },
 
@@ -212,6 +212,11 @@ MacroMosquitoPop <- R6::R6Class(classname = "MacroMosquitoPop",
                    },
                    set_P = function(P){
                      private$P = P
+                   },
+
+                   # generic accessors
+                   get_private = function(){
+                     return(as.list(private))
                    },
 
                    #################################################

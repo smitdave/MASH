@@ -1,11 +1,12 @@
-#############################################
+#################################################################
 #
-# Alpha version of MACRO
-# R6 secret sauce version
-# David Smith & David Smith, Hector Sanchez, Sean Wu
-# May 11, 2017
+#   MASH
+#   R6-ified
+#   MACRO MacroTile Class Definition
+#   David Smith, Hector Sanchez, Sean Wu
+#   May 11, 2016
 #
-#############################################
+#################################################################
 
 #' MACRO Tile Class Definition
 #'
@@ -52,26 +53,92 @@ MacroTile <- R6::R6Class(classname = "MacroTile",
                  # public methods & fields
                  public = list(
 
-                   # class initialize
-                   initialize = function(nHum,nPatch){
-                     private$HumanPop = HumanPop$new(nHum = nHum)
-                     private$Patches = Patch$new(N = nPatch)
-                     private$MosquitoPop = MacroMosquitoPop$new()
+                   #################################################
+                   # Initialize
+                   #################################################
 
-                     # set everyones pointers to each other
+                   initialize = function(MacroTile_PAR){
 
+                     # generate objects
+                     private$HumanPop = HumanPop$new(HumanPop_PAR = MacroTile_PAR$HumanPop_PAR)
+                     private$Patches = MacroPatch$new(MacroPatch_PAR = MacroTile_PAR$MacroPatch_PAR)
+                     private$MosquitoPop = MacroMosquitoPop$new(N = MacroTile_PAR$N, MacroMosquitoPop_PAR = MacroTile_PAR$MacroMosquitoPop_PAR)
+
+                     private$tNow = 0
+                     private$MacroTile_PAR = MacroTile_PAR
+
+                     # Human & HumanPop Pointers (duplicate for Humans in HumanPop$pop)
+                     private$HumanPop$set_TilePointer(self)
+                     private$HumanPop$set_MosquitoPointer(private$MosquitoPop)
+                     private$HumanPop$set_PatchesPointer(private$Patches)
+
+                     # Human & HumanPop initilization
+                     for(ixH in 1:private$HumanPop$nHumans){
+                       # pointers
+                       private$HumanPop$get_Human(ixH)$set_TilePointer(self)
+                       private$HumanPop$get_Human(ixH)$set_MosquitoPointer(private$MosquitoPop)
+                       private$HumanPop$get_Human(ixH)$set_PatchesPointer(private$Patches)
+                       # travel
+                       private$HumanPop$get_Human(ixH)$set_location(MacroTile_PAR$HumanPop_PAR$homeIDs[ixH])
+                       private$HumanPop$get_Human(ixH)$set_patchID(MacroTile_PAR$HumanPop_PAR$homeIDs[ixH])
+                       private$HumanPop$get_Human(ixH)$init_travel(n=2)
+                       # update baseline human biting weight
+                       myPatch = private$HumanPop$get_Human(ixH)$get_patchID()
+                       private$Patches$accumulate_bWeightHuman(bWeightHuman = private$HumanPop$get_Human(ixH)$get_bWeight(), ix = myPatch)
+                     }
+                     private$HumanPop$set_humanPfSI() # set up human PfSI objects
+
+                     # Patches Pointers
+                     private$Patches$set_TilePointer(self)
+                     private$Patches$set_MosquitoPointer(private$MosquitoPop)
+                     private$Patches$set_HumansPointer(private$HumanPop)
+
+                     # MosquitoPop Pointers
+                     private$MosquitoPop$set_TilePointer(self)
+                     private$MosquitoPop$set_PatchesPointer(private$Patches)
+                     private$MosquitoPop$set_HumansPointer(private$HumanPop)
+
+                     # initialize kappa (biting propensity on humans)
+                     private$HumanPop$updateKappa()
                    },
 
-                   # oneDayRM
-                   oneDayRM = function(){
-                     stop("sean hasn't written me yet!")
-                   },
+                  #################################################################
+                  # Getters & Setters
+                  #################################################################
 
                    get_tNow = function(){
                      return(private$tNow)
                    },
                    set_tNow = function(tNow){
                      private$tNow = tNow
+                   },
+
+                   get_MacroTile_PAR = function(){
+                     return(private$MacroTile_PAR)
+                   },
+
+                   set_MacroTile_PAR = function(MacroTile_PAR){
+                     private$MacroTile_PAR = MacroTile_PAR
+                   },
+
+                   get_HumanPop = function(){
+                     return(private$HumanPop)
+                   },
+
+                   get_Patches = function(){
+                     return(private$Patches)
+                   },
+
+                   get_MosquitoPop = function(){
+                     return(private$MosquitoPop)
+                   },
+
+                   ## TAKE OUT LATER
+                   # it should live wherever we set up what pathogen model is being used?????
+                   # maybe it gets added in PfSI.Setup()
+                   init_humanInf = function(PfPR){
+                     message("this function is bad and sean should feel bad (he wrote this)")
+                     private$HumanPop$PfSI.Init(PfPR)
                    }
 
                   ),
@@ -79,6 +146,7 @@ MacroTile <- R6::R6Class(classname = "MacroTile",
                   # private methods & fields
                   private = list(
                     tNow = NULL,
+                    MacroTile_PAR = NULL,
                     HumanPop = NULL,
                     Patches = NULL,
                     MosquitoPop = NULL

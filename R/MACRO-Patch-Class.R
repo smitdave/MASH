@@ -53,10 +53,58 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                  # public methods & fields
                  public = list(
 
-                   # class initialize
+                   #################################################
+                   # Initialize
+                   #################################################
+                   
                    initialize = function(MacroPatch_PAR){
-                     private$N = N
-                     stop("WRITE ME")
+
+                     with(MacroPatch_PAR,{ # enter MacroPatch_PAR environment
+
+                       # initialize shared parameters
+                       private$N = N
+                       private$hhID = hhID
+                       private$humanIDs = humanIDs
+                       private$bWeightHuman = bWeightHuman
+                       private$bWeightZoo = bWeightZoo
+                       private$bWeightZootox = bWeightZootox
+                       private$Q = Q
+                       private$kappa = kappa
+                       private$aquaID = aquaID
+                       private$aquaP = aquaP
+                       private$aquaNewM = aquaNewM
+                       private$weightAqua = weightAqua
+                       private$weightOvitrap = weightOvitrap
+                       private$weightSugar = weightSugar
+                       private$weightBait = weightBait
+                       private$weightMate = weightMate
+
+                       # initialize AQUATIC ECOLOGY
+                       if(aquaModel == "emerge"){
+
+                         private$season = season
+                         private$PatchesImagoQ =  PatchesImagoQ
+                         private$PatchesEggQ = PatchesEggQ
+
+                       } else if(aquaModel == "EL4P"){
+                         stop("sean hasn't written the routines for MACRO EL4P Aquatic Ecology")
+                       } else {
+                         stop("aquaModel must be a value in 'emerge' or 'EL4P'")
+                       }
+
+                       # initialize PATHOGEN
+                       if(pathogenModel == "PatchPf"){
+
+                         MacroPatch_PAR$pathogenModel = pathogenModel
+                         private$PatchPf = PatchPf
+
+                       } else if(pathogenModel == "none"){
+                         stop("sean hasn't written the routines for MACRO none PATHOGEN module")
+                       } else {
+                         stop("pathogenModel msut be a value in 'PatchPf' or 'none'")
+                       }
+
+                      }) # exit MacroPatch_PAR environment
 
                    },
 
@@ -64,17 +112,42 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                    # Getters and Setters
                    #################################################
 
+                   # N: number of patches
                    get_N = function(){
                      return(private$N)
                    },
 
-                   # Houses
+                   # Houses (what household IDs are at each patch?)
                    get_hhID = function(ix = NULL){
                      if(is.null(ix)){
-                       return(hhID)
+                       return(private$hhID)
                      } else {
-                       return(hhID[[ix]])
+                       return(private$hhID[[ix]])
                      }
+                   },
+
+                   # Humans (where are people?)
+                   get_humanIDs = function(ix = NULL){
+                     if(is.null(ix)){
+                       return(private$humanIDs)
+                     } else {
+                       return(private$humanIDs[[ix]])
+                     }
+                   },
+                   set_humanIDs = function(humanIDs, ix = NULL){
+                     if(is.null(ix)){
+                       private$humanIDs = humanIDs
+                     } else {
+                       private$humanIDs[[ix]] = humanIDs
+                     }
+                   },
+                   add_humanIDs = function(oneID, ix){
+                     # add a person to a patch
+                     private$humanIDs[[ix]] = c(private$humanIDs[[ix]],oneID)
+                   },
+                   remove_humanIDs = function(oneID, ix){
+                     # remove a person from a patch
+                     private$humanIDs[[ix]] = private$humanIDs[[ix]][-which(private$humanIDs[[ix]]==oneID)]
                    },
 
                    # Biting weights
@@ -92,6 +165,9 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                      } else {
                        private$bWeightHuman = bWeightHuman
                      }
+                   },
+                   accumulate_bWeightHuman = function(bWeightHuman, ix = NULL){
+                     private$bWeightHuman[ix] = private$bWeightHuman[ix] + bWeightHuman
                    },
 
                    get_bWeightZoo = function(ix = NULL){
@@ -126,23 +202,6 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                      }
                    },
 
-                  #  # Net infectiousness
-                  #  get_Q = function(ix = NULL){
-                  #    if(is.null(ix)){
-                  #      return(private$Q)
-                  #    } else {
-                  #      return(private$Q[ix])
-                  #    }
-                  #  },
-                  #  set_Q = function(Q, ix = NULL){
-                  #    # set one element or entire vector
-                  #    if(!is.null(ix)){
-                  #      private$Q[ix] = Q
-                  #    } else {
-                  #      private$Q = Q
-                  #    }
-                  #  },
-
                    get_kappa = function(ix = NULL){
                      if(is.null(ix)){
                        return(private$kappa)
@@ -158,20 +217,8 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                        private$kappa = kappa
                      }
                    },
-
-                   get_humanIDs = function(ix = NULL){
-                     if(is.null(ix)){
-                       return(private$humanIDs)
-                     } else {
-                       return(private$humanIDs[[ix]])
-                     }
-                   },
-                   set_humanIDs = function(humanIDs, ix = NULL){
-                     if(!is.null(ix)){
-                       private$humanIDs[[ix]] = humanIDs
-                     } else {
-                       private$humanIDs = humanIDs
-                     }
+                   accumulate_kappa = function(kappa, ix = NULL){
+                     private$kappa[ix] = private$kappa[ix] + kappa
                    },
 
                    # Egg laying
@@ -336,6 +383,7 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                     # Can use same structures as MICRO for
                     # consistent modeling of vector control.
                     hhID      = list(),
+                    humanIDs  = list(),
 
                     # How are infectious bites divided up?
                     bWeightHuman   = NULL,
@@ -345,7 +393,6 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                     # Net infectiousness
                     # Q         = NULL, in MacroMosquitoPop
                     kappa     = NULL,
-                    humanIDs  = list(),
 
                     #Egg laying
                     aquaID        = NULL,

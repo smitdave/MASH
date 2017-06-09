@@ -13,11 +13,10 @@
 # Human Class Definition
 ##########################################
 
-#' MICRO-Human Class Definition
+#' Human Class Definition
 #'
 #' This is a generic human being blah blah ...
-#'  categorical summary measure \code{A[j]}. This class inherits from \code{\link{GenericModel}} class.
-#'  Defines the fitting algorithm for a regression model \code{A[j] ~ W + ...}.
+#' Each instance of a \code{Human} lives in a \code{\link{HumanPop}}
 #'
 #' @docType class
 #' @format An \code{\link{R6Class}} generator object
@@ -51,10 +50,11 @@ Human <- R6::R6Class(classname="Human",
                      public = list(
 
                        #initialize
-                       initialize = function(myID, hhID, bDay){
+                       initialize = function(myID, hhID, bDay, bWeight){
                          private$myID = myID
                          private$hhID = hhID
                          private$bDay = bDay
+                         private$bWeight = bWeight
                          private$eventQ[[1]] = self$event_maxDeath()
                        },
 
@@ -78,6 +78,9 @@ Human <- R6::R6Class(classname="Human",
                        #bDay
                        get_bDay = function(){
                          return(private$bDay)
+                       },
+                       set_bDay = function(bDay){
+                         private$bDay = bDay
                        },
 
                        #eventQ
@@ -106,8 +109,16 @@ Human <- R6::R6Class(classname="Human",
                          )
                        },
 
+                       # Health & Related
+                       get_bWeight = function(){
+                         return(private$bWeight)
+                       },
+                       set_bWeight = function(bWeight){
+                         private$bWeight = bWeight
+                       },
+
                        # generics
-                       get_Private = function(){
+                       get_public = function(){
                          return(as.list(private))
                        },
 
@@ -196,7 +207,7 @@ Human <- R6::R6Class(classname="Human",
 
                        # death: the death event
                        death = function(tEvent, PAR){
-                         self$trackHist(tEvent = tEvent, event = "D")
+                         self$track_History(tEvent = tEvent, event = "D")
                          private$Alive = FALSE
                        },
 
@@ -204,7 +215,7 @@ Human <- R6::R6Class(classname="Human",
                        # Auxiliary Functions
                        #################################################
 
-                       trackHist = function(tEvent, event){
+                       track_History = function(tEvent, event){
                          private$events = c(private$events, event)
                          private$eventT = c(private$eventT, tEvent)
                        }
@@ -230,6 +241,9 @@ Human <- R6::R6Class(classname="Human",
                        # Event History
                        events = c("init"),
                        eventT = c(-1),
+
+                       # Health & Related
+                       bWeight = NULL,
 
                        # Pathogens
                        Pathogens = list(),

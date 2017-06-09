@@ -37,9 +37,12 @@ Description: At the beginning, I had several goals for the project. First, I wan
     By the time I had worked out the API for malaria, I realized that the separate bits of the malaria could be considered a set of options for simulating virtually any problem in human health. This was the genesis of MASH.
     -Professor David L Smith, Institute for Health Metrics & Evaluation, University of Washington
 License: MIT License
-URL: http://smitdave.github.io/MASH-Development/index.html
+URL: https://github.com/smitdave/MASH/tree/MASH.R6
+BugReports: https://github.com/smitdave/MASH/issues
 ByteCompile: yes
 Encoding: UTF-8
 LazyData: true
-Imports: R6, viridis, spatstat, parallel, jsonlite
+SystemRequirements: C++11
+LinkingTo: Rcpp
+Imports: Rcpp, R6, spatstat, viridis, viridisLite, MASS, jsonlite, parallel
 RoxygenNote: 6.0.1

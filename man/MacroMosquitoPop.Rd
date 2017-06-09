@@ -36,7 +36,7 @@ talk about me!
 \itemize{
 \item{maxEIP: maximum value of extrinsic incubation period}
 \item{nPatches: number of patches in \code{\link{Tile}}}
-\item{RMparameters}{
+\item{MacroMosquitoPop_PAR}{
 \itemize{
 \item{p: the probability of surviving one day}
 \item{f: the proportion of mosquitoes that blood feed each day}
