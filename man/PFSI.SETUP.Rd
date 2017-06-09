@@ -4,14 +4,16 @@
 \alias{PfSI.Setup}
 \title{Initialize PfSI Module Parameters (Pathogen)}
 \usage{
-PfSI.Setup(Pf_c = 0.15, Pf_b = 0.55, DurationPf = 200, LatentPf = 10,
-  FeverPf = 0.3, mnFeverPf = 10, vrFeverPf = 0.1, TreatPf = 0.5,
-  mnTreatPf = 1, mnChemoprophylaxisPf = 32, PEProtectPf = 0.99,
-  peBlockPf = 1, mnPEPf = 270, vrPEPf = 50, GSProtectPf = 1,
-  gsBlockPf = 0.9, mnGSPf = 180, vrGSPf = 20, rdtSensPf = 0.9,
-  rdtSpecPf = 0.1, lmSensPf = 0.9, lmSpecPf = 0.1)
+PfSI.Setup(overwrite = TRUE, Pf_c = 0.15, Pf_b = 0.55, DurationPf = 200,
+  LatentPf = 10, FeverPf = 0.3, mnFeverPf = 10, vrFeverPf = 0.1,
+  TreatPf = 0.5, mnTreatPf = 1, mnChemoprophylaxisPf = 32,
+  PEProtectPf = 0.99, peBlockPf = 1, mnPEPf = 270, vrPEPf = 50,
+  GSProtectPf = 1, gsBlockPf = 0.9, mnGSPf = 180, vrGSPf = 20,
+  rdtSensPf = 0.9, rdtSpecPf = 0.1, lmSensPf = 0.9, lmSpecPf = 0.1)
 }
 \arguments{
+\item{overwrite}{overwrite existing methods and fields?}
+
 \item{Pf_c}{0.15; transmission efficiency: infected human to mosquito}
 
 \item{Pf_b}{0.55; transmission efficiency: infected mosquito to human}
@@ -60,8 +62,8 @@ PfSI.Setup(Pf_c = 0.15, Pf_b = 0.55, DurationPf = 200, LatentPf = 10,
 Defines a field (list) PfSI_PAR in \code{\link{HumanPop}} and public methods in \code{\link{Human}}
 }
 \description{
-Generate a list of parameters PfSI_PAR in \code{\link{Human}} and public methods in \code{\link{Human}}; also defines public methods
-in \code{\link{MicroMosquitoFemale}}.
+Generate a list of parameters PfSI_PAR in \code{\link{Human}} and public methods in \code{\link{Human}} for PfSI infection model; also defines public methods
+in \code{\link{MicroMosquitoFemale}} for PfSI infection model.
 }
 \examples{
 PfSI.Setup()

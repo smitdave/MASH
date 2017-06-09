@@ -80,20 +80,24 @@
     </div>
 
     
-    <p>Generate a list of parameters PfSI_PAR in <code><a href='Human.html'>Human</a></code> and public methods in <code><a href='Human.html'>Human</a></code>; also defines public methods
-in <code><a href='MicroMosquitoFemale.html'>MicroMosquitoFemale</a></code>.</p>
+    <p>Generate a list of parameters PfSI_PAR in <code><a href='Human.html'>Human</a></code> and public methods in <code><a href='Human.html'>Human</a></code> for PfSI infection model; also defines public methods
+in <code><a href='MicroMosquitoFemale.html'>MicroMosquitoFemale</a></code> for PfSI infection model.</p>
     
 
-    <pre class="usage"><span class='fu'>PfSI.Setup</span>(<span class='kw'>Pf_c</span> <span class='kw'>=</span> <span class='fl'>0.15</span>, <span class='kw'>Pf_b</span> <span class='kw'>=</span> <span class='fl'>0.55</span>, <span class='kw'>DurationPf</span> <span class='kw'>=</span> <span class='fl'>200</span>, <span class='kw'>LatentPf</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-  <span class='kw'>FeverPf</span> <span class='kw'>=</span> <span class='fl'>0.3</span>, <span class='kw'>mnFeverPf</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>vrFeverPf</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>TreatPf</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>mnTreatPf</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>mnChemoprophylaxisPf</span> <span class='kw'>=</span> <span class='fl'>32</span>, <span class='kw'>PEProtectPf</span> <span class='kw'>=</span> <span class='fl'>0.99</span>,
-  <span class='kw'>peBlockPf</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>mnPEPf</span> <span class='kw'>=</span> <span class='fl'>270</span>, <span class='kw'>vrPEPf</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>GSProtectPf</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>gsBlockPf</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>mnGSPf</span> <span class='kw'>=</span> <span class='fl'>180</span>, <span class='kw'>vrGSPf</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>rdtSensPf</span> <span class='kw'>=</span> <span class='fl'>0.9</span>,
-  <span class='kw'>rdtSpecPf</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>lmSensPf</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>lmSpecPf</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)</pre>
+    <pre class="usage"><span class='fu'>PfSI.Setup</span>(<span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>Pf_c</span> <span class='kw'>=</span> <span class='fl'>0.15</span>, <span class='kw'>Pf_b</span> <span class='kw'>=</span> <span class='fl'>0.55</span>, <span class='kw'>DurationPf</span> <span class='kw'>=</span> <span class='fl'>200</span>,
+  <span class='kw'>LatentPf</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>FeverPf</span> <span class='kw'>=</span> <span class='fl'>0.3</span>, <span class='kw'>mnFeverPf</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>vrFeverPf</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
+  <span class='kw'>TreatPf</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>mnTreatPf</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>mnChemoprophylaxisPf</span> <span class='kw'>=</span> <span class='fl'>32</span>,
+  <span class='kw'>PEProtectPf</span> <span class='kw'>=</span> <span class='fl'>0.99</span>, <span class='kw'>peBlockPf</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>mnPEPf</span> <span class='kw'>=</span> <span class='fl'>270</span>, <span class='kw'>vrPEPf</span> <span class='kw'>=</span> <span class='fl'>50</span>,
+  <span class='kw'>GSProtectPf</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>gsBlockPf</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>mnGSPf</span> <span class='kw'>=</span> <span class='fl'>180</span>, <span class='kw'>vrGSPf</span> <span class='kw'>=</span> <span class='fl'>20</span>,
+  <span class='kw'>rdtSensPf</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>rdtSpecPf</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>lmSensPf</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>lmSpecPf</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>overwrite</th>
+      <td><p>overwrite existing methods and fields?</p></td>
+    </tr>
     <tr>
       <th>Pf_c</th>
       <td><p>0.15; transmission efficiency: infected human to mosquito</p></td>
@@ -190,7 +194,7 @@ in <code><a href='MicroMosquitoFemale.html'>MicroMosquitoFemale</a></code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>PfSI.Setup</span>()</div><div class='output co'>#&gt; [1] "initializing PfSI PATHOGEN module"</div><div class='output co'>#&gt; <span class='error'>Error in Human$set(which = "public", name = "get_PfSI_PAR", value = function(ix = NULL) {    if (is.null(ix)) {        return(private$PfSI_PAR)    }    else {        return(private$PfSI_PAR[[ix]])    }}): Can't add get_PfSI_PAR because it already present in Human generator.</span></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>PfSI.Setup</span>()</div><div class='output co'>#&gt; <span class='message'>initializing PfSI PATHOGEN module</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

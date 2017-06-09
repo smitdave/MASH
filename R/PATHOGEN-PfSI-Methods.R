@@ -13,7 +13,7 @@
 #' Get either entire list or one named element of PfSI_PAR. See \code{\link{PfSI.Parameters}} for definitions.
 #' This method is bound to \code{Human$get_PfSI_PAR()}
 #'
-PfSI_get_PfSI_PAR <- function(ix = NULL){
+Human_get_PfSI_PAR <- function(ix = NULL){
   if(is.null(ix)){
     return(private$PfSI_PAR)
   } else {
@@ -27,7 +27,7 @@ PfSI_get_PfSI_PAR <- function(ix = NULL){
 #' Set either entire list of PfSI_PAR. See \code{\link{PfSI.Parameters}} for definitions.
 #' This method is bound to \code{Human$set_PfSI_PAR()}
 #'
-PfSI_set_PfSI_PAR <- function(PfSI_PAR){
+Human_set_PfSI_PAR <- function(PfSI_PAR){
   private$PfSI_PAR = PfSI_PAR
 }
 
@@ -80,7 +80,7 @@ init_PfSI <- function(PfPR, tStart = 0){
 #' Set the \code{\link{humanPfSI}} object in a human.
 #' This method is bound to \code{Human$set_humanPfSI()}
 #'
-PfSI_set_humanPfSI <- function(PfID, tInf = NULL, b = 0.55, c = 0.15, damID = NULL, sireID = NULL, infected = FALSE, chemoprophylaxis = FALSE){
+Human_set_humanPfSI <- function(PfID, tInf = NULL, b = 0.55, c = 0.15, damID = NULL, sireID = NULL, infected = FALSE, chemoprophylaxis = FALSE){
   private$Pathogens$Pf = humanPfSI$new(PfID=PfID,tInf=tInf,b=b,c=c,damID=damID,sireID=sireID,infected=infected,chemoprophylaxis=chemoprophylaxis)
 }
 
@@ -89,7 +89,7 @@ PfSI_set_humanPfSI <- function(PfID, tInf = NULL, b = 0.55, c = 0.15, damID = NU
 #' Get the \code{\link{humanPfSI}} object in a human.
 #' This method is bound to \code{Human$get_humanPfSI()}
 #'
-PfSI_get_humanPfSI <- function(){
+Human_get_humanPfSI <- function(){
   return(private$Pathogens$Pf)
 }
 
@@ -100,7 +100,7 @@ PfSI_get_humanPfSI <- function(){
 #'
 #' @param b infected mosquito to human transmission efficiency
 #' @param c infected human to mosquito transmission efficiency
-PfSI_set_humanPfSI <- function(b = NULL, c = NULL){
+HumanPop_set_humanPfSI <- function(b = NULL, c = NULL){
 
   # sanity checks
   if(is.null(b)){
@@ -307,11 +307,9 @@ add2Q_infectHumanPfSI <- function(tEvent, PAR = NULL){
 #' @md
 #' @param tEvent time of infection
 #' @param PAR \code{NULL}
-Human$set(which = "public",name = "event_infectHumanPfSI",
-          value = function(tEvent, PAR = NULL){
-            list(tEvent = tEvent, PAR = PAR, tag = "infectHumanPfSI")
-          }
-)
+event_infectHumanPfSI <- function(tEvent, PAR = NULL){
+  list(tEvent = tEvent, PAR = PAR, tag = "infectHumanPfSI")
+}
 
 #' PfSI \code{Human} Event: PfSI Infection Event
 #'
@@ -352,7 +350,7 @@ infectHumanPfSI <- function(tEvent, PAR){
 #' This method adds event \code{\link{event_endPfSI}} to the event queue.
 #' This method is bound to \code{Human$add2Q_endPfSI()}
 #'
-#' @param tEvent time of clearance
+#' @param tEvent time of event
 #' @param PAR \code{NULL}
 add2Q_endPfSI <- function(tEvent, PAR = NULL){
   self$addEvent2Q(event = self$event_endPfSI(tEvent = tEvent, PAR = PAR))
@@ -364,7 +362,7 @@ add2Q_endPfSI <- function(tEvent, PAR = NULL){
 #' This method is called from \code{\link{add2Q_endPfSI}}
 #' This method is bound to \code{Human$event_endPfSI()}
 #'  * tag: \code{\link{endPfSI}}
-#'  * clearance time is calculated as tEnd = tEvent + \code{\link{PfSI_ttClearPf}}
+#'  * tEvent: clearance time is calculated as tEnd = tEvent + \code{\link{PfSI_ttClearPf}}
 #' @md
 #' @param tEvent time of clearance
 #' @param PAR \code{NULL}
@@ -397,206 +395,350 @@ endPfSI <- function(tEvent, PAR){
 #' This method adds event \code{\link{event_feverPfSI}} to the event queue.
 #' This method is bound to \code{Human$add2Q_feverPfSI()}
 #'
-#' @param tEvent time of fever
+#' @param tEvent time of event
 #' @param PAR \code{NULL}
-event_feverPfSI <- function(tEvent, PAR = NULL){
+add2Q_feverPfSI <- function(tEvent, PAR = NULL){
   self$addEvent2Q(event = self$event_feverPfSI(tEvent = tEvent, PAR = PAR))
 }
 
-Human$set(which = "public",name = "event_feverPfSI",
-          value = function(tEvent, PAR = NULL){
-            tFever = tEvent + self$ttFeverPf()
-            list(tEvent = tFever, PAR = PAR, tag = "feverPfSI")
-          }
-)
+#' PfSI \code{Human} Event: Generate PfSI Fever Event
+#'
+#' Generate PfSI dever event to place in event queue.
+#' This method is called from \code{\link{add2Q_feverPfSI}}
+#' This method is bound to \code{Human$event_feverPfSI()}
+#'  * tag: \code{\link{feverPfSI}}
+#'  * tEvent: fever time is calculated as tFever = tEvent + \code{\link{PfSI_ttFeverPf}}
+#' @md
+#' @param tEvent time of clearance
+#' @param PAR \code{NULL}
+event_feverPfSI <- function(tEvent, PAR = NULL){
+  tFever = tEvent + self$ttFeverPf()
+  list(tEvent = tFever, PAR = PAR, tag = "feverPfSI")
+}
 
-Human$set(which = "public",name = "feverPfSI",
-          value = function(tEvent, PAR){
-            self$track_History(tEvent = tEvent, event = "F")
-            if(runif(1) < private$PfSI_PAR$TreatPf){
-              self$add2Q_treatPfSI(tEvent = tEvent)
-            }
-          }
-)
+#' PfSI \code{Human} Event: PfSI Fever Event
+#'
+#' Simulate a PfSI fever event.
+#' This method is bound to \code{Human$feverPfSI()}
+#'  * \code{\link{add2Q_treatPfSI}}: fever may initiate treatment with probability \code{TreatPf}, see \code{\link{PfSI.Parameters}}
+#' @md
+#' @param tEvent time of fever
+#' @param PAR \code{NULL}
+feverPfSI <- function(tEvent, PAR){
+  self$track_History(tEvent = tEvent, event = "F")
+  if(runif(1) < private$PfSI_PAR$TreatPf){
+    self$add2Q_treatPfSI(tEvent = tEvent)
+  }
+}
+
 
 ###################################################################
 # Treatment
 ###################################################################
 
-Human$set(which = "public",name = "add2Q_treatPfSI",
-          value = function(tEvent, PAR = NULL){
-            self$addEvent2Q(event = self$event_treatPfSI(tEvent = tEvent, PAR = PAR))
-          }
-)
+#' PfSI \code{Human} Event: Add PfSI Treatment Event to Event Queue
+#'
+#' Add PfSI treatment event to the event queue.
+#' This method is called from \code{\link{feverPfSI}}
+#' This method adds event \code{\link{event_treatPfSI}} to the event queue.
+#' This method is bound to \code{Human$add2Q_treatPfSI()}
+#'
+#' @param tEvent time of fever
+#' @param PAR \code{NULL}
+add2Q_treatPfSI <- function(tEvent, PAR = NULL){
+  self$addEvent2Q(event = self$event_treatPfSI(tEvent = tEvent, PAR = PAR))
+}
 
-Human$set(which = "public",name = "event_treatPfSI",
-          value = function(tEvent, PAR = NULL){
-            tTreat = tEvent + self$ttTreatPf()
-            list(tEvent = tTreat, PAR = PAR, tag = "treatPfSI")
-          }
-)
+#' PfSI \code{Human} Event: Generate PfSI Treatment Event
+#'
+#' Generate PfSI treatment event to place in event queue.
+#' This method is called from \code{\link{add2Q_treatPfSI}}
+#' This method is bound to \code{Human$event_treatPfSI()}
+#'  * tag: \code{\link{treatPfSI}}
+#'  * tEvent: treatment time is calculated as tTreat = tEvent + \code{\link{PfSI_ttTreatPf}}
+#' @md
+#' @param tEvent time of treatment
+#' @param PAR \code{NULL}
+event_treatPfSI <- function(tEvent, PAR = NULL){
+  tTreat = tEvent + self$ttTreatPf()
+  list(tEvent = tTreat, PAR = PAR, tag = "treatPfSI")
+}
 
-Human$set(which = "public",name = "treatPfSI",
-          value = function(tEvent, PAR){
+#' PfSI \code{Human} Event: PfSI Treatment Event
+#'
+#' Simulate a PfSI treatment event. If the human is infected, set susceptible and track history; also initiate period of chemoprophlaxis, see \code{\link{add2Q_endprophylaxisPfSI}}
+#' This method is bound to \code{Human$treatPfSI()}
+#' @param tEvent time of treatment
+#' @param PAR \code{NULL}
+treatPfSI <- function(tEvent, PAR){
 
-            # treat
-            if(private$Pathogens$Pf$get_infected()){
-              private$Pathogens$Pf$set_infected(FALSE)
-              self$track_History(tEvent = tEvent, event = "S")
-            }
-            private$Pathogens$Pf$set_chemoprophylaxis(TRUE)
-            self$track_History(tEvent = tEvent, event = "P")
-            # Initiate a period of protection from chemoprophlaxis
-            self$add2Q_endprophylaxisPfSI(tEvent = tEvent)
+  # treat
+  if(private$Pathogens$Pf$get_infected()){
+    private$Pathogens$Pf$set_infected(FALSE)
+    self$track_History(tEvent = tEvent, event = "S")
+  }
+  private$Pathogens$Pf$set_chemoprophylaxis(TRUE)
+  self$track_History(tEvent = tEvent, event = "P")
+  # Initiate a period of protection from chemoprophlaxis
+  self$add2Q_endprophylaxisPfSI(tEvent = tEvent)
 
-          }
-)
+}
+
 
 ###################################################################
 # End of Chemoprophylaxis
 ###################################################################
 
-Human$set(which = "public",name = "add2Q_endprophylaxisPfSI",
-          value = function(tEvent, PAR = NULL){
-            self$addEvent2Q(event = self$event_endprophylaxisPfSI(tEvent = tEvent, PAR = PAR))
-          }
-)
+#' PfSI \code{Human} Event: Add PfSI End of Chemoprophylaxis Event to Event Queue
+#'
+#' Add PfSI end of chemoprophlaxis event to the event queue.
+#' This method is called from \code{\link{treatPfSI}}
+#' This method adds event \code{\link{event_endprophylaxisPfSI}} to the event queue.
+#' This method is bound to \code{Human$add2Q_endprophylaxisPfSI()}
+#'
+#' @param tEvent time of event
+#' @param PAR \code{NULL}
+add2Q_endprophylaxisPfSI <- function(tEvent, PAR = NULL){
+  self$addEvent2Q(event = self$event_endprophylaxisPfSI(tEvent = tEvent, PAR = PAR))
+}
 
-Human$set(which = "public",name = "event_endprophylaxisPfSI",
-          value = function(tEvent, PAR = NULL){
-            tSusceptible = tEvent + self$ttSusceptiblePf()
-            list(tEvent = tSusceptible, PAR = PAR, tag = "endprophylaxisPfSI")
-          }
-)
+#' PfSI \code{Human} Event: Generate PfSI End of Chemoprophylaxis Event
+#'
+#' Generate PfSI end of chemoprophlaxis event to place in event queue.
+#' This method is called from \code{\link{add2Q_endprophylaxisPfSI}}
+#' This method is bound to \code{Human$event_endprophylaxisPfSI()}
+#'  * tag: \code{\link{endprophylaxisPfSI}}
+#'  * tEvent: treatment time is calculated as tSusceptible = tEvent + \code{\link{PfSI_ttSusceptiblePf}}
+#' @md
+#' @param tEvent time to end chemoprophlaxis
+#' @param PAR \code{NULL}
+event_endprophylaxisPfSI <- function(tEvent, PAR = NULL){
+  tSusceptible = tEvent + self$ttSusceptiblePf()
+  list(tEvent = tSusceptible, PAR = PAR, tag = "endprophylaxisPfSI")
+}
 
-Human$set(which = "public",name = "endprophylaxisPfSI",
-          value = function(tEvent, PAR){
-            # End Prophylaxis
-            self$track_History(tEvent = tEvent, event = "S")
-            private$Pathogens$Pf$set_chemoprophylaxis(FALSE)
+#' PfSI \code{Human} Event: PfSI End of Chemoprophylaxis Event
+#'
+#' End PfSI chemoprophlaxis protection.
+#' This method is bound to \code{Human$endprophylaxisPfSI()}
+#' @param tEvent time to end chemoprophlaxis
+#' @param PAR \code{NULL}
+endprophylaxisPfSI <- function(tEvent, PAR){
+  # End Prophylaxis
+  self$track_History(tEvent = tEvent, event = "S")
+  private$Pathogens$Pf$set_chemoprophylaxis(FALSE)
 
-          }
-)
+}
+
 
 ###################################################################
 # HUMAN PE vaccination functions
 ###################################################################
 
-# vaccination
-Human$set(which = "public",name = "add2Q_pevaccinatePfSI",
-          value = function(tEvent, PAR = NULL){
-            self$addEvent2Q(event = self$event_pevaccinatePfSI(tEvent = tEvent, PAR = PAR))
-          }
-)
+#' PfSI \code{Human} Event: Add PfSI PE Vaccination Event to Event Queue
+#'
+#' Add PfSI PE vaccination event to the event queue.
+#' This method is called from \code{\link{queueVaccination_SimBitePfSI}}
+#' This method adds event \code{\link{event_pevaccinatePfSI}} to the event queue.
+#' This method is bound to \code{Human$add2Q_pevaccinatePfSI()}
+#'
+#' @param tEvent time of vaccination
+#' @param PAR \code{NULL}
+add2Q_pevaccinatePfSI <- function(tEvent, PAR = NULL){
+  self$addEvent2Q(event = self$event_pevaccinatePfSI(tEvent = tEvent, PAR = PAR))
+}
 
-Human$set(which = "public",name = "event_pevaccinatePfSI",
-          value = function(tEvent, PAR = NULL){
-            list(tEvent = tEvent, PAR = PAR, tag = "pevaccinatePfSI")
-          }
-)
+#' PfSI \code{Human} Event: Generate PfSI PE Vaccination Event
+#'
+#' Generate PfSI PE vaccination event to place in event queue.
+#' This method is called from \code{\link{add2Q_pevaccinatePfSI}}
+#' This method is bound to \code{Human$event_pevaccinatePfSI()}
+#'  * tag: \code{\link{pevaccinatePfSI}}
+#' @md
+#' @param tEvent begin PE protection
+#' @param PAR \code{NULL}
+event_pevaccinatePfSI <- function(tEvent, PAR = NULL){
+  list(tEvent = tEvent, PAR = PAR, tag = "pevaccinatePfSI")
+}
 
-Human$set(which = "public",name = "pevaccinatePfSI",
-          value = function(tEvent, PAR){
-            if(runif(1) < private$PfSI_PAR$PEProtectPf){
-              self$track_History(tEvent = tEvent, event = "PEvaxx")
-              private$Pathogens$Pf$set_b(private$PfSI_PAR$Pf_b * (1-private$PfSI_PAR$peBlockPf))
-              self$add2Q_pewanePfSI(tEvent = tEvent)
-            }
-          }
-)
+#' PfSI \code{Human} Event: PfSI PE Vaccination Event
+#'
+#' Begin PfSI PE vaccination protection.
+#' This method is bound to \code{Human$endprophylaxisPfSI()}
+#'  * protection: infected mosquito to human transmission efficiency is modified by \code{peBlockPf}, see \code{\link{PfSI.Parameters}}
+#'  * waning efficacy: queue \code{\link{add2Q_pewanePfSI}}
+#' @md
+#' @param tEvent begin PE protection
+#' @param PAR \code{NULL}
+pevaccinatePfSI <- function(tEvent, PAR){
+  if(runif(1) < private$PfSI_PAR$PEProtectPf){
+    self$track_History(tEvent = tEvent, event = "PEvaxx")
+    private$Pathogens$Pf$set_b(private$PfSI_PAR$Pf_b * (1-private$PfSI_PAR$peBlockPf))
+    self$add2Q_pewanePfSI(tEvent = tEvent)
+  }
+}
 
-# waning protection
-Human$set(which = "public",name = "add2Q_pewanePfSI",
-          value = function(tEvent, PAR = NULL){
-            self$addEvent2Q(event = self$event_pewanePfSI(tEvent = tEvent, PAR = PAR))
-          }
-)
+#' PfSI \code{Human} Event: Add PfSI PE Waning Protection Event to Event Queue
+#'
+#' Add PfSI PE waning protection event to the event queue.
+#' This method is called from \code{\link{pevaccinatePfSI}}
+#' This method adds event \code{\link{event_pewanePfSI}} to the event queue.
+#' This method is bound to \code{Human$add2Q_pewanePfSI()}
+#'
+#' @param tEvent time of vaccination
+#' @param PAR \code{NULL}
+add2Q_pewanePfSI <- function(tEvent, PAR = NULL){
+  self$addEvent2Q(event = self$event_pewanePfSI(tEvent = tEvent, PAR = PAR))
+}
 
-Human$set(which = "public",name = "event_pewanePfSI",
-          value = function(tEvent, PAR = NULL){
-            tWane = tEvent + self$ttPEWanePf()
-            list(tEvent = tWane, PAR = PAR, tag = "pewanePfSI")
-          }
-)
+#' PfSI \code{Human} Event: Generate PfSI PE Waning Protection Event
+#'
+#' Generate PfSI PE waning protection event to place in event queue.
+#' This method is called from \code{\link{add2Q_pevaccinatePfSI}}
+#' This method is bound to \code{Human$event_pevaccinatePfSI()}
+#'  * tag: \code{\link{pevaccinatePfSI}}
+#'  * tEvent: loss of efficacy is calculated as tWane = tEvent + \code{\link{PfSI_ttPEWanePf}}
+#' @md
+#' @param tEvent end PE protection
+#' @param PAR \code{NULL}
+event_pewanePfSI <- function(tEvent, PAR = NULL){
+  tWane = tEvent + self$ttPEWanePf()
+  list(tEvent = tWane, PAR = PAR, tag = "pewanePfSI")
+}
 
-Human$set(which = "public",name = "pewanePfSI",
-          value = function(tEvent, PAR){
-            self$track_History(tEvent = tEvent, event = "PEwane")
-            private$Pathogens$Pf$set_b(private$PfSI_PAR$Pf_b)
-          }
-)
+#' PfSI \code{Human} Event: PfSI PE Waning Protection Event
+#'
+#' End PfSI PE protection.
+#' This method is bound to \code{Human$pewanePfSI()}
+#'  * protection: infected mosquito to human transmission efficiency is set back to \code{Pf_b}, see \code{\link{PfSI.Parameters}}
+#' @md
+#' @param tEvent end PE protection
+#' @param PAR \code{NULL}
+pewanePfSI <- function(tEvent, PAR){
+  self$track_History(tEvent = tEvent, event = "PEwane")
+  private$Pathogens$Pf$set_b(private$PfSI_PAR$Pf_b)
+}
 
 ###################################################################
 # HUMAN GS vaccination functions
 ###################################################################
 
-# vaccination
-Human$set(which = "public",name = "add2Q_gsvaccinatePfSI",
-          value = function(tEvent, PAR = NULL){
-            self$addEvent2Q(event = self$event_gsvaccinatePfSI(tEvent = tEvent, PAR = PAR))
-          }
-)
+#' PfSI \code{Human} Event: Add PfSI GS Vaccination Event to Event Queue
+#'
+#' Add PfSI GS vaccination event to the event queue.
+#' This method is called from \code{\link{queueVaccination_SimBitePfSI}}
+#' This method adds event \code{\link{event_gsvaccinatePfSI}} to the event queue.
+#' This method is bound to \code{Human$add2Q_gsvaccinatePfSI()}
+#'
+#' @param tEvent time of vaccination
+#' @param PAR \code{NULL}
+add2Q_gsvaccinatePfSI <- function(tEvent, PAR = NULL){
+  self$addEvent2Q(event = self$event_gsvaccinatePfSI(tEvent = tEvent, PAR = PAR))
+}
 
-Human$set(which = "public",name = "event_gsvaccinatePfSI",
-          value = function(tEvent, PAR = NULL){
-            list(tEvent = tEvent, PAR = PAR, tag = "gsvaccinatePfSI")
-          }
-)
+#' PfSI \code{Human} Event: Generate PfSI GS Vaccination Event
+#'
+#' Generate PfSI GS vaccination event to place in event queue.
+#' This method is called from \code{\link{add2Q_gsvaccinatePfSI}}
+#' This method is bound to \code{Human$event_gsvaccinatePfSI()}
+#'  * tag: \code{\link{gsvaccinatePfSI}}
+#' @md
+#' @param tEvent begin gs protection
+#' @param PAR \code{NULL}
+event_gsvaccinatePfSI <- function(tEvent, PAR = NULL){
+  list(tEvent = tEvent, PAR = PAR, tag = "gsvaccinatePfSI")
+}
 
-Human$set(which = "public",name = "gsvaccinatePfSI",
-          value = function(tEvent, PAR){
-            if(runif(1) < private$PfSI_PAR$GSProtectPf){
-              self$track_History(tEvent = tEvent, event = "GSvaxx")
-              private$Pathogens$Pf$set_c(private$PfSI_PAR$Pf_c * (1-private$PfSI_PAR$gsBlockPf))
-              self$add2Q_gswanePfSI(tEvent = tEvent)
-            }
-          }
-)
+#' PfSI \code{Human} Event: PfSI GS Vaccination Event
+#'
+#' Begin PfSI GS vaccination protection.
+#' This method is bound to \code{Human$endprophylaxisPfSI()}
+#'  * protection: infected human to mosquito transmission efficiency is modified by \code{gsBlockPf}, see \code{\link{PfSI.Parameters}}
+#'  * waning efficacy: queue \code{\link{add2Q_gswanePfSI}}
+#' @md
+#' @param tEvent begin gs protection
+#' @param PAR \code{NULL}
+gsvaccinatePfSI <- function(tEvent, PAR){
+  if(runif(1) < private$PfSI_PAR$GSProtectPf){
+    self$track_History(tEvent = tEvent, event = "GSvaxx")
+    private$Pathogens$Pf$set_c(private$PfSI_PAR$Pf_c * (1-private$PfSI_PAR$gsBlockPf))
+    self$add2Q_gswanePfSI(tEvent = tEvent)
+  }
+}
 
-# waning protection
-Human$set(which = "public",name = "add2Q_gswanePfSI",
-          value = function(tEvent, PAR = NULL){
-            self$addEvent2Q(event = self$event_gswanePfSI(tEvent = tEvent, PAR = PAR))
-          }
-)
+#' PfSI \code{Human} Event: Add PfSI GS Waning Protection Event to Event Queue
+#'
+#' Add PfSI GS waning protection event to the event queue.
+#' This method is called from \code{\link{gsvaccinatePfSI}}
+#' This method adds event \code{\link{event_gswanePfSI}} to the event queue.
+#' This method is bound to \code{Human$add2Q_gswanePfSI()}
+#'
+#' @param tEvent time of vaccination
+#' @param PAR \code{NULL}
+add2Q_gswanePfSI <- function(tEvent, PAR = NULL){
+  self$addEvent2Q(event = self$event_gswanePfSI(tEvent = tEvent, PAR = PAR))
+}
 
-Human$set(which = "public",name = "event_gswanePfSI",
-          value = function(tEvent, PAR = NULL){
-            tWane = tEvent + self$ttGSWanePf()
-            list(tEvent = tWane, PAR = PAR, tag = "gswanePfSI")
-          }
-)
+#' PfSI \code{Human} Event: Generate PfSI GS Waning Protection Event
+#'
+#' Generate PfSI GS waning protection event to place in event queue.
+#' This method is called from \code{\link{add2Q_gsvaccinatePfSI}}
+#' This method is bound to \code{Human$event_gsvaccinatePfSI()}
+#'  * tag: \code{\link{gsvaccinatePfSI}}
+#'  * tEvent: loss of efficacy is calculated as tWane = tEvent + \code{\link{PfSI_ttGSWanePf}}
+#' @md
+#' @param tEvent end gs protection
+#' @param PAR \code{NULL}
+event_gswanePfSI <- function(tEvent, PAR = NULL){
+  tWane = tEvent + self$ttGSWanePf()
+  list(tEvent = tWane, PAR = PAR, tag = "gswanePfSI")
+}
 
-Human$set(which = "public",name = "gswanePfSI",
-          value = function(tEvent, PAR){
-            self$track_History(tEvent = tEvent, event = "GSwane")
-            private$Pathogens$Pf$set_c(private$PfSI_PAR$Pf_c)
-          }
-)
+#' PfSI \code{Human} Event: PfSI GS Waning Protection Event
+#'
+#' End PfSI GS protection.
+#' This method is bound to \code{Human$gswanePfSI()}
+#'  * protection: infected human to mosquito transmission efficiency is set back to \code{Pf_c}, see \code{\link{PfSI.Parameters}}
+#' @md
+#' @param tEvent end GS protection
+#' @param PAR \code{NULL}
+gswanePfSI <- function(tEvent, PAR){
+  self$track_History(tEvent = tEvent, event = "GSwane")
+  private$Pathogens$Pf$set_c(private$PfSI_PAR$Pf_c)
+}
+
 
 ###################################################################
 # PfSI Diagnostics
 ###################################################################
 
-Human$set(which = "public",name = "rdtTest_PfSI",
-          value = function(tEvent, PAR){
-            if(private$Pathogens$Pf$infected){
-              runif(1) < private$PfSI_PAR$rdtSensPf
-            } else {
-              runif(1) < private$PfSI_PAR$rdtSpecPf
-            }
-          }
-)
+#' PfSI \code{Human} Method: PfSI Rapid Diagnostic Test
+#'
+#' Administer RDT to this human.
+#'  * if infected: true positive is detected with probability \code{rdtSensPf}, see \code{\link{PfSI.Parameters}}
+#'  * if susceptible: false positive is detected with probability \code{rdtSpecPf}, see \code{\link{PfSI.Parameters}}
+#' @md
+rdtTest_PfSI <- function(tEvent, PAR){
+  if(private$Pathogens$Pf$infected){
+    runif(1) < private$PfSI_PAR$rdtSensPf
+  } else {
+    runif(1) < private$PfSI_PAR$rdtSpecPf
+  }
+}
 
-Human$set(which = "public",name = "lmTest_PfSI",
-          value = function(tEvent, PAR){
-            if(private$Pathogens$Pf$infected){
-              runif(1) < private$PfSI_PAR$lmSensPf
-            } else {
-              runif(1) < private$PfSI_PAR$lmSpecPf
-            }
-          }
-)
+#' PfSI \code{Human} Method: PfSI Light Microscopy Test
+#'
+#' Administer light microscopy to this human.
+#'  * if infected: true positive is detected with probability \code{lmSensPf}, see \code{\link{PfSI.Parameters}}
+#'  * if susceptible: false positive is detected with probability \code{lmSpecPf}, see \code{\link{PfSI.Parameters}}
+#' @md
+lmTest_PfSI <- function(tEvent, PAR){
+  if(private$Pathogens$Pf$infected){
+    runif(1) < private$PfSI_PAR$lmSensPf
+  } else {
+    runif(1) < private$PfSI_PAR$lmSpecPf
+  }
+}
 
 ###################################################################
 # PfSI Auxiliary Definitions
@@ -606,11 +748,12 @@ Human$set(which = "public",name = "lmTest_PfSI",
 # 'HumanPop' Class Methods
 ##########################################
 
-# set PfSI_PAR for a HumanPop; this is useful for simulating multiple populations with different parameter values
-HumanPop$set(which = "public",name = "set_PfSI_PAR",
-          value = function(PfSI_PAR){
-            for(ixH in 1:self$nHumans){
-              private$pop[[ixH]]$set_PfSI_PAR(PfSI_PAR)
-            }
-          }
-)
+#' PfSI \code{HumanPop} Method: Set PfSI Paramters for a \code{\link{HumanPop}}
+#'
+#' Set PfSI_PAR for a HumanPop; this is useful for simulating multiple populations with different parameter values.
+#' @param PfSI_PAR new parameter list, see \code{\link{PfSI.Parameters}}
+HumanPop_set_PfSI_PAR <- function(PfSI_PAR){
+  for(ixH in 1:self$nHumans){
+    private$pop[[ixH]]$set_PfSI_PAR(PfSI_PAR)
+  }
+}

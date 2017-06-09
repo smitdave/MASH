@@ -12,9 +12,9 @@ PfSI.Parameters(Pf_c = 0.15, Pf_b = 0.55, DurationPf = 200,
   rdtSensPf = 0.9, rdtSpecPf = 0.1, lmSensPf = 0.9, lmSpecPf = 0.1)
 }
 \arguments{
-\item{Pf_c}{0.15; transmission efficiency: infected human to mosquito}
+\item{Pf_c}{0.15; infected human to mosquito transmission efficiency}
 
-\item{Pf_b}{0.55; transmission efficiency: infected mosquito to human}
+\item{Pf_b}{0.55; infected mosquito to human transmission efficiency}
 
 \item{DurationPf}{200; duration of infection (How many days does the infection last?)}
 

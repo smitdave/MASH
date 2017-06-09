@@ -13,8 +13,8 @@
 #'
 #' This is mostly used to modify PfSI parameters for different human populations after creation by using \code{set_PfSI_PAR} method of HumanPop
 #'
-#' @param Pf_c 0.15; transmission efficiency: infected human to mosquito
-#' @param Pf_b 0.55; transmission efficiency: infected mosquito to human
+#' @param Pf_c 0.15; infected human to mosquito transmission efficiency
+#' @param Pf_b 0.55; infected mosquito to human transmission efficiency
 #' @param DurationPf 200; duration of infection (How many days does the infection last?)
 #' @param LatentPf 10; latency (How many days after the infectious bite does the infection start?)
 #' @param FeverPf 0.3; probability of fever
