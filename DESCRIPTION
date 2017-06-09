@@ -1,6 +1,6 @@
 Package: MASH
 Type: Package
-Title: MASH-MBPT-R6 (Modular Analysis and Simulation for Human Health - Mosquito-borne Pathogen Transmission)
+Title: MASH (Modular Analysis and Simulation for Human Health)
 Version: 0.1
 Authors@R: c(
           person(given = "David L.", family = "Smith", email = "smitdave@gmail.com", role = c("cre","aut")),

@@ -4,14 +4,14 @@
 \name{MASH-package}
 \alias{MASH}
 \alias{MASH-package}
-\title{MASH-MBPT-R6 (Modular Analysis and Simulation for Human Health - Mosquito-borne Pathogen Transmission - R6 secret sauce): version 0.1}
+\title{MASH (Modular Analysis and Simulation for Human Health)}
 \description{
 MASH is a generic, modular, and extensible modeling framework for the modeling and analysis of
-mosquito-borne pathogens, with a liberal sprinkling of R6 secret sauce.
+mosquito-borne pathogens.
 }
 \details{
 Please refer to \url{http://smitdave.github.io/MASH-Development/index.html} for documentation, citations, publications,
-acknowledgements, and examples.
+acknowledgements, and examples. Please refer to https://smitdave.github.io/MASH/index.html for reference and vignettes.
 }
 \seealso{
 Useful links:
