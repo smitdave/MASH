@@ -9,7 +9,7 @@
 #################################################################
 
 
-#' Initialize PfSI Module Parameters (Pathogen)
+#' Initialize PfSI MODULE
 #'
 #' Generate a list of parameters PfSI_PAR in \code{\link{Human}} and public methods in \code{\link{Human}} for PfSI infection model; also defines public methods
 #' in \code{\link{MicroMosquitoFemale}} for PfSI infection model.

@@ -3,7 +3,7 @@
 \docType{class}
 \name{mosquitoPfSI}
 \alias{mosquitoPfSI}
-\title{PfSI Mosquito-stage Pathogen Object Class Definition}
+\title{PfSI Mosquito-stage Pathogen Class Definition}
 \format{An \code{\link{R6Class}} generator object}
 \usage{
 mosquitoPfSI

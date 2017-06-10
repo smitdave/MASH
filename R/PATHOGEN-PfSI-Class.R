@@ -8,7 +8,7 @@
 #
 #################################################################
 
-#' PfSI Mosquito-stage Pathogen Object Class Definition
+#' PfSI Mosquito-stage Pathogen Class Definition
 #'
 #' This is a generic PfSI Pathogen object blah blah ...
 #'  categorical summary measure \code{A[j]}. This class inherits from \code{\link{GenericModel}} class.
@@ -127,7 +127,7 @@ mosquitoPfSI <- R6::R6Class(classname="mosquitoPfSI",
 ) #end class definition
 
 
-#' PfSI Human-stage Pathogen Object Class Definition
+#' PfSI Human-stage Pathogen Class Definition
 #'
 #' This is a generic PfSI Pathogen object blah blah ...
 #'  categorical summary measure \code{A[j]}. This class inherits from \code{\link{GenericModel}} class.

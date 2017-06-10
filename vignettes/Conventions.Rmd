@@ -8,19 +8,21 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-# Guide to Writing Inline Documentation
+# Guide to Writing Components and Modules for MASH
 
   * Note: `XX` refers to generic function or class and is purely for illustrative example.
+  * Note: proper documentation should use `roxygen2`.
 
 ## Classes
 
 ## Methods
 
-  * Generic Methods:
+  * Conventions for Writing Public Methods (initialized in `public` list and accessed by `self$XX()`):
     * get_XX() : return the thing. potentially with ix arg for lists (if `ix = NULL` then return the whole list)
     * set_XX() : set the thing, potentially with (XX, ix) arg for setting an element of list `(if ix = NULL` set the entire object)
     * push_XX() : push to the end of the thing; useful for growing vectors
     * accumulate_XX() : add to the thing, sort of like XX += YY
+    * increment_XX(): increment the thing by 1; like the above but just for one
     * track_XX(): add to the history of XX (ie; track_Travel records travel history...)
     * extend_XX(): add empty/NULL values to end of lists for memory allocation
     * add_XX(): useful for when you need to add very specific information to something
@@ -36,8 +38,8 @@ vignette: >
   * Getters & Setters:
     * `set_XX(XX, ix = NULL)`: `XX` is the new replacement, if the field `XX` is indexed (ie; a vector or list), `ix` is the index to replace. If `ix = NULL`, the entire field is replaced.
     * `get_XX(ix = NULL)`: If the field `XX` is indexed (ie; a vector or list), `ix` is the index to get If `ix = NULL`, the entire field is returned.
-  
-  * Pointers
+
+  * Pointers:
 
 ## Fields
 
@@ -54,4 +56,3 @@ vignette: >
 `XX.Parameters()` are functions that usually return a list of parameters, and are typically called with default arguments during initialization and whose output is typically assigned to a private field of the form `private$XX_PAR`.
 
 ## Utility Functions
-

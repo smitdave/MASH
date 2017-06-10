@@ -3,7 +3,7 @@
 \docType{class}
 \name{humanPfSI}
 \alias{humanPfSI}
-\title{PfSI Human-stage Pathogen Object Class Definition}
+\title{PfSI Human-stage Pathogen Class Definition}
 \format{An \code{\link{R6Class}} generator object}
 \usage{
 humanPfSI

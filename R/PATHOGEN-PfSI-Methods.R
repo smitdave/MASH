@@ -134,73 +134,6 @@ HumanPop_set_humanPfSI <- function(b = NULL, c = NULL){
 
 
 ###################################################################
-# PfSI: Mosquito to Human infectious bite
-# Add methods to 'Human' Class
-###################################################################
-
-#' PfSI \code{Human} Method: Host Probing
-#'
-#' This method is called by a mosquito when she probes a human host, but may also be called by \code{\link{SimBitePfSI}} as a filler.
-#' If the biting mosquito is infectious, the method calls \code{\link{infectiousBite_PfSI}}, otherwise does nothing.
-#' This method is bound to \code{Human$probeHost_PfSI()}
-#'
-#' @param tBite time of bite
-#' @param mosquitoPfSI \code{\link{mosquitoPfSI}} object passed from mosquito to human
-probeHost_PfSI <- function(tBite, mosquitoPfSI){
-  if(any(mosquitoPfSI$get_spz()>0)){
-    PAR = list(mosquitoPfSI = mosquitoPfSI)
-    self$infectiousBite_PfSI(tBite, PAR)
-  }
-
-}
-
-#' PfSI \code{Human} Method: Infectious Bite on Human
-#'
-#' This method is called from \code{\link{probeHost_PfSI}}.
-#' If the infectious bite results in successful transmission, this function queues a human infection event, see \code{\link{add2Q_infectHumanPfSI}}
-#' This method is bound to \code{Human$infectiousBite_PfSI()}
-#'
-#' @param tBite time of bite
-#' @param mosquitoPfSI \code{\link{mosquitoPfSI}} object passed from mosquito to human
-infectiousBite_PfSI <- function(tBite, PAR){
-  if(runif(1) < private$Pathogens$Pf$get_b()){
-
-    PfIx = sample(x = which(PAR$mosquitoPfSI$get_spz()>0), size = 1) # sample a clonal variant if multiple
-    PAR = list(damID = PfIx, sireID = PfIx)
-
-    tInfStart = tBite + self$ttInfectionPf()
-    self$add2Q_infectHumanPfSI(tEvent = tInfStart, PAR = PAR)
-  }
-}
-
-
-###################################################################
-# PfSI: Human to Mosquito infectious bite
-# Add methods to 'MicroMosquitoFemale' Classe
-###################################################################
-
-# its okay if this function takes as a direct argument humanPfSI;
-# like probeHost_PfSI, the functions that directly interact between classes are ok to pass these things by name rather than generic PAR
-# try to reserve generic argument names like PAR when all modification is within-class; ie, when there will be no ambiguity.
-# do not use when objects are passed between classes
-
-# infectMosquito_PfSI <- function(tBite, ixH, ixS, ixM){
-#   with(HUMANS[[ixH]]$Pathogens$Pf,{
-#     if(infected==TRUE & rbinom(1,1,HUMANS[[ixH]]$Pathogens$Pf$c)){
-#       infObj = makePfM(ixH, tBite, ixS)
-#       if(PfTransmission_TRACK){
-#         trackPfTransmission(M2H = FALSE, tBite = tBite, ixH = ixH, ixS = ixS, ixM = ixM, PfM = infObj$PfM)
-#       }
-#       return(infObj)
-#     } else {
-#       infObj = list(infected = FALSE)
-#       return(infObj)
-#     }
-#   })
-# }
-
-
-###################################################################
 # Add PfSI Timing Functions to 'Human' Class
 ###################################################################
 
@@ -279,6 +212,72 @@ PfSI_ttGSWanePf <- function(){
 # Add PfSI Events to 'Human' Class
 # 'XX' family of functions for human event queues
 ###################################################################
+
+###################################################################
+# PfSI: Mosquito to Human infectious bite
+# Add methods to 'Human' Class
+###################################################################
+
+#' PfSI \code{Human} Method: Host Probing
+#'
+#' This method is called by a mosquito when she probes a human host, but may also be called by \code{\link{SimBitePfSI}} as a filler.
+#' If the biting mosquito is infectious, the method calls \code{\link{infectiousBite_PfSI}}, otherwise does nothing.
+#' This method is bound to \code{Human$probeHost_PfSI()}
+#'
+#' @param tBite time of bite
+#' @param mosquitoPfSI \code{\link{mosquitoPfSI}} object passed from mosquito to human
+probeHost_PfSI <- function(tBite, mosquitoPfSI){
+  if(any(mosquitoPfSI$get_spz()>0)){
+    PAR = list(mosquitoPfSI = mosquitoPfSI)
+    self$infectiousBite_PfSI(tBite, PAR)
+  }
+
+}
+
+#' PfSI \code{Human} Method: Infectious Bite on Human
+#'
+#' This method is called from \code{\link{probeHost_PfSI}}.
+#' If the infectious bite results in successful transmission, this function queues a human infection event, see \code{\link{add2Q_infectHumanPfSI}}
+#' This method is bound to \code{Human$infectiousBite_PfSI()}
+#'
+#' @param tBite time of bite
+#' @param mosquitoPfSI \code{\link{mosquitoPfSI}} object passed from mosquito to human
+infectiousBite_PfSI <- function(tBite, PAR){
+  if(runif(1) < private$Pathogens$Pf$get_b()){
+
+    PfIx = sample(x = which(PAR$mosquitoPfSI$get_spz()>0), size = 1) # sample a clonal variant if multiple
+    PAR = list(damID = PfIx, sireID = PfIx)
+
+    tInfStart = tBite + self$ttInfectionPf()
+    self$add2Q_infectHumanPfSI(tEvent = tInfStart, PAR = PAR)
+  }
+}
+
+
+###################################################################
+# PfSI: Human to Mosquito infectious bite
+# Add methods to 'MicroMosquitoFemale' Classe
+###################################################################
+
+# its okay if this function takes as a direct argument humanPfSI;
+# like probeHost_PfSI, the functions that directly interact between classes are ok to pass these things by name rather than generic PAR
+# try to reserve generic argument names like PAR when all modification is within-class; ie, when there will be no ambiguity.
+# do not use when objects are passed between classes
+
+# infectMosquito_PfSI <- function(tBite, ixH, ixS, ixM){
+#   with(HUMANS[[ixH]]$Pathogens$Pf,{
+#     if(infected==TRUE & rbinom(1,1,HUMANS[[ixH]]$Pathogens$Pf$c)){
+#       infObj = makePfM(ixH, tBite, ixS)
+#       if(PfTransmission_TRACK){
+#         trackPfTransmission(M2H = FALSE, tBite = tBite, ixH = ixH, ixS = ixS, ixM = ixM, PfM = infObj$PfM)
+#       }
+#       return(infObj)
+#     } else {
+#       infObj = list(infected = FALSE)
+#       return(infObj)
+#     }
+#   })
+# }
 
 
 ###################################################################

@@ -2,7 +2,7 @@
 % Please edit documentation in R/PATHOGEN-PfSI-Setup.R
 \name{PfSI.Setup}
 \alias{PfSI.Setup}
-\title{Initialize PfSI Module Parameters (Pathogen)}
+\title{Initialize PfSI MODULE}
 \usage{
 PfSI.Setup(overwrite = TRUE, Pf_c = 0.15, Pf_b = 0.55, DurationPf = 200,
   LatentPf = 10, FeverPf = 0.3, mnFeverPf = 10, vrFeverPf = 0.1,
