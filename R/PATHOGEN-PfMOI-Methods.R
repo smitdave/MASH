@@ -145,33 +145,82 @@ infectiousBite_PfMOI <- function(tBite, PAR){
 }
 
 
-# ###################################################################
-# # From infectious bite to infection
-# ###################################################################
+###################################################################
+# PfMOI: Human to Mosquito infectious bite
+# Add methods to 'MicroMosquitoFemale' Classe
+###################################################################
 
+# infectMosquito_PfMOI <- function(){
 #
-# Pf0=list()
-# Pf0$spz = 1
-# mPf0 = list(damID=0,ixM=0,tm=0,xm=0,ym=0)
-# Pf0$mPf[[1]] = mPf0
-#
-# add2Q_simbitePfMOI = function(ixH, t, PAR=Pf0){
-#   addEvent2Q(ixH, event_simbitePfMOI(t))
 # }
+
+# # From bloodstream infection to infect the mosquito
 #
-# event_simbitePfMOI = function(t, PAR=Pf0){
-#   if(NOISY == TRUE) print("adding simbite")
-#   list(t=t, PAR=Pf0, F=simbite_PfMOI, tag="simbite_PfMOI")
-# }
-#
-# simbite_PfMOI = function(ixH, t, x, y, ixM, PAR=Pf0){with(PAR,{
-#   probeHost_PfMOI(ixH,t,x,y,ixM,Pf0)
+# infectMosquito_PfMOI = function(ixH, t, x, y){with(HUMANS[[ixH]]$Pathogens$Pf,{
+#   if(MOI>0 & rbinom(1,1,HUMANS[[ixH]]$Pathogens$Pf$c)){
+#       return(makePfM(ixH, t, x, y))
+#   } else {
+#     return(list(infected=FALSE))
+#   }
 # })}
 #
-# ###################################################################
-# # Queue up infectious bites
-# ###################################################################
-#
+# pathOBJ_PfMOI = function(b=Pf_b, c=Pf_c){
+#   list(
+#     MOI = 0,
+#     pfid = 0,
+#     chemoprophylaxis = FALSE,
+#     b = b,
+#     c = c,
+#     eventT = -1,
+#     events = "init",
+#     MOIvsT = 0
+#   )
+# }
+
+
+###################################################################
+# Start a PfSI Infection
+###################################################################
+
+#' PfMOI \code{Human} Event: Add PfMOI Infection Event to Event Queue
+#'
+#' Add a PfMOI infection to the event queue.
+#' This method is called from \code{\link{infectiousBite_PfMOI}}
+#' This method adds event \code{\link{event_infectHumanPfMOI}} to the event queue.
+#' This method is bound to \code{Human$add2Q_infectHumanPfMOI()}
+#'
+#' @param tEvent time of infection
+#' @param PAR write me!
+add2Q_infectHumanPfMOI <- function(){
+
+}
+
+#' PfMOI \code{Human} Event: Generate PfMOI Infection Event
+#'
+#' Generate PfMOI infection event to place in event queue.
+#' This method is called from \code{\link{add2Q_infectHumanPfMOI}}
+#' This method is bound to \code{Human$event_infectHumanPfMOI()}
+#'  * tag: \code{\link{infectHumanPfMOI}}
+#' @md
+#' @param tEvent time of infection
+#' @param PAR write me!
+event_infectHumanPfMOI <- function(){
+
+}
+
+#' PfMOI \code{Human} Event: PfMOI Infection Event
+#'
+#' Simulate a PfMOI infection. If the human is not under chemoprophlaxis, begin queuing events for this clonal variant's infection process.
+#' This method is bound to \code{Human$infectHumanPfMOI()}
+#'  * A Bernoulli event is drawn to determine if this infection produces fever; if so \code{\link{add2Q_feverPfMOI}} is called.
+#'  * The end of this PfSI infection is queued by \code{\link{add2Q_endPfMOI}}
+#' @md
+#' @param tEvent time of infection
+#' @param PAR write me!
+infectHumanPfMOI <- function(){
+
+}
+
 # infectHuman_PfMOI = function(ixH, t, pfid){
 #
 #   if(NOISY == TRUE){print("infectHuman")}
@@ -397,27 +446,3 @@ infectiousBite_PfMOI <- function(tBite, PAR){
 #   }
 # }
 #
-# ###################################################################
-# # From bloodstream infection to infect the mosquito
-# ###################################################################
-#
-# infectMosquito_PfMOI = function(ixH, t, x, y){with(HUMANS[[ixH]]$Pathogens$Pf,{
-#   if(MOI>0 & rbinom(1,1,HUMANS[[ixH]]$Pathogens$Pf$c)){
-#       return(makePfM(ixH, t, x, y))
-#   } else {
-#     return(list(infected=FALSE))
-#   }
-# })}
-#
-# pathOBJ_PfMOI = function(b=Pf_b, c=Pf_c){
-#   list(
-#     MOI = 0,
-#     pfid = 0,
-#     chemoprophylaxis = FALSE,
-#     b = b,
-#     c = c,
-#     eventT = -1,
-#     events = "init",
-#     MOIvsT = 0
-#   )
-# }
