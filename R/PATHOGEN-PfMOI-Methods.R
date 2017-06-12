@@ -191,8 +191,8 @@ infectiousBite_PfMOI <- function(tBite, PAR){
 #'
 #' @param tEvent time of infection
 #' @param PAR write me!
-add2Q_infectHumanPfMOI <- function(){
-
+add2Q_infectHumanPfMOI <- function(tEvent, PAR = NULL){
+  self$addEvent2Q(event = self$event_infectHumanPfMOI(tEvent = tEvent, PAR = PAR))
 }
 
 #' PfMOI \code{Human} Event: Generate PfMOI Infection Event
@@ -205,7 +205,7 @@ add2Q_infectHumanPfMOI <- function(){
 #' @param tEvent time of infection
 #' @param PAR write me!
 event_infectHumanPfMOI <- function(){
-
+  list(tEvent = tEvent, PAR = PAR, tag = "infectHumanPfMOI")
 }
 
 #' PfMOI \code{Human} Event: PfMOI Infection Event
@@ -217,26 +217,42 @@ event_infectHumanPfMOI <- function(){
 #' @md
 #' @param tEvent time of infection
 #' @param PAR write me!
-infectHumanPfMOI <- function(){
+infectHumanPfMOI <- function(tEvent, PAR){
+
+  if(!private$Pathogens$get_chemoprophylaxis()){
+
+    PfID = NULL # generate a new global PfID here from HumanPop
+
+    private$Pathogens$track_history(NULL) # write me
+    private$Pathogens$increment_MOI() # increment MOI
+    private$Pathogens$push_PfID(PfID)
+
+    if(runif(1) < private$PfMOI_PAR$FeverPf){
+      self$add2Q_feverPfMOI(tEvent = tEvent)
+    }
+
+    self$add2Q_endPfMOI(tEvent = tEvent)
+
+  }
 
 }
 
-# infectHuman_PfMOI = function(ixH, t, pfid){
-#
-#   if(NOISY == TRUE){print("infectHuman")}
-#
-#   if(HUMANS[[ixH]]$Pathogens$Pf$chemoprophylaxis == FALSE){
-#       PfMOIHistory(ixH, t, "I")
-#       HUMANS[[ixH]]$Pf$MOI <<- HUMANS[[ixH]]$Pf$MOI + 1
-#       HUMANS[[ixH]]$Pf$PfID <<- c(HUMANS[[ixH]]$Pf$PfID, pfid)
-#       add2Q_endPfMOI(ixH, t, PfID)
-#
-#       if(rbinom(1,1,FeverPf)){
-#         add2Q_feverPfMOI(ixH, t)
-#       }
-#       add2Q_endPfMOI(ixH, t, pfid)
-#     }
-# }
+infectHuman_PfMOI = function(ixH, t, pfid){
+
+  if(NOISY == TRUE){print("infectHuman")}
+
+  if(HUMANS[[ixH]]$Pathogens$Pf$chemoprophylaxis == FALSE){
+      PfMOIHistory(ixH, t, "I")
+      HUMANS[[ixH]]$Pf$MOI <<- HUMANS[[ixH]]$Pf$MOI + 1
+      HUMANS[[ixH]]$Pf$PfID <<- c(HUMANS[[ixH]]$Pf$PfID, pfid)
+      add2Q_endPfMOI(ixH, t, PfID)
+
+      if(rbinom(1,1,FeverPf)){
+        add2Q_feverPfMOI(ixH, t)
+      }
+      add2Q_endPfMOI(ixH, t, pfid)
+    }
+}
 #
 # add2Q_startPfMOI = function(ixH, t, pfid){
 #   addEvent2Q(ixH, event_startPfMOI(t, pfid))

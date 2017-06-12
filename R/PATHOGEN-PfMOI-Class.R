@@ -154,7 +154,7 @@ humanPfMOI <- R6::R6Class(classname="mosquitoPfMOI",
                        },
 
                        ########################################
-                       #  Accessors, Pointers, and Setters
+                       #  Getters & Setters
                        ########################################
 
                        # MOI: Multiplicity of Infection
@@ -168,14 +168,41 @@ humanPfMOI <- R6::R6Class(classname="mosquitoPfMOI",
                          private$MOI = private$MOI + 1
                        },
 
+                       # PfID: Pf IDs; indicate liver-stage infections
+                       get_PfID = function(){
+                         return(private$PfID)
+                       },
+                       set_PfID = function(PfID){
+                         private$PfID = PfID
+                       },
+                       push_PfID = function(PfID){
+                         private$PfID = c(private$PfID,PfID)
+                       }
+
+
                        get_clone = function(m){
                          print("get the mth clonal variant as a list")
                          list(
 
                           )
+                       },
+
+                       track_history = function(eventT , event, ){
+                         print("sean hasn't written track history yet for PfMOI")
+                       },
+
+
+                       ########################################
+                       #  Pointers
+                       ########################################
+
+                       # HumanPointer: point to the human I exist in!
+                       get_HumanPointer = function(){
+                         return(private$HumanPointer)
+                       },
+                       set_HumanPointer = function(HumanPointer){
+                         private$HumanPointer = HumanPointer
                        }
-
-
 
 
                      ),
@@ -183,12 +210,16 @@ humanPfMOI <- R6::R6Class(classname="mosquitoPfMOI",
                      #private members
                      private = list(
 
+                       # Pathogen and immune states
                        MOI = NULL, # my multiplicity of infection
                        PfID = NULL, # vector of PfID
                        b = NULL, # infected mosquito to human transmission efficiency
                        c = NULL, # infected human to mosquito transmission efficiency
                        chemoprophylaxis = NULL,
-                       history = NULL
+                       history = NULL,
+
+                       # Pointers
+                       HumanPointer = NULL
 
                      )
 
