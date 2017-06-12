@@ -13,5 +13,5 @@ endPfSI(tEvent, PAR)
 }
 \description{
 Clear a PfSI infection. If the human is infected, set susceptible and track history.
-This method is bound to \code{Human$infectHumanPfSI()}
+This method is bound to \code{Human$endPfSI()}
 }

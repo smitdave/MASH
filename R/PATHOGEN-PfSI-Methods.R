@@ -373,7 +373,7 @@ event_endPfSI <- function(tEvent, PAR = NULL){
 #' PfSI \code{Human} Event: PfSI Clearance Event
 #'
 #' Clear a PfSI infection. If the human is infected, set susceptible and track history.
-#' This method is bound to \code{Human$infectHumanPfSI()}
+#' This method is bound to \code{Human$endPfSI()}
 #' @param tEvent time of clearance
 #' @param PAR \code{NULL}
 endPfSI <- function(tEvent, PAR){

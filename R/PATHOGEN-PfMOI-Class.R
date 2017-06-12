@@ -129,9 +129,11 @@ mosquitoPfMOI <- R6::R6Class(classname="mosquitoPfMOI",
 #'    * get_TilePointer: get \code{\link{MicroTile}} pointer
 #'    * set_TilePointer: set \code{\link{MicroTile}} pointer
 #'
-#'
-#'
-#'
+#' @section Fields:
+#'  * **History**
+#'    * tEvent: time of the event (jump time for embedded CTMC)
+#'    * events: the new state (state after the jump)
+#'    * MOI: current multiplicity of infection
 #'
 #' @md
 #' @export
@@ -151,6 +153,11 @@ humanPfMOI <- R6::R6Class(classname="mosquitoPfMOI",
                          private$spz = spz
                          private$damID = damID
                          private$sireID = sireID
+                       },
+
+                       clear_Infection = function(ix){ # completely clear the infection assoc. with index ix
+                         private$PfID = private$PfID[-ix]
+                         private$MOI = private$MOI - 1
                        },
 
                        ########################################
@@ -177,7 +184,7 @@ humanPfMOI <- R6::R6Class(classname="mosquitoPfMOI",
                        },
                        push_PfID = function(PfID){
                          private$PfID = c(private$PfID,PfID)
-                       }
+                       },
 
 
                        get_clone = function(m){
@@ -187,8 +194,9 @@ humanPfMOI <- R6::R6Class(classname="mosquitoPfMOI",
                           )
                        },
 
-                       track_history = function(eventT , event, ){
+                       track_history = function(eventT , event ){
                          print("sean hasn't written track history yet for PfMOI")
+                         private$history$MOI = private$MOI
                        },
 
 

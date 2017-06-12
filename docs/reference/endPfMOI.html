@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>PfMOI <code>Human</code> Method: Timing of Treatment — PfMOI_ttTreatPf • MASH</title>
+<title>PfMOI <code>Human</code> Event: PfMOI Infection Event — endPfMOI • MASH</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -77,22 +77,37 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>PfMOI <code>Human</code> Method: Timing of Treatment</h1>
+    <h1>PfMOI <code>Human</code> Event: PfMOI Infection Event</h1>
     </div>
 
     
-    <p>What is the timing of treatment relative to the start of a fever incident? See <code><a href='PfMOI.Parameters.html'>PfMOI.Parameters</a></code> parameter <code>Pf_ttT</code> for mean waiting time of exponentially distributed waiting period.
-This method is called from <code></code>
-This method is bound to <code>Human$ttTreatPf()</code></p>
+    <p>Clear a PfMOI infection corresponding to the given PfID.
+This method is bound to <code>Human$endPfMOI()</code></p>
     
 
-    <pre class="usage"><span class='fu'>PfMOI_ttTreatPf</span>()</pre>
-        
+    <pre class="usage"><span class='fu'>endPfMOI</span>(<span class='no'>tEvent</span>, <span class='no'>PAR</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>tEvent</th>
+      <td><p>time of clearance</p></td>
+    </tr>
+    <tr>
+      <th>PAR</th>
+      <td><p>named list</p><ul>
+<li><p>PfID: PfID of the infection to end</p></li>
+</ul></td>
+    </tr>
+    </table>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
                 </ul>
 
   </div>

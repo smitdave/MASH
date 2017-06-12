@@ -9,5 +9,5 @@ PfMOI_ttSusceptiblePf()
 \description{
 After administration of treatment what is time to susceptibility? See \code{\link{PfMOI.Parameters}} parameter \code{Pf_ttS} constant timing period.
 This method is called from \code{\link{}}
-This method is bound to \code{Human$ttSusceptiblePfMOI()}
+This method is bound to \code{Human$ttSusceptiblePf()}
 }

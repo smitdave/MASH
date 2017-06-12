@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -83,11 +84,11 @@
     <p>Simulate a PfMOI infection. If the human is not under chemoprophlaxis, begin queuing events for this clonal variant's infection process.
 This method is bound to <code>Human$infectHumanPfMOI()</code></p><ul>
 <li><p>A Bernoulli event is drawn to determine if this infection produces fever; if so <code>add2Q_feverPfMOI</code> is called.</p></li>
-<li><p>The end of this PfSI infection is queued by <code>add2Q_endPfMOI</code></p></li>
+<li><p>The end of this PfSI infection is queued by <code><a href='add2Q_endPfMOI.html'>add2Q_endPfMOI</a></code></p></li>
 </ul>
     
 
-    <pre class="usage"><span class='fu'>infectHumanPfMOI</span>()</pre>
+    <pre class="usage"><span class='fu'>infectHumanPfMOI</span>(<span class='no'>tEvent</span>, <span class='no'>PAR</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">

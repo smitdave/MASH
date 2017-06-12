@@ -17,7 +17,7 @@
 #'
 #' How many days does a single PfMOI infection last? See \code{\link{PfMOI.Parameters}} parameter \code{Pf_r} for baseline clearance rate.
 #' This method is called from \code{\link{}}
-#' This method is bound to \code{Human$ttClearPfMOI()}
+#' This method is bound to \code{Human$ttClearPf()}
 #'
 PfMOI_ttClearPf <- function(){
   rexp(n=1, rate=private$PfMOI_PAR$Pf_r)
@@ -27,7 +27,7 @@ PfMOI_ttClearPf <- function(){
 #'
 #' How many days after the infectious bite does a PfMOI infection start? See \code{\link{PfMOI.Parameters}} parameter \code{Pf_latent} constant latent period.
 #' This method is called from \code{\link{}}
-#' This method is bound to \code{Human$ttInfectPfMOI()}
+#' This method is bound to \code{Human$ttInfectPf()}
 #'
 PfMOI_ttInfectionPf <- function(){
   private$PfMOI_PAR$Pf_latent
@@ -37,7 +37,7 @@ PfMOI_ttInfectionPf <- function(){
 #'
 #' What is the timing of fever relative to the start of a PfMOI infection? See \code{\link{PfMOI.Parameters}} parameter \code{Pf_ttF} mean (on natural scale) and parameter \code{Pf_ttFvar} standard deviation (on natural scale) of log-normally distributed time to fever.
 #' This method is called from \code{\link{}}
-#' This method is bound to \code{Human$ttFeverPfMOI()}
+#' This method is bound to \code{Human$ttFeverPf()}
 #'
 PfMOI_ttFeverPf <- function(){
   rlnorm(1,log(private$PfMOI_PAR$Pf_ttF),private$PfMOI_PAR$Pf_ttFvar)
@@ -47,7 +47,7 @@ PfMOI_ttFeverPf <- function(){
 #'
 #' What is the timing of treatment relative to the start of a fever incident? See \code{\link{PfMOI.Parameters}} parameter \code{Pf_ttT} for mean waiting time of exponentially distributed waiting period.
 #' This method is called from \code{\link{}}
-#' This method is bound to \code{Human$ttTreatPfMOI()}
+#' This method is bound to \code{Human$ttTreatPf()}
 #'
 PfMOI_ttTreatPf <- function(){
   rexp(1, 1/private$PfMOI_PAR$Pf_ttT)
@@ -58,7 +58,7 @@ PfMOI_ttTreatPf <- function(){
 #'
 #' After administration of treatment what is time to susceptibility? See \code{\link{PfMOI.Parameters}} parameter \code{Pf_ttS} constant timing period.
 #' This method is called from \code{\link{}}
-#' This method is bound to \code{Human$ttSusceptiblePfMOI()}
+#' This method is bound to \code{Human$ttSusceptiblePf()}
 #'
 PfMOI_ttSusceptiblePf <- function(){private$PfMOI_PAR$Pf_ttS}
 
@@ -179,7 +179,7 @@ infectiousBite_PfMOI <- function(tBite, PAR){
 
 
 ###################################################################
-# Start a PfSI Infection
+# Start a PfMOI Infection
 ###################################################################
 
 #' PfMOI \code{Human} Event: Add PfMOI Infection Event to Event Queue
@@ -223,7 +223,6 @@ infectHumanPfMOI <- function(tEvent, PAR){
 
     PfID = NULL # generate a new global PfID here from HumanPop
 
-    private$Pathogens$track_history(NULL) # write me
     private$Pathogens$increment_MOI() # increment MOI
     private$Pathogens$push_PfID(PfID)
 
@@ -235,49 +234,61 @@ infectHumanPfMOI <- function(tEvent, PAR){
 
   }
 
+  private$Pathogens$track_history(tEvent = tEvent, event = "I") # write me
+
 }
 
-infectHuman_PfMOI = function(ixH, t, pfid){
 
-  if(NOISY == TRUE){print("infectHuman")}
+###################################################################
+# End a PfMOI Infection
+###################################################################
 
-  if(HUMANS[[ixH]]$Pathogens$Pf$chemoprophylaxis == FALSE){
-      PfMOIHistory(ixH, t, "I")
-      HUMANS[[ixH]]$Pf$MOI <<- HUMANS[[ixH]]$Pf$MOI + 1
-      HUMANS[[ixH]]$Pf$PfID <<- c(HUMANS[[ixH]]$Pf$PfID, pfid)
-      add2Q_endPfMOI(ixH, t, PfID)
-
-      if(rbinom(1,1,FeverPf)){
-        add2Q_feverPfMOI(ixH, t)
-      }
-      add2Q_endPfMOI(ixH, t, pfid)
-    }
+#' PfMOI \code{Human} Event: Add PfMOI Clearance Event to Event Queue
+#'
+#' Add PfMOI infection clearance event to the event queue.
+#' This method is called from \code{\link{infectHumanPfMOI}}
+#' This method adds event \code{\link{event_endPfMOI}} to the event queue.
+#' This method is bound to \code{Human$add2Q_endPfMOI()}
+#'
+#' @param tEvent time of infection
+#' @param PAR named list
+#'  * PfID: PfID of the infection to end
+#' @md
+add2Q_endPfMOI <- function(tEvent, PAR = NULL){
+  self$addEvent2Q(event = self$event_endPfMOI(tEvent = tEvent, PAR = PAR))
 }
-#
-# add2Q_startPfMOI = function(ixH, t, pfid){
-#   addEvent2Q(ixH, event_startPfMOI(t, pfid))
-# }
-#
-# event_startPfMOI = function(t, pfid){
-#   #if(NOISY == TRUE) {print(c(t=t,"adding infection")); browser()}
-#   if(NOISY == TRUE) {print(c(t=t,"adding infection"))}
-#   list(t=t, PAR=pfid, F=infectHuman_PfMOI, tag="infectHuman_PfMOI")
-# }
-#
-# ###################################################################
-# # End an infection
-# ###################################################################
-#
-# add2Q_endPfMOI = function(ixH, t, pfid){
-#   addEvent2Q(ixH, event_endPfMOI(t, pfid))
-# }
-#
-# event_endPfMOI = function(t,pfid){
-#   if(NOISY == TRUE) print("adding clear infection")
-#   tE = t+ttClearPf()
-#   list(t=tE, PAR=pfid, F = endPfMOI, tag = "endPfMOI")
-# }
-#
+
+#' PfMOI \code{Human} Event: Generate PfMOI Clear Event
+#'
+#' Generate PfMOI clearance event to place in event queue.
+#' This method is called from \code{\link{add2Q_endPfMOI}}
+#' This method is bound to \code{Human$event_endPfMOI()}
+#'  * tag: \code{\link{endPfMOI}}
+#' @md
+#' @param tEvent time of clearance
+#' @param PAR named list
+#'  * PfID: PfID of the infection to end
+#' @md
+event_endPfMOI = function(tEvent, PAR = NULL){
+  tEnd = tEvent + self$ttClearPf()
+  list(tEvent = tEnd, PAR = PAR, tag = "endPfMOI")
+}
+
+#' PfMOI \code{Human} Event: PfMOI Infection Event
+#'
+#' Clear a PfMOI infection corresponding to the given PfID.
+#' This method is bound to \code{Human$endPfMOI()}
+#' @param tEvent time of clearance
+#' @param PAR named list
+#'  * PfID: PfID of the infection to end
+#' @md
+endPfMOI <- function(tEvent, PAR){
+  ix = which(private$Pathogens$get_PfID() == PAR$PfID)
+  # might need to check for length(ix) > 0, maybe not
+  private$Pathogens$clear_Infection(ix = ix)
+}
+
+
 # endPfMOI <- function(ixH, t, pfid){
 #   ix = which(HUMANS[[ixH]]$Pf$PfID == pfid)
 #   if(length(ix)>0){
@@ -296,8 +307,8 @@ infectHuman_PfMOI = function(ixH, t, pfid){
 #     HUMANS[[ixH]]$Pathogens$Pf$infected <<- FALSE
 #   }
 # }
-#
-#
+
+
 # ###################################################################
 # # Fever
 # ###################################################################

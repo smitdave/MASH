@@ -50,5 +50,17 @@ This is the human-stage PfMOI module pathogen object defined in \code{\link{Huma
 }
 }
 
+\section{Fields}{
+
+\itemize{
+\item \strong{History}
+\itemize{
+\item tEvent: time of the event (jump time for embedded CTMC)
+\item events: the new state (state after the jump)
+\item MOI: current multiplicity of infection
+}
+}
+}
+
 \keyword{R6}
 \keyword{class}

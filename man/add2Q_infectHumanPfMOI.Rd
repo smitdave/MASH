@@ -4,7 +4,7 @@
 \alias{add2Q_infectHumanPfMOI}
 \title{PfMOI \code{Human} Event: Add PfMOI Infection Event to Event Queue}
 \usage{
-add2Q_infectHumanPfMOI()
+add2Q_infectHumanPfMOI(tEvent, PAR = NULL)
 }
 \arguments{
 \item{tEvent}{time of infection}
