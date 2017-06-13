@@ -53,16 +53,6 @@ PfMOI_ttTreatPf <- function(){
   rexp(1, 1/private$PfMOI_PAR$Pf_ttT)
 }
 
-#' PfMOI \code{Human} Method: Timing of Treatment
-#'
-#' What is the timing of treatment relative to the start of a fever incident? See \code{\link{PfMOI.Parameters}} parameter \code{mnTreatPf} constant timing period.
-#' This method is called from \code{\link{event_treatPfMOI}}
-#' This method is bound to \code{Human$ttTreatPf()}
-#'
-PfMOI_ttTreatPf <- function(){
-  return(private$PfMOI_PAR$mnTreatPf)
-}
-
 #' PfMOI \code{Human} Method: Duration of Protection from Chemoprophylaxis
 #'
 #' After administration of Chemoprophylaxis what is time to susceptibility? See \code{\link{PfMOI.Parameters}} parameter \code{mnChemoprophylaxisPf} constant timing period.
@@ -70,7 +60,7 @@ PfMOI_ttTreatPf <- function(){
 #' This method is bound to \code{Human$ttSusceptiblePf()}
 #'
 PfMOI_ttSusceptiblePf <- function(){
-  return(private$PfMOI_PAR$mnChemoprophylaxisPf)
+  return(private$PfMOI_PAR$Pf_ttS)
 }
 
 #' PfMOI \code{Human} Method: Duration of protection by PE Vaccination
@@ -350,7 +340,7 @@ add2Q_feverPfMOI <- function(tEvent, PAR = NULL){
 #' @param tEvent time of fever
 #' @param PAR \code{NULL}
 #' @md
-event_feverPfMOI = function(tEvent, PAR = NULL){
+event_feverPfMOI <- function(tEvent, PAR = NULL){
   tFever = tEvent + self$ttFeverPf()
   list(tEvent = tEnd, PAR = PAR, tag = "feverPfMOI")
 }

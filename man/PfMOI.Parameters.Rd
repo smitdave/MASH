@@ -6,7 +6,9 @@
 \usage{
 PfMOI.Parameters(MosyMaxI = 1L, Pf_c = 0.15, Pf_b = 0.55, Pf_r = 1/200,
   Pf_latent = 0, Pf_fever = 0.3, Pf_ttF = 10, Pf_ttFvar = 0.1,
-  TreatPf = 0.5, Pf_ttT = 3, Pf_ttS = 3, rdtSensPf = 0.9,
+  TreatPf = 0.5, Pf_ttT = 3, Pf_ttS = 32, PEProtectPf = 0.99,
+  peBlockPf = 1, mnPEPf = 270, vrPEPf = 50, GSProtectPf = 1,
+  gsBlockPf = 0.9, mnGSPf = 180, vrGSPf = 20, rdtSensPf = 0.9,
   rdtSpecPf = 0.1, lmSensPf = 0.9, lmSpecPf = 0.1)
 }
 \arguments{
@@ -31,6 +33,22 @@ PfMOI.Parameters(MosyMaxI = 1L, Pf_c = 0.15, Pf_b = 0.55, Pf_r = 1/200,
 \item{Pf_ttT}{average waiting time from fever to treatment (exponentially distributed)}
 
 \item{Pf_ttS}{constant period of proteection from chemoprophylaxis}
+
+\item{PEProtectPf}{proportion protected by PE vaccination (probability vaccination successful)}
+
+\item{peBlockPf}{proportion of infections blocked by PE vaccination}
+
+\item{mnPEPf}{mean duration of protection from PE vaccination}
+
+\item{vrPEPf}{standard deviation of protection from PE vaccination}
+
+\item{GSProtectPf}{proportion protected by GS vaccination (probability vaccination successful)}
+
+\item{gsBlockPf}{proportion of infections blocked by GS vaccination}
+
+\item{mnGSPf}{mean duration of protection from GS vaccination}
+
+\item{vrGSPf}{standard deviation of protection from GS vaccination}
 
 \item{rdtSensPf}{RDT sensitivity}
 
