@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>To Do • MASH</title>
+<title>PfMOI (Multiplicity of Infection Compartmental Model for Plasmodium falciparum Transmission) • MASH</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
@@ -54,7 +54,7 @@
       </header><div class="row">
   <div class="col-md-9">
     <div class="page-header toc-ignore">
-      <h1>To Do</h1>
+      <h1>PfMOI (Multiplicity of Infection Compartmental Model for Plasmodium falciparum Transmission)</h1>
                         <h4 class="author">Sean Wu</h4>
             
             <h4 class="date">2017-06-13</h4>
@@ -63,35 +63,10 @@
     
     
 <div class="contents">
-<div id="dev-team-to-do" class="section level1">
+<div id="state-space" class="section level1">
 <h1 class="hasAnchor">
-<a href="#dev-team-to-do" class="anchor"></a>Dev Team To-do:</h1>
-<div id="to-do" class="section level3">
-<h3 class="hasAnchor">
-<a href="#to-do" class="anchor"></a>TO-DO:</h3>
-<ol style="list-style-type: decimal">
-<li>Add aging to Human and HumanPop</li>
-<li>Fix the PfPR init in MacroTile</li>
-<li>Better data logging for MacroTile</li>
-<li>For all XX.Setup() functions, add arg ‘overwrite’ boolean to toggle overwriting. If you do this you cannot have any orphan XX$set() functions anymore</li>
-<li>in MacroTile::initialize(), make travelHabit arg ‘n’ part of HumanPop_PAR</li>
-<li>look into jsonlite::stream_out</li>
-<li>getEIP_MacroMosquitoPop should eventually return something besides an integer</li>
-<li>See simMacro: need single call to Tile to do all aquatic ecology stuffs; needs to generalize across allocation possible aquatic ecology modules.</li>
-<li>AQUA-Macro-Emerge.R should be split according to how AQUA-Micro-Queues.R and AQUA-Micro-Emerge.R is structured.</li>
-<li>MACRO Emergence stuffs is called season right now…need to change to lambda</li>
-<li>Rename MACRO-Human-Movment.R stuff to MACRO-Human-Travel.R (Movement to Travel) for consistency with online docs.</li>
-<li>In set_humanPfSI() make it dependent on the PfSI_PAR vector in the class.</li>
-</ol>
-</div>
-<div id="solved-to-do" class="section level3">
-<h3 class="hasAnchor">
-<a href="#solved-to-do" class="anchor"></a>SOLVED TO-DO:</h3>
-<ol start="6" style="list-style-type: decimal">
-<li>SOLVED (Z not updating correctly, see MACRO-MosquitoPop-Methods.R) HumanPop$debug(“queueInfectiousBites”): do debugging: EIR is always 0</li>
-<li>SOVLED (see HUMANS-HumanPop-Parameters.R)check why in HumanPop$tStart is a vector.</li>
-</ol>
-</div>
+<a href="#state-space" class="anchor"></a>State Space:</h1>
+<p>Describe the state space of PfMOI: * S: Susceptible * I: Infection Event * C: Clearance Event * MOI: Integer valued state variable</p>
 </div>
 </div>
   </div>
@@ -101,7 +76,7 @@
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#dev-team-to-do">Dev Team To-do:</a></li>
+<li><a href="#state-space">State Space:</a></li>
       </ul>
 </div>
       </div>

@@ -286,6 +286,7 @@ endPfMOI <- function(tEvent, PAR){
   ix = which(private$Pathogens$get_PfID() == PAR$PfID)
   # might need to check for length(ix) > 0, maybe not
   private$Pathogens$clear_Infection(ix = ix)
+  private$Pathogens$track_history(tEvent = tEvent, event = "C") # write me
 }
 
 

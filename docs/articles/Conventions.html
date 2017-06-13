@@ -57,17 +57,18 @@
       <h1>Documentation &amp; Code Conventions</h1>
                         <h4 class="author">Sean Wu</h4>
             
-            <h4 class="date">2017-06-09</h4>
+            <h4 class="date">2017-06-13</h4>
           </div>
 
     
     
 <div class="contents">
-<div id="guide-to-writing-inline-documentation" class="section level1">
+<div id="guide-to-writing-components-and-modules-for-mash" class="section level1">
 <h1 class="hasAnchor">
-<a href="#guide-to-writing-inline-documentation" class="anchor"></a>Guide to Writing Inline Documentation</h1>
+<a href="#guide-to-writing-components-and-modules-for-mash" class="anchor"></a>Guide to Writing Components and Modules for MASH</h1>
 <ul>
 <li>Note: <code>XX</code> refers to generic function or class and is purely for illustrative example.</li>
+<li>Note: proper documentation should use <code>roxygen2</code>.</li>
 </ul>
 <div id="classes" class="section level2">
 <h2 class="hasAnchor">
@@ -77,12 +78,13 @@
 <h2 class="hasAnchor">
 <a href="#methods" class="anchor"></a>Methods</h2>
 <ul>
-<li>Generic Methods:
+<li>Conventions for Writing Public Methods (initialized in <code>public</code> list and accessed by <code>self$XX()</code>):
 <ul>
 <li>get_XX() : return the thing. potentially with ix arg for lists (if <code>ix = NULL</code> then return the whole list)</li>
 <li>set_XX() : set the thing, potentially with (XX, ix) arg for setting an element of list <code>(if ix = NULL</code> set the entire object)</li>
 <li>push_XX() : push to the end of the thing; useful for growing vectors</li>
 <li>accumulate_XX() : add to the thing, sort of like XX += YY</li>
+<li>increment_XX(): increment the thing by 1; like the above but just for one</li>
 <li>track_XX(): add to the history of XX (ie; track_Travel records travel history…)</li>
 <li>extend_XX(): add empty/NULL values to end of lists for memory allocation</li>
 <li>add_XX(): useful for when you need to add very specific information to something with a specific structure (ie: add_riskList)</li>
@@ -106,7 +108,7 @@
 <code>get_XX(ix = NULL)</code>: If the field <code>XX</code> is indexed (ie; a vector or list), <code>ix</code> is the index to get If <code>ix = NULL</code>, the entire field is returned.</li>
 </ul>
 </li>
-<li>Pointers</li>
+<li>Pointers:</li>
 </ul>
 </div>
 <div id="fields" class="section level2">
@@ -138,10 +140,11 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
         <div id="tocnav">
-      <h2>Contents</h2>
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li>
-<a href="#guide-to-writing-inline-documentation">Guide to Writing Inline Documentation</a><ul class="nav nav-pills nav-stacked">
+<a href="#guide-to-writing-components-and-modules-for-mash">Guide to Writing Components and Modules for MASH</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#classes">Classes</a></li>
       <li><a href="#methods">Methods</a></li>
       <li><a href="#fields">Fields</a></li>

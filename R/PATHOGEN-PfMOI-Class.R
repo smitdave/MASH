@@ -194,7 +194,7 @@ humanPfMOI <- R6::R6Class(classname="mosquitoPfMOI",
                           )
                        },
 
-                       track_history = function(eventT , event ){
+                       track_history = function(eventT , event){
                          print("sean hasn't written track history yet for PfMOI")
                          private$history$MOI = private$MOI
                        },

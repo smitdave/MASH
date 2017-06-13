@@ -191,3 +191,4 @@ articles:
     desc: the Pathogen simulation component of MASH
     contents:
       - PathogenPfLOME
+      - PathogenPfMOI
