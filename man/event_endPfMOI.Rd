@@ -2,7 +2,7 @@
 % Please edit documentation in R/PATHOGEN-PfMOI-Methods.R
 \name{event_endPfMOI}
 \alias{event_endPfMOI}
-\title{PfMOI \code{Human} Event: Generate PfMOI Clear Event}
+\title{PfMOI \code{Human} Event: Generate PfMOI Clearance Event}
 \usage{
 event_endPfMOI(tEvent, PAR = NULL)
 }
@@ -20,5 +20,6 @@ This method is called from \code{\link{add2Q_endPfMOI}}
 This method is bound to \code{Human$event_endPfMOI()}
 \itemize{
 \item tag: \code{\link{endPfMOI}}
+\item tEvent: treatment time is calculated as tTreat = tEvent + \code{\link{PfMOI_ttClearPf}}
 }
 }

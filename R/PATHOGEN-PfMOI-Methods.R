@@ -53,15 +53,45 @@ PfMOI_ttTreatPf <- function(){
   rexp(1, 1/private$PfMOI_PAR$Pf_ttT)
 }
 
+#' PfMOI \code{Human} Method: Timing of Treatment
+#'
+#' What is the timing of treatment relative to the start of a fever incident? See \code{\link{PfMOI.Parameters}} parameter \code{mnTreatPf} constant timing period.
+#' This method is called from \code{\link{event_treatPfMOI}}
+#' This method is bound to \code{Human$ttTreatPf()}
+#'
+PfMOI_ttTreatPf <- function(){
+  return(private$PfMOI_PAR$mnTreatPf)
+}
 
 #' PfMOI \code{Human} Method: Duration of Protection from Chemoprophylaxis
 #'
-#' After administration of treatment what is time to susceptibility? See \code{\link{PfMOI.Parameters}} parameter \code{Pf_ttS} constant timing period.
-#' This method is called from \code{\link{}}
+#' After administration of Chemoprophylaxis what is time to susceptibility? See \code{\link{PfMOI.Parameters}} parameter \code{mnChemoprophylaxisPf} constant timing period.
+#' This method is called from \code{\link{event_endprophylaxisPfMOI}}
 #' This method is bound to \code{Human$ttSusceptiblePf()}
 #'
-PfMOI_ttSusceptiblePf <- function(){private$PfMOI_PAR$Pf_ttS}
+PfMOI_ttSusceptiblePf <- function(){
+  return(private$PfMOI_PAR$mnChemoprophylaxisPf)
+}
 
+#' PfMOI \code{Human} Method: Duration of protection by PE Vaccination
+#'
+#' After administration of PE Vaccination what is duration of protection (reduced infected mosquito to human transmission efficiency)? See \code{\link{PfMOI.Parameters}} parameter \code{mnPEPf} and \code{vrPEPf} for normally distributed duration of protection.
+#' This method is called from \code{\link{event_pewanePfMOI}}
+#' This method is bound to \code{Human$ttPEWanePf()}
+#'
+PfMOI_ttPEWanePf <- function(){
+  return(rnorm(n = 1, mean = private$PfMOI_PAR$mnPEPf, sd = private$PfMOI_PAR$vrPEPf))
+}
+
+#' PfMOI \code{Human} Method: Duration of protection by GS Vaccination
+#'
+#' Duration of protection by GS Vaccination? See \code{\link{PfMOI.Parameters}} parameter \code{mnGSPf} and \code{vrGSPf} for normally distributed duration of protection.
+#' This method is called from \code{\link{event_gswanePfMOI}}
+#' This method is bound to \code{Human$ttGSWanePf()}
+#'
+PfMOI_ttGSWanePf <- function(){
+  return(rnorm(n = 1, mean = private$PfMOI_PAR$mnGSPf, sd = private$PfMOI_PAR$vrGSPf))
+}
 
 ###################################################################
 # PfMOI Diagnostics
@@ -73,7 +103,7 @@ PfMOI_ttSusceptiblePf <- function(){private$PfMOI_PAR$Pf_ttS}
 #'  * if infected: true positive is detected with probability \code{rdtSensPf}, see \code{\link{PfMOI.Parameters}}
 #'  * if susceptible: false positive is detected with probability \code{rdtSpecPf}, see \code{\link{PfMOI.Parameters}}
 #' @md
-rdtTest_PfSI <- function(tEvent, PAR){
+rdtTest_PfMOI <- function(tEvent, PAR){
   if(private$Pathogens$Pf$get_MOI()>0){
     runif(1) < private$PfMOI_PAR$rdtSensPf
   } else {
@@ -87,7 +117,7 @@ rdtTest_PfSI <- function(tEvent, PAR){
 #'  * if infected: true positive is detected with probability \code{lmSensPf}, see \code{\link{PfMOI.Parameters}}
 #'  * if susceptible: false positive is detected with probability \code{lmSpecPf}, see \code{\link{PfMOI.Parameters}}
 #' @md
-lmTest_PfSI <- function(tEvent, PAR){
+lmTest_PfMOI <- function(tEvent, PAR){
   if(private$Pathogens$Pf$get_MOI()>0){
     runif(1) < private$PfMOI_PAR$lmSensPf
   } else {
@@ -119,7 +149,7 @@ probeHost_PfMOI <- function(tBite, mosquitoPfMOI){
     for(m in 1:mosquitoPfMOI$get_MOI()){
       N = N - 1L
       PAR = mosquitoPfMOI$get_clone(m)
-      self$infectiousBite_PfSI(tBite, PAR)
+      self$infectiousBite_PfMOI(tBite, PAR)
       if(N==0){break()}
     }
 
@@ -213,7 +243,7 @@ event_infectHumanPfMOI <- function(){
 #' Simulate a PfMOI infection. If the human is not under chemoprophlaxis, begin queuing events for this clonal variant's infection process.
 #' This method is bound to \code{Human$infectHumanPfMOI()}
 #'  * A Bernoulli event is drawn to determine if this infection produces fever; if so \code{\link{add2Q_feverPfMOI}} is called.
-#'  * The end of this PfSI infection is queued by \code{\link{add2Q_endPfMOI}}
+#'  * The end of this PfMOI infection is queued by \code{\link{add2Q_endPfMOI}}
 #' @md
 #' @param tEvent time of infection
 #' @param PAR write me!
@@ -258,12 +288,13 @@ add2Q_endPfMOI <- function(tEvent, PAR = NULL){
   self$addEvent2Q(event = self$event_endPfMOI(tEvent = tEvent, PAR = PAR))
 }
 
-#' PfMOI \code{Human} Event: Generate PfMOI Clear Event
+#' PfMOI \code{Human} Event: Generate PfMOI Clearance Event
 #'
 #' Generate PfMOI clearance event to place in event queue.
 #' This method is called from \code{\link{add2Q_endPfMOI}}
 #' This method is bound to \code{Human$event_endPfMOI()}
 #'  * tag: \code{\link{endPfMOI}}
+#'  * tEvent: treatment time is calculated as tTreat = tEvent + \code{\link{PfMOI_ttClearPf}}
 #' @md
 #' @param tEvent time of clearance
 #' @param PAR named list
@@ -290,187 +321,327 @@ endPfMOI <- function(tEvent, PAR){
 }
 
 
-# endPfMOI <- function(ixH, t, pfid){
-#   ix = which(HUMANS[[ixH]]$Pf$PfID == pfid)
-#   if(length(ix)>0){
-#     HUMANS[[ixH]]$Pf$PfID <<- HUMANS[[ixH]]$Pf$PfID[-ix]
-#     HUMANS[[ixH]]$Pf$MOI <<- HUMANS[[ixH]]$Pf$MOI-1
-#     PfMOIHistory(ixH, t, "E")
-#     HUMANS[[ixH]]$Pf$infected <<- FALSE
-#   }
-# }
-#
-# endPfMOI = function(ixH, t, PAR=NULL){
-#   # Clear
-#   if(HUMANS[[ixH]]$Pathogens$Pf$infected == TRUE){
-#     if(NOISY==TRUE) print("Clear Infection")
-#     PfMOIHistory(ixH, t, "S")
-#     HUMANS[[ixH]]$Pathogens$Pf$infected <<- FALSE
-#   }
-# }
+###################################################################
+# Fever
+###################################################################
+
+#' PfMOI \code{Human} Event: Add PfMOI Fever Event to Event Queue
+#'
+#' Add PfMOI fever event to the event queue.
+#' This method is called from \code{\link{infectHumanPfMOI}}
+#' This method adds event \code{\link{event_feverPfMOI}} to the event queue.
+#' This method is bound to \code{Human$add2Q_feverPfMOI()}
+#'
+#' @param tEvent time of fever
+#' @param PAR \code{NULL}
+#' @md
+add2Q_feverPfMOI <- function(tEvent, PAR = NULL){
+  self$addEvent2Q(event = self$event_feverPfMOI(tEvent = tEvent, PAR = PAR))
+}
+
+#' PfMOI \code{Human} Event: Generate PfMOI Fever Event
+#'
+#' Generate PfMOI fever event to place in event queue.
+#' This method is called from \code{\link{add2Q_feverPfMOI}}
+#' This method is bound to \code{Human$event_feverPfMOI()}
+#'  * tag: \code{\link{feverPfMOI}}
+#'  * tEvent: treatment time is calculated as tTreat = tEvent + \code{\link{PfMOI_ttFeverPf}}
+#' @md
+#' @param tEvent time of fever
+#' @param PAR \code{NULL}
+#' @md
+event_feverPfMOI = function(tEvent, PAR = NULL){
+  tFever = tEvent + self$ttFeverPf()
+  list(tEvent = tEnd, PAR = PAR, tag = "feverPfMOI")
+}
+
+#' PfMOI \code{Human} Event: PfMOI Infection Event
+#'
+#' Clear a PfMOI infection corresponding to the given PfID.
+#' This method is bound to \code{Human$endPfMOI()}
+#' @param tEvent time of clearance
+#' @param PAR \code{NULL}
+#' @md
+feverPfMOI <- function(tEvent, PAR){
+
+  if(runif(1) < private$PfMOI_PAR$TreatPf){
+    self$add2Q_treatPfMOI(tEvent = tEvent)
+  }
+
+  private$Pathogens$track_history(tEvent = tEvent, event = "F") # write me
+}
 
 
-# ###################################################################
-# # Fever
-# ###################################################################
-#
-# add2Q_feverPfMOI = function(ixH, t){
-#   addEvent2Q(ixH, event_feverPfMOI(t))
-# }
-#
-# event_feverPfMOI = function(t){
-#   if(NOISY == TRUE) print("adding fever")
-#   ttF = t + ttFeverPf()
-#   list(t=ttF, PAR=NULL, F=fever_PfMOI, tag = "fever_PfMOI")
-# }
-#
-# fever_PfMOI = function(ixH, t, PAR=NULL){
-#   #Fever
-#   if(NOISY==TRUE) print("Fever")
-#   PfMOIHistory(ixH, t, "F")
-#   if(rbinom(1,1,HUMANS[[i]]$TreatPf)){
-#     add2Q_treatPfMOI(ixH, t)
-#   }
-# }
-#
-# ###################################################################
-# # Treatment
-# ###################################################################
-#
-# treat_PfMOI = function(ixH, t, PAR){
-#   # Treat
-#   if(NOISY==TRUE) print("Treat")
-#   if(HUMANS[[ixH]]$Pathogens$Pf$infected == TRUE){
-#     HUMANS[[ixH]]$Pathogens$Pf$infected <<- FALSE
-#     PfMOIHistory(ixH, t, "S")
-#   }
-#
-#   HUMANS[[ixH]]$Pathogens$Pf$chemoprophylaxis <<- TRUE
-#   PfMOIHistory(ixH, t, "P")
-#   # Initiate a period of protection from chemoprophlaxis
-#   add2Q_endprophylaxisPfMOI(ixH, t)
-# }
-#
-#
-# add2Q_treatPfMOI = function(ixH, t){
-#   addEvent2Q(ixH, event_treatPfMOI(t))
-# }
-#
-# event_treatPfMOI = function(t){
-#   if(NOISY==TRUE) print("adding treatment")
-#   ttT = t+ttTreatPf()
-#   list(t=ttT, PAR=NULL, F=treat_PfMOI, tag = "treat_PfMOI")
-# }
-#
-# ###################################################################
-# # End of Chemoprophylaxis
-# ###################################################################
-#
-# endprophylaxis_PfMOI = function(ixH, t, PAR){
-#   # End Prophylaxis
-#   if(NOISY==TRUE) print("End Prophylaxis")
-#   PfMOIHistory(ixH, t, "S")
-#   HUMANS[[ixH]]$Pathogens$Pf$chemoprophylaxis <<- FALSE
-# }
-#
-#
-# add2Q_endprophylaxisPfMOI = function(ixH, t){
-#   addEvent2Q(ixH, event_endprophylaxisPfMOI(t))
-# }
-#
-# event_endprophylaxisPfMOI = function(t){
-#   if(NOISY==TRUE) print("adding end chemoprophylaxis")
-#   ttS = t + ttSusceptiblePf()
-#   list(t=ttS, PAR=NULL, F=endprophylaxis_PfMOI, tag = "endprophylaxis_PfMOI")
-# }
-#
-# ###################################################################
-# # HUMAN PE vaccination functions
-# ###################################################################
-#
-# add2Q_pevaccinatePfMOI = function(ixH, t){
-#   addEvent2Q(ixH, event_pevaccinatePfMOI(t))
-# }
-#
-# event_pevaccinatePfMOI = function(t){
-#   list(t=t, PAR=NULL, F=pevaccinate_PfMOI, tag = "pevaccinate_PfMOI")
-# }
-#
-#
-# pevaccinate_PfMOI = function(ixH, t, PAR){
-#   if(rbinom(1,1,PEProtectPf)){
-#     HUMANS[[ixH]]$Pathogens$Pf$b <<- Pf_b * (1-peBlockPf)
-#     add2Q_pewanePfMOI(ixH, t)
-#   }
-# }
-#
-# add2Q_pewanePfMOI = function(ixH, t){
-#   ttw = t + ttPEWanePf()
-#   addEvent2Q(ixH, event_pewanePfMOI(ttw))
-# }
-#
-# event_pewanePfMOI = function(t){
-#   list(t=t, PAR=NULL, F=pewane_PfMOI, tag="pewane_PfMOI")
-# }
-#
-# pewane_PfMOI = function(ixH, t, PAR){
-#   HUMANS[[ixH]]$Pathogens$Pf$b <<- Pf_b
-# }
-#
-# ###################################################################
-# # HUMAN GS vaccination functions
-# ###################################################################
-#
-# add2Q_gsvaccinatePfMOI = function(ixH, t){
-#   addEvent2Q(ixH, event_gsvaccinatePfMOI(t))
-# }
-#
-# event_gsvaccinatePfMOI = function(t){
-#   list(t=t, PAR=NULL, F=gsvaccinate_PfMOI, tag = "gsvaccinate_PfMOI")
-# }
-#
-# add2Q_gswanePfMOI = function(ixH, t){
-#   ttw = t + ttGSWane()
-#   addEvent2Q(ixH, event_gswanePfMOI(ttw))
-# }
-#
-# event_gswanePfMOI = function(t){
-#   list(t=t, PAR=NULL, F=gswane_PfMOI, tag = "gswane_PfMOI")
-# }
-#
-# gsvaccinate_PfMOI = function(ixH, t, PAR){
-#   if(rbinom(1,1,GSProtectPf)){
-#     HUMANS[[ixH]]$Pathogens$Pf$c <<- Pf_c*(1-gsBlockPf)
-#     add2Q_gswanePfMOI(ixH, t)
-#   }
-# }
-#
-# gswane_PfMOI = function(ixH, t, PAR){
-#  HUMANS[[ixH]]$Pathogens$Pf$c <<- Pf_c
-# }
-#
-# ###################################################################
-# # PfMOI Diagnostics
-# ###################################################################
-#
-# rdtTest_PfMOI = function(ixH){
-#  ifelse(HUMANS[[ixH]]$Pathogens$Pf$MOI>0,rbinom(1,1,rdtSensPf), rbinom(1,1,rdtSpecPf))
-# }
-#
-# lmTest_PfMOI = function(ixH){
-#  ifelse(HUMANS[[ixH]]$Pathogens$Pf$MOI>0,rbinom(1,1,lmSensPf), rbinom(1,1,rdtSpecPf))
-# }
-#
-# ###################################################################
-# # PfMOI History
-# ###################################################################
-#
-# PfMOIHistory = function(ixH, t, event){
-#   if(KeepPfHistory == TRUE){
-#     if(NOISY == TRUE) ("Tracking History")
-#     HUMANS[[ixH]]$Pathogens$Pf$eventT <<- c(HUMANS[[ixH]]$Pathogens$Pf$eventT,t)
-#     HUMANS[[ixH]]$Pathogens$Pf$events <<- c(HUMANS[[ixH]]$Pathogens$Pf$events,event)
-#     HUMANS[[ixH]]$Pathogens$Pf$MOIvsT <<- c(HUMANS[[ixH]]$Pathogens$Pf$MOIvsT,HUMANS[[ixH]]$Pathogens$Pf$MOI)
-#   }
-# }
-#
+###################################################################
+# Treatment
+###################################################################
+
+#' PfMOI \code{Human} Event: Add PfMOI Treatment Event to Event Queue
+#'
+#' Add PfMOI treatment event to the event queue.
+#' This method is called from \code{\link{feverPfMOI}}
+#' This method adds event \code{\link{event_treatPfMOI}} to the event queue.
+#' This method is bound to \code{Human$add2Q_treatPfMOI()}
+#'
+#' @param tEvent time of fever
+#' @param PAR \code{NULL}
+add2Q_treatPfMOI <- function(tEvent, PAR = NULL){
+  self$addEvent2Q(event = self$event_treatPfMOI(tEvent = tEvent, PAR = PAR))
+}
+
+#' PfMOI \code{Human} Event: Generate PfMOI Treatment Event
+#'
+#' Generate PfMOI treatment event to place in event queue.
+#' This method is called from \code{\link{add2Q_treatPfMOI}}
+#' This method is bound to \code{Human$event_treatPfMOI()}
+#'  * tag: \code{\link{treatPfMOI}}
+#'  * tEvent: treatment time is calculated as tTreat = tEvent + \code{\link{PfMOI_ttTreatPf}}
+#' @md
+#' @param tEvent time of treatment
+#' @param PAR \code{NULL}
+event_treatPfMOI <- function(tEvent, PAR = NULL){
+  tTreat = tEvent + self$ttTreatPf()
+  list(tEvent = tTreat, PAR = PAR, tag = "treatPfMOI")
+}
+
+#' PfMOI \code{Human} Event: PfMOI Treatment Event
+#'
+#' Simulate a PfMOI treatment event. If the human is infected, set susceptible and track history; also initiate period of chemoprophlaxis, see \code{\link{add2Q_endprophylaxisPfMOI}}
+#' This method is bound to \code{Human$treatPfMOI()}
+#' @param tEvent time of treatment
+#' @param PAR \code{NULL}
+treatPfMOI <- function(tEvent, PAR){
+
+  private$Pathogens$set_MOI(MOI = 0L)
+  private$Pathogens$set_chemoprophylaxis(TRUE)
+
+  private$Pathogens$track_history(tEvent = tEvent, event = "S")
+  private$Pathogens$track_history(tEvent = tEvent, event = "P")
+
+  # Initiate a period of protection from chemoprophlaxis
+  self$add2Q_endprophylaxisPfMOI(tEvent)
+}
+
+
+###################################################################
+# End of Chemoprophylaxis
+###################################################################
+
+#' PfMOI \code{Human} Event: Add PfMOI End of Chemoprophylaxis Event to Event Queue
+#'
+#' Add PfMOI end of chemoprophlaxis event to the event queue.
+#' This method is called from \code{\link{treatPfMOI}}
+#' This method adds event \code{\link{event_endprophylaxisPfMOI}} to the event queue.
+#' This method is bound to \code{Human$add2Q_endprophylaxisPfMOI()}
+#'
+#' @param tEvent time of event
+#' @param PAR \code{NULL}
+add2Q_endprophylaxisPfMOI <- function(tEvent, PAR = NULL){
+  self$addEvent2Q(event = self$event_endprophylaxisPfMOI(tEvent = tEvent, PAR = PAR))
+}
+
+#' PfMOI \code{Human} Event: Generate PfMOI End of Chemoprophylaxis Event
+#'
+#' Generate PfMOI end of chemoprophlaxis event to place in event queue.
+#' This method is called from \code{\link{add2Q_endprophylaxisPfMOI}}
+#' This method is bound to \code{Human$event_endprophylaxisPfMOI()}
+#'  * tag: \code{\link{endprophylaxisPfMOI}}
+#'  * tEvent: treatment time is calculated as tSusceptible = tEvent + \code{\link{PfMOI_ttSusceptiblePf}}
+#' @md
+#' @param tEvent time to end chemoprophlaxis
+#' @param PAR \code{NULL}
+event_endprophylaxisPfMOI <- function(tEvent, PAR = NULL){
+  tSusceptible = tEvent + self$ttSusceptiblePf()
+  list(tEvent = tSusceptible, PAR = PAR, tag = "endprophylaxisPfMOI")
+}
+
+#' PfMOI \code{Human} Event: PfMOI End of Chemoprophylaxis Event
+#'
+#' End PfMOI chemoprophlaxis protection.
+#' This method is bound to \code{Human$endprophylaxisPfMOI()}
+#' @param tEvent time to end chemoprophlaxis
+#' @param PAR \code{NULL}
+endprophylaxisPfMOI <- function(tEvent, PAR){
+  # End Prophylaxis
+  private$Pathogens$set_chemoprophylaxis(FALSE)
+  private$Pathogens$track_history(tEvent = tEvent, event = "PP")
+
+}
+
+
+###################################################################
+# HUMAN PE vaccination functions
+###################################################################
+
+#' PfMOI \code{Human} Event: Add PfMOI PE Vaccination Event to Event Queue
+#'
+#' Add PfMOI PE vaccination event to the event queue.
+#' This method is called from \code{\link{queueVaccination_SimBitePfMOI}}
+#' This method adds event \code{\link{event_pevaccinatePfMOI}} to the event queue.
+#' This method is bound to \code{Human$add2Q_pevaccinatePfMOI()}
+#'
+#' @param tEvent time of vaccination
+#' @param PAR \code{NULL}
+add2Q_pevaccinatePfMOI <- function(tEvent, PAR = NULL){
+  self$addEvent2Q(event = self$event_pevaccinatePfMOI(tEvent = tEvent, PAR = PAR))
+}
+
+#' PfMOI \code{Human} Event: Generate PfMOI PE Vaccination Event
+#'
+#' Generate PfMOI PE vaccination event to place in event queue.
+#' This method is called from \code{\link{add2Q_pevaccinatePfMOI}}
+#' This method is bound to \code{Human$event_pevaccinatePfMOI()}
+#'  * tag: \code{\link{pevaccinatePfMOI}}
+#' @md
+#' @param tEvent begin PE protection
+#' @param PAR \code{NULL}
+event_pevaccinatePfMOI <- function(tEvent, PAR = NULL){
+  list(tEvent = tEvent, PAR = PAR, tag = "pevaccinatePfMOI")
+}
+
+#' PfMOI \code{Human} Event: PfMOI PE Vaccination Event
+#'
+#' Begin PfMOI PE vaccination protection.
+#' This method is bound to \code{Human$endprophylaxisPfMOI()}
+#'  * protection: infected mosquito to human transmission efficiency is modified by \code{peBlockPf}, see \code{\link{PfMOI.Parameters}}
+#'  * waning efficacy: queue \code{\link{add2Q_pewanePfMOI}}
+#' @md
+#' @param tEvent begin PE protection
+#' @param PAR \code{NULL}
+pevaccinatePfMOI <- function(tEvent, PAR){
+  if(runif(1) < private$PfMOI_PAR$PEProtectPf){
+    private$Pathogens$Pf$set_b(private$PfMOI_PAR$Pf_b * (1-private$PfMOI_PAR$peBlockPf))
+    self$add2Q_pewanePfMOI(tEvent = tEvent)
+    self$track_History(tEvent = tEvent, event = "PEvaxx")
+  }
+}
+
+#' PfMOI \code{Human} Event: Add PfMOI PE Waning Protection Event to Event Queue
+#'
+#' Add PfMOI PE waning protection event to the event queue.
+#' This method is called from \code{\link{pevaccinatePfMOI}}
+#' This method adds event \code{\link{event_pewanePfMOI}} to the event queue.
+#' This method is bound to \code{Human$add2Q_pewanePfMOI()}
+#'
+#' @param tEvent time of vaccination
+#' @param PAR \code{NULL}
+add2Q_pewanePfMOI <- function(tEvent, PAR = NULL){
+  self$addEvent2Q(event = self$event_pewanePfMOI(tEvent = tEvent, PAR = PAR))
+}
+
+#' PfMOI \code{Human} Event: Generate PfMOI PE Waning Protection Event
+#'
+#' Generate PfMOI PE waning protection event to place in event queue.
+#' This method is called from \code{\link{add2Q_pevaccinatePfMOI}}
+#' This method is bound to \code{Human$event_pevaccinatePfMOI()}
+#'  * tag: \code{\link{pevaccinatePfMOI}}
+#'  * tEvent: loss of efficacy is calculated as tWane = tEvent + \code{\link{PfMOI_ttPEWanePf}}
+#' @md
+#' @param tEvent end PE protection
+#' @param PAR \code{NULL}
+event_pewanePfMOI <- function(tEvent, PAR = NULL){
+  tWane = tEvent + self$ttPEWanePf()
+  list(tEvent = tWane, PAR = PAR, tag = "pewanePfMOI")
+}
+
+#' PfMOI \code{Human} Event: PfMOI PE Waning Protection Event
+#'
+#' End PfMOI PE protection.
+#' This method is bound to \code{Human$pewanePfMOI()}
+#'  * protection: infected mosquito to human transmission efficiency is set back to \code{Pf_b}, see \code{\link{PfMOI.Parameters}}
+#' @md
+#' @param tEvent end PE protection
+#' @param PAR \code{NULL}
+pewanePfMOI <- function(tEvent, PAR){
+  private$Pathogens$Pf$set_b(private$PfMOI_PAR$Pf_b)
+  self$track_History(tEvent = tEvent, event = "PEwane")
+}
+
+
+###################################################################
+# HUMAN GS vaccination functions
+###################################################################
+
+#' PfMOI \code{Human} Event: Add PfMOI GS Vaccination Event to Event Queue
+#'
+#' Add PfMOI GS vaccination event to the event queue.
+#' This method is called from \code{\link{queueVaccination_SimBitePfMOI}}
+#' This method adds event \code{\link{event_gsvaccinatePfMOI}} to the event queue.
+#' This method is bound to \code{Human$add2Q_gsvaccinatePfMOI()}
+#'
+#' @param tEvent time of vaccination
+#' @param PAR \code{NULL}
+add2Q_gsvaccinatePfMOI <- function(tEvent, PAR = NULL){
+  self$addEvent2Q(event = self$event_gsvaccinatePfMOI(tEvent = tEvent, PAR = PAR))
+}
+
+#' PfMOI \code{Human} Event: Generate PfMOI GS Vaccination Event
+#'
+#' Generate PfMOI GS vaccination event to place in event queue.
+#' This method is called from \code{\link{add2Q_gsvaccinatePfMOI}}
+#' This method is bound to \code{Human$event_gsvaccinatePfMOI()}
+#'  * tag: \code{\link{gsvaccinatePfMOI}}
+#' @md
+#' @param tEvent begin gs protection
+#' @param PAR \code{NULL}
+event_gsvaccinatePfMOI <- function(tEvent, PAR = NULL){
+  list(tEvent = tEvent, PAR = PAR, tag = "gsvaccinatePfMOI")
+}
+
+#' PfMOI \code{Human} Event: PfMOI GS Vaccination Event
+#'
+#' Begin PfMOI GS vaccination protection.
+#' This method is bound to \code{Human$endprophylaxisPfMOI()}
+#'  * protection: infected human to mosquito transmission efficiency is modified by \code{gsBlockPf}, see \code{\link{PfMOI.Parameters}}
+#'  * waning efficacy: queue \code{\link{add2Q_gswanePfMOI}}
+#' @md
+#' @param tEvent begin gs protection
+#' @param PAR \code{NULL}
+gsvaccinatePfMOI <- function(tEvent, PAR){
+  if(runif(1) < private$PfMOI_PAR$GSProtectPf){
+    private$Pathogens$Pf$set_c(private$PfMOI_PAR$Pf_c * (1-private$PfMOI_PAR$gsBlockPf))
+    self$add2Q_gswanePfMOI(tEvent = tEvent)
+    self$track_History(tEvent = tEvent, event = "GSvaxx")
+  }
+}
+
+#' PfMOI \code{Human} Event: Add PfMOI GS Waning Protection Event to Event Queue
+#'
+#' Add PfMOI GS waning protection event to the event queue.
+#' This method is called from \code{\link{gsvaccinatePfMOI}}
+#' This method adds event \code{\link{event_gswanePfMOI}} to the event queue.
+#' This method is bound to \code{Human$add2Q_gswanePfMOI()}
+#'
+#' @param tEvent time of vaccination
+#' @param PAR \code{NULL}
+add2Q_gswanePfMOI <- function(tEvent, PAR = NULL){
+  self$addEvent2Q(event = self$event_gswanePfMOI(tEvent = tEvent, PAR = PAR))
+}
+
+#' PfMOI \code{Human} Event: Generate PfMOI GS Waning Protection Event
+#'
+#' Generate PfMOI GS waning protection event to place in event queue.
+#' This method is called from \code{\link{add2Q_gsvaccinatePfMOI}}
+#' This method is bound to \code{Human$event_gsvaccinatePfMOI()}
+#'  * tag: \code{\link{gsvaccinatePfMOI}}
+#'  * tEvent: loss of efficacy is calculated as tWane = tEvent + \code{\link{PfMOI_ttGSWanePf}}
+#' @md
+#' @param tEvent end gs protection
+#' @param PAR \code{NULL}
+event_gswanePfMOI <- function(tEvent, PAR = NULL){
+  tWane = tEvent + self$ttGSWanePf()
+  list(tEvent = tWane, PAR = PAR, tag = "gswanePfMOI")
+}
+
+#' PfMOI \code{Human} Event: PfMOI GS Waning Protection Event
+#'
+#' End PfMOI GS protection.
+#' This method is bound to \code{Human$gswanePfMOI()}
+#'  * protection: infected human to mosquito transmission efficiency is set back to \code{Pf_c}, see \code{\link{PfMOI.Parameters}}
+#' @md
+#' @param tEvent end GS protection
+#' @param PAR \code{NULL}
+gswanePfMOI <- function(tEvent, PAR){
+  private$Pathogens$Pf$set_c(private$PfMOI_PAR$Pf_c)
+  self$track_History(tEvent = tEvent, event = "GSwane")
+}

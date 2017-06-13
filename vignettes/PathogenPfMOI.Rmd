@@ -13,6 +13,9 @@ vignette: >
 Describe the state space of PfMOI:
 
   * S: Susceptible
-  * I: Infection Event
-  * C: Clearance Event
+  * I: Infection Event (increment MOI by 1)
+  * C: Clearance Event (decrement MOI by 1)
+  * F: Fever Event
+  * P: Chemophylactic Protection
+  * PP: End of Chemophylactic Protection
   * MOI: Integer valued state variable

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>PfSI <code>Human</code> Method: PfSI Rapid Diagnostic Test — rdtTest_PfSI • MASH</title>
+<title>PfMOI <code>Human</code> Event: Add PfMOI PE Vaccination Event to Event Queue — add2Q_pevaccinatePfMOI • MASH</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -77,23 +77,37 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>PfSI <code>Human</code> Method: PfSI Rapid Diagnostic Test</h1>
+    <h1>PfMOI <code>Human</code> Event: Add PfMOI PE Vaccination Event to Event Queue</h1>
     </div>
 
     
-    <p>Administer RDT to this human.</p><ul>
-<li><p>if infected: true positive is detected with probability <code>rdtSensPf</code>, see <code><a href='PfSI.Parameters.html'>PfSI.Parameters</a></code></p></li>
-<li><p>if susceptible: false positive is detected with probability <code>rdtSpecPf</code>, see <code><a href='PfSI.Parameters.html'>PfSI.Parameters</a></code></p></li>
-</ul>
+    <p>Add PfMOI PE vaccination event to the event queue.
+This method is called from <code>queueVaccination_SimBitePfMOI</code>
+This method adds event <code><a href='event_pevaccinatePfMOI.html'>event_pevaccinatePfMOI</a></code> to the event queue.
+This method is bound to <code>Human$add2Q_pevaccinatePfMOI()</code></p>
     
 
-    <pre class="usage"><span class='fu'>rdtTest_PfSI</span>(<span class='no'>tEvent</span>, <span class='no'>PAR</span>)</pre>
-        
+    <pre class="usage"><span class='fu'>add2Q_pevaccinatePfMOI</span>(<span class='no'>tEvent</span>, <span class='kw'>PAR</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>tEvent</th>
+      <td><p>time of vaccination</p></td>
+    </tr>
+    <tr>
+      <th>PAR</th>
+      <td><p><code>NULL</code></p></td>
+    </tr>
+    </table>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
                 </ul>
 
   </div>

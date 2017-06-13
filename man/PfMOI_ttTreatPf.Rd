@@ -2,12 +2,19 @@
 % Please edit documentation in R/PATHOGEN-PfMOI-Methods.R
 \name{PfMOI_ttTreatPf}
 \alias{PfMOI_ttTreatPf}
+\alias{PfMOI_ttTreatPf}
 \title{PfMOI \code{Human} Method: Timing of Treatment}
 \usage{
+PfMOI_ttTreatPf()
+
 PfMOI_ttTreatPf()
 }
 \description{
 What is the timing of treatment relative to the start of a fever incident? See \code{\link{PfMOI.Parameters}} parameter \code{Pf_ttT} for mean waiting time of exponentially distributed waiting period.
 This method is called from \code{\link{}}
+This method is bound to \code{Human$ttTreatPf()}
+
+What is the timing of treatment relative to the start of a fever incident? See \code{\link{PfMOI.Parameters}} parameter \code{mnTreatPf} constant timing period.
+This method is called from \code{\link{event_treatPfMOI}}
 This method is bound to \code{Human$ttTreatPf()}
 }

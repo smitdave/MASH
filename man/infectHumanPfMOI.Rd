@@ -16,6 +16,6 @@ Simulate a PfMOI infection. If the human is not under chemoprophlaxis, begin que
 This method is bound to \code{Human$infectHumanPfMOI()}
 \itemize{
 \item A Bernoulli event is drawn to determine if this infection produces fever; if so \code{\link{add2Q_feverPfMOI}} is called.
-\item The end of this PfSI infection is queued by \code{\link{add2Q_endPfMOI}}
+\item The end of this PfMOI infection is queued by \code{\link{add2Q_endPfMOI}}
 }
 }

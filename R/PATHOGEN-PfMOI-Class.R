@@ -157,7 +157,7 @@ humanPfMOI <- R6::R6Class(classname="mosquitoPfMOI",
 
                        clear_Infection = function(ix){ # completely clear the infection assoc. with index ix
                          private$PfID = private$PfID[-ix]
-                         private$MOI = private$MOI - 1
+                         private$MOI = private$MOI - 1L
                        },
 
                        ########################################
@@ -172,7 +172,7 @@ humanPfMOI <- R6::R6Class(classname="mosquitoPfMOI",
                          private$MOI = MOI
                        },
                        increment_MOI = function(){
-                         private$MOI = private$MOI + 1
+                         private$MOI = private$MOI + 1L
                        },
 
                        # PfID: Pf IDs; indicate liver-stage infections
@@ -184,6 +184,13 @@ humanPfMOI <- R6::R6Class(classname="mosquitoPfMOI",
                        },
                        push_PfID = function(PfID){
                          private$PfID = c(private$PfID,PfID)
+                       },
+
+                       get_chemoprophylaxis = function(){
+                         return(private$chemoprophylaxis)
+                       },
+                       set_chemoprophylaxis = function(chemoprophylaxis){
+                         private$chemoprophylaxis = chemoprophylaxis
                        },
 
 
