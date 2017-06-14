@@ -102,3 +102,44 @@ SimBitePfMOI <- function(tEvent, PAR){
 ###################################################################
 # PfMOI SimBite methods for 'HumanPop'
 ###################################################################
+
+
+
+
+
+
+
+#
+#
+#
+#
+# # queueBites
+# HumanPop$set(which = "public",name = "queueBites_SimBitePfSI",
+#              value = function(tMax, bitingRate = 1/20){
+#                for(ixH in 1:self$nHumans){
+#                  print(paste0("queueing simulated bites for human: ",ixH))
+#                  tBite = 0
+#                  while(tBite < tMax){
+#                    tBite = tBite + rexp(n = 1,rate = bitingRate)
+#                    private$pop[[ixH]]$add2Q_SimBitePfSI(tEvent = tBite)
+#                  }
+#                }
+#              }
+# )
+#
+# # queueVaccination
+# HumanPop$set(which = "public",name = "queueVaccination_SimBitePfSI",
+#              value = function(tVaccine, tTreat, fracPop){
+#                for(ixH in 1:floor(fracPop*self$nHumans)){
+#                  print(paste0("queueing vaccination for human: ",ixH))
+#                  private$pop[[ixH]]$add2Q_pevaccinatePfSI(tEvent = tVaccine)
+#                  private$pop[[ixH]]$add2Q_treatPfSI(tEvent = tTreat)
+#                }
+#              }
+# )
+#
+# # queueBitesNegBinom_SimBitePfSI
+# HumanPop$set(which = "public",name = "queueBitesNegBinom_SimBitePfSI",
+#              value = queueBitesNegBinom_SimBitePfSI,
+#              overwrite = TRUE
+# )

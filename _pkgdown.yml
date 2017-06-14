@@ -130,6 +130,10 @@ reference:
     desc: PfMOI (Multiplicity of Infection Compartmental Model for Plasmodium falciparum Transmission)
     contents:
     - matches("PfMOI")
+  - title: PATHOGEN SimBite
+    desc: Simulate infected bites on humans without explicitly modeling mosquitos. Contains methods to construct biting as stochastic processes and to construct parametric biting distributins on individuals.
+    contents:
+    - matches("SimBite")
   - title: M-BITES
     desc: Mosquito Bout-based and Individual-based Transmission Ecology Simulation
     contents:

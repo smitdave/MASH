@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -81,13 +82,28 @@
 
     
     <p>Produce gamma-distributed rates for each person, with a chosen mean value of Poisson process parameterized by gamma rates, and selected shape (controls variance). This function calls <code>rgamma</code> to sample random numbers.</p>
+<p>Produce gamma-distributed rates for each person, with a chosen mean value of Poisson process parameterized by gamma rates, and selected shape (controls variance). This function calls <code>rgamma</code> to sample random numbers.</p>
     
 
-    <pre class="usage"><span class='fu'>gammaRates</span>(<span class='no'>N</span>, <span class='kw'>mean</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>shape</span> <span class='kw'>=</span> <span class='fl'>10</span>)</pre>
+    <pre class="usage"><span class='fu'>gammaRates</span>(<span class='no'>N</span>, <span class='kw'>mean</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>shape</span> <span class='kw'>=</span> <span class='fl'>10</span>)
+
+<span class='fu'>gammaRates</span>(<span class='no'>N</span>, <span class='kw'>mean</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>shape</span> <span class='kw'>=</span> <span class='fl'>10</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>N</th>
+      <td><p>number of humans</p></td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td><p>mean value</p></td>
+    </tr>
+    <tr>
+      <th>shape</th>
+      <td><p>controls variance in gamma distributed rates; larger values produce distributions with lower variance.</p></td>
+    </tr>
     <tr>
       <th>N</th>
       <td><p>number of humans</p></td>
@@ -105,6 +121,7 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>distribution of biting rates</p>
+<p>distribution of biting rates</p>
     
 
   </div>

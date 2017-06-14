@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -85,9 +86,17 @@ The biting process for each person is a Poisson process with individual gamma-di
 Because the negative binomial distribution arises as a compound Poisson-Gamma distribution, it will also arise from independent Poisson processes each with gamma-distributed rates,
 because the expected value of a Poisson process is also Poisson.
 This calls <code><a href='gammaRates.html'>gammaRates</a></code>.</p>
+<p>Simulate a biting process to result in a negative-binomially distributed cumulative number of bites per person over <code>days</code>.
+The biting process for each person is a Poisson process with individual gamma-distributed rates.
+Because the negative binomial distribution arises as a compound Poisson-Gamma distribution, it will also arise from independent Poisson processes each with gamma-distributed rates,
+because the expected value of a Poisson process is also Poisson.
+This calls <code><a href='gammaRates.html'>gammaRates</a></code>.</p>
     
 
     <pre class="usage"><span class='fu'>SimBite_WaitingTime</span>(<span class='no'>nH</span>, <span class='no'>meanWaitingTime</span>, <span class='kw'>days</span> <span class='kw'>=</span> <span class='fl'>365</span>, <span class='kw'>shape</span> <span class='kw'>=</span> <span class='fl'>5</span>,
+  <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='fu'>SimBite_WaitingTime</span>(<span class='no'>nH</span>, <span class='no'>meanWaitingTime</span>, <span class='kw'>days</span> <span class='kw'>=</span> <span class='fl'>365</span>, <span class='kw'>shape</span> <span class='kw'>=</span> <span class='fl'>5</span>,
   <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
@@ -113,11 +122,32 @@ This calls <code><a href='gammaRates.html'>gammaRates</a></code>.</p>
       <th>plot</th>
       <td><p>visualize biting distribution and negative binomial fit</p></td>
     </tr>
+    <tr>
+      <th>nH</th>
+      <td><p>number of humans</p></td>
+    </tr>
+    <tr>
+      <th>meanWaitingTime</th>
+      <td><p>population mean waiting time between bites</p></td>
+    </tr>
+    <tr>
+      <th>days</th>
+      <td><p>number of days</p></td>
+    </tr>
+    <tr>
+      <th>shape</th>
+      <td><p>shape parameter of gamma-distributed variation in individual biting rate (higher values lead to more normally distributed cumulative biting counts)</p></td>
+    </tr>
+    <tr>
+      <th>plot</th>
+      <td><p>visualize biting distribution and negative binomial fit</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a list of length <code>nH</code>; each element is the arrivial times of bites on that individual</p>
+<p>a list of length <code>nH</code>; each element is the arrivial times of bites on that individual</p>
     
 
   </div>
