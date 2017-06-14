@@ -8,6 +8,130 @@
 #
 #################################################################
 
+#################################################################
+# PfMOI_PAR Getters
+#################################################################
+
+#' PfMOI \code{Human} Method: Get PfMOI_PAR
+#'
+#' Get either entire list or one named element of PfMOI_PAR. See \code{\link{PfMOI.Parameters}} for definitions.
+#' This method is bound to \code{Human$get_PfMOI_PAR_PAR()}
+#'
+Human_get_PfMOI_PAR <- function(ix = NULL){
+  if(is.null(ix)){
+    return(private$PfMOI_PAR)
+  } else {
+    return(private$PfMOI_PAR[[ix]])
+  }
+}
+
+#' PfMOI \code{Human} Method: Set PfMOI_PAR
+#'
+#' Set either entire list of PfMOI_PAR. See \code{\link{PfMOI.Parameters}} for definitions.
+#' This method is bound to \code{Human$set_PfMOI_PAR_PAR()}
+#'
+Human_set_PfMOI_PAR <- function(PfMOI_PAR){
+  private$PfMOI_PAR = PfMOI_PAR
+}
+
+
+###################################################################
+# Add PfMOI Utilities to 'HumanPop' Class
+###################################################################
+
+#' PfMOI \code{HumanPop} Method: Increment PfID
+#'
+#' Whenever a new liver-stage infection manifests in a human we increment the PfID counter and return the new PfID.
+#' This method is bound to \code{HumanPop$increment_PfID()}
+#'
+PfMOI_increment_PfID <- function(){
+  private$PfID = private$PfID + 1L
+  return(private$PfID)
+}
+
+#' PfMOI \code{HumanPop} Method: Initialize PfMOI Infections
+#'
+#' Initialize PfMOI infections with MOI given by vector of MOI for population.
+#' This method is bound to \code{HumanPop$init_PfMOI()}
+#'
+#' @param PfMOI a vector of length equal to \code{HumanPop$nHumans} giving the MOI of each person. If \code{NULL} all people are set to MOI of 0.
+init_PfMOI <- function(PfMOI = NULL, tStart = 0){
+
+  print("sean hasn't written this")
+  # private$PfID = 1L
+  # if(is.null(private$Pathogens$Pf)){ # only add the PfSI object if NULL
+  #   self$set_humanPfSI()
+  # }
+  #
+  # for(ixH in 1:self$nHumans){
+  #
+  #   if(runif(1) < PfPR){
+  #     private$pop[[ixH]]$infectHumanPfSI(tEvent = tStart, PAR = list(damID=-1L,sireID=-1L))
+  #   } else {
+  #     private$pop[[ixH]]$track_History(tEvent = tStart, event = "S")
+  #   }
+  #
+  # }
+
+}
+
+
+###################################################################
+# Add PfSI Pathogen Object to 'Human' & 'HumanPop' Class
+###################################################################
+
+# #' PfSI \code{Human} Method: Set Human-stage PfSI Object
+# #'
+# #' Set the \code{\link{humanPfSI}} object in a human.
+# #' This method is bound to \code{Human$set_humanPfSI()}
+# #'
+# Human_set_humanPfSI <- function(PfID, tInf = NULL, b = 0.55, c = 0.15, damID = NULL, sireID = NULL, infected = FALSE, chemoprophylaxis = FALSE){
+#   private$Pathogens$Pf = humanPfSI$new(PfID=PfID,tInf=tInf,b=b,c=c,damID=damID,sireID=sireID,infected=infected,chemoprophylaxis=chemoprophylaxis)
+# }
+#
+# #' PfSI \code{Human} Method: Get Human-stage PfSI Object
+# #'
+# #' Get the \code{\link{humanPfSI}} object in a human.
+# #' This method is bound to \code{Human$get_humanPfSI()}
+# #'
+# Human_get_humanPfSI <- function(){
+#   return(private$Pathogens$Pf)
+# }
+#
+# #' PfSI \code{HumanPop} Method: Set Human-stage PfSI Object
+# #'
+# #' Set the \code{\link{humanPfSI}} object in a human poulation.
+# #' This method is bound to \code{HumanPop$set_humanPfSI()}
+# #'
+# #' @param b infected mosquito to human transmission efficiency
+# #' @param c infected human to mosquito transmission efficiency
+# HumanPop_set_humanPfSI <- function(b = NULL, c = NULL){
+#
+#   # sanity checks
+#   if(is.null(b)){
+#     private$pop[[1]]$get_PfSI_PAR()$Pf_b
+#     b = rep(x = private$pop[[1]]$get_PfSI_PAR("Pf_b"),times = self$nHumans)
+#   } else {
+#     if(length(b)!=self$nHumans){
+#       stop(paste0("length of b: ",length(b)," must be equal to size of human population: ",self$nHumans))
+#     }
+#   }
+#   if(is.null(c)){
+#     c = rep(x = private$pop[[1]]$get_PfSI_PAR("Pf_c"),times = self$nHumans)
+#   } else {
+#     if(length(c)!=self$nHumans){
+#       stop(paste0("length of c: ",length(c)," must be equal to size of human population: ",self$nHumans))
+#     }
+#   }
+#
+#   # set pathogens
+#   for(ixH in 1:self$nHumans){
+#     private$pop[[ixH]]$set_humanPfSI(PfID = NULL, b = b[ixH], c = c[ixH])
+#   }
+#
+# }
+
+
 
 #################################################################
 # PfMOI Event Timing
@@ -241,10 +365,11 @@ infectHumanPfMOI <- function(tEvent, PAR){
 
   if(!private$Pathogens$get_chemoprophylaxis()){
 
-    PfID = NULL # generate a new global PfID here from HumanPop
+    # generate a new global PfID here from HumanPop
+    PfID = self$get_HumansPointer()$increment_PfID()
 
-    private$Pathogens$increment_MOI() # increment MOI
-    private$Pathogens$push_PfID(PfID)
+    # add new infection to my infection queue
+    private$Pathogens$add_Infection(PfID)
 
     if(runif(1) < private$PfMOI_PAR$FeverPf){
       self$add2Q_feverPfMOI(tEvent = tEvent)

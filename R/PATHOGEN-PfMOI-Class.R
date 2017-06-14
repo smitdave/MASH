@@ -155,7 +155,7 @@ mosquitoPfMOI <- R6::R6Class(classname="mosquitoPfMOI",
 #'
 #' @md
 #' @export
-humanPfMOI <- R6::R6Class(classname="mosquitoPfMOI",
+humanPfMOI <- R6::R6Class(classname="humanPfMOI",
                      portable = TRUE,
                      cloneable = FALSE,
                      lock_class = FALSE,
@@ -165,15 +165,38 @@ humanPfMOI <- R6::R6Class(classname="mosquitoPfMOI",
                      public = list(
 
                        #initialize
-                       initialize = function(PfID = NULL, tInf = NULL, spz = 0L, damID = NULL, sireID = NULL){
+                       initialize = function(PfID = NULL, tInf = NULL, MOI = 0L, damID = NULL, sireID = NULL){
                          private$PfID = PfID
                          private$tInf = tInf
-                         private$spz = spz
+                         private$MOI = MOI
                          private$damID = damID
                          private$sireID = sireID
+
+
+                        #  # Pathogen and immune states
+                        #  MOI = NULL, # my multiplicity of infection
+                        #  PfID = NULL, # vector of PfID
+                        #  b = NULL, # infected mosquito to human transmission efficiency
+                        #  c = NULL, # infected human to mosquito transmission efficiency
+                        #  chemoprophylaxis = NULL,
+                        #  history = NULL,
+                         #
+                        #  # Pointers
+                        #  HumanPointer = NULL
                        },
 
-                       clear_Infection = function(ix){ # completely clear the infection assoc. with index ix
+                       ########################################
+                       #  Infection Dynamics
+                       ########################################
+
+                       # add a new infection
+                       add_Infection = function(PfID){
+                         private$PfID = c(private$PfID,PfID)
+                         private$MOI = private$MOI + 1L
+                       },
+
+                       # completely clear the infection assoc. with index ix
+                       clear_Infection = function(ix){
                          private$PfID = private$PfID[-ix]
                          private$MOI = private$MOI - 1L
                        },
@@ -219,11 +242,14 @@ humanPfMOI <- R6::R6Class(classname="mosquitoPfMOI",
                           )
                        },
 
+                       ########################################
+                       #  History
+                       ########################################
+
                        track_history = function(eventT , event){
                          print("sean hasn't written track history yet for PfMOI")
                          private$history$MOI = private$MOI
                        },
-
 
                        ########################################
                        #  Pointers
@@ -246,6 +272,7 @@ humanPfMOI <- R6::R6Class(classname="mosquitoPfMOI",
                        # Pathogen and immune states
                        MOI = NULL, # my multiplicity of infection
                        PfID = NULL, # vector of PfID
+                       tInf = NULL, # vector of infection times
                        b = NULL, # infected mosquito to human transmission efficiency
                        c = NULL, # infected human to mosquito transmission efficiency
                        chemoprophylaxis = NULL,
