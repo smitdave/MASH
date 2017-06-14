@@ -6,7 +6,7 @@ output: rmarkdown::html_vignette
 header-includes:
    - \usepackage{bbm}
 vignette: >
-  %\VignetteIndexEntry{LandscapeAnalysis}
+  %\VignetteIndexEntry{MACRO-LandscapeAnalysis}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

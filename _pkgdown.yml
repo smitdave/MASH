@@ -186,7 +186,8 @@ articles:
   - title: "MACRO"
     desc: Macrosimulation
     contents:
-    - LandscapeAnalysis
+      - MACRO-LandscapeAnalysis
+      - MACRO-SpatialDynamics
   - title: "MICRO"
     desc: Microsimulation
     contents:
