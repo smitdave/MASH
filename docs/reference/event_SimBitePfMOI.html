@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Initialize SimBite PfSI Module — SimBitePfSI.Setup • MASH</title>
+<title>PfMOI SimBite <code>Human</code> Event: Generate PfMOI Simulated Bite Event — event_SimBitePfMOI • MASH</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -77,49 +77,41 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Initialize SimBite PfSI Module</h1>
+    <h1>PfMOI SimBite <code>Human</code> Event: Generate PfMOI Simulated Bite Event</h1>
     </div>
 
     
-    <p>Generate a list of parameters PfSI_PAR in <code><a href='HumanPop.html'>HumanPop</a></code> and public methods in <code><a href='Human.html'>Human</a></code></p>
+    <p>Generate PfMOI Simulated Bite event to place in event queue.
+This method is called from <code><a href='add2Q_SimBitePfMOI.html'>add2Q_SimBitePfMOI</a></code>
+This method is bound to <code>Human$event_SimBitePfMOI()</code></p><ul>
+<li><p>tag: <code><a href='SimBitePfMOI.html'>SimBitePfMOI</a></code></p></li>
+</ul>
     
 
-    <pre class="usage"><span class='fu'>SimBitePfSI.Setup</span>()</pre>
+    <pre class="usage"><span class='fu'>event_SimBitePfMOI</span>(<span class='no'>tEvent</span>, <span class='kw'>PAR</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>Pf_c</th>
-      <td><p>0.15; transmission efficiency: infected human to mosquito</p></td>
+      <th>tEvent</th>
+      <td><p>time of bite</p></td>
     </tr>
     <tr>
-      <th>Pf_b</th>
-      <td><p>0.55; transmission efficiency: infected mosquito to human</p></td>
-    </tr>
-    <tr>
-      <th>DurationPf</th>
-      <td><p>200; duration of infection (How many days does the infection last?)</p></td>
+      <th>PAR</th>
+      <td><p>named list</p><ul>
+<li><p>mosquitoPfSI: object of class <code><a href='mosquitoPfMOI.html'>mosquitoPfMOI</a></code></p></li>
+</ul></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Defines a field (list) PfSI_PAR in <code><a href='HumanPop.html'>HumanPop</a></code> and public methods in <code><a href='Human.html'>Human</a></code></p>
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>SimBitePfSI.Setup</span>()</div><div class='output co'>#&gt; [1] "initializing PfSI SimBite module"</div><div class='output co'>#&gt; <span class='error'>Error in Human$set(which = "public", name = "add2Q_SimBitePfSI", value = function(tEvent,     PAR = NULL) {    PAR = list()    PAR$mosquitoPfSI = mosquitoPfSI$new(PfID = -1L, tInf = -1L,         spz = 1L, damID = -1L, sireID = -1L)    self$addEvent2Q(event = self$event_SimBitePfSI(tEvent = tEvent,         PAR = PAR))}): Can't add add2Q_SimBitePfSI because it already present in Human generator.</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+                </ul>
 
   </div>
 </div>

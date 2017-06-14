@@ -18,7 +18,7 @@
 #' @param DurationPf 200; duration of infection (How many days does the infection last?)
 #' @return Defines a field (list) PfSI_PAR in \code{\link{HumanPop}} and public methods in \code{\link{Human}}
 #' @examples
-#' SimBite.PfSI_PARameters()
+#' SimBitePfSI.Setup()
 #' @export
 SimBitePfSI.Setup <- function(
 

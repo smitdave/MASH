@@ -54,16 +54,16 @@ mosquitoPfMOI <- R6::R6Class(classname="mosquitoPfMOI",
                      public = list(
 
                        #initialize
-                       initialize = function(PfID = NULL, tInf = NULL, spz = 0L, damID = NULL, sireID = NULL){
+                       initialize = function(PfID = NULL, tInf = NULL, MOI = 0L, damID = NULL, sireID = NULL){
                          private$PfID = PfID
                          private$tInf = tInf
-                         private$spz = spz
+                         private$MOI = MOI
                          private$damID = damID
                          private$sireID = sireID
                        },
 
                        ########################################
-                       #  Accessors, Pointers, and Setters
+                       #  Getters & Setters
                        ########################################
 
                        # MOI: Multiplicity of Infection
@@ -77,14 +77,25 @@ mosquitoPfMOI <- R6::R6Class(classname="mosquitoPfMOI",
                          private$MOI = private$MOI + 1
                        },
 
+                       # get_clone: get the mth clonal variant as a list
                        get_clone = function(m){
-                         print("get the mth clonal variant as a list")
                          list(
-
+                           PfID = PfID[m],
+                           damID = damID[m],
+                           sireID = sireID[m]
                           )
+                       },
+
+                       ########################################
+                       #  Pointers
+                       ########################################
+
+                       set_MosquitoPointer = function(MosquitoPointer){
+                         private$MosquitoPointer = MosquitoPointer
+                       },
+                       get_MosquitoPointer = function(){
+                         return(private$MosquitoPointer)
                        }
-
-
 
 
                      ),
@@ -92,7 +103,14 @@ mosquitoPfMOI <- R6::R6Class(classname="mosquitoPfMOI",
                      #private members
                      private = list(
 
-                       MOI = NULL
+                       # Fields
+                       MOI = NULL,
+                       PfID = NULL,
+                       sireID = NULL,
+                       damID = NULL,
+
+                       # Pointers
+                       MosquitoPointer = NULL
 
 
                      )
