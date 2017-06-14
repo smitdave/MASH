@@ -2,7 +2,7 @@
 % Please edit documentation in R/PATHOGEN-PfMOI-SimBite.R
 \name{SimBitePfMOI}
 \alias{SimBitePfMOI}
-\title{PfMOI \code{Human} Event: PfMOI Simulated Bite Event}
+\title{PfMOI SimBite \code{Human} Event: PfMOI Simulated Bite Event}
 \usage{
 SimBitePfMOI(tEvent, PAR)
 }

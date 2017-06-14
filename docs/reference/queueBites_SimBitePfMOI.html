@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Simulate Biting Process from Population Mean Waiting Time Between Bites — SimBite_WaitingTime • MASH</title>
+<title>PfMOI SimBite <code>HumanPop</code> Method: Queue SimBites for Population — queueBites_SimBitePfMOI • MASH</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -77,48 +77,24 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Simulate Biting Process from Population Mean Waiting Time Between Bites</h1>
+    <h1>PfMOI SimBite <code>HumanPop</code> Method: Queue SimBites for Population</h1>
     </div>
 
     
-    <p>Simulate a biting process to result in a negative-binomially distributed cumulative number of bites per person over <code>days</code>.
-The biting process for each person is a Poisson process with individual gamma-distributed rates.
-Because the negative binomial distribution arises as a compound Poisson-Gamma distribution, it will also arise from independent Poisson processes each with gamma-distributed rates,
-because the expected value of a Poisson process is also Poisson.
-This calls <code><a href='gammaRates.html'>gammaRates</a></code>.</p>
+    <p>Add queued bite times to a population; bite times can be generated from <code><a href='SimBite_WaitingTime.html'>SimBite_WaitingTime</a></code>, <code><a href='SimBite_MeanBites.html'>SimBite_MeanBites</a></code>
+This method is bound to <code>HumanPop$queueBites_SimBitePfMOI()</code></p>
     
 
-    <pre class="usage"><span class='fu'>SimBite_WaitingTime</span>(<span class='no'>nH</span>, <span class='no'>meanWaitingTime</span>, <span class='kw'>days</span> <span class='kw'>=</span> <span class='fl'>365</span>, <span class='kw'>shape</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>queueBites_SimBitePfMOI</span>(<span class='no'>bites</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>nH</th>
-      <td><p>number of humans</p></td>
-    </tr>
-    <tr>
-      <th>meanWaitingTime</th>
-      <td><p>population mean waiting time between bites</p></td>
-    </tr>
-    <tr>
-      <th>days</th>
-      <td><p>number of days</p></td>
-    </tr>
-    <tr>
-      <th>shape</th>
-      <td><p>shape parameter of gamma-distributed variation in individual biting rate (higher values lead to more normally distributed cumulative biting counts)</p></td>
-    </tr>
-    <tr>
-      <th>plot</th>
-      <td><p>visualize biting distribution and negative binomial fit</p></td>
+      <th>bites</th>
+      <td><p>a list of length equal to number of humans where each element is a vector of biting times to add to queue with <code><a href='add2Q_SimBitePfMOI.html'>add2Q_SimBitePfMOI</a></code>.</p></td>
     </tr>
     </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>a list of length <code>nH</code>; each element is the arrivial times of bites on that individual</p>
     
 
   </div>
@@ -126,9 +102,7 @@ This calls <code><a href='gammaRates.html'>gammaRates</a></code>.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-          </ul>
+                </ul>
 
   </div>
 </div>

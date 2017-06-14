@@ -47,6 +47,17 @@ SimBitePfMOI.Setup <- function(PfMOI_PAR = NULL, overwrite = TRUE){
   # Tools to initialize simulated biting for 'HumanPop' class
   ###################################################################
 
+  # queueBites
+  HumanPop$set(which = "public",name = "queueBites_SimBitePfMOI",
+               value = queueBites_SimBitePfMOI,
+               overwrite = overwrite
+  )
+
+  HumanPop$set(which = "public",name = "queueVaccination_SimBitePfMOI",
+               value = queueVaccination_SimBitePfMOI,
+               overwrite = overwrite
+  )
+
 }
 
 
@@ -86,7 +97,7 @@ event_SimBitePfMOI <- function(tEvent, PAR = NULL){
 }
 
 
-#' PfMOI \code{Human} Event: PfMOI Simulated Bite Event
+#' PfMOI SimBite \code{Human} Event: PfMOI Simulated Bite Event
 #'
 #' Simulate a PfMOI Simulated Bite. This calls \code{\link{probeHost_PfMOI}} to simulate host probing by an infectious mosquito.
 #' This method is bound to \code{Human$SimBitePfMOI()}
@@ -103,43 +114,36 @@ SimBitePfMOI <- function(tEvent, PAR){
 # PfMOI SimBite methods for 'HumanPop'
 ###################################################################
 
+#' PfMOI SimBite \code{HumanPop} Method: Queue SimBites for Population
+#'
+#' Add queued bite times to a population; bite times can be generated from \code{\link{SimBite_WaitingTime}}, \code{\link{SimBite_MeanBites}}
+#' This method is bound to \code{HumanPop$queueBites_SimBitePfMOI()}
+#' @param bites a list of length equal to number of humans where each element is a vector of biting times to add to queue with \code{\link{add2Q_SimBitePfMOI}}.
+#' @export
+queueBites_SimBitePfMOI <- function(bites){
+  for(ixH in 1:self$nHumans){
+    print(paste0("queueing simulated bites for human: ",ixH))
+    for(tBite in bites[[ixH]]){
+      private$pop[[ixH]]$add2Q_SimBitePfSI(tEvent = tBite)
+    }
+  }
+}
 
-
-
-
-
-
-#
-#
-#
-#
-# # queueBites
-# HumanPop$set(which = "public",name = "queueBites_SimBitePfSI",
-#              value = function(tMax, bitingRate = 1/20){
-#                for(ixH in 1:self$nHumans){
-#                  print(paste0("queueing simulated bites for human: ",ixH))
-#                  tBite = 0
-#                  while(tBite < tMax){
-#                    tBite = tBite + rexp(n = 1,rate = bitingRate)
-#                    private$pop[[ixH]]$add2Q_SimBitePfSI(tEvent = tBite)
-#                  }
-#                }
-#              }
-# )
-#
-# # queueVaccination
-# HumanPop$set(which = "public",name = "queueVaccination_SimBitePfSI",
-#              value = function(tVaccine, tTreat, fracPop){
-#                for(ixH in 1:floor(fracPop*self$nHumans)){
-#                  print(paste0("queueing vaccination for human: ",ixH))
-#                  private$pop[[ixH]]$add2Q_pevaccinatePfSI(tEvent = tVaccine)
-#                  private$pop[[ixH]]$add2Q_treatPfSI(tEvent = tTreat)
-#                }
-#              }
-# )
-#
-# # queueBitesNegBinom_SimBitePfSI
-# HumanPop$set(which = "public",name = "queueBitesNegBinom_SimBitePfSI",
-#              value = queueBitesNegBinom_SimBitePfSI,
-#              overwrite = TRUE
-# )
+#' PfMOI SimBite \code{HumanPop} Method: Queue Vaccination for Population
+#'
+#' Queue vaccination for a population, calling \code{\link{add2Q_pevaccinatePfMOI}}.
+#' If \code{tTreat} is given, queue follow up treatment by calling \code{\link{add2Q_treatPfMOI}}.
+#' This method is bound to \code{HumanPop$queueVaccination_SimBitePfMOI()}
+#' @param tVaccine time of vaccination
+#' @param tTreat time of follow up treatment (if \code{NULL} no treatment)
+#' @param fracPop fraction of population that recieves vaccination
+#' @export
+queueVaccination_SimBitePfMOI <- function(tVaccine, tTreat = NULL, fracPop){
+  for(ixH in 1:floor(fracPop*self$nHumans)){
+    print(paste0("queueing vaccination for human: ",ixH))
+    private$pop[[ixH]]$add2Q_pevaccinatePfMOI(tEvent = tVaccine)
+    if(!is.null(tTreat)){
+      private$pop[[ixH]]$add2Q_treatPfMOI(tEvent = tTreat)
+    }
+  }
+}
