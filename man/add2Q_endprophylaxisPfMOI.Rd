@@ -12,7 +12,7 @@ add2Q_endprophylaxisPfMOI(tEvent, PAR = NULL)
 \item{PAR}{\code{NULL}}
 }
 \description{
-Add PfMOI end of chemoprophlaxis event to the event queue.
+Add PfMOI end of chemoprophylaxis event to the event queue.
 This method is called from \code{\link{treatPfMOI}}
 This method adds event \code{\link{event_endprophylaxisPfMOI}} to the event queue.
 This method is bound to \code{Human$add2Q_endprophylaxisPfMOI()}

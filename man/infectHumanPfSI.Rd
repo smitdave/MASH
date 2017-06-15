@@ -12,7 +12,7 @@ infectHumanPfSI(tEvent, PAR)
 \item{PAR}{must be a list containing \code{damID} and \code{sireID}}
 }
 \description{
-Simulate a PfSI infection. If the human is not under chemoprophlaxis or already infected, begin an infection.
+Simulate a PfSI infection. If the human is not under chemoprophylaxis or already infected, begin an infection.
 This method is bound to \code{Human$infectHumanPfSI()}
 \itemize{
 \item A Bernoulli event is drawn to determine if this infection produces fever; if so \code{\link{add2Q_feverPfSI}} is called.

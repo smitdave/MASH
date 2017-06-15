@@ -12,6 +12,6 @@ treatPfMOI(tEvent, PAR)
 \item{PAR}{\code{NULL}}
 }
 \description{
-Simulate a PfMOI treatment event. If the human is infected, set susceptible and track history; also initiate period of chemoprophlaxis, see \code{\link{add2Q_endprophylaxisPfMOI}}
+Simulate a PfMOI treatment event. If the human is infected, set susceptible and track history; also initiate period of chemoprophylaxis, see \code{\link{add2Q_endprophylaxisPfMOI}}
 This method is bound to \code{Human$treatPfMOI()}
 }

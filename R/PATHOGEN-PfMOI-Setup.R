@@ -13,6 +13,7 @@
 #' Generate a list of parameters PfMOI_PAR in \code{\link{Human}} and public methods in \code{\link{Human}} for PfSI infection model; also defines public methods
 #' in \code{\link{MicroMosquitoFemale}} for PfMOI infection model.
 #'
+#' @param overwrite overwrite existing methods and fields?
 #' @param MosyMaxI maximum number of clonal variants passed in single mosquito to human transmission event (set to \code{-1L} for unlimited)
 #' @param Pf_c infected human to mosquito transmission efficiency
 #' @param Pf_b infected mosquito to human transmission efficiency
@@ -24,6 +25,14 @@
 #' @param TreatPf probability of treatment after fever incident
 #' @param Pf_ttT average waiting time from fever to treatment (exponentially distributed)
 #' @param Pf_ttS constant period of proteection from chemoprophylaxis
+#' @param PEProtectPf proportion protected by PE vaccination (probability vaccination successful)
+#' @param peBlockPf proportion of infections blocked by PE vaccination
+#' @param mnPEPf mean duration of protection from PE vaccination
+#' @param vrPEPf standard deviation of protection from PE vaccination
+#' @param GSProtectPf proportion protected by GS vaccination (probability vaccination successful)
+#' @param gsBlockPf proportion of infections blocked by GS vaccination
+#' @param mnGSPf mean duration of protection from GS vaccination
+#' @param vrGSPf standard deviation of protection from GS vaccination
 #' @param rdtSensPf RDT sensitivity
 #' @param rdtSpecPf RDT specificity
 #' @param lmSensPf Light Microscopy sensitivity
@@ -58,13 +67,30 @@ PfMOI.Setup <- function(
   Pf_ttT = 3,
 
   # Prophylaxis, time to susceptibility
-  Pf_ttS = 3,
+  Pf_ttS = 32,
+
+  # Proportion Protected by PE Vaccination
+  PEProtectPf = .99,
+
+  # Proportion of infections Blocked
+  peBlockPf = 1,
+  mnPEPf = 270,
+  vrPEPf = 50,
+
+  # Proportion Protected by GS Vaccination
+  GSProtectPf = 1,
+
+  # Proportion of infections Blocked
+  gsBlockPf = .9,
+  mnGSPf = 180,
+  vrGSPf = 20,
 
   #  Diagnostic Parameters
   rdtSensPf = .9,
   rdtSpecPf = .1,
   lmSensPf = 0.9,
   lmSpecPf = 0.1
+
 
 ){
 
@@ -88,6 +114,14 @@ PfMOI.Setup <- function(
               TreatPf = TreatPf,
               Pf_ttT = Pf_ttT,
               Pf_ttS = Pf_ttS,
+              PEProtectPf = PEProtectPf,
+              peBlockPf = peBlockPf,
+              mnPEPf = mnPEPf,
+              vrPEPf = vrPEPf,
+              GSProtectPf = GSProtectPf,
+              gsBlockPf = gsBlockPf,
+              mnGSPf = mnGSPf,
+              vrGSPf = vrGSPf,
               rdtSensPf = rdtSensPf,
               rdtSpecPf = rdtSpecPf,
               lmSensPf = lmSensPf,

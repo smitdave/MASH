@@ -165,24 +165,16 @@ humanPfMOI <- R6::R6Class(classname="humanPfMOI",
                      public = list(
 
                        #initialize
-                       initialize = function(PfID = NULL, tInf = NULL, MOI = 0L, damID = NULL, sireID = NULL){
+                       initialize = function(PfID = NULL, tInf = NULL, MOI = 0L, b = 0.55, c = 0.15, damID = NULL, sireID = NULL){
+                         private$MOI = MOI
+                         private$history$MOI = MOI
                          private$PfID = PfID
                          private$tInf = tInf
-                         private$MOI = MOI
+                         private$b = b
+                         private$c = c
                          private$damID = damID
                          private$sireID = sireID
-
-
-                        #  # Pathogen and immune states
-                        #  MOI = NULL, # my multiplicity of infection
-                        #  PfID = NULL, # vector of PfID
-                        #  b = NULL, # infected mosquito to human transmission efficiency
-                        #  c = NULL, # infected human to mosquito transmission efficiency
-                        #  chemoprophylaxis = NULL,
-                        #  history = NULL,
-                         #
-                        #  # Pointers
-                        #  HumanPointer = NULL
+                         private$chemoprophylaxis = FALSE
                        },
 
                        ########################################
@@ -190,13 +182,17 @@ humanPfMOI <- R6::R6Class(classname="humanPfMOI",
                        ########################################
 
                        # add a new infection
-                       add_Infection = function(PfID){
+                       add_Infection = function(PfID, damID, sireID){
+                         private$damID = c(private$damID,damID)
+                         private$sireID = c(private$sireID,sireID)
                          private$PfID = c(private$PfID,PfID)
                          private$MOI = private$MOI + 1L
                        },
 
                        # completely clear the infection assoc. with index ix
                        clear_Infection = function(ix){
+                         private$damID = private$damID[-ix]
+                         private$sireID = private$sireID[-ix]
                          private$PfID = private$PfID[-ix]
                          private$MOI = private$MOI - 1L
                        },
@@ -227,6 +223,56 @@ humanPfMOI <- R6::R6Class(classname="humanPfMOI",
                          private$PfID = c(private$PfID,PfID)
                        },
 
+                       # tInf: when was I infected with this clonal variant?
+                       get_tInf = function(){
+                         return(private$tInf)
+                       },
+                       set_tInf = function(tInf){
+                         private$tInf = tInf
+                       },
+                       push_tInf = function(tInf){
+                         private$tInf = c(private$tInf,tInf)
+                       },
+
+                       # b: infected mosquito to human transmission efficiency
+                       get_b = function(){
+                         return(private$b)
+                       },
+                       set_b = function(b){
+                         private$b = b
+                       },
+
+                       # c: infected human to mosquito transmission efficiency
+                       get_c = function(){
+                         return(private$c)
+                       },
+                       set_c = function(c){
+                         private$c = c
+                       },
+
+                       # sireID:
+                       get_sireID = function(){
+                         return(private$sireID)
+                       },
+                       set_sireID = function(sireID){
+                         private$sireID = sireID
+                       },
+                       push_sireID = function(sireID){
+                         private$sireID = c(private$sireID,sireID)
+                       },
+
+                       # damID:
+                       get_damID = function(){
+                         return(private$damID)
+                       },
+                       set_damID = function(damID){
+                         private$damID = damID
+                       },
+                       push_damID = function(damID){
+                         private$damID = c(private$damID,damID)
+                       },
+
+                       # chemoprophylaxis: am I currently protected by chemoprophylaxis?
                        get_chemoprophylaxis = function(){
                          return(private$chemoprophylaxis)
                        },
@@ -248,6 +294,8 @@ humanPfMOI <- R6::R6Class(classname="humanPfMOI",
 
                        track_history = function(eventT , event){
                          print("sean hasn't written track history yet for PfMOI")
+                         private$history$events = c(private$history$events,event)
+                         private$history$eventT = c(private$history$eventT,eventT)
                          private$history$MOI = private$MOI
                        },
 
@@ -276,7 +324,9 @@ humanPfMOI <- R6::R6Class(classname="humanPfMOI",
                        b = NULL, # infected mosquito to human transmission efficiency
                        c = NULL, # infected human to mosquito transmission efficiency
                        chemoprophylaxis = NULL,
-                       history = NULL,
+                       damID = NULL, # vector of female gametocyte parents of this clonal strain
+                       sireID = NULL, # vector of male gametocyte parents of this clonal strain
+                       history = list(events="init",eventT=-1L,MOI=NULL),
 
                        # Pointers
                        HumanPointer = NULL

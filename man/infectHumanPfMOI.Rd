@@ -9,10 +9,10 @@ infectHumanPfMOI(tEvent, PAR)
 \arguments{
 \item{tEvent}{time of infection}
 
-\item{PAR}{write me!}
+\item{PAR}{single clonal variant returned from \code{mosquitoPfMOI$get_clone()}}
 }
 \description{
-Simulate a PfMOI infection. If the human is not under chemoprophlaxis, begin queuing events for this clonal variant's infection process.
+Simulate a PfMOI infection. If the human is not under chemoprophylaxis, begin queuing events for this clonal variant's infection process.
 This method is bound to \code{Human$infectHumanPfMOI()}
 \itemize{
 \item A Bernoulli event is drawn to determine if this infection produces fever; if so \code{\link{add2Q_feverPfMOI}} is called.

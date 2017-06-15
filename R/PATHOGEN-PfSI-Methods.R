@@ -312,7 +312,7 @@ event_infectHumanPfSI <- function(tEvent, PAR = NULL){
 
 #' PfSI \code{Human} Event: PfSI Infection Event
 #'
-#' Simulate a PfSI infection. If the human is not under chemoprophlaxis or already infected, begin an infection.
+#' Simulate a PfSI infection. If the human is not under chemoprophylaxis or already infected, begin an infection.
 #' This method is bound to \code{Human$infectHumanPfSI()}
 #'  * A Bernoulli event is drawn to determine if this infection produces fever; if so \code{\link{add2Q_feverPfSI}} is called.
 #'  * The end of this PfSI infection is queued by \code{\link{add2Q_endPfSI}}
@@ -465,7 +465,7 @@ event_treatPfSI <- function(tEvent, PAR = NULL){
 
 #' PfSI \code{Human} Event: PfSI Treatment Event
 #'
-#' Simulate a PfSI treatment event. If the human is infected, set susceptible and track history; also initiate period of chemoprophlaxis, see \code{\link{add2Q_endprophylaxisPfSI}}
+#' Simulate a PfSI treatment event. If the human is infected, set susceptible and track history; also initiate period of chemoprophylaxis, see \code{\link{add2Q_endprophylaxisPfSI}}
 #' This method is bound to \code{Human$treatPfSI()}
 #' @param tEvent time of treatment
 #' @param PAR \code{NULL}
@@ -478,7 +478,7 @@ treatPfSI <- function(tEvent, PAR){
   }
   private$Pathogens$Pf$set_chemoprophylaxis(TRUE)
   self$track_History(tEvent = tEvent, event = "P")
-  # Initiate a period of protection from chemoprophlaxis
+  # Initiate a period of protection from chemoprophylaxis
   self$add2Q_endprophylaxisPfSI(tEvent = tEvent)
 
 }
@@ -490,7 +490,7 @@ treatPfSI <- function(tEvent, PAR){
 
 #' PfSI \code{Human} Event: Add PfSI End of Chemoprophylaxis Event to Event Queue
 #'
-#' Add PfSI end of chemoprophlaxis event to the event queue.
+#' Add PfSI end of chemoprophylaxis event to the event queue.
 #' This method is called from \code{\link{treatPfSI}}
 #' This method adds event \code{\link{event_endprophylaxisPfSI}} to the event queue.
 #' This method is bound to \code{Human$add2Q_endprophylaxisPfSI()}
@@ -503,13 +503,13 @@ add2Q_endprophylaxisPfSI <- function(tEvent, PAR = NULL){
 
 #' PfSI \code{Human} Event: Generate PfSI End of Chemoprophylaxis Event
 #'
-#' Generate PfSI end of chemoprophlaxis event to place in event queue.
+#' Generate PfSI end of chemoprophylaxis event to place in event queue.
 #' This method is called from \code{\link{add2Q_endprophylaxisPfSI}}
 #' This method is bound to \code{Human$event_endprophylaxisPfSI()}
 #'  * tag: \code{\link{endprophylaxisPfSI}}
 #'  * tEvent: treatment time is calculated as tSusceptible = tEvent + \code{\link{PfSI_ttSusceptiblePf}}
 #' @md
-#' @param tEvent time to end chemoprophlaxis
+#' @param tEvent time to end chemoprophylaxis
 #' @param PAR \code{NULL}
 event_endprophylaxisPfSI <- function(tEvent, PAR = NULL){
   tSusceptible = tEvent + self$ttSusceptiblePf()
@@ -518,9 +518,9 @@ event_endprophylaxisPfSI <- function(tEvent, PAR = NULL){
 
 #' PfSI \code{Human} Event: PfSI End of Chemoprophylaxis Event
 #'
-#' End PfSI chemoprophlaxis protection.
+#' End PfSI chemoprophylaxis protection.
 #' This method is bound to \code{Human$endprophylaxisPfSI()}
-#' @param tEvent time to end chemoprophlaxis
+#' @param tEvent time to end chemoprophylaxis
 #' @param PAR \code{NULL}
 endprophylaxisPfSI <- function(tEvent, PAR){
   # End Prophylaxis

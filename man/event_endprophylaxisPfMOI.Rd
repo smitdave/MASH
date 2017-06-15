@@ -7,12 +7,12 @@
 event_endprophylaxisPfMOI(tEvent, PAR = NULL)
 }
 \arguments{
-\item{tEvent}{time to end chemoprophlaxis}
+\item{tEvent}{time to end chemoprophylaxis}
 
 \item{PAR}{\code{NULL}}
 }
 \description{
-Generate PfMOI end of chemoprophlaxis event to place in event queue.
+Generate PfMOI end of chemoprophylaxis event to place in event queue.
 This method is called from \code{\link{add2Q_endprophylaxisPfMOI}}
 This method is bound to \code{Human$event_endprophylaxisPfMOI()}
 \itemize{

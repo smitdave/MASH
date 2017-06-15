@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -86,12 +87,18 @@ in <code><a href='MicroMosquitoFemale.html'>MicroMosquitoFemale</a></code> for P
 
     <pre class="usage"><span class='fu'>PfMOI.Setup</span>(<span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>MosyMaxI</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>Pf_c</span> <span class='kw'>=</span> <span class='fl'>0.15</span>, <span class='kw'>Pf_b</span> <span class='kw'>=</span> <span class='fl'>0.55</span>,
   <span class='kw'>Pf_r</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>200</span>, <span class='kw'>Pf_latent</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>Pf_fever</span> <span class='kw'>=</span> <span class='fl'>0.3</span>, <span class='kw'>Pf_ttF</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-  <span class='kw'>Pf_ttFvar</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>TreatPf</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>Pf_ttT</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>Pf_ttS</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+  <span class='kw'>Pf_ttFvar</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>TreatPf</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>Pf_ttT</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>Pf_ttS</span> <span class='kw'>=</span> <span class='fl'>32</span>,
+  <span class='kw'>PEProtectPf</span> <span class='kw'>=</span> <span class='fl'>0.99</span>, <span class='kw'>peBlockPf</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>mnPEPf</span> <span class='kw'>=</span> <span class='fl'>270</span>, <span class='kw'>vrPEPf</span> <span class='kw'>=</span> <span class='fl'>50</span>,
+  <span class='kw'>GSProtectPf</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>gsBlockPf</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>mnGSPf</span> <span class='kw'>=</span> <span class='fl'>180</span>, <span class='kw'>vrGSPf</span> <span class='kw'>=</span> <span class='fl'>20</span>,
   <span class='kw'>rdtSensPf</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>rdtSpecPf</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>lmSensPf</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>lmSpecPf</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>overwrite</th>
+      <td><p>overwrite existing methods and fields?</p></td>
+    </tr>
     <tr>
       <th>MosyMaxI</th>
       <td><p>maximum number of clonal variants passed in single mosquito to human transmission event (set to <code>-1L</code> for unlimited)</p></td>
@@ -135,6 +142,38 @@ in <code><a href='MicroMosquitoFemale.html'>MicroMosquitoFemale</a></code> for P
     <tr>
       <th>Pf_ttS</th>
       <td><p>constant period of proteection from chemoprophylaxis</p></td>
+    </tr>
+    <tr>
+      <th>PEProtectPf</th>
+      <td><p>proportion protected by PE vaccination (probability vaccination successful)</p></td>
+    </tr>
+    <tr>
+      <th>peBlockPf</th>
+      <td><p>proportion of infections blocked by PE vaccination</p></td>
+    </tr>
+    <tr>
+      <th>mnPEPf</th>
+      <td><p>mean duration of protection from PE vaccination</p></td>
+    </tr>
+    <tr>
+      <th>vrPEPf</th>
+      <td><p>standard deviation of protection from PE vaccination</p></td>
+    </tr>
+    <tr>
+      <th>GSProtectPf</th>
+      <td><p>proportion protected by GS vaccination (probability vaccination successful)</p></td>
+    </tr>
+    <tr>
+      <th>gsBlockPf</th>
+      <td><p>proportion of infections blocked by GS vaccination</p></td>
+    </tr>
+    <tr>
+      <th>mnGSPf</th>
+      <td><p>mean duration of protection from GS vaccination</p></td>
+    </tr>
+    <tr>
+      <th>vrGSPf</th>
+      <td><p>standard deviation of protection from GS vaccination</p></td>
     </tr>
     <tr>
       <th>rdtSensPf</th>

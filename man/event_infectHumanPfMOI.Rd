@@ -9,7 +9,7 @@ event_infectHumanPfMOI()
 \arguments{
 \item{tEvent}{time of infection}
 
-\item{PAR}{write me!}
+\item{PAR}{single clonal variant returned from \code{mosquitoPfMOI$get_clone()}}
 }
 \description{
 Generate PfMOI infection event to place in event queue.

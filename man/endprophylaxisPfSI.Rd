@@ -7,11 +7,11 @@
 endprophylaxisPfSI(tEvent, PAR)
 }
 \arguments{
-\item{tEvent}{time to end chemoprophlaxis}
+\item{tEvent}{time to end chemoprophylaxis}
 
 \item{PAR}{\code{NULL}}
 }
 \description{
-End PfSI chemoprophlaxis protection.
+End PfSI chemoprophylaxis protection.
 This method is bound to \code{Human$endprophylaxisPfSI()}
 }
