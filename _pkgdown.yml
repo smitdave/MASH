@@ -188,6 +188,7 @@ articles:
     contents:
       - MACRO-LandscapeAnalysis
       - MACRO-SpatialDynamics
+      - MACRO-Example
   - title: "MICRO"
     desc: Microsimulation
     contents:

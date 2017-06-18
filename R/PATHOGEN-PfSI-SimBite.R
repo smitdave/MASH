@@ -24,7 +24,7 @@ SimBitePfSI.Setup <- function(
 
 ){
 
-    print(paste0("initializing PfSI SimBite module"))
+    message("initializing PfSI SimBite module")
 
   ###################################################################
   # Simulated biting on 'Human' Class

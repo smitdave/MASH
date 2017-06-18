@@ -4,7 +4,7 @@
 \alias{MACRO.Tile.Parameters}
 \title{Initialize MACRO Tile Parameters for \code{MacroTile}}
 \usage{
-MACRO.Tile.Parameters(N = 10, patchSize = 20, patchMin = 10,
+MACRO.Tile.Parameters(N = 10, patchSize = 20, patchMin = 10, EIP = 10,
   aquaModel = "emerge", aquaPars = list(lambda = rep(10, 10)))
 }
 \arguments{
@@ -13,6 +13,8 @@ MACRO.Tile.Parameters(N = 10, patchSize = 20, patchMin = 10,
 \item{patchSize}{passed to \code{\link{sitePops}}}
 
 \item{patchMin}{passed to \code{\link{sitePops}}}
+
+\item{EIP}{length of entomological incubation period}
 
 \item{aquaModel}{character in 'Emerge', 'EL4P}
 

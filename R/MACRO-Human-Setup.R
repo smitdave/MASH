@@ -24,7 +24,7 @@
 #' @export
 MACRO.Humans.Setup <- function(){
 
-  print(paste0("initializing MACRO component methods & fields for Human & HumanPop Class"))
+  message("initializing MACRO component methods & fields for Human & HumanPop Class")
 
   #############################################
   # HumanPop methods

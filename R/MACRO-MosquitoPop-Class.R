@@ -21,42 +21,26 @@
 #' @keywords R6 class
 #' @details
 #' talk about me in detail!
-#' @section public:
-#' \itemize{
-#'   \item{\code{initialize(N)}}{
-#'        talk about me!
-#'        }
-#'   \item{\code{function()}}{
-#'        talk about me!
-#'        }
-#' }
-#' @section Private:
-#' \itemize{
-#'   \item{maxEIP: maximum value of extrinsic incubation period}
-#'   \item{nPatches: number of patches in \code{\link{Tile}}}
-#'   \item{MacroMosquitoPop_PAR}{
-#'      \itemize{
-#'          \item{p: the probability of surviving one day}
-#'          \item{f: the proportion of mosquitoes that blood feed each day}
-#'          \item{Q: the proportion of mosquitoes that feed on humans}
-#'          \item{v: ?}
-#'      }
-#'   }
-#'   \item{MP}{
-#'      \itemize{
-#'          \item{M: the number of mosquitoes}
-#'          \item{Y: the number of infected mosquitoes (including Z)}
-#'          \item{Z: the number of infectious mosquitoes}
-#'          \item{ZZ: matrix where each row is the number that will be added to the infectious state on that day}
-#'      }
-#'   }
-#'   \item{P: p^EIP}
-#'   \item{Psi: psi^EIP}
-#' }
-#' @section Active Bindings:
-#' \itemize{
-#'   \item{\code{coolActiveBinding}}{...}
-#' }
+#' @section Methods:
+#'  * Constructor:
+#'  * another method
+#' @section Fields:
+#'  * p:
+#'  * f:
+#'  * Q:
+#'  * v:
+#'  * EIP:
+#'  * maxEIP:
+#'  * M:
+#'  * Y:
+#'  * Z:
+#'  * ZZ:
+#'  * psi:
+#'  * P:
+#'  * TilePointer:
+#'  * PatchesPointer:
+#'  * HumansPointer:
+#' @md
 #' @export
 MacroMosquitoPop <- R6::R6Class(classname = "MacroMosquitoPop",
                  portable = TRUE,
@@ -80,15 +64,10 @@ MacroMosquitoPop <- R6::R6Class(classname = "MacroMosquitoPop",
                      private$f = MacroMosquitoPop_PAR$f
                      private$Q = MacroMosquitoPop_PAR$Q
                      private$v = MacroMosquitoPop_PAR$v
+                     private$EIP = MacroMosquitoPop_PAR$EIP
                      private$maxEIP = MacroMosquitoPop_PAR$maxEIP
 
-                     if(length(MacroMosquitoPop_PAR$M_density)==1){
-                       private$M = rep(MacroMosquitoPop_PAR$M_density,N) # mosquito density
-                     } else if(length(MacroMosquitoPop_PAR$M_density)!=N){
-                       stop("M_density must either be of length 1 or equal to N!")
-                     } else {
-                       private$M = MacroMosquitoPop_PAR$M_density
-                     }
+                     private$M   = MacroMosquitoPop_PAR$M_density
                      private$Y   = rep(0L, N) # infected (incubating)
                      private$Z   = rep(0L, N) # infectious
                      private$ZZ  = matrix(data=0L,nrow=MacroMosquitoPop_PAR$maxEIP,ncol=N) # each row is the number that will be added to the infectious state on that day
@@ -257,6 +236,7 @@ MacroMosquitoPop <- R6::R6Class(classname = "MacroMosquitoPop",
                     f = NULL,
                     Q = NULL,
                     v = NULL,
+                    EIP = NULL,
                     maxEIP = NULL,
 
                     # Life stages
@@ -266,7 +246,7 @@ MacroMosquitoPop <- R6::R6Class(classname = "MacroMosquitoPop",
                     ZZ  = NULL, # each row is the number that will be added to the infectious state on that day
 
                     # Survival & Dispersion
-                    psi = NULL,
+                    psi = NULL, # rough diffusion matrix
                     P   = NULL,
 
                     # Pointers

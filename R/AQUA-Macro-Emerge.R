@@ -60,9 +60,9 @@ makeLambda_Macro <- function(aquaPars){
 #' @examples
 #' MACRO.Patch.Emerge.Setup()
 #' @export
-MACRO.Patch.Emerge.Setup <- function(){
+MACRO.Patch.Emerge.Setup <- function(overwrite = TRUE){
 
-  print(paste0("initializing MACRO 'Emerge' Module Methods for 'MacroPatch' Class"))
+  message("initializing MACRO 'Emerge' Module Methods for 'MacroPatch' Class")
 
   #################################################################
   # Methods
@@ -71,19 +71,19 @@ MACRO.Patch.Emerge.Setup <- function(){
     # addCohort_MacroEmerge takes the generic name addCohort because it interfaces with the MacroMosquitoPop class
     MacroPatch$set(which = "public",name = "addCohort_MacroEmerge",
               value = addCohort_MacroEmerge,
-              overwrite = TRUE
+              overwrite = overwrite
     )
 
     # add adults from lambda to PatchesImagoQ
     MacroPatch$set(which = "public",name = "emergingAdults_MacroEmerge",
               value = emergingAdults_MacroEmerge,
-              overwrite = TRUE
+              overwrite = overwrite
     )
 
     # helper function to get from ImagoQ to addCohort
     MacroPatch$set(which = "public",name = "oneDay_MacroEmerge",
               value = oneDay_MacroEmerge,
-              overwrite = TRUE
+              overwrite = overwrite
     )
 
 
@@ -94,33 +94,33 @@ MACRO.Patch.Emerge.Setup <- function(){
   # season: lambda emergence for each patch
   MacroPatch$set(which = "private",name = "season",
             value = NULL,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   MacroPatch$set(which = "public",name = "get_season",
             value = get_season,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   MacroPatch$set(which = "public",name = "set_season",
             value = set_season,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   # ImagoQ: queue for emerging adults
   MacroPatch$set(which = "private",name = "PatchesImagoQ",
             value = NULL,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   MacroPatch$set(which = "public",name = "get_PatchesImagoQ",
             value = get_PatchesImagoQ,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   MacroPatch$set(which = "public",name = "set_PatchesImagoQ",
             value = set_PatchesImagoQ,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   # eventually may need push_ImagoQ and push_EggQ when doing mosquito genetics in MACRO; ie it will push to ImagoQ[[PATCH]][[EMERGING_PACKET_OF_MOSY]]
@@ -128,17 +128,17 @@ MACRO.Patch.Emerge.Setup <- function(){
   # EggQ: queue for egg batches (not used in Emerge; here for compatibility with mosquito ecology models only)
   MacroPatch$set(which = "private",name = "PatchesEggQ",
             value = NULL,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   MacroPatch$set(which = "public",name = "get_PatchesEggQ",
             value = get_PatchesEggQ,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   MacroPatch$set(which = "public",name = "set_PatchesEggQ",
             value = set_PatchesEggQ,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
 }

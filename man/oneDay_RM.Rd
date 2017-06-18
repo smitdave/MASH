@@ -2,20 +2,12 @@
 % Please edit documentation in R/MACRO-MosquitoPop-Methods.R
 \name{oneDay_RM}
 \alias{oneDay_RM}
-\title{Set \code{MacroMosquitoPop} oneDay_RM}
+\title{MACRO \code{MacroMosquitoPop} Method: oneDay_RM}
 \usage{
 oneDay_RM()
 }
-\arguments{
-\item{a}{parameter}
-}
-\value{
-does stuff
-}
 \description{
 Daily Ross-Macdonald difference/diffusion equations for mosquito dynamics.
+This method is bound to \code{MacroMosquitoPop$oneDay_RM}
 These equations are likely inefficient; see optimizing BLAS/LAPACK and copying less matricies for a faster down the line implementation.
-}
-\examples{
-some_function()
 }

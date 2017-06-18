@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -83,15 +84,47 @@
     <p>make a list of pars for <code><a href='MacroMosquitoPop.html'>MacroMosquitoPop</a></code></p>
     
 
-    <pre class="usage"><span class='fu'>MACRO.MosquitoPop.Parameters</span>(<span class='no'>N</span>, <span class='kw'>M_density</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>p</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='fl'>0.3</span>,
-  <span class='kw'>Q</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>v</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>maxEIP</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>psi</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>MACRO.MosquitoPop.Parameters</span>(<span class='no'>N</span>, <span class='kw'>EIP</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>M_density</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>p</span> <span class='kw'>=</span> <span class='fl'>0.9</span>,
+  <span class='kw'>f</span> <span class='kw'>=</span> <span class='fl'>0.3</span>, <span class='kw'>Q</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>v</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>maxEIP</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>psi</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>some</th>
-      <td><p>stuff</p></td>
+      <th>N</th>
+      <td><p>number of patches</p></td>
+    </tr>
+    <tr>
+      <th>EIP</th>
+      <td><p>entomological incubation period</p></td>
+    </tr>
+    <tr>
+      <th>M_density</th>
+      <td><p>either a vector of mosquito densities equal to <code>N</code> or a single value for all patches</p></td>
+    </tr>
+    <tr>
+      <th>p</th>
+      <td><p>daily survival probability</p></td>
+    </tr>
+    <tr>
+      <th>f</th>
+      <td><p>feeding rate (average number of daily blood meals per capita)</p></td>
+    </tr>
+    <tr>
+      <th>Q</th>
+      <td><p>human blood index (propensity to feed on humans)</p></td>
+    </tr>
+    <tr>
+      <th>v</th>
+      <td><p>daily egg laying rate</p></td>
+    </tr>
+    <tr>
+      <th>maxEIP</th>
+      <td><p>maximum length (in days) to track mosquito progression through EIP</p></td>
+    </tr>
+    <tr>
+      <th>psi</th>
+      <td><p>movement matrix for rough diffusion mosquito movement, if <code>NULL</code> mosquitoes do not move from patch to patch</p></td>
     </tr>
     </table>
     
@@ -112,6 +145,9 @@
 #&gt; 
 #&gt; $v
 #&gt; [1] 20
+#&gt; 
+#&gt; $EIP
+#&gt; [1] 10
 #&gt; 
 #&gt; $maxEIP
 #&gt; [1] 30

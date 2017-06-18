@@ -25,7 +25,7 @@
 #' some_function()
 getEIP_MacroMosquitoPop <- function(tNow){
   # update later
-  return(2L)
+  return(private$EIP)
 }
 
 MacroMosquitoPop$set(which = "public",name = "getEIP",
@@ -62,15 +62,12 @@ MacroMosquitoPop$set(which = "public",name = "layEggs",
 # oneDay_RM (daily Ross-Macdonald difference equations)
 #################################################################
 
-#' Set \code{MacroMosquitoPop} oneDay_RM
+#' MACRO \code{MacroMosquitoPop} Method: oneDay_RM
 #'
 #' Daily Ross-Macdonald difference/diffusion equations for mosquito dynamics.
+#' This method is bound to \code{MacroMosquitoPop$oneDay_RM}
 #' These equations are likely inefficient; see optimizing BLAS/LAPACK and copying less matricies for a faster down the line implementation.
 #'
-#' @param a parameter
-#' @return does stuff
-#' @examples
-#' some_function()
 oneDay_RM <- function(){
 
   #Mosquito Survival

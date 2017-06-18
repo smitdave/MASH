@@ -4,7 +4,7 @@
 \alias{MACRO.Patch.Emerge.Setup}
 \title{Initialize Additional Methods & Fields in \code{MacroPatch} for Emerge Module of Aquatic Ecology}
 \usage{
-MACRO.Patch.Emerge.Setup()
+MACRO.Patch.Emerge.Setup(overwrite = TRUE)
 }
 \arguments{
 \item{a}{parameter}

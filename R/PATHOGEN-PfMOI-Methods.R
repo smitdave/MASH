@@ -63,7 +63,7 @@ init_PfMOI <- function(PfMOI = NULL, tStart = 0){
   }
 
   if(is.null(PfMOI)){
-    break()
+    PfMOI = rep(0,times=self$nHumans)
   } else {
     if(length(PfMOI)!=length(self$nHumans)){
       stop("length of PfMOI must equal the number of humans in HumanPop object")

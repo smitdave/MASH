@@ -4,11 +4,27 @@
 \alias{MACRO.MosquitoPop.Parameters}
 \title{Initialize MosquitoPop Parameters for \code{MacroMosquitoPop}}
 \usage{
-MACRO.MosquitoPop.Parameters(N, M_density = 10, p = 0.9, f = 0.3,
-  Q = 0.9, v = 20, maxEIP = 30, psi = NULL)
+MACRO.MosquitoPop.Parameters(N, EIP = 10, M_density = 10, p = 0.9,
+  f = 0.3, Q = 0.9, v = 20, maxEIP = 30, psi = NULL)
 }
 \arguments{
-\item{some}{stuff}
+\item{N}{number of patches}
+
+\item{EIP}{entomological incubation period}
+
+\item{M_density}{either a vector of mosquito densities equal to \code{N} or a single value for all patches}
+
+\item{p}{daily survival probability}
+
+\item{f}{feeding rate (average number of daily blood meals per capita)}
+
+\item{Q}{human blood index (propensity to feed on humans)}
+
+\item{v}{daily egg laying rate}
+
+\item{maxEIP}{maximum length (in days) to track mosquito progression through EIP}
+
+\item{psi}{movement matrix for rough diffusion mosquito movement, if \code{NULL} mosquitoes do not move from patch to patch}
 }
 \value{
 return a list \code{MacroMosquitoPop_PAR}

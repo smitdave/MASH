@@ -19,48 +19,32 @@ below i describe the basic structure of the patch. methods and fields for specif
 \details{
 talk about me in detail!
 }
-\section{public}{
+\section{Methods}{
 
 \itemize{
-\item{\code{initialize(N)}}{
-talk about me!
-}
-\item{\code{function()}}{
-talk about me!
-}
+\item Constructor:
+\item another method
 }
 }
 
-\section{Private}{
+\section{Fields}{
 
 \itemize{
-\item{maxEIP: maximum value of extrinsic incubation period}
-\item{nPatches: number of patches in \code{\link{Tile}}}
-\item{MacroMosquitoPop_PAR}{
-\itemize{
-\item{p: the probability of surviving one day}
-\item{f: the proportion of mosquitoes that blood feed each day}
-\item{Q: the proportion of mosquitoes that feed on humans}
-\item{v: ?}
-}
-}
-\item{MP}{
-\itemize{
-\item{M: the number of mosquitoes}
-\item{Y: the number of infected mosquitoes (including Z)}
-\item{Z: the number of infectious mosquitoes}
-\item{ZZ: matrix where each row is the number that will be added to the infectious state on that day}
-}
-}
-\item{P: p^EIP}
-\item{Psi: psi^EIP}
-}
-}
-
-\section{Active Bindings}{
-
-\itemize{
-\item{\code{coolActiveBinding}}{...}
+\item p:
+\item f:
+\item Q:
+\item v:
+\item EIP:
+\item maxEIP:
+\item M:
+\item Y:
+\item Z:
+\item ZZ:
+\item psi:
+\item P:
+\item TilePointer:
+\item PatchesPointer:
+\item HumansPointer:
 }
 }
 

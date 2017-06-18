@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -89,7 +90,7 @@ the component objects in a tile:</p><ul>
 </ul>
     
 
-    <pre class="usage"><span class='fu'>MACRO.Tile.Parameters</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>patchSize</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>patchMin</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+    <pre class="usage"><span class='fu'>MACRO.Tile.Parameters</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>patchSize</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>patchMin</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>EIP</span> <span class='kw'>=</span> <span class='fl'>10</span>,
   <span class='kw'>aquaModel</span> <span class='kw'>=</span> <span class='st'>"emerge"</span>, <span class='kw'>aquaPars</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>lambda</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fl'>10</span>, <span class='fl'>10</span>)))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
@@ -106,6 +107,10 @@ the component objects in a tile:</p><ul>
     <tr>
       <th>patchMin</th>
       <td><p>passed to <code><a href='sitePops.html'>sitePops</a></code></p></td>
+    </tr>
+    <tr>
+      <th>EIP</th>
+      <td><p>length of entomological incubation period</p></td>
     </tr>
     <tr>
       <th>aquaModel</th>
@@ -1658,6 +1663,9 @@ the component objects in a tile:</p><ul>
 #&gt; 
 #&gt; $MacroMosquitoPop_PAR$v
 #&gt; [1] 20
+#&gt; 
+#&gt; $MacroMosquitoPop_PAR$EIP
+#&gt; [1] 10
 #&gt; 
 #&gt; $MacroMosquitoPop_PAR$maxEIP
 #&gt; [1] 30
