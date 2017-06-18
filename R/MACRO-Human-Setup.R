@@ -22,7 +22,7 @@
 #' @examples
 #' MACRO.Humans.Setup()
 #' @export
-MACRO.Humans.Setup <- function(){
+MACRO.Humans.Setup <- function(overwrite = TRUE){
 
   message("initializing MACRO component methods & fields for Human & HumanPop Class")
 
@@ -31,22 +31,41 @@ MACRO.Humans.Setup <- function(){
   #############################################
 
   #############################################
+  # patchID: vector of patchID for all humans
+  #############################################
+
+  HumanPop$set(which = "private",name = "patchID",
+            value = NULL,
+            overwrite = overwrite
+  )
+
+  HumanPop$set(which = "public",name = "get_patchID",
+            value = MacroHumanPop_get_patchID,
+            overwrite = overwrite
+  )
+
+  HumanPop$set(which = "public",name = "set_patchID",
+            value = MacroHumanPop_set_patchID,
+            overwrite = overwrite
+  )
+
+  #############################################
   # TilePointer: point to the Patches (a network of patches) in this metapopulation TILE (MACRO)
   #############################################
 
   HumanPop$set(which = "private",name = "TilePointer",
             value = NULL,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   HumanPop$set(which = "public",name = "get_TilePointer",
             value = MacroHuman_get_TilePointer,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   HumanPop$set(which = "public",name = "set_TilePointer",
             value = MacroHuman_set_TilePointer,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   #############################################
@@ -55,17 +74,17 @@ MACRO.Humans.Setup <- function(){
 
   HumanPop$set(which = "private",name = "PatchesPointer",
             value = NULL,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   HumanPop$set(which = "public",name = "get_PatchesPointer",
             value = MacroHuman_get_PatchesPointer,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   HumanPop$set(which = "public",name = "set_PatchesPointer",
             value = MacroHuman_set_PatchesPointer,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   #############################################
@@ -74,17 +93,17 @@ MACRO.Humans.Setup <- function(){
 
   HumanPop$set(which = "private",name = "MosquitoPointer",
             value = NULL,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   HumanPop$set(which = "public",name = "get_MosquitoPointer",
             value = MacroHuman_get_MosquitoPointer,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   HumanPop$set(which = "public",name = "set_MosquitoPointer",
             value = MacroHuman_set_MosquitoPointer,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
 
@@ -98,17 +117,17 @@ MACRO.Humans.Setup <- function(){
 
   Human$set(which = "private",name = "location",
             value = NULL,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   Human$set(which = "public",name = "get_location",
             value = MacroHuman_get_location,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   Human$set(which = "public",name = "set_location",
             value = MacroHuman_set_location,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   #############################################
@@ -117,17 +136,17 @@ MACRO.Humans.Setup <- function(){
 
   Human$set(which = "private",name = "patchID",
             value = NULL,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   Human$set(which = "public",name = "get_patchID",
             value = MacroHuman_get_patchID,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   Human$set(which = "public",name = "set_patchID",
             value = MacroHuman_set_patchID,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   #############################################
@@ -136,17 +155,17 @@ MACRO.Humans.Setup <- function(){
 
   Human$set(which = "private",name = "TilePointer",
             value = NULL,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   Human$set(which = "public",name = "get_TilePointer",
             value = MacroHuman_get_TilePointer,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   Human$set(which = "public",name = "set_TilePointer",
             value = MacroHuman_set_TilePointer,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   #############################################
@@ -155,17 +174,17 @@ MACRO.Humans.Setup <- function(){
 
   Human$set(which = "private",name = "PatchesPointer",
             value = NULL,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   Human$set(which = "public",name = "get_PatchesPointer",
             value = MacroHuman_get_PatchesPointer,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   Human$set(which = "public",name = "set_PatchesPointer",
             value = MacroHuman_set_PatchesPointer,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   #############################################
@@ -174,17 +193,17 @@ MACRO.Humans.Setup <- function(){
 
   Human$set(which = "private",name = "MosquitoPointer",
             value = NULL,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   Human$set(which = "public",name = "get_MosquitoPointer",
             value = MacroHuman_get_MosquitoPointer,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   Human$set(which = "public",name = "set_MosquitoPointer",
             value = MacroHuman_set_MosquitoPointer,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   #############################################
@@ -194,95 +213,95 @@ MACRO.Humans.Setup <- function(){
   # interface with MacroPatch
   Human$set(which = "public",name = "go_Patch",
             value = MacroHuman_go_Patch,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   # travel history:
 
   Human$set(which = "private",name = "locationH",
             value = NULL,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   Human$set(which = "private",name = "tTravel",
             value = NULL,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   Human$set(which = "public",name = "track_travel",
             value = MacroHuman_track_travel,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   Human$set(which = "public",name = "get_travelHistory",
             value = MacroHuman_get_travelHistoryHuman,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   HumanPop$set(which = "public",name = "get_travelHistory",
             value = MacroHuman_get_travelHistoryHumanPop,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   # travel: the human's travel habits
 
   Human$set(which = "private",name = "travel",
             value = NULL,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   Human$set(which = "public",name = "get_travel",
             value = MacroHuman_get_travel,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   Human$set(which = "public",name = "set_travel",
             value = MacroHuman_set_travel,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   Human$set(which = "public",name = "init_travel",
             value = MacroHuman_init_travel,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   # Events
 
   Human$set(which = "public",name = "add2Q_takeTrip",
             value = MacroHuman_add2Q_takeTrip,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   Human$set(which = "public",name = "event_takeTrip",
             value = MacroHuman_event_takeTrip,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   Human$set(which = "public",name = "takeTrip",
             value = MacroHuman_takeTrip,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   Human$set(which = "public",name = "add2Q_returnHome",
             value = MacroHuman_add2Q_returnHome,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   Human$set(which = "public",name = "event_returnHome",
             value = MacroHuman_event_returnHome,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   Human$set(which = "public",name = "returnHome",
             value = MacroHuman_returnHome,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   # movement related utilities
 
   HumanPop$set(which = "public",name = "json_travelHistory",
             value = MacroHuman_json_travelHistory,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
 
@@ -294,44 +313,44 @@ MACRO.Humans.Setup <- function(){
 
   Human$set(which = "private",name = "myEIR",
             value = 0,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   Human$set(which = "public",name = "get_myEIR",
             value = MacroHuman_get_myEIR,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   Human$set(which = "public",name = "set_myEIR",
             value = MacroHuman_set_myEIR,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   Human$set(which = "public",name = "expectedBites",
             value = MacroHuman_expectedBites,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   Human$set(which = "public",name = "add2Q_Bites",
             value = MacroHuman_add2Q_Bites,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   HumanPop$set(which = "public",name = "queueInfectiousBites",
             value = MacroHuman_queueInfectiousBites,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   # set sumKappa
   Human$set(which = "public",name = "sumKappa",
             value = MacroHuman_sumKappa,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   # set sumKappa
   HumanPop$set(which = "public",name = "updateKappa",
             value = MacroHuman_updateKappa,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
 }
@@ -469,4 +488,20 @@ MacroHuman_get_MosquitoPointer <- function(){
 #' some_function()
 MacroHuman_set_MosquitoPointer <- function(MosquitoPointer){
   private$MosquitoPointer = MosquitoPointer
+}
+
+#' MACRO \code{HumanPop} Method: Get all patchID
+#'
+#' Return all patchID
+#'
+MacroHumanPop_get_patchID <- function(){
+  return(private$patchID)
+}
+
+#' MACRO \code{HumanPop} Method: Set all patchID
+#'
+#' Return all patchID
+#'
+MacroHumanPop_set_patchID <- function(patchID){
+  private$patchID = patchID
 }

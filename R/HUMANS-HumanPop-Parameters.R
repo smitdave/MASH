@@ -82,7 +82,7 @@ sitePops <- function(N, siteSize = 10, siteMin = 2){
 # HumanPop Parameter Generation
 #################################################################
 
-#' Initialize HumanPop Parameters for \code{HumanPop}
+#' MICRO: Initialize HumanPop Parameters for \code{HumanPop}
 #'
 #' make a list of pars for \code{\link{HumanPop}}
 #'

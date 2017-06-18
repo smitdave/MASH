@@ -26,12 +26,6 @@ MacroHuman_sumKappa <- function(){
   self$get_PatchesPointer()$accumulate_kappa(kappa = (private$bWeight*private$Pathogens$Pf$get_c()), ix = private$location)
 }
 
-# # set sumKappa
-# Human$set(which = "public",name = "sumKappa",
-#           value = sumKappa,
-#           overwrite = TRUE
-# )
-
 #' MACRO: Update \code{HumanPop} kappa For all Patches
 #'
 #' Update normalized biting propensities (kappa) for all patches.
@@ -48,12 +42,6 @@ MacroHuman_updateKappa <- function(){
   newKappa = (self$get_PatchesPointer()$get_kappa() / (self$get_PatchesPointer()$get_bWeightHuman() + self$get_PatchesPointer()$get_bWeightZoo() + self$get_PatchesPointer()$get_bWeightZootox()))
   self$get_PatchesPointer()$set_kappa(kappa = newKappa)
 }
-
-# # set sumKappa
-# HumanPop$set(which = "public",name = "updateKappa",
-#           value = updateKappa,
-#           overwrite = TRUE
-# )
 
 
 #################################################################

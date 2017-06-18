@@ -16,16 +16,16 @@
 #' * \code{\link{HumanPop}}: creates parameters by calling \code{\link{HumanPop.Parameters}}
 #' * \code{\link{MacroPatch}}: creates parameters by calling \code{\link{MACRO.Patch.Parameters}}
 #' * \code{\link{MacroMosquitoPop}}: directly initializes parameters
-#' @md
 #'
 #' @param N number of patches
 #' @param patchSize passed to \code{\link{sitePops}}
 #' @param patchMin passed to \code{\link{sitePops}}
 #' @param EIP length of entomological incubation period
-#' @param aquaModel character in 'Emerge', 'EL4P
+#' @param aquaModel character in 'emerge', 'EL4P'
 #' @param aquaPars Aquatic Ecology module specific parameters (see \code{\link{MACRO.Patch.Parameters}} for details)
 #' * Emerge: list with elements 'lambda'
 #' * EL4P: list with elements
+#' @param humanPars character in 'auto', 'manual' ; if \code{manual} the user should pass
 #' @md
 #' @return return a list
 #' @examples
@@ -38,7 +38,8 @@ MACRO.Tile.Parameters <- function(
   patchMin = 10,
   EIP = 10,
   aquaModel = "emerge",
-  aquaPars = list(lambda=rep(10,10))
+  aquaPars = list(lambda=rep(10,10)),
+  humanPars = "auto"
 
   ){
 

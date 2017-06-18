@@ -4,7 +4,7 @@
 \alias{MACRO.Humans.Setup}
 \title{MACRO: Initialize Additional Methods & Fields in \code{Human}}
 \usage{
-MACRO.Humans.Setup()
+MACRO.Humans.Setup(overwrite = TRUE)
 }
 \arguments{
 \item{a}{parameter}

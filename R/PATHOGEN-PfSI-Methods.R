@@ -46,28 +46,76 @@ PfSI_increment_PfID <- function(){
   return(private$PfID)
 }
 
-#' PfSI \code{HumanPop} Method: Initialize PfSI Infections
+# #' PfSI \code{HumanPop} Method: Initialize PfSI Infections
+# #'
+# #' Initialize PfSI infections with parasite prevalence PfPR
+# #' This method is bound to \code{HumanPop$init_MACRO_PfSI()}
+# #'
+# init_MICRO_PfSI <- function(PfPR, tStart = 0){
+#
+#   private$PfID = 1L
+#   if(is.null(private$Pathogens$Pf)){ # only add the PfSI object if NULL
+#     self$set_humanPfSI()
+#   }
+#
+#   for(ixH in 1:self$nHumans){
+#
+#     if(runif(1) < PfPR){
+#       private$pop[[ixH]]$infectHumanPfSI(tEvent = tStart, PAR = list(damID=-1L,sireID=-1L))
+#     } else {
+#       private$pop[[ixH]]$track_History(tEvent = tStart, event = "S")
+#     }
+#
+#   }
+#
+# }
+
+#' PfSI \code{HumanPop} Method: Initialize MACRO PfSI Infections
 #'
-#' Initialize PfSI infections with parasite prevalence PfPR
-#' This method is bound to \code{HumanPop$init_PfSI()}
+#' Initialize PfSI infections with parasite prevalence PfPR for each patch.
+#' This method is bound to \code{HumanPop$init_MACRO_PfSI()}
 #'
-init_PfSI <- function(PfPR, tStart = 0){
+#' @param PfPR a vector of parasite prevalence at each patch
+#' @param tStart time to start simulation
+init_MACRO_PfSI <- function(PfPR, tStart = 0){
 
   private$PfID = 1L
   if(is.null(private$Pathogens$Pf)){ # only add the PfSI object if NULL
     self$set_humanPfSI()
   }
 
-  for(ixH in 1:self$nHumans){
+  patchID = private$patchID
+  patches = unique(patchID)
+  # iterate over patches
+  for(ixP in patches){
+    print(paste0("init PfSI infections in patch: ",ixP," at PfPR: ",PfPR[ixP]))
 
-    if(runif(1) < PfPR){
-      private$pop[[ixH]]$infectHumanPfSI(tEvent = tStart, PAR = list(damID=-1L,sireID=-1L))
-    } else {
-      private$pop[[ixH]]$track_History(tEvent = tStart, event = "S")
-    }
+    # iterate over humans in that patch
+    humanIter = which(patchID==ixP)
+    for(ixH in humanIter){
 
-  }
+      if(runif(1) < PfPR[ixP]){
+        private$pop[[ixH]]$infectHumanPfSI(tEvent = tStart, PAR = list(damID=-1L,sireID=-1L))
+      } else {
+        private$pop[[ixH]]$track_History(tEvent = tStart, event = "S")
+      }
 
+    } # end iter over humans
+
+  } # end iter over patches
+
+}
+
+#' MACRO PfSI \code{MacroTile} Method: Initialize MACRO PfSI Infections
+#'
+#' Initialize PfSI infections with parasite prevalence PfPR for each patch.
+#' Pass \code{PfPR} and \code{tStart} to function \code{\link{init_MACRO_PfSI}}
+#' This method is bound to \code{MacroTile$init_PfSI()}
+#'
+#' @param PfPR a vector of parasite prevalence at each patch
+#' @param tStart time to start simulation
+init_MacroTile_PfSI <- function(PfPR, tStart = 0){
+  private$HumanPop$init_MACRO_PfSI(PfPR, tStart)
 }
 
 

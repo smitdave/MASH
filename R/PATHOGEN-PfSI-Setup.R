@@ -169,9 +169,15 @@ PfSI.Setup <- function(
             overwrite = overwrite
   )
 
-  # initialize PfSI infections with parasite prevalence PfPR
-  HumanPop$set(which = "public",name = "init_PfSI",
-            value = init_PfSI,
+  # initialize PfSI infections with patch parasite prevalence PfPR
+  HumanPop$set(which = "public",name = "init_MACRO_PfSI",
+            value = init_MACRO_PfSI,
+            overwrite = overwrite
+  )
+
+  # initialize PfSI infections for MACRO
+  MacroTile$set(which = "public",name = "init_PfSI",
+            value = init_MacroTile_PfSI,
             overwrite = overwrite
   )
 
@@ -270,9 +276,8 @@ PfSI.Setup <- function(
   # Timing of Fever Incident
   # (relative to start of the infection)
   Human$set(which = "public",name = "ttFeverPf",
-            value = function(){
-              return(private$PfSI_PAR$mnFeverPf)
-            }
+            value = PfSI_ttFeverPf,
+            overwrite = overwrite
   )
 
   # Timing of Treatment

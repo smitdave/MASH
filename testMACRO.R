@@ -24,18 +24,15 @@ SimBitePfSI.Setup()
 # MACRO Patch initialization
 MACRO.Patch.Emerge.Setup() # 'Emerge' model
 
-# set debug flags in R6 generator classes before initializing objects
-# HumanPop$debug("queueInfectiousBites")
-# Human$debug("expectedBites")
-# MacroTile$debug("simMacro")
-# MacroTile$debug("initialize")
-
+# patch parameters
 nPatch = 10
 tileParameters = MACRO.Tile.Parameters(N = nPatch,aquaModel = "emerge",aquaPars = list(N=nPatch,lambda=rep(50,nPatch)))
 tileParameters$MacroMosquitoPop_PAR$M_density = rep(200,nPatch)
 tile = MacroTile$new(MacroTile_PAR = tileParameters)
 
-tile$init_humanInf(PfPR = 0.15)
+PfPR = c(0,0.5,0,0,0.2,0.25,0,0,0,0)
+PfPR = rep(0,nPatch)
+tile$init_PfSI(PfPR = PfPR)
 
 tile$simMacro(1e3)
 

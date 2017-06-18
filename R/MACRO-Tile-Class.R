@@ -74,17 +74,23 @@ MacroTile <- R6::R6Class(classname = "MacroTile",
 
                      # Human & HumanPop initilization
                      for(ixH in 1:private$HumanPop$nHumans){
+
                        # pointers
                        private$HumanPop$get_Human(ixH)$set_TilePointer(self)
                        private$HumanPop$get_Human(ixH)$set_MosquitoPointer(private$MosquitoPop)
                        private$HumanPop$get_Human(ixH)$set_PatchesPointer(private$Patches)
+
                        # travel
                        private$HumanPop$get_Human(ixH)$set_location(MacroTile_PAR$HumanPop_PAR$homeIDs[ixH])
                        private$HumanPop$get_Human(ixH)$set_patchID(MacroTile_PAR$HumanPop_PAR$homeIDs[ixH])
                        private$HumanPop$get_Human(ixH)$init_travel(n=2)
+
                        # update baseline human biting weight
                        myPatch = private$HumanPop$get_Human(ixH)$get_patchID()
                        private$Patches$accumulate_bWeightHuman(bWeightHuman = private$HumanPop$get_Human(ixH)$get_bWeight(), ix = myPatch)
+
+                       # patchID
+                       private$HumanPop$set_patchID(MacroTile_PAR$HumanPop_PAR$homeIDs)
                      }
                      private$HumanPop$set_humanPfSI() # set up human PfSI objects
 
@@ -131,14 +137,6 @@ MacroTile <- R6::R6Class(classname = "MacroTile",
 
                    get_MosquitoPop = function(){
                      return(private$MosquitoPop)
-                   },
-
-                   ## TAKE OUT LATER
-                   # it should live wherever we set up what pathogen model is being used?????
-                   # maybe it gets added in PfSI.Setup()
-                   init_humanInf = function(PfPR){
-                     message("this function is bad and sean should feel bad (he wrote this)")
-                     private$HumanPop$init_PfSI(PfPR)
                    }
 
                   ),

@@ -2,7 +2,7 @@
 % Please edit documentation in R/HUMANS-HumanPop-Parameters.R
 \name{HumanPop.Parameters}
 \alias{HumanPop.Parameters}
-\title{Initialize HumanPop Parameters for \code{HumanPop}}
+\title{MICRO: Initialize HumanPop Parameters for \code{HumanPop}}
 \usage{
 HumanPop.Parameters(nSite, bWeight = NULL, siteSize = 10, siteMin = 2)
 }
