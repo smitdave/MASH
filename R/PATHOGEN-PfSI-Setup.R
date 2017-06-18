@@ -170,6 +170,12 @@ PfSI.Setup <- function(
   )
 
   # initialize PfSI infections with patch parasite prevalence PfPR
+  HumanPop$set(which = "public",name = "init_MICRO_PfSI",
+            value = init_MICRO_PfSI,
+            overwrite = overwrite
+  )
+
+  # initialize PfSI infections with patch parasite prevalence PfPR
   HumanPop$set(which = "public",name = "init_MACRO_PfSI",
             value = init_MACRO_PfSI,
             overwrite = overwrite

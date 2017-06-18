@@ -100,7 +100,7 @@ PfMOI.Setup <- function(
   # Add PfMOI Parameters to 'Human' Class
   ###################################################################
 
-  # PfSI_PAR: list of PfSI parameters added to private field of 'Human' class
+  # PfMOI_PAR: list of PfMOI parameters added to private field of 'Human' class
   Human$set(which = "private",name = "PfMOI_PAR",
             value = list(
               MosyMaxI =  MosyMaxI,
@@ -130,17 +130,57 @@ PfMOI.Setup <- function(
             overwrite = overwrite
   )
 
-  # # getter for PfSI_PAR: ix should be a character eg 'Pf_b'
-  # Human$set(which = "public",name = "get_PfSI_PAR",
-  #           value = Human_get_PfSI_PAR,
-  #           overwrite = overwrite
-  # )
+  # Human getter for PfMOI_PAR: ix should be a character eg 'Pf_b'
+  Human$set(which = "public",name = "get_PfMOI_PAR",
+            value = Human_get_PfMOI_PAR,
+            overwrite = overwrite
+  )
 
-  # # setter for PfSI_PAR
-  # Human$set(which = "public",name = "set_PfSI_PAR",
-  #           value = Human_set_PfSI_PAR,
-  #           overwrite = overwrite
-  # )
+  # Human setter for PfMOI_PAR
+  Human$set(which = "public",name = "set_PfMOI_PAR",
+            value = Human_set_PfMOI_PAR,
+            overwrite = overwrite
+  )
+
+  # HumanPop setter for PfMOI_PAR
+  HumanPop$set(which = "public",name = "set_PfMOI_PAR",
+            value = HumanPop_set_PfMOI_PAR,
+            overwrite = overwrite
+  )
+
+  #################################################################
+  # PfMOI Utilties for 'HumanPop' and 'Human'
+  #################################################################
+
+  # increment_PfID when new liver-stage infection begins
+  HumanPop$set(which = "public",name = "increment_PfID",
+            value = PfMOI_increment_PfID,
+            overwrite = overwrite
+  )
+
+  # init_MICRO_PfMOI: init infections for SimBitePfMOI or MICRO
+  HumanPop$set(which = "public",name = "init_MICRO_PfMOI",
+            value = init_MICRO_PfMOI,
+            overwrite = overwrite
+  )
+
+  # Set Human-stage PfMOI Object for human
+  Human$set(which = "public",name = "set_humanPfMOI",
+            value = Human_set_humanPfMOI,
+            overwrite = overwrite
+  )
+
+  # Get Human-stage PfMOI Object for human
+  Human$set(which = "public",name = "get_humanPfMOI",
+            value = Human_get_humanPfMOI,
+            overwrite = overwrite
+  )
+
+  # Set Human-stage PfMOI Object for humanPop
+  HumanPop$set(which = "public",name = "set_humanPfMOI",
+            value = HumanPop_set_humanPfMOI,
+            overwrite = overwrite
+  )
 
   #################################################################
   # PfMOI Event Timing
@@ -168,6 +208,201 @@ PfMOI.Setup <- function(
 
   Human$set(which = "public",name = "ttSusceptiblePf",
             value = PfMOI_ttSusceptiblePf,
+            overwrite = overwrite
+  )
+
+  Human$set(which = "public",name = "ttPEWanePf",
+            value = PfMOI_ttPEWanePf,
+            overwrite = overwrite
+  )
+
+  Human$set(which = "public",name = "ttGSWanePf",
+            value = PfMOI_ttGSWanePf,
+            overwrite = overwrite
+  )
+
+
+  #################################################################
+  # PfMOI Diagnostics
+  #################################################################
+
+  Human$set(which = "public",name = "rdtTest_PfMOI",
+            value = rdtTest_PfMOI,
+            overwrite = overwrite
+  )
+
+  Human$set(which = "public",name = "lmTest_PfMOI",
+            value = lmTest_PfMOI,
+            overwrite = overwrite
+  )
+
+
+  ###################################################################
+  # PfMOI: Mosquito to Human infectious bite
+  # Add methods to 'Human' Class
+  ###################################################################
+
+  Human$set(which = "public",name = "probeHost_PfMOI",
+            value = probeHost_PfMOI,
+            overwrite = overwrite
+  )
+
+  Human$set(which = "public",name = "infectiousBite_PfMOI",
+            value = infectiousBite_PfMOI,
+            overwrite = overwrite
+  )
+
+
+  ###################################################################
+  # PfMOI: Human to Mosquito infectious bite
+  # Add methods to 'MicroMosquitoFemale' Classe
+  ###################################################################
+
+  #  add when MICRO mosquitoes exist
+
+  ###################################################################
+  # PFMOI Events
+  ###################################################################
+
+  # Start a PfMOI Infection
+  Human$set(which = "public",name = "add2Q_infectHumanPfMOI",
+            value = add2Q_infectHumanPfMOI,
+            overwrite = overwrite
+  )
+
+  Human$set(which = "public",name = "event_infectHumanPfMOI",
+            value = event_infectHumanPfMOI,
+            overwrite = overwrite
+  )
+
+  Human$set(which = "public",name = "infectHumanPfMOI",
+            value = infectHumanPfMOI,
+            overwrite = overwrite
+  )
+
+  # End a PfMOI Infection
+  Human$set(which = "public",name = "add2Q_endPfMOI",
+            value = add2Q_endPfMOI,
+            overwrite = overwrite
+  )
+
+  Human$set(which = "public",name = "event_endPfMOI",
+            value = event_endPfMOI,
+            overwrite = overwrite
+  )
+
+  Human$set(which = "public",name = "endPfMOI",
+            value = endPfMOI,
+            overwrite = overwrite
+  )
+
+  # PfMOI Fever
+  Human$set(which = "public",name = "add2Q_feverPfMOI",
+            value = add2Q_feverPfMOI,
+            overwrite = overwrite
+  )
+
+  Human$set(which = "public",name = "event_feverPfMOI",
+            value = event_feverPfMOI,
+            overwrite = overwrite
+  )
+
+  Human$set(which = "public",name = "feverPfMOI",
+            value = feverPfMOI,
+            overwrite = overwrite
+  )
+
+  # PfMOI Treatment
+  Human$set(which = "public",name = "add2Q_treatPfMOI",
+            value = add2Q_treatPfMOI,
+            overwrite = overwrite
+  )
+
+  Human$set(which = "public",name = "event_treatPfMOI",
+            value = event_treatPfMOI,
+            overwrite = overwrite
+  )
+
+  Human$set(which = "public",name = "treatPfMOI",
+            value = treatPfMOI,
+            overwrite = overwrite
+  )
+
+  # PfMOI End of Chemoprophylaxis
+  Human$set(which = "public",name = "add2Q_endprophylaxisPfMOI",
+            value = add2Q_endprophylaxisPfMOI,
+            overwrite = overwrite
+  )
+
+  Human$set(which = "public",name = "event_endprophylaxisPfMOI",
+            value = event_endprophylaxisPfMOI,
+            overwrite = overwrite
+  )
+
+  Human$set(which = "public",name = "endprophylaxisPfMOI",
+            value = endprophylaxisPfMOI,
+            overwrite = overwrite
+  )
+
+  # PfMOI PE vaccination
+  Human$set(which = "public",name = "add2Q_pevaccinatePfMOI",
+            value = add2Q_pevaccinatePfMOI,
+            overwrite = overwrite
+  )
+
+  Human$set(which = "public",name = "event_pevaccinatePfMOI",
+            value = event_pevaccinatePfMOI,
+            overwrite = overwrite
+  )
+
+  Human$set(which = "public",name = "pevaccinatePfMOI",
+            value = pevaccinatePfMOI,
+            overwrite = overwrite
+  )
+
+  Human$set(which = "public",name = "add2Q_pewanePfMOI",
+            value = add2Q_pewanePfMOI,
+            overwrite = overwrite
+  )
+
+  Human$set(which = "public",name = "event_pewanePfMOI",
+            value = event_pewanePfMOI,
+            overwrite = overwrite
+  )
+
+  Human$set(which = "public",name = "pewanePfMOI",
+            value = pewanePfMOI,
+            overwrite = overwrite
+  )
+
+  # PfMOI GS vaccination
+  Human$set(which = "public",name = "add2Q_gsvaccinatePfMOI",
+            value = add2Q_gsvaccinatePfMOI,
+            overwrite = overwrite
+  )
+
+  Human$set(which = "public",name = "event_gsvaccinatePfMOI",
+            value = event_gsvaccinatePfMOI,
+            overwrite = overwrite
+  )
+
+  Human$set(which = "public",name = "gsvaccinatePfMOI",
+            value = gsvaccinatePfMOI,
+            overwrite = overwrite
+  )
+
+  Human$set(which = "public",name = "add2Q_gswanePfMOI",
+            value = add2Q_gswanePfMOI,
+            overwrite = overwrite
+  )
+
+  Human$set(which = "public",name = "event_gswanePfMOI",
+            value = event_gswanePfMOI,
+            overwrite = overwrite
+  )
+
+  Human$set(which = "public",name = "gswanePfMOI",
+            value = gswanePfMOI,
             overwrite = overwrite
   )
 

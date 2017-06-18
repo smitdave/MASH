@@ -25,7 +25,7 @@ HumanPop_PAR = HumanPop.Parameters(nSite = 1,bWeight = NULL,siteSize = nHumans,s
 pop = HumanPop$new(HumanPop_PAR)
 PfSI_PAR = PfSI.Parameters(TreatPf = 1)
 pop$set_PfSI_PAR(PfSI_PAR = PfSI_PAR)
-pop$PfSI.Init(PfPR = 0)
+pop$init_MICRO_PfSI(PfPR = 0)
 
 tMax = 365*5
 
@@ -34,6 +34,9 @@ pop$queueVaccination_SimBitePfSI(tVaccine = (365*1),tTreat = (365*1)+1,fracPop =
 pop$simHumans(tPause = tMax+10)
 
 pop$get_History()
+
+pfsiHist = pop$get_History()
+plot_PfSI(pfsiHist)
 
 
 #################################################################

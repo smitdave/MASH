@@ -80,9 +80,9 @@ mosquitoPfMOI <- R6::R6Class(classname="mosquitoPfMOI",
                        # get_clone: get the mth clonal variant as a list
                        get_clone = function(m){
                          list(
-                           PfID = PfID[m],
-                           damID = damID[m],
-                           sireID = sireID[m]
+                           PfID = private$PfID[m],
+                           damID = private$damID[m],
+                           sireID = private$sireID[m]
                           )
                        },
 
@@ -299,7 +299,7 @@ humanPfMOI <- R6::R6Class(classname="humanPfMOI",
                          private$chemoprophylaxis = chemoprophylaxis
                        },
 
-
+                       # return the mth clonal variant (needed for human to mosquito transmission)
                        get_clone = function(m){
                          print("get the mth clonal variant as a list")
                          list(

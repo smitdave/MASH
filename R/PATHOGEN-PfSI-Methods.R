@@ -46,29 +46,29 @@ PfSI_increment_PfID <- function(){
   return(private$PfID)
 }
 
-# #' PfSI \code{HumanPop} Method: Initialize PfSI Infections
-# #'
-# #' Initialize PfSI infections with parasite prevalence PfPR
-# #' This method is bound to \code{HumanPop$init_MACRO_PfSI()}
-# #'
-# init_MICRO_PfSI <- function(PfPR, tStart = 0){
-#
-#   private$PfID = 1L
-#   if(is.null(private$Pathogens$Pf)){ # only add the PfSI object if NULL
-#     self$set_humanPfSI()
-#   }
-#
-#   for(ixH in 1:self$nHumans){
-#
-#     if(runif(1) < PfPR){
-#       private$pop[[ixH]]$infectHumanPfSI(tEvent = tStart, PAR = list(damID=-1L,sireID=-1L))
-#     } else {
-#       private$pop[[ixH]]$track_History(tEvent = tStart, event = "S")
-#     }
-#
-#   }
-#
-# }
+#' PfSI \code{HumanPop} Method: Initialize MICRO PfSI Infections
+#'
+#' Initialize PfSI infections with parasite prevalence PfPR for MICRO or SimBitePfSI
+#' This method is bound to \code{HumanPop$init_MICRO_PfSI()}
+#'
+init_MICRO_PfSI <- function(PfPR, tStart = 0){
+
+  private$PfID = 1L
+  if(is.null(private$Pathogens$Pf)){ # only add the PfSI object if NULL
+    self$set_humanPfSI()
+  }
+
+  for(ixH in 1:self$nHumans){
+
+    if(runif(1) < PfPR){
+      private$pop[[ixH]]$infectHumanPfSI(tEvent = tStart, PAR = list(damID=-1L,sireID=-1L))
+    } else {
+      private$pop[[ixH]]$track_History(tEvent = tStart, event = "S")
+    }
+
+  }
+
+}
 
 #' PfSI \code{HumanPop} Method: Initialize MACRO PfSI Infections
 #'

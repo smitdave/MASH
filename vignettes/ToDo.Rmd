@@ -11,7 +11,7 @@ vignette: >
 # Dev Team To-do:
 
 ### TO-DO:
-  * Need to fix how infectious mosquitoes are generated in MACRO; non infectious humans should contribute to kappa but NOT to the generation of infectious mosquitoes. Ask if kappa should only accumulate biting propensities from infected individuals, it should because it is used to generate new infected mosquitoes..
+  * do something.
   * Add aging to Human and HumanPop
   * Better data logging for MacroTile
   * in MacroTile::initialize(), make travelHabit arg 'n' part of HumanPop_PAR
@@ -24,5 +24,6 @@ vignette: >
   * In set_humanPfSI() make it dependent on the PfSI_PAR vector in the class.
 
 ### SOLVED TO-DO:
-  6. SOLVED (Z not updating correctly, see MACRO-MosquitoPop-Methods.R) HumanPop$debug("queueInfectiousBites"): do debugging: EIR is always 0
-  7. SOVLED (see HUMANS-HumanPop-Parameters.R)check why in HumanPop$tStart is a vector.
+  * SOLVED (Z not updating correctly, see MACRO-MosquitoPop-Methods.R) HumanPop$debug("queueInfectiousBites"): do debugging: EIR is always 0
+  * SOVLED (see HUMANS-HumanPop-Parameters.R)check why in HumanPop$tStart is a vector.
+  * Need to fix how infectious mosquitoes are generated in MACRO; non infectious humans should contribute to kappa but NOT to the generation of infectious mosquitoes. Ask if kappa should only accumulate biting propensities from infected individuals, it should because it is used to generate new infected mosquitoes..

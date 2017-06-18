@@ -49,13 +49,13 @@ PfMOI_increment_PfID <- function(){
   return(private$PfID)
 }
 
-#' PfMOI \code{HumanPop} Method: Initialize PfMOI Infections
+#' PfMOI \code{HumanPop} Method: Initialize MICRO PfMOI Infections
 #'
-#' Initialize PfMOI infections with MOI given by vector of MOI for population.
-#' This method is bound to \code{HumanPop$init_PfMOI()}
+#' Initialize PfMOI infections with MOI given by vector of MOI for population for MICRO or SimBitePfMOI
+#' This method is bound to \code{HumanPop$init_MICRO_PfMOI()}
 #'
 #' @param PfMOI a vector of length equal to \code{HumanPop$nHumans} giving the MOI of each person. If \code{NULL} all people are set to MOI of 0.
-init_PfMOI <- function(PfMOI = NULL, tStart = 0){
+init_MICRO_PfMOI <- function(PfMOI = NULL, tStart = 0){
 
   private$PfID = 1L
   if(is.null(private$Pathogens$Pf)){ # only add the PfSI object if NULL
@@ -83,6 +83,16 @@ init_PfMOI <- function(PfMOI = NULL, tStart = 0){
 
 }
 
+#' PfMOI \code{HumanPop} Method: Set PfMOI Paramters for a \code{\link{HumanPop}}
+#'
+#' Set PfMOI_PAR for a HumanPop; this is useful for simulating multiple populations with different parameter values.
+#' This function is bound to \code{HumanPop$set_PfMOI_PAR()}
+#' @param PfMOI_PAR new parameter list, see \code{\link{PfMOI.Parameters}}
+HumanPop_set_PfMOI_PAR <- function(PfMOI_PAR){
+  for(ixH in 1:self$nHumans){
+    private$pop[[ixH]]$set_PfMOI_PAR(PfMOI_PAR)
+  }
+}
 
 ###################################################################
 # Add PfMOI Pathogen Object to 'Human' & 'HumanPop' Class
