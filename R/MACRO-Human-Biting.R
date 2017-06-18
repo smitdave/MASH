@@ -23,7 +23,11 @@
 #' @examples
 #' some_function()
 MacroHuman_sumKappa <- function(){
-  self$get_PatchesPointer()$accumulate_kappa(kappa = (private$bWeight*private$Pathogens$Pf$get_c()), ix = private$location)
+  if(private$Pathogens$Pf$get_infected()){
+    self$get_PatchesPointer()$accumulate_kappa(kappa = (private$bWeight*private$Pathogens$Pf$get_c()), ix = private$location)
+  } else {
+    self$get_PatchesPointer()$accumulate_kappa(kappa = 0, ix = private$location)
+  }
 }
 
 #' MACRO: Update \code{HumanPop} kappa For all Patches

@@ -52,7 +52,7 @@ tile = MacroTile$new(MacroTile_PAR = tileParameters)
 We are finally ready to run the main simulation. There is only one last step and that is to initialize the human infection for `PfSI` module. We will run for 500 days.
 
 ```{r}
-tile$init_humanInf(PfPR = rep(0.15,nPatch))
+tile$init_PfSI(PfPR = rep(0.15,nPatch))
 tile$simMacro(5e2)
 ```
 

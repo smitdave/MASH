@@ -166,6 +166,11 @@ humanPfMOI <- R6::R6Class(classname="humanPfMOI",
 
                        #initialize
                        initialize = function(PfID = NULL, tInf = NULL, MOI = 0L, b = 0.55, c = 0.15, damID = NULL, sireID = NULL){
+                         if(MOI>0){
+                           private$infected = TRUE
+                         } else {
+                           private$infected = FALSE
+                         }
                          private$MOI = MOI
                          private$history$MOI = MOI
                          private$PfID = PfID
@@ -187,6 +192,9 @@ humanPfMOI <- R6::R6Class(classname="humanPfMOI",
                          private$sireID = c(private$sireID,sireID)
                          private$PfID = c(private$PfID,PfID)
                          private$MOI = private$MOI + 1L
+                         if(!private$infected){
+                           private$infected = TRUE
+                         }
                        },
 
                        # completely clear the infection assoc. with index ix
@@ -195,11 +203,22 @@ humanPfMOI <- R6::R6Class(classname="humanPfMOI",
                          private$sireID = private$sireID[-ix]
                          private$PfID = private$PfID[-ix]
                          private$MOI = private$MOI - 1L
+                         if(private$MOI==0){
+                           private$infected = FALSE
+                         }
                        },
 
                        ########################################
                        #  Getters & Setters
                        ########################################
+
+                       # infected: am I infected by at least one clonal variant?
+                       get_infected = function(){
+                         return(private$infected)
+                       },
+                       set_infected = function(infected){
+                         private$infected = infected
+                       },
 
                        # MOI: Multiplicity of Infection
                        get_MOI = function(){
@@ -318,6 +337,7 @@ humanPfMOI <- R6::R6Class(classname="humanPfMOI",
                      private = list(
 
                        # Pathogen and immune states
+                       infected = NULL, # boolean flag; TRUE if MOI > 0
                        MOI = NULL, # my multiplicity of infection
                        PfID = NULL, # vector of PfID
                        tInf = NULL, # vector of infection times

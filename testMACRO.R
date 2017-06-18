@@ -30,7 +30,7 @@ tileParameters = MACRO.Tile.Parameters(N = nPatch,aquaModel = "emerge",aquaPars 
 tileParameters$MacroMosquitoPop_PAR$M_density = rep(200,nPatch)
 tile = MacroTile$new(MacroTile_PAR = tileParameters)
 
-PfPR = c(0,0.5,0,0,0.2,0.25,0,0,0,0)
+PfPR = c(rep(0,nPatch/2),rep(0.75,nPatch/2))
 PfPR = rep(0,nPatch)
 tile$init_PfSI(PfPR = PfPR)
 

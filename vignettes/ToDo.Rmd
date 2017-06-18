@@ -11,7 +11,7 @@ vignette: >
 # Dev Team To-do:
 
 ### TO-DO:
-  * Need to fix how infectious mosquitoes are generated in MACRO; non infectious humans should contribute to kappa but NOT to the generation of infectious mosquitoes. Confirm with Dave soon.
+  * Need to fix how infectious mosquitoes are generated in MACRO; non infectious humans should contribute to kappa but NOT to the generation of infectious mosquitoes. Ask if kappa should only accumulate biting propensities from infected individuals, it should because it is used to generate new infected mosquitoes..
   * Add aging to Human and HumanPop
   * Better data logging for MacroTile
   * in MacroTile::initialize(), make travelHabit arg 'n' part of HumanPop_PAR

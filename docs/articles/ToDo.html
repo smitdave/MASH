@@ -69,11 +69,10 @@
 <div id="to-do" class="section level3">
 <h3 class="hasAnchor">
 <a href="#to-do" class="anchor"></a>TO-DO:</h3>
-<ol style="list-style-type: decimal">
+<ul>
+<li>Need to fix how infectious mosquitoes are generated in MACRO; non infectious humans should contribute to kappa but NOT to the generation of infectious mosquitoes. Ask if kappa should only accumulate biting propensities from infected individuals, it should because it is used to generate new infected mosquitoes..</li>
 <li>Add aging to Human and HumanPop</li>
-<li>Fix the PfPR init in MacroTile</li>
 <li>Better data logging for MacroTile</li>
-<li>For all XX.Setup() functions, add arg ‘overwrite’ boolean to toggle overwriting. If you do this you cannot have any orphan XX$set() functions anymore</li>
 <li>in MacroTile::initialize(), make travelHabit arg ‘n’ part of HumanPop_PAR</li>
 <li>look into jsonlite::stream_out</li>
 <li>getEIP_MacroMosquitoPop should eventually return something besides an integer</li>
@@ -82,7 +81,7 @@
 <li>MACRO Emergence stuffs is called season right now…need to change to lambda</li>
 <li>Rename MACRO-Human-Movment.R stuff to MACRO-Human-Travel.R (Movement to Travel) for consistency with online docs.</li>
 <li>In set_humanPfSI() make it dependent on the PfSI_PAR vector in the class.</li>
-</ol>
+</ul>
 </div>
 <div id="solved-to-do" class="section level3">
 <h3 class="hasAnchor">

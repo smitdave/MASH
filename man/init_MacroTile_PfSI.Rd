@@ -6,6 +6,11 @@
 \usage{
 init_MacroTile_PfSI(PfPR, tStart = 0)
 }
+\arguments{
+\item{PfPR}{a vector of parasite prevalence at each patch}
+
+\item{tStart}{time to start simulation}
+}
 \description{
 Initialize PfSI infections with parasite prevalence PfPR for each patch.
 Pass \code{PfPR} and \code{tStart} to function \code{\link{init_MACRO_PfSI}}

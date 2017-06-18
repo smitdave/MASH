@@ -91,7 +91,8 @@ the component objects in a tile:</p><ul>
     
 
     <pre class="usage"><span class='fu'>MACRO.Tile.Parameters</span>(<span class='kw'>N</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>patchSize</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>patchMin</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>EIP</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-  <span class='kw'>aquaModel</span> <span class='kw'>=</span> <span class='st'>"emerge"</span>, <span class='kw'>aquaPars</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>lambda</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fl'>10</span>, <span class='fl'>10</span>)))</pre>
+  <span class='kw'>aquaModel</span> <span class='kw'>=</span> <span class='st'>"emerge"</span>, <span class='kw'>aquaPars</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>lambda</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fl'>10</span>, <span class='fl'>10</span>)),
+  <span class='kw'>humanPars</span> <span class='kw'>=</span> <span class='st'>"auto"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -114,7 +115,7 @@ the component objects in a tile:</p><ul>
     </tr>
     <tr>
       <th>aquaModel</th>
-      <td><p>character in 'Emerge', 'EL4P</p></td>
+      <td><p>character in 'emerge', 'EL4P'</p></td>
     </tr>
     <tr>
       <th>aquaPars</th>
@@ -122,6 +123,10 @@ the component objects in a tile:</p><ul>
 <li><p>Emerge: list with elements 'lambda'</p></li>
 <li><p>EL4P: list with elements</p></li>
 </ul></td>
+    </tr>
+    <tr>
+      <th>humanPars</th>
+      <td><p>character in 'auto', 'manual' ; if <code>manual</code> the user should pass</p></td>
     </tr>
     </table>
     

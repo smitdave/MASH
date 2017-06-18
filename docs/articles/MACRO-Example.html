@@ -101,8 +101,17 @@ tile =<span class="st"> </span>MacroTile$<span class="kw">new</span>(<span class
 <h2 class="hasAnchor">
 <a href="#simulate-macro" class="anchor"></a>Simulate MACRO</h2>
 <p>We are finally ready to run the main simulation. There is only one last step and that is to initialize the human infection for <code>PfSI</code> module. We will run for 500 days.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tile$<span class="kw">init_humanInf</span>(<span class="dt">PfPR =</span> <span class="fl">0.15</span>)</code></pre></div>
-<pre><code>## this function is bad and sean should feel bad (he wrote this)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tile$<span class="kw">init_PfSI</span>(<span class="dt">PfPR =</span> <span class="kw">rep</span>(<span class="fl">0.15</span>,nPatch))</code></pre></div>
+<pre><code>## [1] "init PfSI infections in patch: 1 at PfPR: 0.15"
+## [1] "init PfSI infections in patch: 2 at PfPR: 0.15"
+## [1] "init PfSI infections in patch: 3 at PfPR: 0.15"
+## [1] "init PfSI infections in patch: 4 at PfPR: 0.15"
+## [1] "init PfSI infections in patch: 5 at PfPR: 0.15"
+## [1] "init PfSI infections in patch: 6 at PfPR: 0.15"
+## [1] "init PfSI infections in patch: 7 at PfPR: 0.15"
+## [1] "init PfSI infections in patch: 8 at PfPR: 0.15"
+## [1] "init PfSI infections in patch: 9 at PfPR: 0.15"
+## [1] "init PfSI infections in patch: 10 at PfPR: 0.15"</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tile$<span class="kw"><a href="../reference/simMacro.html">simMacro</a></span>(<span class="fl">5e2</span>)</code></pre></div>
 </div>
 <div id="analysis-of-output" class="section level2">

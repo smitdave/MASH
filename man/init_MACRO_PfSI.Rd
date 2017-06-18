@@ -6,6 +6,11 @@
 \usage{
 init_MACRO_PfSI(PfPR, tStart = 0)
 }
+\arguments{
+\item{PfPR}{a vector of parasite prevalence at each patch}
+
+\item{tStart}{time to start simulation}
+}
 \description{
 Initialize PfSI infections with parasite prevalence PfPR for each patch.
 This method is bound to \code{HumanPop$init_MACRO_PfSI()}

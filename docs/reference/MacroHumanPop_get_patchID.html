@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MICRO: Initialize HumanPop Parameters for <code>HumanPop</code> — HumanPop.Parameters • MASH</title>
+<title>MACRO <code>HumanPop</code> Method: Get all patchID — MacroHumanPop_get_patchID • MASH</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -77,66 +77,21 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>MICRO: Initialize HumanPop Parameters for <code>HumanPop</code></h1>
+    <h1>MACRO <code>HumanPop</code> Method: Get all patchID</h1>
     </div>
 
     
-    <p>make a list of pars for <code><a href='HumanPop.html'>HumanPop</a></code></p>
+    <p>Return all patchID</p>
     
 
-    <pre class="usage"><span class='fu'>HumanPop.Parameters</span>(<span class='no'>nSite</span>, <span class='kw'>bWeight</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>siteSize</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>siteMin</span> <span class='kw'>=</span> <span class='fl'>2</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>nSite</th>
-      <td><p>number of sites (either <code><a href='FeedingSite.html'>FeedingSite</a></code> or <code>link{MacroPatch}</code>)</p></td>
-    </tr>
-    <tr>
-      <th>bWeight</th>
-      <td><p>numeric value (if <code>NULL</code> biting weights are Gamma(1,1) distributed)</p></td>
-    </tr>
-    <tr>
-      <th>siteSize</th>
-      <td><p>average size of population at sites (passed to <code><a href='sitePops.html'>sitePops</a></code>)</p></td>
-    </tr>
-    <tr>
-      <th>siteMin</th>
-      <td><p>minimum size of population at sites (passed to <code><a href='sitePops.html'>sitePops</a></code>)</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <pre class="usage"><span class='fu'>MacroHumanPop_get_patchID</span>()</pre>
+        
 
-    <p>return a list <code>HumanPop_PAR</code></p>
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>HumanPop.Parameters(nSite = 5)
- * nHumans: total human population size
- * sitePops: vector of population at each site
- * tStart: time to begin simulation
- * humanIDs: vector of human IDs
- * siteHumanIDs: list of human IDs by site
- * homeIDs: vector of site IDs of each human
- * siteAges: list of ages of humans by site
- * bDay: vector of birthdays of each human
- * bWeight: biting weight on humans
-</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:2:2: unexpected '*'</span>
-#&gt; <span class='error'>1: HumanPop.Parameters(nSite = 5)</span>
-#&gt; <span class='error'>2:  *</span>
-#&gt; <span class='error'>    ^</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+                </ul>
 
   </div>
 </div>
