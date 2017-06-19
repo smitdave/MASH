@@ -43,7 +43,7 @@ HumanEventQ__addEvent2Q <- function(obj_, event) {
     invisible(.Call('MASH_HumanEventQ__addEvent2Q', PACKAGE = 'MASH', obj_, event))
 }
 
-HumanEventQ__get_eventQ <- function(obj_) {
-    .Call('MASH_HumanEventQ__get_eventQ', PACKAGE = 'MASH', obj_)
+HumanEventQ__get_EventQ <- function(obj_) {
+    .Call('MASH_HumanEventQ__get_EventQ', PACKAGE = 'MASH', obj_)
 }
 

@@ -94,14 +94,14 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
-// HumanEventQ__get_eventQ
-Rcpp::List HumanEventQ__get_eventQ(MASH::RcppR6::RcppR6<MASH::HumanEventQ> obj_);
-RcppExport SEXP MASH_HumanEventQ__get_eventQ(SEXP obj_SEXP) {
+// HumanEventQ__get_EventQ
+Rcpp::List HumanEventQ__get_EventQ(MASH::RcppR6::RcppR6<MASH::HumanEventQ> obj_);
+RcppExport SEXP MASH_HumanEventQ__get_EventQ(SEXP obj_SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::HumanEventQ> >::type obj_(obj_SEXP);
-    rcpp_result_gen = Rcpp::wrap(HumanEventQ__get_eventQ(obj_));
+    rcpp_result_gen = Rcpp::wrap(HumanEventQ__get_EventQ(obj_));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -115,7 +115,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"MASH_HumanEventQ__rmTagFromQ", (DL_FUNC) &MASH_HumanEventQ__rmTagFromQ, 2},
     {"MASH_HumanEventQ__get_queueN", (DL_FUNC) &MASH_HumanEventQ__get_queueN, 1},
     {"MASH_HumanEventQ__addEvent2Q", (DL_FUNC) &MASH_HumanEventQ__addEvent2Q, 2},
-    {"MASH_HumanEventQ__get_eventQ", (DL_FUNC) &MASH_HumanEventQ__get_eventQ, 1},
+    {"MASH_HumanEventQ__get_EventQ", (DL_FUNC) &MASH_HumanEventQ__get_EventQ, 1},
     {NULL, NULL, 0}
 };
 

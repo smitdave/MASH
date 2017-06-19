@@ -172,7 +172,7 @@ MacroHuman_go_Patch <- function(old, new){
 #' @examples
 #' some_function()
 MacroHuman_add2Q_takeTrip <- function(tEvent, PAR = NULL){
-  self$addEvent2Q(event = self$event_takeTrip(tEvent = tEvent, PAR = PAR))
+  private$EventQueue$addEvent2Q(event = self$event_takeTrip(tEvent = tEvent, PAR = PAR))
 }
 
 #' event_takeTrip
@@ -238,7 +238,7 @@ MacroHuman_takeTrip <- function(tEvent, PAR){
 #' @examples
 #' some_function()
 MacroHuman_add2Q_returnHome <- function(tEvent, PAR = NULL){
-  self$addEvent2Q(event = self$event_returnHome(tEvent = tEvent, PAR = PAR))
+  private$EventQueue$addEvent2Q(event = self$event_returnHome(tEvent = tEvent, PAR = PAR))
 }
 
 #' event_returnHome

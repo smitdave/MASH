@@ -30,8 +30,8 @@ void HumanEventQ__addEvent2Q(MASH::RcppR6::RcppR6<MASH::HumanEventQ> obj_, Rcpp:
   obj_->addEvent2Q(event);
 }
 // [[Rcpp::export]]
-Rcpp::List HumanEventQ__get_eventQ(MASH::RcppR6::RcppR6<MASH::HumanEventQ> obj_) {
-  return obj_->get_eventQ();
+Rcpp::List HumanEventQ__get_EventQ(MASH::RcppR6::RcppR6<MASH::HumanEventQ> obj_) {
+  return obj_->get_EventQ();
 }
 
 

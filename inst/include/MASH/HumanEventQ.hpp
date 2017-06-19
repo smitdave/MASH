@@ -51,7 +51,7 @@ public:
   };
 
   // get entire event queue
-  Rcpp::List get_eventQ(){
+  Rcpp::List get_EventQ(){
     return(Rcpp::wrap(EventQ));
   };
 
