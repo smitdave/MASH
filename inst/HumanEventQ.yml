@@ -3,8 +3,8 @@ HumanEventQ:
   forward_declare: true
   constructor:
     roxygen: |
-      A class for queueing human events. Header file defined [here](https://github.com/slwu89/RcppQueues/blob/master/inst/include/RcppQueues/HumanEventQ.hpp) and `RcppR6` export handled [here](https://github.com/slwu89/RcppQueues/blob/master/inst/HumanEventQ.yml).
-      @title Human Event Queue, bound to \code{Human$EventQueue} in class \code{\link{Human}}
+      A class for queueing human events. Header file defined [here](https://github.com/slwu89/RcppQueues/blob/master/inst/include/RcppQueues/HumanEventQ.hpp) and `RcppR6` export handled [here](https://github.com/slwu89/RcppQueues/blob/master/inst/HumanEventQ.yml). Bound to \code{Human$EventQueue} in class \code{\link{Human}}
+      @title Human Event Queue
       @param initQ reserve memory for \code{initQ} number of events
       @section Methods:
         * firstEvent: return first event in queue as named R list

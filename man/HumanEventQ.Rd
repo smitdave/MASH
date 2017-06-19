@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppR6.R
 \name{HumanEventQ}
 \alias{HumanEventQ}
-\title{Human Event Queue, bound to \code{Human$EventQueue} in class \code{\link{Human}}}
+\title{Human Event Queue}
 \usage{
 HumanEventQ(initQ = 100)
 }
@@ -10,7 +10,7 @@ HumanEventQ(initQ = 100)
 \item{initQ}{reserve memory for \code{initQ} number of events}
 }
 \description{
-A class for queueing human events. Header file defined \href{https://github.com/slwu89/RcppQueues/blob/master/inst/include/RcppQueues/HumanEventQ.hpp}{here} and \code{RcppR6} export handled \href{https://github.com/slwu89/RcppQueues/blob/master/inst/HumanEventQ.yml}{here}.
+A class for queueing human events. Header file defined \href{https://github.com/slwu89/RcppQueues/blob/master/inst/include/RcppQueues/HumanEventQ.hpp}{here} and \code{RcppR6} export handled \href{https://github.com/slwu89/RcppQueues/blob/master/inst/HumanEventQ.yml}{here}. Bound to \code{Human$EventQueue} in class \code{\link{Human}}
 }
 \section{Methods}{
 
