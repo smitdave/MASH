@@ -11,7 +11,7 @@ vignette: >
 # Dev Team To-do:
 
 ### TO-DO:
-  * do something.
+  * put next thing here.
   * Add aging to Human and HumanPop
   * Better data logging for MacroTile
   * in MacroTile::initialize(), make travelHabit arg 'n' part of HumanPop_PAR

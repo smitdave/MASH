@@ -67,4 +67,3 @@ HumanPopulation$get_PfMOI_history()
 # debug(HumanPopulation$get_Human(1)$probeHost_PfMOI)
 # debug(HumanPopulation$simHumans)
 # HumanPopulation$simHumans(tPause = tMax+10)
-
