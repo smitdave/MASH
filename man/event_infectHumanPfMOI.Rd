@@ -4,7 +4,7 @@
 \alias{event_infectHumanPfMOI}
 \title{PfMOI \code{Human} Event: Generate PfMOI Infection Event}
 \usage{
-event_infectHumanPfMOI()
+event_infectHumanPfMOI(tEvent, PAR)
 }
 \arguments{
 \item{tEvent}{time of infection}

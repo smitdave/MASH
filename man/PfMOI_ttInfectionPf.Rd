@@ -7,7 +7,7 @@
 PfMOI_ttInfectionPf()
 }
 \description{
-How many days after the infectious bite does a PfMOI infection start? See \code{\link{PfMOI.Parameters}} parameter \code{Pf_latent} constant latent period.
+How many days after the infectious bite does a PfMOI infection start? See \code{\link{PfMOI.Parameters}} parameter \code{LatentPf} constant latent period.
 This method is called from \code{\link{}}
 This method is bound to \code{Human$ttInfectPf()}
 }

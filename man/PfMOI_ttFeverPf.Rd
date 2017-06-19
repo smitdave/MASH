@@ -7,7 +7,7 @@
 PfMOI_ttFeverPf()
 }
 \description{
-What is the timing of fever relative to the start of a PfMOI infection? See \code{\link{PfMOI.Parameters}} parameter \code{Pf_ttF} mean (on natural scale) and parameter \code{Pf_ttFvar} standard deviation (on natural scale) of log-normally distributed time to fever.
+What is the timing of fever relative to the start of a PfMOI infection? See \code{\link{PfMOI.Parameters}} parameter \code{mnFeverPf} mean (on natural scale) and parameter \code{vrFeverPf} standard deviation (on natural scale) of log-normally distributed time to fever.
 This method is called from \code{\link{}}
 This method is bound to \code{Human$ttFeverPf()}
 }

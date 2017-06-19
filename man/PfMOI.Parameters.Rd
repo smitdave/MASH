@@ -4,12 +4,13 @@
 \alias{PfMOI.Parameters}
 \title{Initialize PfMOI Module Parameters}
 \usage{
-PfMOI.Parameters(MosyMaxI = 1L, Pf_c = 0.15, Pf_b = 0.55, Pf_r = 1/200,
-  Pf_latent = 0, Pf_fever = 0.3, Pf_ttF = 10, Pf_ttFvar = 0.1,
-  TreatPf = 0.5, Pf_ttT = 3, Pf_ttS = 32, PEProtectPf = 0.99,
-  peBlockPf = 1, mnPEPf = 270, vrPEPf = 50, GSProtectPf = 1,
-  gsBlockPf = 0.9, mnGSPf = 180, vrGSPf = 20, rdtSensPf = 0.9,
-  rdtSpecPf = 0.1, lmSensPf = 0.9, lmSpecPf = 0.1)
+PfMOI.Parameters(MosyMaxI = 1L, Pf_c = 0.15, Pf_b = 0.55,
+  DurationPf = 200, LatentPf = 10, FeverPf = 0.3, mnFeverPf = 10,
+  vrFeverPf = 0.1, TreatPf = 0.5, mnTreatPf = 3,
+  mnChemoprophylaxisPf = 32, PEProtectPf = 0.99, peBlockPf = 1,
+  mnPEPf = 270, vrPEPf = 50, GSProtectPf = 1, gsBlockPf = 0.9,
+  mnGSPf = 180, vrGSPf = 20, rdtSensPf = 0.9, rdtSpecPf = 0.1,
+  lmSensPf = 0.9, lmSpecPf = 0.1)
 }
 \arguments{
 \item{MosyMaxI}{maximum number of clonal variants passed in single mosquito to human transmission event (set to \code{-1L} for unlimited)}
@@ -18,21 +19,21 @@ PfMOI.Parameters(MosyMaxI = 1L, Pf_c = 0.15, Pf_b = 0.55, Pf_r = 1/200,
 
 \item{Pf_b}{infected mosquito to human transmission efficiency}
 
-\item{Pf_r}{rate of clearance (assuming clonal variants are cleared independently)}
+\item{DurationPf}{duration of infection (assuming clonal variants are cleared independently)}
 
-\item{Pf_latent}{latency (How many days after the infectious bite does the infection start?)}
+\item{LatentPf}{latency (How many days after the infectious bite does the infection start?)}
 
-\item{Pf_fever}{probability of fever}
+\item{FeverPf}{probability of fever}
 
-\item{Pf_ttF}{mean of timing of fever incident relative to start of PfMOI infection (log-normally distributed, mean on natural scale)}
+\item{mnFeverPf}{mean of timing of fever incident relative to start of PfMOI infection (log-normally distributed, mean on natural scale)}
 
-\item{Pf_ttFvar}{standard deviation of timing of fever incident relative to start of PfMOI infection (log-normally distributed, standard deviation on natural scale)}
+\item{vrFeverPf}{standard deviation of timing of fever incident relative to start of PfMOI infection (log-normally distributed, standard deviation on natural scale)}
 
 \item{TreatPf}{probability of treatment after fever incident}
 
-\item{Pf_ttT}{average waiting time from fever to treatment (exponentially distributed)}
+\item{mnTreatPf}{average waiting time from fever to treatment (exponentially distributed)}
 
-\item{Pf_ttS}{constant period of proteection from chemoprophylaxis}
+\item{mnChemoprophylaxisPf}{constant period of proteection from chemoprophylaxis}
 
 \item{PEProtectPf}{proportion protected by PE vaccination (probability vaccination successful)}
 

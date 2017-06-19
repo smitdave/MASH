@@ -94,6 +94,17 @@ HumanPop_set_PfMOI_PAR <- function(PfMOI_PAR){
   }
 }
 
+# #' PfMOI \code{HumanPop} Method: Get PfMOI Histories
+# #'
+# #' Get all PfMOI histories, stored in class \code{\link{humanPfMOI}}
+# #' This function is bound to \code{HumanPop$get_PfMOI_history()}
+# HumanPop_get_PfMOI_history <- function(){
+#   PfMOI_history = vector(mode="list",length=self$nHumans)
+#   for(ixH in 1:self$nHumans){
+#     PfMOI_history[[ixH]] = private$pop[[ixH]]$
+#   }
+# }
+
 ###################################################################
 # Add PfMOI Pathogen Object to 'Human' & 'HumanPop' Class
 ###################################################################
@@ -157,42 +168,42 @@ HumanPop_set_humanPfMOI <- function(b = NULL, c = NULL){
 
 #' PfMOI \code{Human} Method: Duration of Infection
 #'
-#' How many days does a single PfMOI infection last? See \code{\link{PfMOI.Parameters}} parameter \code{Pf_r} for baseline clearance rate.
+#' How many days does a single PfMOI infection last? See \code{\link{PfMOI.Parameters}} parameter \code{DurationPf} for baseline clearance rate.
 #' This method is called from \code{\link{}}
 #' This method is bound to \code{Human$ttClearPf()}
 #'
 PfMOI_ttClearPf <- function(){
-  rexp(n=1, rate=private$PfMOI_PAR$Pf_r)
+  rexp(n=1, rate=1/private$PfMOI_PAR$DurationPf)
 }
 
 #' PfMOI \code{Human} Method: Duration of Latency
 #'
-#' How many days after the infectious bite does a PfMOI infection start? See \code{\link{PfMOI.Parameters}} parameter \code{Pf_latent} constant latent period.
+#' How many days after the infectious bite does a PfMOI infection start? See \code{\link{PfMOI.Parameters}} parameter \code{LatentPf} constant latent period.
 #' This method is called from \code{\link{}}
 #' This method is bound to \code{Human$ttInfectPf()}
 #'
 PfMOI_ttInfectionPf <- function(){
-  private$PfMOI_PAR$Pf_latent
+  private$PfMOI_PAR$LatentPf
 }
 
 #' PfMOI \code{Human} Method: Timing of Fever Incident
 #'
-#' What is the timing of fever relative to the start of a PfMOI infection? See \code{\link{PfMOI.Parameters}} parameter \code{Pf_ttF} mean (on natural scale) and parameter \code{Pf_ttFvar} standard deviation (on natural scale) of log-normally distributed time to fever.
+#' What is the timing of fever relative to the start of a PfMOI infection? See \code{\link{PfMOI.Parameters}} parameter \code{mnFeverPf} mean (on natural scale) and parameter \code{vrFeverPf} standard deviation (on natural scale) of log-normally distributed time to fever.
 #' This method is called from \code{\link{}}
 #' This method is bound to \code{Human$ttFeverPf()}
 #'
 PfMOI_ttFeverPf <- function(){
-  rlnorm(1,log(private$PfMOI_PAR$Pf_ttF),private$PfMOI_PAR$Pf_ttFvar)
+  rlnorm(1,log(private$PfMOI_PAR$mnFeverPf),private$PfMOI_PAR$vrFeverPf)
 }
 
 #' PfMOI \code{Human} Method: Timing of Treatment
 #'
-#' What is the timing of treatment relative to the start of a fever incident? See \code{\link{PfMOI.Parameters}} parameter \code{Pf_ttT} for mean waiting time of exponentially distributed waiting period.
+#' What is the timing of treatment relative to the start of a fever incident? See \code{\link{PfMOI.Parameters}} parameter \code{mnTreatPf} for mean waiting time of exponentially distributed waiting period.
 #' This method is called from \code{\link{}}
 #' This method is bound to \code{Human$ttTreatPf()}
 #'
 PfMOI_ttTreatPf <- function(){
-  rexp(1, 1/private$PfMOI_PAR$Pf_ttT)
+  rexp(1, 1/private$PfMOI_PAR$mnTreatPf)
 }
 
 #' PfMOI \code{Human} Method: Duration of Protection from Chemoprophylaxis
@@ -202,7 +213,7 @@ PfMOI_ttTreatPf <- function(){
 #' This method is bound to \code{Human$ttSusceptiblePf()}
 #'
 PfMOI_ttSusceptiblePf <- function(){
-  return(private$PfMOI_PAR$Pf_ttS)
+  return(private$PfMOI_PAR$mnChemoprophylaxisPf)
 }
 
 #' PfMOI \code{Human} Method: Duration of protection by PE Vaccination
@@ -278,11 +289,11 @@ probeHost_PfMOI <- function(tBite, mosquitoPfMOI){
   if(MOI>0){
     N = private$PfMOI_PAR$MosyMaxI
 
-    for(m in 1:mosquitoPfMOI$get_MOI()){
+    for(m in 1:N){
       N = N - 1L
       PAR = mosquitoPfMOI$get_clone(m)
       self$infectiousBite_PfMOI(tBite, PAR)
-      if(N==0){break()}
+      if(N==0){return(NULL)}
     }
 
   }
@@ -366,7 +377,7 @@ add2Q_infectHumanPfMOI <- function(tEvent, PAR = NULL){
 #' @md
 #' @param tEvent time of infection
 #' @param PAR single clonal variant returned from \code{mosquitoPfMOI$get_clone()}
-event_infectHumanPfMOI <- function(){
+event_infectHumanPfMOI <- function(tEvent, PAR){
   list(tEvent = tEvent, PAR = PAR, tag = "infectHumanPfMOI")
 }
 
@@ -394,10 +405,10 @@ infectHumanPfMOI <- function(tEvent, PAR){
     }
 
     self$add2Q_endPfMOI(tEvent = tEvent)
-
+    private$Pathogens$Pf$track_history(eventT = tEvent, event = "I") # write me
   }
 
-  private$Pathogens$Pf$track_history(tEvent = tEvent, event = "I") # write me
+
 
 }
 
@@ -450,7 +461,7 @@ endPfMOI <- function(tEvent, PAR){
   ix = which(private$Pathogens$Pf$get_PfID() == PAR$PfID)
   # might need to check for length(ix) > 0, maybe not
   private$Pathogens$Pf$clear_Infection(ix = ix)
-  private$Pathogens$Pf$track_history(tEvent = tEvent, event = "C") # write me
+  private$Pathogens$Pf$track_history(eventT = tEvent, event = "C") # write me
 }
 
 
@@ -485,7 +496,7 @@ add2Q_feverPfMOI <- function(tEvent, PAR = NULL){
 #' @md
 event_feverPfMOI <- function(tEvent, PAR = NULL){
   tFever = tEvent + self$ttFeverPf()
-  list(tEvent = tEnd, PAR = PAR, tag = "feverPfMOI")
+  list(tEvent = tFever, PAR = PAR, tag = "feverPfMOI")
 }
 
 #' PfMOI \code{Human} Event: PfMOI Infection Event
@@ -501,7 +512,7 @@ feverPfMOI <- function(tEvent, PAR){
     self$add2Q_treatPfMOI(tEvent = tEvent)
   }
 
-  private$Pathogens$Pf$track_history(tEvent = tEvent, event = "F") # write me
+  private$Pathogens$Pf$track_history(eventT = tEvent, event = "F") # write me
 }
 
 
@@ -547,9 +558,10 @@ treatPfMOI <- function(tEvent, PAR){
 
   private$Pathogens$Pf$set_MOI(MOI = 0L)
   private$Pathogens$Pf$set_chemoprophylaxis(TRUE)
+  self$rmTagFromQ(tag = "endPfMOI") # take out all clearance events
 
-  private$Pathogens$Pf$track_history(tEvent = tEvent, event = "S")
-  private$Pathogens$Pf$track_history(tEvent = tEvent, event = "P")
+  private$Pathogens$Pf$track_history(eventT = tEvent, event = "S")
+  private$Pathogens$Pf$track_history(eventT = tEvent, event = "P")
 
   # Initiate a period of protection from chemoprophylaxis
   self$add2Q_endprophylaxisPfMOI(tEvent)
@@ -597,7 +609,7 @@ event_endprophylaxisPfMOI <- function(tEvent, PAR = NULL){
 endprophylaxisPfMOI <- function(tEvent, PAR){
   # End Prophylaxis
   private$Pathogens$Pf$set_chemoprophylaxis(FALSE)
-  private$Pathogens$Pf$track_history(tEvent = tEvent, event = "PP")
+  private$Pathogens$Pf$track_history(eventT = tEvent, event = "PP")
 
 }
 
@@ -645,7 +657,7 @@ pevaccinatePfMOI <- function(tEvent, PAR){
   if(runif(1) < private$PfMOI_PAR$PEProtectPf){
     private$Pathogens$Pf$set_b(private$PfMOI_PAR$Pf_b * (1-private$PfMOI_PAR$peBlockPf))
     self$add2Q_pewanePfMOI(tEvent = tEvent)
-    self$track_History(tEvent = tEvent, event = "PEvaxx")
+    self$track_history(eventT = tEvent, event = "PEvaxx")
   }
 }
 
@@ -687,7 +699,7 @@ event_pewanePfMOI <- function(tEvent, PAR = NULL){
 #' @param PAR \code{NULL}
 pewanePfMOI <- function(tEvent, PAR){
   private$Pathogens$Pf$set_b(private$PfMOI_PAR$Pf_b)
-  self$track_History(tEvent = tEvent, event = "PEwane")
+  self$track_history(eventT = tEvent, event = "PEwane")
 }
 
 
@@ -734,7 +746,7 @@ gsvaccinatePfMOI <- function(tEvent, PAR){
   if(runif(1) < private$PfMOI_PAR$GSProtectPf){
     private$Pathogens$Pf$set_c(private$PfMOI_PAR$Pf_c * (1-private$PfMOI_PAR$gsBlockPf))
     self$add2Q_gswanePfMOI(tEvent = tEvent)
-    self$track_History(tEvent = tEvent, event = "GSvaxx")
+    self$track_history(eventT = tEvent, event = "GSvaxx")
   }
 }
 
@@ -776,5 +788,5 @@ event_gswanePfMOI <- function(tEvent, PAR = NULL){
 #' @param PAR \code{NULL}
 gswanePfMOI <- function(tEvent, PAR){
   private$Pathogens$Pf$set_c(private$PfMOI_PAR$Pf_c)
-  self$track_History(tEvent = tEvent, event = "GSwane")
+  self$track_history(eventT = tEvent, event = "GSwane")
 }

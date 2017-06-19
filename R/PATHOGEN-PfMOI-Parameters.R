@@ -15,14 +15,14 @@
 #' @param MosyMaxI maximum number of clonal variants passed in single mosquito to human transmission event (set to \code{-1L} for unlimited)
 #' @param Pf_c infected human to mosquito transmission efficiency
 #' @param Pf_b infected mosquito to human transmission efficiency
-#' @param Pf_r rate of clearance (assuming clonal variants are cleared independently)
-#' @param Pf_latent latency (How many days after the infectious bite does the infection start?)
-#' @param Pf_fever probability of fever
-#' @param Pf_ttF mean of timing of fever incident relative to start of PfMOI infection (log-normally distributed, mean on natural scale)
-#' @param Pf_ttFvar standard deviation of timing of fever incident relative to start of PfMOI infection (log-normally distributed, standard deviation on natural scale)
+#' @param DurationPf duration of infection (assuming clonal variants are cleared independently)
+#' @param LatentPf latency (How many days after the infectious bite does the infection start?)
+#' @param FeverPf probability of fever
+#' @param mnFeverPf mean of timing of fever incident relative to start of PfMOI infection (log-normally distributed, mean on natural scale)
+#' @param vrFeverPf standard deviation of timing of fever incident relative to start of PfMOI infection (log-normally distributed, standard deviation on natural scale)
 #' @param TreatPf probability of treatment after fever incident
-#' @param Pf_ttT average waiting time from fever to treatment (exponentially distributed)
-#' @param Pf_ttS constant period of proteection from chemoprophylaxis
+#' @param mnTreatPf average waiting time from fever to treatment (exponentially distributed)
+#' @param mnChemoprophylaxisPf constant period of proteection from chemoprophylaxis
 #' @param PEProtectPf proportion protected by PE vaccination (probability vaccination successful)
 #' @param peBlockPf proportion of infections blocked by PE vaccination
 #' @param mnPEPf mean duration of protection from PE vaccination
@@ -52,20 +52,20 @@ Pf_b = 0.55,
 #  Timing
 ########################################
 
-Pf_r = 1/200, # Duration of infection
-Pf_latent = 0, # Latency
+DurationPf = 200, # Duration of infection
+LatentPf = 10, # Latency
 
 # Fever
-Pf_fever = 0.3,
-Pf_ttF = 10,
-Pf_ttFvar = .1,
+FeverPf = 0.3,
+mnFeverPf = 10,
+vrFeverPf = .1,
 
 # Treatment
 TreatPf = 0.5,
-Pf_ttT = 3,
+mnTreatPf = 3,
 
 # Prophylaxis, time to susceptibility
-Pf_ttS = 32,
+mnChemoprophylaxisPf = 32,
 
 # Proportion Protected by PE Vaccination
 PEProtectPf = .99,
@@ -95,14 +95,14 @@ lmSpecPf = 0.1
       MosyMaxI =  MosyMaxI,
       Pf_c = Pf_c,
       Pf_b = Pf_b,
-      Pf_r = Pf_r,
-      Pf_latent = Pf_latent,
-      Pf_fever = Pf_fever,
-      Pf_ttF = Pf_ttF,
-      Pf_ttFvar = Pf_ttFvar,
+      DurationPf = DurationPf,
+      LatentPf = LatentPf,
+      FeverPf = FeverPf,
+      mnFeverPf = mnFeverPf,
+      vrFeverPf = vrFeverPf,
       TreatPf = TreatPf,
-      Pf_ttT = Pf_ttT,
-      Pf_ttS = Pf_ttS,
+      mnTreatPf = mnTreatPf,
+      mnChemoprophylaxisPf = mnChemoprophylaxisPf,
       PEProtectPf = PEProtectPf,
       peBlockPf = peBlockPf,
       mnPEPf = mnPEPf,

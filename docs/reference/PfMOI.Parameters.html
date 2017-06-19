@@ -84,12 +84,13 @@
     <p>This is mostly used to modify PfMOI parameters for different human populations after creation by using <code>set_PfMOI_PAR</code> method of <code><a href='HumanPop.html'>HumanPop</a></code></p>
     
 
-    <pre class="usage"><span class='fu'>PfMOI.Parameters</span>(<span class='kw'>MosyMaxI</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>Pf_c</span> <span class='kw'>=</span> <span class='fl'>0.15</span>, <span class='kw'>Pf_b</span> <span class='kw'>=</span> <span class='fl'>0.55</span>, <span class='kw'>Pf_r</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>200</span>,
-  <span class='kw'>Pf_latent</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>Pf_fever</span> <span class='kw'>=</span> <span class='fl'>0.3</span>, <span class='kw'>Pf_ttF</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>Pf_ttFvar</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
-  <span class='kw'>TreatPf</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>Pf_ttT</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>Pf_ttS</span> <span class='kw'>=</span> <span class='fl'>32</span>, <span class='kw'>PEProtectPf</span> <span class='kw'>=</span> <span class='fl'>0.99</span>,
-  <span class='kw'>peBlockPf</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>mnPEPf</span> <span class='kw'>=</span> <span class='fl'>270</span>, <span class='kw'>vrPEPf</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>GSProtectPf</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>gsBlockPf</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>mnGSPf</span> <span class='kw'>=</span> <span class='fl'>180</span>, <span class='kw'>vrGSPf</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>rdtSensPf</span> <span class='kw'>=</span> <span class='fl'>0.9</span>,
-  <span class='kw'>rdtSpecPf</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>lmSensPf</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>lmSpecPf</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)</pre>
+    <pre class="usage"><span class='fu'>PfMOI.Parameters</span>(<span class='kw'>MosyMaxI</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>Pf_c</span> <span class='kw'>=</span> <span class='fl'>0.15</span>, <span class='kw'>Pf_b</span> <span class='kw'>=</span> <span class='fl'>0.55</span>,
+  <span class='kw'>DurationPf</span> <span class='kw'>=</span> <span class='fl'>200</span>, <span class='kw'>LatentPf</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>FeverPf</span> <span class='kw'>=</span> <span class='fl'>0.3</span>, <span class='kw'>mnFeverPf</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+  <span class='kw'>vrFeverPf</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>TreatPf</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>mnTreatPf</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+  <span class='kw'>mnChemoprophylaxisPf</span> <span class='kw'>=</span> <span class='fl'>32</span>, <span class='kw'>PEProtectPf</span> <span class='kw'>=</span> <span class='fl'>0.99</span>, <span class='kw'>peBlockPf</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>mnPEPf</span> <span class='kw'>=</span> <span class='fl'>270</span>, <span class='kw'>vrPEPf</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>GSProtectPf</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>gsBlockPf</span> <span class='kw'>=</span> <span class='fl'>0.9</span>,
+  <span class='kw'>mnGSPf</span> <span class='kw'>=</span> <span class='fl'>180</span>, <span class='kw'>vrGSPf</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>rdtSensPf</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>rdtSpecPf</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
+  <span class='kw'>lmSensPf</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>lmSpecPf</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -107,23 +108,23 @@
       <td><p>infected mosquito to human transmission efficiency</p></td>
     </tr>
     <tr>
-      <th>Pf_r</th>
-      <td><p>rate of clearance (assuming clonal variants are cleared independently)</p></td>
+      <th>DurationPf</th>
+      <td><p>duration of infection (assuming clonal variants are cleared independently)</p></td>
     </tr>
     <tr>
-      <th>Pf_latent</th>
+      <th>LatentPf</th>
       <td><p>latency (How many days after the infectious bite does the infection start?)</p></td>
     </tr>
     <tr>
-      <th>Pf_fever</th>
+      <th>FeverPf</th>
       <td><p>probability of fever</p></td>
     </tr>
     <tr>
-      <th>Pf_ttF</th>
+      <th>mnFeverPf</th>
       <td><p>mean of timing of fever incident relative to start of PfMOI infection (log-normally distributed, mean on natural scale)</p></td>
     </tr>
     <tr>
-      <th>Pf_ttFvar</th>
+      <th>vrFeverPf</th>
       <td><p>standard deviation of timing of fever incident relative to start of PfMOI infection (log-normally distributed, standard deviation on natural scale)</p></td>
     </tr>
     <tr>
@@ -131,11 +132,11 @@
       <td><p>probability of treatment after fever incident</p></td>
     </tr>
     <tr>
-      <th>Pf_ttT</th>
+      <th>mnTreatPf</th>
       <td><p>average waiting time from fever to treatment (exponentially distributed)</p></td>
     </tr>
     <tr>
-      <th>Pf_ttS</th>
+      <th>mnChemoprophylaxisPf</th>
       <td><p>constant period of proteection from chemoprophylaxis</p></td>
     </tr>
     <tr>
@@ -203,28 +204,28 @@
 #&gt; $Pf_b
 #&gt; [1] 0.55
 #&gt; 
-#&gt; $Pf_r
-#&gt; [1] 0.005
+#&gt; $DurationPf
+#&gt; [1] 200
 #&gt; 
-#&gt; $Pf_latent
-#&gt; [1] 0
-#&gt; 
-#&gt; $Pf_fever
-#&gt; [1] 0.3
-#&gt; 
-#&gt; $Pf_ttF
+#&gt; $LatentPf
 #&gt; [1] 10
 #&gt; 
-#&gt; $Pf_ttFvar
+#&gt; $FeverPf
+#&gt; [1] 0.3
+#&gt; 
+#&gt; $mnFeverPf
+#&gt; [1] 10
+#&gt; 
+#&gt; $vrFeverPf
 #&gt; [1] 0.1
 #&gt; 
 #&gt; $TreatPf
 #&gt; [1] 0.5
 #&gt; 
-#&gt; $Pf_ttT
+#&gt; $mnTreatPf
 #&gt; [1] 3
 #&gt; 
-#&gt; $Pf_ttS
+#&gt; $mnChemoprophylaxisPf
 #&gt; [1] 32
 #&gt; 
 #&gt; $PEProtectPf

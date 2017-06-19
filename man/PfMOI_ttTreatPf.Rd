@@ -7,7 +7,7 @@
 PfMOI_ttTreatPf()
 }
 \description{
-What is the timing of treatment relative to the start of a fever incident? See \code{\link{PfMOI.Parameters}} parameter \code{Pf_ttT} for mean waiting time of exponentially distributed waiting period.
+What is the timing of treatment relative to the start of a fever incident? See \code{\link{PfMOI.Parameters}} parameter \code{mnTreatPf} for mean waiting time of exponentially distributed waiting period.
 This method is called from \code{\link{}}
 This method is bound to \code{Human$ttTreatPf()}
 }

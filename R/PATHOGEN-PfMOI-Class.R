@@ -312,10 +312,12 @@ humanPfMOI <- R6::R6Class(classname="humanPfMOI",
                        ########################################
 
                        track_history = function(eventT , event){
-                         print("sean hasn't written track history yet for PfMOI")
                          private$history$events = c(private$history$events,event)
                          private$history$eventT = c(private$history$eventT,eventT)
-                         private$history$MOI = private$MOI
+                         private$history$MOI = c(private$history$MOI,private$MOI)
+                       },
+                       get_history = function(){
+                         return(private$history)
                        },
 
                        ########################################
