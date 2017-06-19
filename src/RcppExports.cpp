@@ -40,6 +40,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// HumanEventQ__firstTime
+int HumanEventQ__firstTime(MASH::RcppR6::RcppR6<MASH::HumanEventQ> obj_);
+RcppExport SEXP MASH_HumanEventQ__firstTime(SEXP obj_SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::HumanEventQ> >::type obj_(obj_SEXP);
+    rcpp_result_gen = Rcpp::wrap(HumanEventQ__firstTime(obj_));
+    return rcpp_result_gen;
+END_RCPP
+}
 // HumanEventQ__rmFirstEventFromQ
 void HumanEventQ__rmFirstEventFromQ(MASH::RcppR6::RcppR6<MASH::HumanEventQ> obj_);
 RcppExport SEXP MASH_HumanEventQ__rmFirstEventFromQ(SEXP obj_SEXP) {
@@ -99,6 +110,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"MASH_util_PfSIoneHistory", (DL_FUNC) &MASH_util_PfSIoneHistory, 3},
     {"MASH_HumanEventQ__ctor", (DL_FUNC) &MASH_HumanEventQ__ctor, 1},
     {"MASH_HumanEventQ__firstEvent", (DL_FUNC) &MASH_HumanEventQ__firstEvent, 1},
+    {"MASH_HumanEventQ__firstTime", (DL_FUNC) &MASH_HumanEventQ__firstTime, 1},
     {"MASH_HumanEventQ__rmFirstEventFromQ", (DL_FUNC) &MASH_HumanEventQ__rmFirstEventFromQ, 1},
     {"MASH_HumanEventQ__rmTagFromQ", (DL_FUNC) &MASH_HumanEventQ__rmTagFromQ, 2},
     {"MASH_HumanEventQ__get_queueN", (DL_FUNC) &MASH_HumanEventQ__get_queueN, 1},

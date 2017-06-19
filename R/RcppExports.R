@@ -23,6 +23,10 @@ HumanEventQ__firstEvent <- function(obj_) {
     .Call('MASH_HumanEventQ__firstEvent', PACKAGE = 'MASH', obj_)
 }
 
+HumanEventQ__firstTime <- function(obj_) {
+    .Call('MASH_HumanEventQ__firstTime', PACKAGE = 'MASH', obj_)
+}
+
 HumanEventQ__rmFirstEventFromQ <- function(obj_) {
     invisible(.Call('MASH_HumanEventQ__rmFirstEventFromQ', PACKAGE = 'MASH', obj_))
 }

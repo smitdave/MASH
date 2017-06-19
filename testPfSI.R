@@ -20,7 +20,7 @@ SimBitePfSI.Setup()
 # simulate a single human population
 #################################################################
 
-nHumans = 1e3
+nHumans = 500
 HumanPop_PAR = HumanPop.Parameters(nSite = 1,bWeight = NULL,siteSize = nHumans,siteMin = nHumans)
 pop = HumanPop$new(HumanPop_PAR)
 PfSI_PAR = PfSI.Parameters(TreatPf = 1)
@@ -64,7 +64,7 @@ simPars = replicate(n = 10,expr = PfSI.Parameters(),simplify = FALSE)
 simParOut = parallel::mclapply(X = simPars,FUN = function(x,PAR){
   pop = HumanPop$new(PAR)
   pop$set_PfSI_PAR(x)
-  pop$PfSI.Init(PfPR = 0)
+  pop$init_MICRO_PfSI(PfPR = 0)
   tMax = 365*5
   pop$queueBites_SimBitePfSI(tMax = tMax,bitingRate = 1/15)
   pop$queueVaccination_SimBitePfSI(tVaccine = (365*1),tTreat = (365*1)+1,fracPop = 0.75)

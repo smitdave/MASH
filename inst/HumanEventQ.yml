@@ -16,6 +16,8 @@ HumanEventQ:
   methods:
     firstEvent:
       return_type: "Rcpp::List"
+    firstTime:
+      return_type: int
     rmFirstEventFromQ:
       return_type: void
     rmTagFromQ:

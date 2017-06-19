@@ -22,6 +22,11 @@ public:
     return(EventQ.front());
   };
 
+  // return time of first event
+  int firstTime(){
+    return(EventQ[0]["tEvent"]);
+  };
+
   // remove first event from queue
   void rmFirstEventFromQ(){
     EventQ.erase(EventQ.begin());
