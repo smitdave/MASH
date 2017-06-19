@@ -31,7 +31,7 @@ tileParameters$MacroMosquitoPop_PAR$M_density = rep(200,nPatch)
 tile = MacroTile$new(MacroTile_PAR = tileParameters)
 
 PfPR = c(rep(0,nPatch/2),rep(0.75,nPatch/2))
-PfPR = rep(0,nPatch)
+# PfPR = rep(0,nPatch)
 tile$init_PfSI(PfPR = PfPR)
 
 tile$simMacro(1e3)

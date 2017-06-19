@@ -35,7 +35,7 @@ SimBitePfSI.Setup <- function(
             value = function(tEvent, PAR = NULL){
               PAR = list()
               PAR$mosquitoPfSI = mosquitoPfSI$new(PfID = -1L, tInf = -1L, spz = 1L, damID = -1L, sireID = -1L)
-              self$addEvent2Q(event = self$event_SimBitePfSI(tEvent = tEvent, PAR = PAR))
+              private$EventQueue$addEvent2Q(event = self$event_SimBitePfSI(tEvent = tEvent, PAR = PAR))
             }
   )
 
