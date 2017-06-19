@@ -71,7 +71,7 @@ Archive/
 #####################################
 # Media and other bloat-prone files
 #####################################
-*.png
+# *.png (NEED FOR VIGNETTES AND ARTICLE GRAPHICS)
 *.jpg
 *.ppt
 *.pptx

@@ -169,13 +169,14 @@ Human <- R6::R6Class(classname="Human",
                        #rmFirstEventFromQ:
                        rmFirstEventFromQ = function(){
                          private$eventQ = private$eventQ[-1]
-                         private$queueN = private$queueN - 1
+                         private$queueN = private$queueN - 1L
                        },
 
                        #rmTagFromQ: remove all events with certain tag
                        rmTagFromQ = function(tag){
                          rmIx = which(vapply(X = private$eventQ,FUN = function(x){x$tag},FUN.VALUE = character(1)) == tag)
                          private$eventQ = private$eventQ[-rmIx]
+                         private$queueN = private$queueN - length(rmIx)
                        },
 
                        #oneEvent:

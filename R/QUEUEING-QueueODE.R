@@ -1,13 +1,13 @@
-# #################################################################
-# #
-# #   MASH
-# #   R6-ified
-# #   Generic Bite Queueing Algorithms for SimBite
-# #   David Smith, Hector Sanchez, Sean Wu
-# #   June 13, 2017
-# #
-# #################################################################
+#################################################################
 #
+#   MASH
+#   R6-ified
+#   Generic Bite Queueing Algorithms for SimBite
+#   David Smith, Hector Sanchez, Sean Wu
+#   June 13, 2017
+#
+#################################################################
+
 # require(deSolve)
 # require(rootSolve)
 #
