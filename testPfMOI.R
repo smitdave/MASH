@@ -48,7 +48,7 @@ HumanPopulation$get_PfMOI_history()
 #################################################################
 
 # make a population of 1000 people
-nHumans = 200
+nHumans = 50
 HumanPop_PAR = HumanPop.Parameters(nSite = 1,bWeight = NULL,siteSize = nHumans,siteMin = nHumans)
 HumanPopulation = HumanPop$new(HumanPop_PAR)
 
