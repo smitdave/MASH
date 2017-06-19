@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppR6.R
 \name{HumanEventQ}
 \alias{HumanEventQ}
-\title{Human Event Queue}
+\title{Human Event Queue, bound to \code{Human$EventQueue} in class \code{\link{Human}}}
 \usage{
 HumanEventQ(initQ = 100)
 }
@@ -15,10 +15,21 @@ A class for queueing human events. Header file defined \href{https://github.com/
 \section{Methods}{
 
 \itemize{
-\item hi
-\itemize{
-\item nope.
+\item firstEvent: return first event in queue as named R list
+\item firstTime: return 'tEvent' slot in first event in queue
+\item rmFirstEventFromQ: remove first event in queue and update \code{queueN}
+\item rmTagFromQ(const std::string &tag): remove all events with certain tag from queue and update \code{queueN}
+\item get_queueN: return \code{queueN}
+\item get_EventQ: return entire \code{EventQ} as R list
+\item addEvent2Q(Rcpp::List event): add a list to the \code{EventQ} in correct time order and update \code{queueN}
 }
+}
+
+\section{Fields}{
+
+\itemize{
+\item EventQ: \code{std::vector<Rcpp::List>}
+\item queueN: integer value of size of queue.
 }
 }
 

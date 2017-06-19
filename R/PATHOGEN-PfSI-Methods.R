@@ -342,7 +342,7 @@ infectiousBite_PfSI <- function(tBite, PAR){
 #' @param tEvent time of infection
 #' @param PAR \code{NULL}
 add2Q_infectHumanPfSI <- function(tEvent, PAR = NULL){
-  self$addEvent2Q(event = self$event_infectHumanPfSI(tEvent = tEvent, PAR = PAR))
+  private$EventQueue$addEvent2Q(event = self$event_infectHumanPfSI(tEvent = tEvent, PAR = PAR))
 }
 
 #' PfSI \code{Human} Event: Generate PfSI Infection Event
@@ -400,7 +400,7 @@ infectHumanPfSI <- function(tEvent, PAR){
 #' @param tEvent time of event
 #' @param PAR \code{NULL}
 add2Q_endPfSI <- function(tEvent, PAR = NULL){
-  self$addEvent2Q(event = self$event_endPfSI(tEvent = tEvent, PAR = PAR))
+  private$EventQueue$addEvent2Q(event = self$event_endPfSI(tEvent = tEvent, PAR = PAR))
 }
 
 #' PfSI \code{Human} Event: Generate PfSI Clearance Event
@@ -445,7 +445,7 @@ endPfSI <- function(tEvent, PAR){
 #' @param tEvent time of event
 #' @param PAR \code{NULL}
 add2Q_feverPfSI <- function(tEvent, PAR = NULL){
-  self$addEvent2Q(event = self$event_feverPfSI(tEvent = tEvent, PAR = PAR))
+  private$EventQueue$addEvent2Q(event = self$event_feverPfSI(tEvent = tEvent, PAR = PAR))
 }
 
 #' PfSI \code{Human} Event: Generate PfSI Fever Event
@@ -493,7 +493,7 @@ feverPfSI <- function(tEvent, PAR){
 #' @param tEvent time of fever
 #' @param PAR \code{NULL}
 add2Q_treatPfSI <- function(tEvent, PAR = NULL){
-  self$addEvent2Q(event = self$event_treatPfSI(tEvent = tEvent, PAR = PAR))
+  private$EventQueue$addEvent2Q(event = self$event_treatPfSI(tEvent = tEvent, PAR = PAR))
 }
 
 #' PfSI \code{Human} Event: Generate PfSI Treatment Event
@@ -546,7 +546,7 @@ treatPfSI <- function(tEvent, PAR){
 #' @param tEvent time of event
 #' @param PAR \code{NULL}
 add2Q_endprophylaxisPfSI <- function(tEvent, PAR = NULL){
-  self$addEvent2Q(event = self$event_endprophylaxisPfSI(tEvent = tEvent, PAR = PAR))
+  private$EventQueue$addEvent2Q(event = self$event_endprophylaxisPfSI(tEvent = tEvent, PAR = PAR))
 }
 
 #' PfSI \code{Human} Event: Generate PfSI End of Chemoprophylaxis Event
@@ -592,7 +592,7 @@ endprophylaxisPfSI <- function(tEvent, PAR){
 #' @param tEvent time of vaccination
 #' @param PAR \code{NULL}
 add2Q_pevaccinatePfSI <- function(tEvent, PAR = NULL){
-  self$addEvent2Q(event = self$event_pevaccinatePfSI(tEvent = tEvent, PAR = PAR))
+  private$EventQueue$addEvent2Q(event = self$event_pevaccinatePfSI(tEvent = tEvent, PAR = PAR))
 }
 
 #' PfSI \code{Human} Event: Generate PfSI PE Vaccination Event
@@ -635,7 +635,7 @@ pevaccinatePfSI <- function(tEvent, PAR){
 #' @param tEvent time of vaccination
 #' @param PAR \code{NULL}
 add2Q_pewanePfSI <- function(tEvent, PAR = NULL){
-  self$addEvent2Q(event = self$event_pewanePfSI(tEvent = tEvent, PAR = PAR))
+  private$EventQueue$addEvent2Q(event = self$event_pewanePfSI(tEvent = tEvent, PAR = PAR))
 }
 
 #' PfSI \code{Human} Event: Generate PfSI PE Waning Protection Event
@@ -680,7 +680,7 @@ pewanePfSI <- function(tEvent, PAR){
 #' @param tEvent time of vaccination
 #' @param PAR \code{NULL}
 add2Q_gsvaccinatePfSI <- function(tEvent, PAR = NULL){
-  self$addEvent2Q(event = self$event_gsvaccinatePfSI(tEvent = tEvent, PAR = PAR))
+  private$EventQueue$addEvent2Q(event = self$event_gsvaccinatePfSI(tEvent = tEvent, PAR = PAR))
 }
 
 #' PfSI \code{Human} Event: Generate PfSI GS Vaccination Event
@@ -723,7 +723,7 @@ gsvaccinatePfSI <- function(tEvent, PAR){
 #' @param tEvent time of vaccination
 #' @param PAR \code{NULL}
 add2Q_gswanePfSI <- function(tEvent, PAR = NULL){
-  self$addEvent2Q(event = self$event_gswanePfSI(tEvent = tEvent, PAR = PAR))
+  private$EventQueue$addEvent2Q(event = self$event_gswanePfSI(tEvent = tEvent, PAR = PAR))
 }
 
 #' PfSI \code{Human} Event: Generate PfSI GS Waning Protection Event
