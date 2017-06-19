@@ -1,0 +1,32 @@
+HumanEventQ:
+  name_cpp: MASH::HumanEventQ
+  forward_declare: true
+  constructor:
+    roxygen: |
+      A class for queueing human events. Header file defined [here](https://github.com/slwu89/RcppQueues/blob/master/inst/include/RcppQueues/HumanEventQ.hpp) and `RcppR6` export handled [here](https://github.com/slwu89/RcppQueues/blob/master/inst/HumanEventQ.yml).
+      @title Human Event Queue
+      @param initQ reserve memory for \code{initQ} number of events
+      @section Methods:
+        * hi
+          * nope.
+      @md
+      @export
+    args:
+      - initQ: int = 100
+  methods:
+    firstEvent:
+      return_type: "Rcpp::List"
+    rmFirstEventFromQ:
+      return_type: void
+    rmTagFromQ:
+      args:
+        - tag: "std::string"
+      return_type: void
+    get_queueN:
+      return_type: int
+    addEvent2Q:
+      args:
+        - event: "Rcpp::List"
+      return_type: void
+    get_eventQ:
+      return_type: "Rcpp::List"
