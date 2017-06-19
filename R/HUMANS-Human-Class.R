@@ -55,7 +55,7 @@ Human <- R6::R6Class(classname="Human",
                          private$hhID = hhID
                          private$bDay = bDay
                          private$bWeight = bWeight
-                         private$eventQ[[1]] = self$event_maxDeath()
+                         private$EventQueue = HumanEventQ()
                        },
 
                        #################################################
@@ -150,42 +150,12 @@ Human <- R6::R6Class(classname="Human",
                        # Event Queue
                        #################################################
 
-                       #addEvent2Q: add a single event to the event queue in proper location
-                       addEvent2Q = function(event){
-
-                         NN = private$queueN
-                         tt = sapply(X = private$eventQ,FUN = function(x){x$tEvent})
-                         private$queueN = NN + 1
-                         ix = which(event$tEvent > tt)
-                         if(length(ix)==0){ #if event has already occured at event$tEvent <= tt; advance to front of queue
-                           private$eventQ = c(list(event),private$eventQ)
-                         } else { #if event will occur at event$tEvent > tt; place at proper position in queue
-                           ixn = c(1:NN)[-ix]
-                           private$eventQ = c(private$eventQ[ix],list(event),private$eventQ[ixn])
-                         }
-
-                       },
-
-                       #rmFirstEventFromQ:
-                       rmFirstEventFromQ = function(){
-                         private$eventQ = private$eventQ[-1]
-                         private$queueN = private$queueN - 1L
-                       },
-
-                       #rmTagFromQ: remove all events with certain tag
-                       rmTagFromQ = function(tag){
-                         rmIx = which(vapply(X = private$eventQ,FUN = function(x){x$tag},FUN.VALUE = character(1)) == tag)
-                         private$eventQ = private$eventQ[-rmIx]
-                         private$queueN = private$queueN - length(rmIx)
-                       },
-
                        #oneEvent:
                        oneEvent = function(tPause){
-                         tEvent = private$eventQ[[1]]$tEvent #extract time of event
-                         PAR = private$eventQ[[1]]$PAR #extract PAR of event
-                         tag = private$eventQ[[1]]$tag
-                         self$runEvent(tEvent, PAR, tag)
-                         self$rmFirstEventFromQ()
+                        event = private$EventQueue$firstEvent()
+                        self$runEvent(tEvent = event$tEvent, PAR = event$PAR, tag = event$tag)
+                        private$EventQueue$rmFirstEventFromQ()
+
                        },
 
                        # run an event
@@ -195,12 +165,13 @@ Human <- R6::R6Class(classname="Human",
 
                        #liveLife:
                        liveLife = function(tPause){
-                         while(private$Alive & private$eventQ[[1]]$tEvent < tPause){
-                           self$oneEvent(tPause)
-                           if(private$queueN == 0){
-                             break()
-                           }
-                         }
+                        while(private$Alive & private$EventQueue$firstTime() < tPause){
+                          self$oneEvent(tPause)
+                          if(private$EventQueue$get_queueN()==0){
+                            break()
+                          }
+                        }
+
                        },
 
                        #################################################
@@ -242,8 +213,7 @@ Human <- R6::R6Class(classname="Human",
                        height = 0,
 
                        #Event Queue
-                       eventQ = list(), #event queue
-                       queueN = 1, #number of events in queue
+                       EventQueue = NULL,
 
                        # Event History
                        events = c("init"),

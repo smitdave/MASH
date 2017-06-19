@@ -77,7 +77,7 @@ SimBitePfMOI.Setup <- function(PfMOI_PAR = NULL, overwrite = TRUE){
 add2Q_SimBitePfMOI <- function(tEvent, PAR = NULL){
   PAR = list()
   PAR$mosquitoPfMOI = mosquitoPfMOI$new(PfID = -1L, tInf = -1L, MOI = 1L, damID = -1L, sireID = -1L)
-  self$addEvent2Q(event = self$event_SimBitePfMOI(tEvent = tEvent, PAR = PAR))
+  private$EventQueue$addEvent2Q(event = self$event_SimBitePfMOI(tEvent = tEvent, PAR = PAR))
 }
 
 

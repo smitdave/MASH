@@ -366,7 +366,7 @@ infectiousBite_PfMOI <- function(tBite, PAR){
 #' @param tEvent time of infection
 #' @param PAR single clonal variant returned from \code{mosquitoPfMOI$get_clone()}
 add2Q_infectHumanPfMOI <- function(tEvent, PAR = NULL){
-  self$addEvent2Q(event = self$event_infectHumanPfMOI(tEvent = tEvent, PAR = PAR))
+  private$EventQueue$addEvent2Q(event = self$event_infectHumanPfMOI(tEvent = tEvent, PAR = PAR))
 }
 
 #' PfMOI \code{Human} Event: Generate PfMOI Infection Event
@@ -430,7 +430,7 @@ infectHumanPfMOI <- function(tEvent, PAR){
 #'  * PfID: PfID of the infection to end
 #' @md
 add2Q_endPfMOI <- function(tEvent, PAR = NULL){
-  self$addEvent2Q(event = self$event_endPfMOI(tEvent = tEvent, PAR = PAR))
+  private$EventQueue$addEvent2Q(event = self$event_endPfMOI(tEvent = tEvent, PAR = PAR))
 }
 
 #' PfMOI \code{Human} Event: Generate PfMOI Clearance Event
@@ -481,7 +481,7 @@ endPfMOI <- function(tEvent, PAR){
 #' @param PAR \code{NULL}
 #' @md
 add2Q_feverPfMOI <- function(tEvent, PAR = NULL){
-  self$addEvent2Q(event = self$event_feverPfMOI(tEvent = tEvent, PAR = PAR))
+  private$EventQueue$addEvent2Q(event = self$event_feverPfMOI(tEvent = tEvent, PAR = PAR))
 }
 
 #' PfMOI \code{Human} Event: Generate PfMOI Fever Event
@@ -531,7 +531,7 @@ feverPfMOI <- function(tEvent, PAR){
 #' @param tEvent time of fever
 #' @param PAR \code{NULL}
 add2Q_treatPfMOI <- function(tEvent, PAR = NULL){
-  self$addEvent2Q(event = self$event_treatPfMOI(tEvent = tEvent, PAR = PAR))
+  private$EventQueue$addEvent2Q(event = self$event_treatPfMOI(tEvent = tEvent, PAR = PAR))
 }
 
 #' PfMOI \code{Human} Event: Generate PfMOI Treatment Event
@@ -559,7 +559,7 @@ treatPfMOI <- function(tEvent, PAR){
 
   private$Pathogens$Pf$set_MOI(MOI = 0L)
   private$Pathogens$Pf$set_chemoprophylaxis(TRUE)
-  self$rmTagFromQ(tag = "endPfMOI") # take out all clearance events
+  private$EventQueue$rmTagFromQ(tag = "endPfMOI") # take out all clearance events
 
   private$Pathogens$Pf$track_history(eventT = tEvent, event = "S")
   private$Pathogens$Pf$track_history(eventT = tEvent, event = "P")
@@ -583,7 +583,7 @@ treatPfMOI <- function(tEvent, PAR){
 #' @param tEvent time of event
 #' @param PAR \code{NULL}
 add2Q_endprophylaxisPfMOI <- function(tEvent, PAR = NULL){
-  self$addEvent2Q(event = self$event_endprophylaxisPfMOI(tEvent = tEvent, PAR = PAR))
+  private$EventQueue$addEvent2Q(event = self$event_endprophylaxisPfMOI(tEvent = tEvent, PAR = PAR))
 }
 
 #' PfMOI \code{Human} Event: Generate PfMOI End of Chemoprophylaxis Event
@@ -629,7 +629,7 @@ endprophylaxisPfMOI <- function(tEvent, PAR){
 #' @param tEvent time of vaccination
 #' @param PAR \code{NULL}
 add2Q_pevaccinatePfMOI <- function(tEvent, PAR = NULL){
-  self$addEvent2Q(event = self$event_pevaccinatePfMOI(tEvent = tEvent, PAR = PAR))
+  private$EventQueue$addEvent2Q(event = self$event_pevaccinatePfMOI(tEvent = tEvent, PAR = PAR))
 }
 
 #' PfMOI \code{Human} Event: Generate PfMOI PE Vaccination Event
@@ -672,7 +672,7 @@ pevaccinatePfMOI <- function(tEvent, PAR){
 #' @param tEvent time of vaccination
 #' @param PAR \code{NULL}
 add2Q_pewanePfMOI <- function(tEvent, PAR = NULL){
-  self$addEvent2Q(event = self$event_pewanePfMOI(tEvent = tEvent, PAR = PAR))
+  private$EventQueue$addEvent2Q(event = self$event_pewanePfMOI(tEvent = tEvent, PAR = PAR))
 }
 
 #' PfMOI \code{Human} Event: Generate PfMOI PE Waning Protection Event
@@ -718,7 +718,7 @@ pewanePfMOI <- function(tEvent, PAR){
 #' @param tEvent time of vaccination
 #' @param PAR \code{NULL}
 add2Q_gsvaccinatePfMOI <- function(tEvent, PAR = NULL){
-  self$addEvent2Q(event = self$event_gsvaccinatePfMOI(tEvent = tEvent, PAR = PAR))
+  private$EventQueue$addEvent2Q(event = self$event_gsvaccinatePfMOI(tEvent = tEvent, PAR = PAR))
 }
 
 #' PfMOI \code{Human} Event: Generate PfMOI GS Vaccination Event
@@ -761,7 +761,7 @@ gsvaccinatePfMOI <- function(tEvent, PAR){
 #' @param tEvent time of vaccination
 #' @param PAR \code{NULL}
 add2Q_gswanePfMOI <- function(tEvent, PAR = NULL){
-  self$addEvent2Q(event = self$event_gswanePfMOI(tEvent = tEvent, PAR = PAR))
+  private$EventQueue$addEvent2Q(event = self$event_gswanePfMOI(tEvent = tEvent, PAR = PAR))
 }
 
 #' PfMOI \code{Human} Event: Generate PfMOI GS Waning Protection Event
