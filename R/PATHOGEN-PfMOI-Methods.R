@@ -94,16 +94,17 @@ HumanPop_set_PfMOI_PAR <- function(PfMOI_PAR){
   }
 }
 
-# #' PfMOI \code{HumanPop} Method: Get PfMOI Histories
-# #'
-# #' Get all PfMOI histories, stored in class \code{\link{humanPfMOI}}
-# #' This function is bound to \code{HumanPop$get_PfMOI_history()}
-# HumanPop_get_PfMOI_history <- function(){
-#   PfMOI_history = vector(mode="list",length=self$nHumans)
-#   for(ixH in 1:self$nHumans){
-#     PfMOI_history[[ixH]] = private$pop[[ixH]]$
-#   }
-# }
+#' PfMOI \code{HumanPop} Method: Get PfMOI Histories
+#'
+#' Get all PfMOI histories, stored in class \code{\link{humanPfMOI}}
+#' This function is bound to \code{HumanPop$get_PfMOI_history()}
+HumanPop_get_PfMOI_history <- function(){
+  PfMOI_history = vector(mode="list",length=self$nHumans)
+  for(ixH in 1:self$nHumans){
+    PfMOI_history[[ixH]] = private$pop[[ixH]]$get_humanPfMOI()$get_history()
+  }
+  return(PfMOI_history)
+}
 
 ###################################################################
 # Add PfMOI Pathogen Object to 'Human' & 'HumanPop' Class

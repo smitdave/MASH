@@ -182,6 +182,13 @@ PfMOI.Setup <- function(
             overwrite = overwrite
   )
 
+  # get PfMOI history
+  HumanPop$set(which = "public",name = "get_PfMOI_history",
+            value = HumanPop_get_PfMOI_history,
+            overwrite = overwrite
+  )
+
+
   #################################################################
   # PfMOI Event Timing
   #################################################################

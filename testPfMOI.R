@@ -40,7 +40,7 @@ HumanPopulation$queueBites_SimBitePfMOI(bites = list(c(1,2,3),c(1,2,3)))
 # run SimBitePfMOI module
 HumanPopulation$simHumans(tPause = tMax+10)
 
-HumanPopulation$get_Human(1)$get_humanPfMOI()$get_history()
+HumanPopulation$get_PfMOI_history()
 
 
 # #################################################################
