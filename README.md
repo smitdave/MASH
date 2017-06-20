@@ -2,7 +2,7 @@
 
 ### Overview of MASH
 
-* This repository contains the most current stable version of the `MASH` project. This repository is a package for the R programming language, and can be installed by the R command: `devtools::install_github(repo = "smitdave/MASH", ref = "MASH")`. 
+* This repository contains the most current stable version of the `MASH` project. This repository is a package for the R programming language, and can be installed by the R command: `devtools::install_github(repo = "smitdave/MASH")`. 
 * `MASH` is being reprogrammed in R6 OOP style for greater flexibility of the code, better representation of the authors' vision in code, more durable codebase, true modularity, and more logical opportunities for parallelism.
 * The R6 class framework can be found here: https://github.com/wch/R6
 * `MASH` currently has a placeholder docs website at: https://smitdave.github.io/MASH/index.html which is being built with `pkgdown`.
