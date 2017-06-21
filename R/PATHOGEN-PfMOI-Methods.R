@@ -658,7 +658,7 @@ pevaccinatePfMOI <- function(tEvent, PAR){
   if(runif(1) < private$PfMOI_PAR$PEProtectPf){
     private$Pathogens$Pf$set_b(private$PfMOI_PAR$Pf_b * (1-private$PfMOI_PAR$peBlockPf))
     self$add2Q_pewanePfMOI(tEvent = tEvent)
-    self$track_history(eventT = tEvent, event = "PEvaxx")
+    private$Pathogens$Pf$track_history(eventT = tEvent, event = "PEvaxx")
   }
 }
 
@@ -700,7 +700,7 @@ event_pewanePfMOI <- function(tEvent, PAR = NULL){
 #' @param PAR \code{NULL}
 pewanePfMOI <- function(tEvent, PAR){
   private$Pathogens$Pf$set_b(private$PfMOI_PAR$Pf_b)
-  self$track_history(eventT = tEvent, event = "PEwane")
+  private$Pathogens$Pf$track_history(eventT = tEvent, event = "PEwane")
 }
 
 
@@ -747,7 +747,7 @@ gsvaccinatePfMOI <- function(tEvent, PAR){
   if(runif(1) < private$PfMOI_PAR$GSProtectPf){
     private$Pathogens$Pf$set_c(private$PfMOI_PAR$Pf_c * (1-private$PfMOI_PAR$gsBlockPf))
     self$add2Q_gswanePfMOI(tEvent = tEvent)
-    self$track_history(eventT = tEvent, event = "GSvaxx")
+    private$Pathogens$Pf$track_history(eventT = tEvent, event = "GSvaxx")
   }
 }
 
@@ -789,5 +789,5 @@ event_gswanePfMOI <- function(tEvent, PAR = NULL){
 #' @param PAR \code{NULL}
 gswanePfMOI <- function(tEvent, PAR){
   private$Pathogens$Pf$set_c(private$PfMOI_PAR$Pf_c)
-  self$track_history(eventT = tEvent, event = "GSwane")
+  private$Pathogens$Pf$track_history(eventT = tEvent, event = "GSwane")
 }

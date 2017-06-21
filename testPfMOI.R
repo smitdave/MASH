@@ -61,7 +61,7 @@ HumanPopulation$init_MICRO_PfMOI(PfMOI = NULL)
 tMax = 365*5
 bites = SimBite_MeanBites(nH = nHumans,meanNumberBites = 100,days = tMax,plot = FALSE)
 HumanPopulation$queueBites_SimBitePfMOI(bites = bites)
-# HumanPopulation$queueVaccination_SimBitePfMOI(tVaccine = 365*3,tTreat = (365*3)+1,fracPop = 0.25)
+HumanPopulation$queueVaccination_SimBitePfMOI(tVaccine = 365*3,tTreat = (365*3)+1,fracPop = 0.25)
 
 # run SimBitePfMOI module
 # debug(HumanPopulation$get_Human(1)$probeHost_PfMOI)
