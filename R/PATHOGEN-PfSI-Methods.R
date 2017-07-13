@@ -21,7 +21,6 @@ Human_get_PfSI_PAR <- function(ix = NULL){
   }
 }
 
-
 #' PfSI \code{Human} Method: Set PfSI_PAR
 #'
 #' Set either entire list of PfSI_PAR. See \code{\link{PfSI.Parameters}} for definitions.
