@@ -64,7 +64,7 @@ sitePops <- function(N, siteSize = 10, siteMin = 2){
     iterID = iterID + sitePops[ix]
   }
 
-  homeHumanID = rep(1:N,times=sapply(siteHumanID,length))
+  homeHumanID = rep(1:nPatches,times=vapply(X = siteHumanID,FUN = length,FUN.VALUE = integer(1)))
 
   return(
     list(
