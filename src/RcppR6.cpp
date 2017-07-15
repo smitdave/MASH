@@ -34,4 +34,30 @@ Rcpp::List HumanEventQ__get_EventQ(MASH::RcppR6::RcppR6<MASH::HumanEventQ> obj_)
   return obj_->get_EventQ();
 }
 
+// [[Rcpp::export]]
+MASH::HistoryGeneric HistoryGeneric__ctor(int N) {
+  return MASH::HistoryGeneric(N);
+}
+// [[Rcpp::export]]
+void HistoryGeneric__track_history(MASH::RcppR6::RcppR6<MASH::HistoryGeneric> obj_, double tEvent, std::string event) {
+  obj_->track_history(tEvent, event);
+}
+// [[Rcpp::export]]
+Rcpp::List HistoryGeneric__get_history(MASH::RcppR6::RcppR6<MASH::HistoryGeneric> obj_) {
+  return obj_->get_history();
+}
+
+// [[Rcpp::export]]
+MASH::HistoryTravel HistoryTravel__ctor(int N) {
+  return MASH::HistoryTravel(N);
+}
+// [[Rcpp::export]]
+void HistoryTravel__track_travel(MASH::RcppR6::RcppR6<MASH::HistoryTravel> obj_, double tTravel, int locationH) {
+  obj_->track_travel(tTravel, locationH);
+}
+// [[Rcpp::export]]
+Rcpp::List HistoryTravel__get_travelHistory(MASH::RcppR6::RcppR6<MASH::HistoryTravel> obj_) {
+  return obj_->get_travelHistory();
+}
+
 

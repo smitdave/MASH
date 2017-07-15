@@ -11,6 +11,12 @@ namespace traits {
 template <> inline std::string   class_name_r<MASH::HumanEventQ >() {return "HumanEventQ";}
 template <> inline std::string   package_name<MASH::HumanEventQ >() {return "MASH";}
 template <> inline std::string generator_name<MASH::HumanEventQ >() {return ".R6_HumanEventQ";}
+template <> inline std::string   class_name_r<MASH::HistoryGeneric >() {return "HistoryGeneric";}
+template <> inline std::string   package_name<MASH::HistoryGeneric >() {return "MASH";}
+template <> inline std::string generator_name<MASH::HistoryGeneric >() {return ".R6_HistoryGeneric";}
+template <> inline std::string   class_name_r<MASH::HistoryTravel >() {return "HistoryTravel";}
+template <> inline std::string   package_name<MASH::HistoryTravel >() {return "MASH";}
+template <> inline std::string generator_name<MASH::HistoryTravel >() {return ".R6_HistoryTravel";}
 }
 }
 }
@@ -37,6 +43,18 @@ template <> inline SEXP wrap(const MASH::HumanEventQ& x) {
 }
 template <> inline MASH::HumanEventQ as(SEXP x) {
   return *(MASH::RcppR6::RcppR6<MASH::HumanEventQ>(x));
+}
+template <> inline SEXP wrap(const MASH::HistoryGeneric& x) {
+  return wrap(MASH::RcppR6::RcppR6<MASH::HistoryGeneric>(x));
+}
+template <> inline MASH::HistoryGeneric as(SEXP x) {
+  return *(MASH::RcppR6::RcppR6<MASH::HistoryGeneric>(x));
+}
+template <> inline SEXP wrap(const MASH::HistoryTravel& x) {
+  return wrap(MASH::RcppR6::RcppR6<MASH::HistoryTravel>(x));
+}
+template <> inline MASH::HistoryTravel as(SEXP x) {
+  return *(MASH::RcppR6::RcppR6<MASH::HistoryTravel>(x));
 }
 }
 

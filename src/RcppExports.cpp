@@ -105,6 +105,74 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// HistoryGeneric__ctor
+MASH::HistoryGeneric HistoryGeneric__ctor(int N);
+RcppExport SEXP MASH_HistoryGeneric__ctor(SEXP NSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type N(NSEXP);
+    rcpp_result_gen = Rcpp::wrap(HistoryGeneric__ctor(N));
+    return rcpp_result_gen;
+END_RCPP
+}
+// HistoryGeneric__track_history
+void HistoryGeneric__track_history(MASH::RcppR6::RcppR6<MASH::HistoryGeneric> obj_, double tEvent, std::string event);
+RcppExport SEXP MASH_HistoryGeneric__track_history(SEXP obj_SEXP, SEXP tEventSEXP, SEXP eventSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::HistoryGeneric> >::type obj_(obj_SEXP);
+    Rcpp::traits::input_parameter< double >::type tEvent(tEventSEXP);
+    Rcpp::traits::input_parameter< std::string >::type event(eventSEXP);
+    HistoryGeneric__track_history(obj_, tEvent, event);
+    return R_NilValue;
+END_RCPP
+}
+// HistoryGeneric__get_history
+Rcpp::List HistoryGeneric__get_history(MASH::RcppR6::RcppR6<MASH::HistoryGeneric> obj_);
+RcppExport SEXP MASH_HistoryGeneric__get_history(SEXP obj_SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::HistoryGeneric> >::type obj_(obj_SEXP);
+    rcpp_result_gen = Rcpp::wrap(HistoryGeneric__get_history(obj_));
+    return rcpp_result_gen;
+END_RCPP
+}
+// HistoryTravel__ctor
+MASH::HistoryTravel HistoryTravel__ctor(int N);
+RcppExport SEXP MASH_HistoryTravel__ctor(SEXP NSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type N(NSEXP);
+    rcpp_result_gen = Rcpp::wrap(HistoryTravel__ctor(N));
+    return rcpp_result_gen;
+END_RCPP
+}
+// HistoryTravel__track_travel
+void HistoryTravel__track_travel(MASH::RcppR6::RcppR6<MASH::HistoryTravel> obj_, double tTravel, int locationH);
+RcppExport SEXP MASH_HistoryTravel__track_travel(SEXP obj_SEXP, SEXP tTravelSEXP, SEXP locationHSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::HistoryTravel> >::type obj_(obj_SEXP);
+    Rcpp::traits::input_parameter< double >::type tTravel(tTravelSEXP);
+    Rcpp::traits::input_parameter< int >::type locationH(locationHSEXP);
+    HistoryTravel__track_travel(obj_, tTravel, locationH);
+    return R_NilValue;
+END_RCPP
+}
+// HistoryTravel__get_travelHistory
+Rcpp::List HistoryTravel__get_travelHistory(MASH::RcppR6::RcppR6<MASH::HistoryTravel> obj_);
+RcppExport SEXP MASH_HistoryTravel__get_travelHistory(SEXP obj_SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::HistoryTravel> >::type obj_(obj_SEXP);
+    rcpp_result_gen = Rcpp::wrap(HistoryTravel__get_travelHistory(obj_));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"MASH_util_PfSIoneHistory", (DL_FUNC) &MASH_util_PfSIoneHistory, 3},
@@ -116,6 +184,12 @@ static const R_CallMethodDef CallEntries[] = {
     {"MASH_HumanEventQ__get_queueN", (DL_FUNC) &MASH_HumanEventQ__get_queueN, 1},
     {"MASH_HumanEventQ__addEvent2Q", (DL_FUNC) &MASH_HumanEventQ__addEvent2Q, 2},
     {"MASH_HumanEventQ__get_EventQ", (DL_FUNC) &MASH_HumanEventQ__get_EventQ, 1},
+    {"MASH_HistoryGeneric__ctor", (DL_FUNC) &MASH_HistoryGeneric__ctor, 1},
+    {"MASH_HistoryGeneric__track_history", (DL_FUNC) &MASH_HistoryGeneric__track_history, 3},
+    {"MASH_HistoryGeneric__get_history", (DL_FUNC) &MASH_HistoryGeneric__get_history, 1},
+    {"MASH_HistoryTravel__ctor", (DL_FUNC) &MASH_HistoryTravel__ctor, 1},
+    {"MASH_HistoryTravel__track_travel", (DL_FUNC) &MASH_HistoryTravel__track_travel, 3},
+    {"MASH_HistoryTravel__get_travelHistory", (DL_FUNC) &MASH_HistoryTravel__get_travelHistory, 1},
     {NULL, NULL, 0}
 };
 

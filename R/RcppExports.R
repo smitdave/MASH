@@ -47,3 +47,27 @@ HumanEventQ__get_EventQ <- function(obj_) {
     .Call('MASH_HumanEventQ__get_EventQ', PACKAGE = 'MASH', obj_)
 }
 
+HistoryGeneric__ctor <- function(N) {
+    .Call('MASH_HistoryGeneric__ctor', PACKAGE = 'MASH', N)
+}
+
+HistoryGeneric__track_history <- function(obj_, tEvent, event) {
+    invisible(.Call('MASH_HistoryGeneric__track_history', PACKAGE = 'MASH', obj_, tEvent, event))
+}
+
+HistoryGeneric__get_history <- function(obj_) {
+    .Call('MASH_HistoryGeneric__get_history', PACKAGE = 'MASH', obj_)
+}
+
+HistoryTravel__ctor <- function(N) {
+    .Call('MASH_HistoryTravel__ctor', PACKAGE = 'MASH', N)
+}
+
+HistoryTravel__track_travel <- function(obj_, tTravel, locationH) {
+    invisible(.Call('MASH_HistoryTravel__track_travel', PACKAGE = 'MASH', obj_, tTravel, locationH))
+}
+
+HistoryTravel__get_travelHistory <- function(obj_) {
+    .Call('MASH_HistoryTravel__get_travelHistory', PACKAGE = 'MASH', obj_)
+}
+

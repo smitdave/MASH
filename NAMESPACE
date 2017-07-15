@@ -2,6 +2,8 @@
 
 export(AquaticSite)
 export(FeedingSite)
+export(HistoryGeneric)
+export(HistoryTravel)
 export(Human)
 export(HumanEventQ)
 export(HumanPop)

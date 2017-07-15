@@ -185,7 +185,7 @@ Human <- R6::R6Class(classname="Human",
 
                        # death: the death event
                        death = function(tEvent, PAR){
-                         self$track_History(tEvent = tEvent, event = "D")
+                         self$track_history(tEvent = tEvent, event = "D")
                          private$Alive = FALSE
                        },
 
@@ -193,7 +193,7 @@ Human <- R6::R6Class(classname="Human",
                        # Auxiliary Functions
                        #################################################
 
-                       track_History = function(tEvent, event){
+                       track_history = function(tEvent, event){
                          private$events = c(private$events, event)
                          private$eventT = c(private$eventT, tEvent)
                        }
