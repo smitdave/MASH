@@ -44,6 +44,8 @@ MacroHuman_updateKappa <- function(){
     private$pop[[ixH]]$sumKappa()
   }
   newKappa = (self$get_PatchesPointer()$get_kappa() / (self$get_PatchesPointer()$get_bWeightHuman() + self$get_PatchesPointer()$get_bWeightZoo() + self$get_PatchesPointer()$get_bWeightZootox()))
+  noPeople = which(is.nan(newKappa)) # PATCH_CODE
+  newKappa[noPeople] = 0 # PATCH_CODE
   self$get_PatchesPointer()$set_kappa(kappa = newKappa)
 }
 

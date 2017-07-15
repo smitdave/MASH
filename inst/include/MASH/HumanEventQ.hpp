@@ -11,7 +11,7 @@ inline bool compare_tEvent(const Rcpp::List& eventA, const Rcpp::List& eventB) {
 class HumanEventQ {
 public:
   // constructor
-  HumanEventQ(const int &initQ){
+  HumanEventQ(const int &initQ = 100){
     EventQ.reserve(initQ);
     EventQ.push_back(Rcpp::List::create(Rcpp::Named("tEvent")=73000,Rcpp::Named("PAR")=R_NilValue,Rcpp::Named("tag")="death"));
     queueN = EventQ.size();

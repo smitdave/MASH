@@ -70,14 +70,26 @@ MacroMosquitoPop$set(which = "public",name = "layEggs",
 #'
 oneDay_RM <- function(){
 
+  # browser() # DEBUG
+
+  # if(any(is.nan(private$Z))){browser()} # DEBUG
+
   #Mosquito Survival
   M = private$p * private$M
   Y = private$p * private$Y
   Z = private$p * private$Z
   ZZ = private$ZZ
 
+  # if(any(is.nan(Z) || any(is.nan(ZZ)))){browser()} # DEBUG
+
   # Infected Mosquitoes
   Y0 = private$f * private$Q * private$PatchesPointer$get_kappa() * (M - Y)
+  if(any(Y0<0)){
+    ix = which(Y0<0)
+    Y0[ix] = 0
+  }
+  # PATCH_CODE : maybe floor M-Y at 0
+  # Y0 = private$f * private$Q * private$PatchesPointer$get_kappa() * M
   Y = Y + Y0
 
   # Migration & Sporozoite Maturation
@@ -89,8 +101,12 @@ oneDay_RM <- function(){
     Z = Z + ZZ[1,]
   }
 
+  # if(any(is.nan(Z) || any(is.nan(ZZ)))){browser()} # DEBUG
+
   ZZ[-private$maxEIP,] = ZZ[-1,]
   ZZ[private$maxEIP,] = 0
+
+  # if(any(is.nan(Z) || any(is.nan(ZZ)))){browser()} # DEBUG
 
   EIP = self$getEIP(t)
   if(!is.null(private$psi)){
@@ -98,6 +114,8 @@ oneDay_RM <- function(){
   } else {
     ZZ[EIP,] = ZZ[EIP,] + private$P[EIP] * Y0
   }
+
+  # if(any(is.nan(Z) || any(is.nan(ZZ)))){browser()} # DEBUG
 
   private$M = M
   private$Y = Y
