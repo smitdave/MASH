@@ -36,6 +36,63 @@ humanPfSIcpp:
       - infected_init: bool = FALSE
       - chemoprophylaxis_init: bool = FALSE
   methods:
+
+    get_PfID:
+      return_type: "std::vector<int>"
+    push_PfID:
+      args:
+        - PfID_new: int
+      return_type: void
+
+    get_tInf:
+      return_type: "std::vector<double>"
+    push_tInf:
+      args:
+        - tInf_new: double
+      return_type: void
+
+    get_b:
+      return_type: double
+    set_b:
+      args:
+        - b_new: double
+      return_type: void
+
+    get_c:
+      return_type: double
+    set_c:
+      args:
+        - c_new: double
+      return_type: void
+
+    get_damID:
+      return_type: "std::vector<int>"
+    push_damID:
+      args:
+        - damID_new: int
+      return_type: void
+
+    get_sireID:
+      return_type: "std::vector<int>"
+    push_sireID:
+      args:
+        - sireID_new: int
+      return_type: void
+
+    get_infected:
+      return_type: bool
+    set_infected:
+      args:
+        - infected_new: bool
+      return_type: void
+
+    get_chemoprophylaxis:
+      return_type: bool
+    set_chemoprophylaxis:
+      args:
+        - chemoprophylaxis_new: bool
+      return_type: void
+
     track_history:
       args:
         - tEvent: double

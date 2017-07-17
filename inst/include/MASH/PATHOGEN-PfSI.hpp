@@ -6,35 +6,82 @@
 namespace MASH {
 
 class humanPfSIcpp {
+// public members
 public:
 
-  // constructor
-  // humanPfSIcpp(const int &PfID_init, const double &tInf_init = -1,
-  //   const double &b_init = 0.55, const double &c_init = 0.15,
-  //   const int &damID_init = -1, const int &sireID_init = -1,
-  //   const bool &infected_init = false, const bool &chemoprophylaxis_init = false){
-  //
-  //     // set parameters and state variables
-  //     PfID = PfID_init;
-  //     tInf = tInf_init;
-  //     b = b_init;
-  //     c = c_init;
-  //     damID = damID_init;
-  //     sireID = sireID_init;
-  //     infected = infected_init;
-  //     chemoprophylaxis = chemoprophylaxis_init;
-  //
-  //     // reserve memory for history
-  //     events.reserve(50);
-  //     events.push_back("init");
-  //     eventT.reserve(50);
-  //     eventT.push_back(-1);
-  // }
+  ///////////////////////////////////
+  // Human Stage PfSI Constructor
+  ///////////////////////////////////
 
   humanPfSIcpp(const int &PfID_init, const double &tInf_init = -1,
     const double &b_init = 0.55, const double &c_init = 0.15,
     const int &damID_init = -1, const int &sireID_init = -1,
     const bool &infected_init = false, const bool &chemoprophylaxis_init = false);
+
+  ///////////////////////////////////
+  // Getters & Setters
+  ///////////////////////////////////
+
+  std::vector<int> get_PfID(){
+    return(PfID);
+  };
+  void push_PfID(const int &PfID_new){
+    PfID.push_back(PfID_new);
+  };
+
+  std::vector<double> get_tInf(){
+    return(tInf);
+  };
+  void push_tInf(const double &tInf_new){
+    tInf.push_back(tInf_new);
+  };
+
+  double get_b(){
+    return(b);
+  };
+  void set_b(const double &b_new){
+    b = b_new;
+  };
+
+  double get_c(){
+    return(c);
+  };
+  void set_c(const double &c_new){
+    c = c_new;
+  };
+
+  std::vector<int> get_damID(){
+    return(damID);
+  };
+  void push_damID(const int &damID_new){
+    damID.push_back(damID_new);
+  };
+
+  std::vector<int> get_sireID(){
+    return(sireID);
+  };
+  void push_sireID(const int &sireID_new){
+    sireID.push_back(sireID_new);
+  };
+
+  bool get_infected(){
+    return(infected);
+  };
+  void set_infected(const bool &infected_new){
+    infected = infected_new;
+  };
+
+  bool get_chemoprophylaxis(){
+    return(chemoprophylaxis);
+  };
+  void set_chemoprophylaxis(const bool &chemoprophylaxis_new){
+    chemoprophylaxis = chemoprophylaxis_new;
+  };
+
+
+  ///////////////////////////////////
+  // PfSI History
+  ///////////////////////////////////
 
   // history tracking
   void track_history(const double &tEvent, const std::string &event){
@@ -52,6 +99,7 @@ public:
     );
   };
 
+// private members
 private:
 
   // PfSI History
@@ -59,29 +107,30 @@ private:
   std::vector<double>      eventT;
 
   // PfSI Parameters & State Variables
-  int PfID; // pathogen ID
-  double tInf; // time of infection (mosquito to human transmission)
+  std::vector<int> PfID; // pathogen ID
+  std::vector<double> tInf; // time of infection (mosquito to human transmission)
   double b; // transmission efficiency: infected mosquito to human
   double c; // transmission efficiency: infected human to mosquito
-  int damID; // female gametocyte mother
-  int sireID; // male gametocyte father
+  std::vector<int> damID; // female gametocyte mother
+  std::vector<int> sireID; // male gametocyte father
   bool infected;
   bool chemoprophylaxis;
 
 };
 
+// inline definition of constructor to accept default argument values
 inline humanPfSIcpp::humanPfSIcpp(const int &PfID_init, const double &tInf_init,
   const double &b_init, const double &c_init,
   const int &damID_init, const int &sireID_init,
   const bool &infected_init, const bool &chemoprophylaxis_init){
 
     // set parameters and state variables
-    PfID = PfID_init;
-    tInf = tInf_init;
+    PfID.push_back(PfID_init);
+    tInf.push_back(tInf_init);
     b = b_init;
     c = c_init;
-    damID = damID_init;
-    sireID = sireID_init;
+    damID.push_back(damID_init);
+    sireID.push_back(sireID_init);
     infected = infected_init;
     chemoprophylaxis = chemoprophylaxis_init;
 

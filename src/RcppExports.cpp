@@ -191,6 +191,182 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// humanPfSIcpp__get_PfID
+std::vector<int> humanPfSIcpp__get_PfID(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_);
+RcppExport SEXP MASH_humanPfSIcpp__get_PfID(SEXP obj_SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> >::type obj_(obj_SEXP);
+    rcpp_result_gen = Rcpp::wrap(humanPfSIcpp__get_PfID(obj_));
+    return rcpp_result_gen;
+END_RCPP
+}
+// humanPfSIcpp__push_PfID
+void humanPfSIcpp__push_PfID(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_, int PfID_new);
+RcppExport SEXP MASH_humanPfSIcpp__push_PfID(SEXP obj_SEXP, SEXP PfID_newSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> >::type obj_(obj_SEXP);
+    Rcpp::traits::input_parameter< int >::type PfID_new(PfID_newSEXP);
+    humanPfSIcpp__push_PfID(obj_, PfID_new);
+    return R_NilValue;
+END_RCPP
+}
+// humanPfSIcpp__get_tInf
+std::vector<double> humanPfSIcpp__get_tInf(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_);
+RcppExport SEXP MASH_humanPfSIcpp__get_tInf(SEXP obj_SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> >::type obj_(obj_SEXP);
+    rcpp_result_gen = Rcpp::wrap(humanPfSIcpp__get_tInf(obj_));
+    return rcpp_result_gen;
+END_RCPP
+}
+// humanPfSIcpp__push_tInf
+void humanPfSIcpp__push_tInf(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_, double tInf_new);
+RcppExport SEXP MASH_humanPfSIcpp__push_tInf(SEXP obj_SEXP, SEXP tInf_newSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> >::type obj_(obj_SEXP);
+    Rcpp::traits::input_parameter< double >::type tInf_new(tInf_newSEXP);
+    humanPfSIcpp__push_tInf(obj_, tInf_new);
+    return R_NilValue;
+END_RCPP
+}
+// humanPfSIcpp__get_b
+double humanPfSIcpp__get_b(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_);
+RcppExport SEXP MASH_humanPfSIcpp__get_b(SEXP obj_SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> >::type obj_(obj_SEXP);
+    rcpp_result_gen = Rcpp::wrap(humanPfSIcpp__get_b(obj_));
+    return rcpp_result_gen;
+END_RCPP
+}
+// humanPfSIcpp__set_b
+void humanPfSIcpp__set_b(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_, double b_new);
+RcppExport SEXP MASH_humanPfSIcpp__set_b(SEXP obj_SEXP, SEXP b_newSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> >::type obj_(obj_SEXP);
+    Rcpp::traits::input_parameter< double >::type b_new(b_newSEXP);
+    humanPfSIcpp__set_b(obj_, b_new);
+    return R_NilValue;
+END_RCPP
+}
+// humanPfSIcpp__get_c
+double humanPfSIcpp__get_c(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_);
+RcppExport SEXP MASH_humanPfSIcpp__get_c(SEXP obj_SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> >::type obj_(obj_SEXP);
+    rcpp_result_gen = Rcpp::wrap(humanPfSIcpp__get_c(obj_));
+    return rcpp_result_gen;
+END_RCPP
+}
+// humanPfSIcpp__set_c
+void humanPfSIcpp__set_c(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_, double c_new);
+RcppExport SEXP MASH_humanPfSIcpp__set_c(SEXP obj_SEXP, SEXP c_newSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> >::type obj_(obj_SEXP);
+    Rcpp::traits::input_parameter< double >::type c_new(c_newSEXP);
+    humanPfSIcpp__set_c(obj_, c_new);
+    return R_NilValue;
+END_RCPP
+}
+// humanPfSIcpp__get_damID
+std::vector<int> humanPfSIcpp__get_damID(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_);
+RcppExport SEXP MASH_humanPfSIcpp__get_damID(SEXP obj_SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> >::type obj_(obj_SEXP);
+    rcpp_result_gen = Rcpp::wrap(humanPfSIcpp__get_damID(obj_));
+    return rcpp_result_gen;
+END_RCPP
+}
+// humanPfSIcpp__push_damID
+void humanPfSIcpp__push_damID(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_, int damID_new);
+RcppExport SEXP MASH_humanPfSIcpp__push_damID(SEXP obj_SEXP, SEXP damID_newSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> >::type obj_(obj_SEXP);
+    Rcpp::traits::input_parameter< int >::type damID_new(damID_newSEXP);
+    humanPfSIcpp__push_damID(obj_, damID_new);
+    return R_NilValue;
+END_RCPP
+}
+// humanPfSIcpp__get_sireID
+std::vector<int> humanPfSIcpp__get_sireID(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_);
+RcppExport SEXP MASH_humanPfSIcpp__get_sireID(SEXP obj_SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> >::type obj_(obj_SEXP);
+    rcpp_result_gen = Rcpp::wrap(humanPfSIcpp__get_sireID(obj_));
+    return rcpp_result_gen;
+END_RCPP
+}
+// humanPfSIcpp__push_sireID
+void humanPfSIcpp__push_sireID(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_, int sireID_new);
+RcppExport SEXP MASH_humanPfSIcpp__push_sireID(SEXP obj_SEXP, SEXP sireID_newSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> >::type obj_(obj_SEXP);
+    Rcpp::traits::input_parameter< int >::type sireID_new(sireID_newSEXP);
+    humanPfSIcpp__push_sireID(obj_, sireID_new);
+    return R_NilValue;
+END_RCPP
+}
+// humanPfSIcpp__get_infected
+bool humanPfSIcpp__get_infected(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_);
+RcppExport SEXP MASH_humanPfSIcpp__get_infected(SEXP obj_SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> >::type obj_(obj_SEXP);
+    rcpp_result_gen = Rcpp::wrap(humanPfSIcpp__get_infected(obj_));
+    return rcpp_result_gen;
+END_RCPP
+}
+// humanPfSIcpp__set_infected
+void humanPfSIcpp__set_infected(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_, bool infected_new);
+RcppExport SEXP MASH_humanPfSIcpp__set_infected(SEXP obj_SEXP, SEXP infected_newSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> >::type obj_(obj_SEXP);
+    Rcpp::traits::input_parameter< bool >::type infected_new(infected_newSEXP);
+    humanPfSIcpp__set_infected(obj_, infected_new);
+    return R_NilValue;
+END_RCPP
+}
+// humanPfSIcpp__get_chemoprophylaxis
+bool humanPfSIcpp__get_chemoprophylaxis(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_);
+RcppExport SEXP MASH_humanPfSIcpp__get_chemoprophylaxis(SEXP obj_SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> >::type obj_(obj_SEXP);
+    rcpp_result_gen = Rcpp::wrap(humanPfSIcpp__get_chemoprophylaxis(obj_));
+    return rcpp_result_gen;
+END_RCPP
+}
+// humanPfSIcpp__set_chemoprophylaxis
+void humanPfSIcpp__set_chemoprophylaxis(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_, bool chemoprophylaxis_new);
+RcppExport SEXP MASH_humanPfSIcpp__set_chemoprophylaxis(SEXP obj_SEXP, SEXP chemoprophylaxis_newSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> >::type obj_(obj_SEXP);
+    Rcpp::traits::input_parameter< bool >::type chemoprophylaxis_new(chemoprophylaxis_newSEXP);
+    humanPfSIcpp__set_chemoprophylaxis(obj_, chemoprophylaxis_new);
+    return R_NilValue;
+END_RCPP
+}
 // humanPfSIcpp__track_history
 void humanPfSIcpp__track_history(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_, double tEvent, std::string event);
 RcppExport SEXP MASH_humanPfSIcpp__track_history(SEXP obj_SEXP, SEXP tEventSEXP, SEXP eventSEXP) {
@@ -232,6 +408,22 @@ static const R_CallMethodDef CallEntries[] = {
     {"MASH_HistoryTravel__track_travel", (DL_FUNC) &MASH_HistoryTravel__track_travel, 3},
     {"MASH_HistoryTravel__get_travelHistory", (DL_FUNC) &MASH_HistoryTravel__get_travelHistory, 1},
     {"MASH_humanPfSIcpp__ctor", (DL_FUNC) &MASH_humanPfSIcpp__ctor, 8},
+    {"MASH_humanPfSIcpp__get_PfID", (DL_FUNC) &MASH_humanPfSIcpp__get_PfID, 1},
+    {"MASH_humanPfSIcpp__push_PfID", (DL_FUNC) &MASH_humanPfSIcpp__push_PfID, 2},
+    {"MASH_humanPfSIcpp__get_tInf", (DL_FUNC) &MASH_humanPfSIcpp__get_tInf, 1},
+    {"MASH_humanPfSIcpp__push_tInf", (DL_FUNC) &MASH_humanPfSIcpp__push_tInf, 2},
+    {"MASH_humanPfSIcpp__get_b", (DL_FUNC) &MASH_humanPfSIcpp__get_b, 1},
+    {"MASH_humanPfSIcpp__set_b", (DL_FUNC) &MASH_humanPfSIcpp__set_b, 2},
+    {"MASH_humanPfSIcpp__get_c", (DL_FUNC) &MASH_humanPfSIcpp__get_c, 1},
+    {"MASH_humanPfSIcpp__set_c", (DL_FUNC) &MASH_humanPfSIcpp__set_c, 2},
+    {"MASH_humanPfSIcpp__get_damID", (DL_FUNC) &MASH_humanPfSIcpp__get_damID, 1},
+    {"MASH_humanPfSIcpp__push_damID", (DL_FUNC) &MASH_humanPfSIcpp__push_damID, 2},
+    {"MASH_humanPfSIcpp__get_sireID", (DL_FUNC) &MASH_humanPfSIcpp__get_sireID, 1},
+    {"MASH_humanPfSIcpp__push_sireID", (DL_FUNC) &MASH_humanPfSIcpp__push_sireID, 2},
+    {"MASH_humanPfSIcpp__get_infected", (DL_FUNC) &MASH_humanPfSIcpp__get_infected, 1},
+    {"MASH_humanPfSIcpp__set_infected", (DL_FUNC) &MASH_humanPfSIcpp__set_infected, 2},
+    {"MASH_humanPfSIcpp__get_chemoprophylaxis", (DL_FUNC) &MASH_humanPfSIcpp__get_chemoprophylaxis, 1},
+    {"MASH_humanPfSIcpp__set_chemoprophylaxis", (DL_FUNC) &MASH_humanPfSIcpp__set_chemoprophylaxis, 2},
     {"MASH_humanPfSIcpp__track_history", (DL_FUNC) &MASH_humanPfSIcpp__track_history, 3},
     {"MASH_humanPfSIcpp__get_history", (DL_FUNC) &MASH_humanPfSIcpp__get_history, 1},
     {NULL, NULL, 0}
