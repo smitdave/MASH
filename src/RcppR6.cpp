@@ -60,4 +60,17 @@ Rcpp::List HistoryTravel__get_travelHistory(MASH::RcppR6::RcppR6<MASH::HistoryTr
   return obj_->get_travelHistory();
 }
 
+// [[Rcpp::export]]
+MASH::humanPfSIcpp humanPfSIcpp__ctor(int PfID_init, double tInf_init, double b_init, double c_init, int damID_init, int sireID_init, bool infected_init, bool chemoprophylaxis_init) {
+  return MASH::humanPfSIcpp(PfID_init, tInf_init, b_init, c_init, damID_init, sireID_init, infected_init, chemoprophylaxis_init);
+}
+// [[Rcpp::export]]
+void humanPfSIcpp__track_history(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_, double tEvent, std::string event) {
+  obj_->track_history(tEvent, event);
+}
+// [[Rcpp::export]]
+Rcpp::List humanPfSIcpp__get_history(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_) {
+  return obj_->get_history();
+}
+
 

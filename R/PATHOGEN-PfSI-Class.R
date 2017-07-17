@@ -253,7 +253,7 @@ humanPfSI <- R6::R6Class(classname="humanPfSI",
                          private$chemoprophylaxis = chemoprophylaxis
                        },
 
-                       get_public = function(){
+                       get_private = function(){
                          return(as.list(private))
                        }
 
