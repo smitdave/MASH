@@ -17,6 +17,9 @@ template <> inline std::string generator_name<MASH::HistoryGeneric >() {return "
 template <> inline std::string   class_name_r<MASH::HistoryTravel >() {return "HistoryTravel";}
 template <> inline std::string   package_name<MASH::HistoryTravel >() {return "MASH";}
 template <> inline std::string generator_name<MASH::HistoryTravel >() {return ".R6_HistoryTravel";}
+template <> inline std::string   class_name_r<MASH::humanPfSIcpp >() {return "humanPfSIcpp";}
+template <> inline std::string   package_name<MASH::humanPfSIcpp >() {return "MASH";}
+template <> inline std::string generator_name<MASH::humanPfSIcpp >() {return ".R6_humanPfSIcpp";}
 }
 }
 }
@@ -55,6 +58,12 @@ template <> inline SEXP wrap(const MASH::HistoryTravel& x) {
 }
 template <> inline MASH::HistoryTravel as(SEXP x) {
   return *(MASH::RcppR6::RcppR6<MASH::HistoryTravel>(x));
+}
+template <> inline SEXP wrap(const MASH::humanPfSIcpp& x) {
+  return wrap(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp>(x));
+}
+template <> inline MASH::humanPfSIcpp as(SEXP x) {
+  return *(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp>(x));
 }
 }
 

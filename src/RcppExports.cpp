@@ -173,6 +173,47 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// humanPfSIcpp__ctor
+MASH::humanPfSIcpp humanPfSIcpp__ctor(int PfID_init, double tInf_init, double b_init, double c_init, int damID_init, int sireID_init, bool infected_init, bool chemoprophylaxis_init);
+RcppExport SEXP MASH_humanPfSIcpp__ctor(SEXP PfID_initSEXP, SEXP tInf_initSEXP, SEXP b_initSEXP, SEXP c_initSEXP, SEXP damID_initSEXP, SEXP sireID_initSEXP, SEXP infected_initSEXP, SEXP chemoprophylaxis_initSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type PfID_init(PfID_initSEXP);
+    Rcpp::traits::input_parameter< double >::type tInf_init(tInf_initSEXP);
+    Rcpp::traits::input_parameter< double >::type b_init(b_initSEXP);
+    Rcpp::traits::input_parameter< double >::type c_init(c_initSEXP);
+    Rcpp::traits::input_parameter< int >::type damID_init(damID_initSEXP);
+    Rcpp::traits::input_parameter< int >::type sireID_init(sireID_initSEXP);
+    Rcpp::traits::input_parameter< bool >::type infected_init(infected_initSEXP);
+    Rcpp::traits::input_parameter< bool >::type chemoprophylaxis_init(chemoprophylaxis_initSEXP);
+    rcpp_result_gen = Rcpp::wrap(humanPfSIcpp__ctor(PfID_init, tInf_init, b_init, c_init, damID_init, sireID_init, infected_init, chemoprophylaxis_init));
+    return rcpp_result_gen;
+END_RCPP
+}
+// humanPfSIcpp__track_history
+void humanPfSIcpp__track_history(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_, double tEvent, std::string event);
+RcppExport SEXP MASH_humanPfSIcpp__track_history(SEXP obj_SEXP, SEXP tEventSEXP, SEXP eventSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> >::type obj_(obj_SEXP);
+    Rcpp::traits::input_parameter< double >::type tEvent(tEventSEXP);
+    Rcpp::traits::input_parameter< std::string >::type event(eventSEXP);
+    humanPfSIcpp__track_history(obj_, tEvent, event);
+    return R_NilValue;
+END_RCPP
+}
+// humanPfSIcpp__get_history
+Rcpp::List humanPfSIcpp__get_history(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_);
+RcppExport SEXP MASH_humanPfSIcpp__get_history(SEXP obj_SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> >::type obj_(obj_SEXP);
+    rcpp_result_gen = Rcpp::wrap(humanPfSIcpp__get_history(obj_));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"MASH_util_PfSIoneHistory", (DL_FUNC) &MASH_util_PfSIoneHistory, 3},
@@ -190,6 +231,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"MASH_HistoryTravel__ctor", (DL_FUNC) &MASH_HistoryTravel__ctor, 1},
     {"MASH_HistoryTravel__track_travel", (DL_FUNC) &MASH_HistoryTravel__track_travel, 3},
     {"MASH_HistoryTravel__get_travelHistory", (DL_FUNC) &MASH_HistoryTravel__get_travelHistory, 1},
+    {"MASH_humanPfSIcpp__ctor", (DL_FUNC) &MASH_humanPfSIcpp__ctor, 8},
+    {"MASH_humanPfSIcpp__track_history", (DL_FUNC) &MASH_humanPfSIcpp__track_history, 3},
+    {"MASH_humanPfSIcpp__get_history", (DL_FUNC) &MASH_humanPfSIcpp__get_history, 1},
     {NULL, NULL, 0}
 };
 

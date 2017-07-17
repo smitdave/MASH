@@ -1,3 +1,4 @@
 classes:
-  - inst/HumanEventQ.yml
-  - inst/History.yml
+  - inst/HUMANS-EventQ.yml
+  - inst/HUMANS-History.yml
+  - inst/PATHOGEN-PfSI.yml

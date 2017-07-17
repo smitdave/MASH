@@ -4,8 +4,12 @@
 
 #include <MASH/RcppR6_pre.hpp>
 
-#include <MASH/HumanEventQ.hpp>
-#include <MASH/History.hpp>
+// HUMANS classes
+#include <MASH/HUMANS-EventQ.hpp>
+#include <MASH/HUMANS-History.hpp>
+
+// PATHOGEN classes
+#include <MASH/PATHOGEN-PfSI.hpp>
 
 #include <MASH/RcppR6_post.hpp>
 

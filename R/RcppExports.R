@@ -71,3 +71,15 @@ HistoryTravel__get_travelHistory <- function(obj_) {
     .Call('MASH_HistoryTravel__get_travelHistory', PACKAGE = 'MASH', obj_)
 }
 
+humanPfSIcpp__ctor <- function(PfID_init, tInf_init, b_init, c_init, damID_init, sireID_init, infected_init, chemoprophylaxis_init) {
+    .Call('MASH_humanPfSIcpp__ctor', PACKAGE = 'MASH', PfID_init, tInf_init, b_init, c_init, damID_init, sireID_init, infected_init, chemoprophylaxis_init)
+}
+
+humanPfSIcpp__track_history <- function(obj_, tEvent, event) {
+    invisible(.Call('MASH_humanPfSIcpp__track_history', PACKAGE = 'MASH', obj_, tEvent, event))
+}
+
+humanPfSIcpp__get_history <- function(obj_) {
+    .Call('MASH_humanPfSIcpp__get_history', PACKAGE = 'MASH', obj_)
+}
+
