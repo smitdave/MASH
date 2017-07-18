@@ -132,9 +132,23 @@ public:
     N = N_new;
   };
 
-  // Rcpp::List get_ImagoQ(){
-  //   return(Rcpp::wrap(ImagoQVec));
-  // };
+  // please do not use; it is very inefficient, mostly for debugging
+  Rcpp::List get_ImagoQ(){
+    std::vector<Rcpp::List> out;
+    out.reserve(ImagoQVec.size());
+    for(auto it = ImagoQVec.begin(); it != ImagoQVec.end(); it++){
+      out.push_back(
+        Rcpp::List::create(
+          Rcpp::Named("N") = it->N,
+          Rcpp::Named("tEmerge") = it->tEmerge,
+          Rcpp::Named("genotype") = it->genotype,
+          Rcpp::Named("damID") = it->damID,
+          Rcpp::Named("sireID") = it->sireID
+        )
+      );
+    }
+    return(Rcpp::wrap(out));
+  };
 
 
 // private members

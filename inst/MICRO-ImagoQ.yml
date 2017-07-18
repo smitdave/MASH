@@ -40,4 +40,4 @@ RiskQ:
       return_type: void
 
     get_ImagoQ:
-      return_type: void
+      return_type: "Rcpp::List"
