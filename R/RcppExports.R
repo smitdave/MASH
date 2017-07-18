@@ -207,3 +207,31 @@ RiskQ__get_OtherHost <- function(obj_) {
     .Call('_MASH_RiskQ__get_OtherHost', PACKAGE = 'MASH', obj_)
 }
 
+ImagoQ__ctor <- function() {
+    .Call('_MASH_ImagoQ__ctor', PACKAGE = 'MASH')
+}
+
+ImagoQ__clear_ImagoQ <- function(obj_) {
+    invisible(.Call('_MASH_ImagoQ__clear_ImagoQ', PACKAGE = 'MASH', obj_))
+}
+
+ImagoQ__add_ImagoQ <- function(obj_, N_new, tEmerge_new, genotype_new, damID_new, sireID_new) {
+    invisible(.Call('_MASH_ImagoQ__add_ImagoQ', PACKAGE = 'MASH', obj_, N_new, tEmerge_new, genotype_new, damID_new, sireID_new))
+}
+
+ImagoQ__track_ImagoQ <- function(obj_, time) {
+    .Call('_MASH_ImagoQ__track_ImagoQ', PACKAGE = 'MASH', obj_, time)
+}
+
+ImagoQ__get_N <- function(obj_) {
+    .Call('_MASH_ImagoQ__get_N', PACKAGE = 'MASH', obj_)
+}
+
+ImagoQ__set_N <- function(obj_, N_new) {
+    invisible(.Call('_MASH_ImagoQ__set_N', PACKAGE = 'MASH', obj_, N_new))
+}
+
+ImagoQ__get_ImagoQ <- function(obj_) {
+    .Call('_MASH_ImagoQ__get_ImagoQ', PACKAGE = 'MASH', obj_)
+}
+

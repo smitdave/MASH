@@ -3,3 +3,4 @@ classes:
   - inst/HUMANS-History.yml
   - inst/PATHOGEN-PfSI.yml
   - inst/MICRO-RiskQ.yml
+  - inst/MICRO-ImagoQ.yml

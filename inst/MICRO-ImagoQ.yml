@@ -1,4 +1,4 @@
-RiskQ:
+ImagoQ:
   name_cpp: MASH::ImagoQ
   forward_declare: true
   constructor:
@@ -30,6 +30,8 @@ RiskQ:
       return_type: void
 
     track_ImagoQ:
+      args:
+        - time: double
       return_type: double
 
     get_N:
