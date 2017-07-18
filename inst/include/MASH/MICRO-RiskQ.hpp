@@ -73,7 +73,7 @@ public:
   void add_HumanHost(const int &who_new, const double &pTm_new, const double &w_new){
 
     // chcek if new host is already in this RiskQ
-    std::vector<int>::iterator it = find(who.begin(), who.end(), who_new);
+    std::vector<int>::iterator it = std::find(who.begin(), who.end(), who_new);
     if(it != who.end()){
       // host is already in this RiskQ
       int ix = std::distance(who.begin(), it);

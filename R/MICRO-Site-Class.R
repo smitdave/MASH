@@ -140,9 +140,7 @@ FeedingSite <- R6::R6Class(classname = "FeedingSite",
                      private$hazI = hazI
                      private$sugar = sugar
                      private$enterP = enterP
-
-                     # init risk list
-                     self$init_riskList(maxH = maxH)
+                     private$RiskQ = MASH::RiskQ()
 
                    },
 
@@ -184,7 +182,7 @@ FeedingSite <- R6::R6Class(classname = "FeedingSite",
                    hazI = NULL,      # inside wall hazards
                    sugar = NULL,     # sugar source (only used in MBITES-BRO and MBITES-BROM)
                    enterP = NULL,    # house entry probability
-                   riskList = NULL   # risk list for host bloodfeeding
+                   RiskQ = NULL      # host risk queue
 
                  )
 )

@@ -1,0 +1,43 @@
+RiskQ:
+  name_cpp: MASH::ImagoQ
+  forward_declare: true
+  constructor:
+    roxygen: |
+      ImagoQ
+      @title MICRO Imago Queue
+      @section Methods:
+        * clear_ImagoQ:
+        * add_ImagoQ:
+        * track_ImagoQ:
+        * get_N:
+        * set_N:
+        * get_ImagoQ:
+      @section Fields:
+        * a field:
+      @md
+      @export
+  methods:
+    clear_ImagoQ:
+      return_type: void
+
+    add_ImagoQ:
+      args:
+        - N_new: int
+        - tEmerge_new: double
+        - genotype_new: int
+        - damID_new: int
+        - sireID_new: int
+      return_type: void
+
+    track_ImagoQ:
+      return_type: double
+
+    get_N:
+      return_type: int
+    set_N:
+      args:
+        - N_new: int
+      return_type: void
+
+    get_ImagoQ:
+      return_type: void
