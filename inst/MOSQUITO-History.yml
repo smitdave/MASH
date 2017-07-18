@@ -21,6 +21,7 @@ MosquitoFemaleHistory:
     historyTrack:
       args:
         - privateEnv: "Rcpp::Environment"
+        - alive: bool
       return_type: void
 
     historyFeed:

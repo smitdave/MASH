@@ -694,13 +694,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // MosquitoFemaleHistory__historyTrack
-void MosquitoFemaleHistory__historyTrack(MASH::RcppR6::RcppR6<MASH::MosquitoFemaleHistory> obj_, Rcpp::Environment privateEnv);
-RcppExport SEXP _MASH_MosquitoFemaleHistory__historyTrack(SEXP obj_SEXP, SEXP privateEnvSEXP) {
+void MosquitoFemaleHistory__historyTrack(MASH::RcppR6::RcppR6<MASH::MosquitoFemaleHistory> obj_, Rcpp::Environment privateEnv, bool alive);
+RcppExport SEXP _MASH_MosquitoFemaleHistory__historyTrack(SEXP obj_SEXP, SEXP privateEnvSEXP, SEXP aliveSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::MosquitoFemaleHistory> >::type obj_(obj_SEXP);
     Rcpp::traits::input_parameter< Rcpp::Environment >::type privateEnv(privateEnvSEXP);
-    MosquitoFemaleHistory__historyTrack(obj_, privateEnv);
+    Rcpp::traits::input_parameter< bool >::type alive(aliveSEXP);
+    MosquitoFemaleHistory__historyTrack(obj_, privateEnv, alive);
     return R_NilValue;
 END_RCPP
 }
@@ -810,7 +811,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_MASH_ImagoQ__get_ImagoQ", (DL_FUNC) &_MASH_ImagoQ__get_ImagoQ, 1},
     {"_MASH_ImagoQ__get_ImagoQTime", (DL_FUNC) &_MASH_ImagoQ__get_ImagoQTime, 3},
     {"_MASH_MosquitoFemaleHistory__ctor", (DL_FUNC) &_MASH_MosquitoFemaleHistory__ctor, 0},
-    {"_MASH_MosquitoFemaleHistory__historyTrack", (DL_FUNC) &_MASH_MosquitoFemaleHistory__historyTrack, 2},
+    {"_MASH_MosquitoFemaleHistory__historyTrack", (DL_FUNC) &_MASH_MosquitoFemaleHistory__historyTrack, 3},
     {"_MASH_MosquitoFemaleHistory__historyFeed", (DL_FUNC) &_MASH_MosquitoFemaleHistory__historyFeed, 2},
     {"_MASH_MosquitoFemaleHistory__calcBionomics", (DL_FUNC) &_MASH_MosquitoFemaleHistory__calcBionomics, 1},
     {"_MASH_MosquitoFemaleHistory__exportHistory", (DL_FUNC) &_MASH_MosquitoFemaleHistory__exportHistory, 1},

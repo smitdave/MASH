@@ -31,18 +31,16 @@ public:
   ///////////////////////////////////
 
   // pass the private environment of the enclosing mosquito to the function
-  void historyTrack(Rcpp::Environment privateEnv){
-
-    // check if mosquito is alive
-    Rcpp::Function isAlive = privateEnv["isAlive"];
-    bool alive = isAlive();
+  void historyTrack(const Rcpp::Environment &privateEnv, const bool &alive){
 
     if(alive){
+      Rcpp::Rcout << "alive!" << std::endl;
       stateH.push_back(privateEnv["state"]);  // state trajectory
       timeH.push_back(privateEnv["tNow"]);  // transition times
       ixH.push_back(privateEnv["ix"]);  // sites visited
       pSetH.push_back(privateEnv["inPointSet"]);  // point sets visited
     } else {
+      Rcpp::Rcout << "dead!" << std::endl;
       stateH.push_back(privateEnv["stateNew"]); // state trajectory
       timeH.push_back(privateEnv["tNext"]); // transition times
       this->calcBionomics(); // track bionomics upon death
@@ -50,7 +48,7 @@ public:
   };
 
   // historyFeed: track feeding history
-  void historyFeed(Rcpp::Environment privateEnv){
+  void historyFeed(const Rcpp::Environment &privateEnv){
 
     int hostID = privateEnv["hostID"];
     if(hostID > 0){
@@ -81,29 +79,22 @@ public:
       if(batchH.size() != 0){
         int batchH_sum = std::accumulate(batchH.begin(), batchH.end(), 0);
         double batchH_mean = batchH_sum / batchH.size();
-        bionomics["mBatch"] = batchH_mean;
-        bionomics["tBatch"] = batchH_sum;
+        bionomics_mBatch = batchH_mean;
+        bionomics_tBatch = batchH_sum;
       } else {
-        bionomics["mBatch"] = 0.0;
-        bionomics["tBatch"] = 0;
+        bionomics_mBatch = 0.0;
+        bionomics_tBatch = 0;
       }
-      bionomics["feedAllH"] =  feedAllH; // total number of bloodmeals
-      bionomics["feedHumanH"] = feedHumanH; // number of human bloodmeals
 
       // intervals between bloodmeals
-      std::vector<double> feedAllT_diff;
-      std::adjacent_difference(feedAllT.begin(), feedAllT.end(), std::back_inserter(feedAllT_diff));
-      feedAllT_diff.erase(feedAllT_diff.begin());
-      bionomics["bmInt"] = feedAllT_diff;
+      std::adjacent_difference(feedAllT.begin(), feedAllT.end(), std::back_inserter(bionomics_bmInt));
+      bionomics_bmInt.erase(bionomics_bmInt.begin());
 
-      // intervals between human bloodmeals
-      std::vector<double> feedHumanT_diff;
-      std::adjacent_difference(feedHumanT.begin(), feedHumanT.end(), std::back_inserter(feedHumanT_diff));
-      feedAllT_diff.erase(feedHumanT_diff.begin());
-      bionomics["bmIntH"] = feedHumanT_diff;
+      std::adjacent_difference(feedHumanT.begin(), feedHumanT.end(), std::back_inserter(bionomics_bmIntH));
+      bionomics_bmIntH.erase(bionomics_bmIntH.begin());
 
       // lifespan
-      bionomics["lifespan"] = timeH.back() - timeH.front();
+      bionomics_lifespan = timeH.back() - timeH.front();
     }
   };
 
@@ -125,6 +116,7 @@ public:
         Rcpp::Named("feedAllT") = feedAllT,
         Rcpp::Named("feedHumanH") = feedHumanH,
         Rcpp::Named("feedHumanT") = feedHumanT,
+        Rcpp::Named("bmSizeH") = bmSizeH,
         Rcpp::Named("batchH") = batchH
       )
     );
@@ -134,7 +126,15 @@ public:
   // exportBionomics: export this mosquito calculated bionomics
   Rcpp::List exportBionomics(){
 
-    return(bionomics);
+    return(Rcpp::List::create(
+      Rcpp::Named("mBatch") = bionomics_mBatch,
+      Rcpp::Named("tBatch") = bionomics_tBatch,
+      Rcpp::Named("feedAllH") = feedAllH,
+      Rcpp::Named("feedHumanH") = feedHumanH,
+      Rcpp::Named("bmInt") = bionomics_bmInt,
+      Rcpp::Named("bmIntH") = bionomics_bmIntH,
+      Rcpp::Named("lifespan") = bionomics_lifespan
+    ));
 
   };
 
@@ -156,8 +156,11 @@ private:
   std::vector<int>         batchH;
 
   // bionomics
-  Rcpp::List               bionomics;
-
+  double               bionomics_mBatch;
+  int                  bionomics_tBatch;
+  std::vector<double>  bionomics_bmInt;
+  std::vector<double>  bionomics_bmIntH;
+  double               bionomics_lifespan;
 };
 
 // inline definition of constructor to accept default argument values
@@ -174,6 +177,12 @@ inline MosquitoFemaleHistory::MosquitoFemaleHistory(){
   feedIxH.reserve(50);
   bmSizeH.reserve(50);
   batchH.reserve(50);
+
+  bionomics_mBatch = 0.0;
+  bionomics_tBatch = 0;
+  bionomics_bmInt.clear(); // might not be necessary
+  bionomics_bmIntH.clear(); // might not be necessary
+  bionomics_lifespan = 0.0;
 
 }
 

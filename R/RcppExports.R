@@ -255,8 +255,8 @@ MosquitoFemaleHistory__ctor <- function() {
     .Call('_MASH_MosquitoFemaleHistory__ctor', PACKAGE = 'MASH')
 }
 
-MosquitoFemaleHistory__historyTrack <- function(obj_, privateEnv) {
-    invisible(.Call('_MASH_MosquitoFemaleHistory__historyTrack', PACKAGE = 'MASH', obj_, privateEnv))
+MosquitoFemaleHistory__historyTrack <- function(obj_, privateEnv, alive) {
+    invisible(.Call('_MASH_MosquitoFemaleHistory__historyTrack', PACKAGE = 'MASH', obj_, privateEnv, alive))
 }
 
 MosquitoFemaleHistory__historyFeed <- function(obj_, privateEnv) {
