@@ -1,6 +1,12 @@
 classes:
+
+  # HUMANS classes
   - inst/HUMANS-EventQ.yml
   - inst/HUMANS-History.yml
+
+  # PATHOGEN classes
   - inst/PATHOGEN-PfSI.yml
+
+  # MICRO classes
   - inst/MICRO-RiskQ.yml
   - inst/MICRO-ImagoQ.yml

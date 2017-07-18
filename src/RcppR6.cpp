@@ -182,6 +182,14 @@ Rcpp::List RiskQ__get_HumanHost(MASH::RcppR6::RcppR6<MASH::RiskQ> obj_) {
   return obj_->get_HumanHost();
 }
 // [[Rcpp::export]]
+Rcpp::List RiskQ__get_HumanHostIx(MASH::RcppR6::RcppR6<MASH::RiskQ> obj_, int ix) {
+  return obj_->get_HumanHostIx(ix);
+}
+// [[Rcpp::export]]
+void RiskQ__clear_HumanHost(MASH::RcppR6::RcppR6<MASH::RiskQ> obj_) {
+  obj_->clear_HumanHost();
+}
+// [[Rcpp::export]]
 int RiskQ__get_nOther(MASH::RcppR6::RcppR6<MASH::RiskQ> obj_) {
   return obj_->get_nOther();
 }

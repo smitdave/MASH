@@ -191,6 +191,14 @@ RiskQ__get_HumanHost <- function(obj_) {
     .Call('_MASH_RiskQ__get_HumanHost', PACKAGE = 'MASH', obj_)
 }
 
+RiskQ__get_HumanHostIx <- function(obj_, ix) {
+    .Call('_MASH_RiskQ__get_HumanHostIx', PACKAGE = 'MASH', obj_, ix)
+}
+
+RiskQ__clear_HumanHost <- function(obj_) {
+    invisible(.Call('_MASH_RiskQ__clear_HumanHost', PACKAGE = 'MASH', obj_))
+}
+
 RiskQ__get_nOther <- function(obj_) {
     .Call('_MASH_RiskQ__get_nOther', PACKAGE = 'MASH', obj_)
 }

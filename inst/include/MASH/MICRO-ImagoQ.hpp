@@ -5,7 +5,7 @@
 
 namespace MASH {
 
-// OtherHost: struct to store information for non-human hosts
+// ImagoSlot: struct to store information for batches of emerging adults
 struct ImagoSlot{
   ImagoSlot(const int &N_new, const double &tEmerge_new, const int &genotype_new, const int &damID_new, const int &sireID_new);
   int N;
@@ -23,7 +23,7 @@ inline ImagoSlot::ImagoSlot(const int &N_new, const double &tEmerge_new, const i
   sireID = sireID_new;
 }
 
-// OtherHostVector: store OtherHost structs
+// ImagoQVector: store ImagoSlot structs
 typedef std::vector<ImagoSlot> ImagoQVector;
 
 // ImagoQ: Imago Queue class definition
@@ -35,7 +35,7 @@ public:
   // Imago Queue Constructor
   ///////////////////////////////////
 
-  // constructor defined belowreturn(ix.N != 0);
+  // constructor defined below
   ImagoQ();
 
 
@@ -66,6 +66,8 @@ public:
           ImagoQVec[*it].sireID = -1;
       }
 
+      N -= fullIx.size();
+
   };
 
   // add_ImagoQ: Add emerging adults to the ImagoQ
@@ -89,6 +91,8 @@ public:
           ImagoQVec[ix].damID = damID_new;
           ImagoQVec[ix].sireID = sireID_new;
       }
+
+      N += 1;
 
   };
 
@@ -164,7 +168,7 @@ inline ImagoQ::ImagoQ(){
 
   N = 0;
   ImagoQVec.reserve(50);
-  ImagoQVec.insert(ImagoQVec.end(), 10, ImagoSlot(0,0,0,0,0));
+  ImagoQVec.insert(ImagoQVec.end(), 10, ImagoSlot(0,-1,-1,-1,-1));
 
 }
 
