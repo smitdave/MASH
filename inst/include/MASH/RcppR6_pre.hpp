@@ -15,6 +15,7 @@ namespace MASH { class HumanEventQ; }
 namespace MASH { class HistoryGeneric; }
 namespace MASH { class HistoryTravel; }
 namespace MASH { class humanPfSIcpp; }
+namespace MASH { class RiskQ; }
 
 namespace Rcpp {
 template <typename T> SEXP wrap(const MASH::RcppR6::RcppR6<T>&);
@@ -30,6 +31,8 @@ template <> SEXP wrap(const MASH::HistoryTravel&);
 template <> MASH::HistoryTravel as(SEXP);
 template <> SEXP wrap(const MASH::humanPfSIcpp&);
 template <> MASH::humanPfSIcpp as(SEXP);
+template <> SEXP wrap(const MASH::RiskQ&);
+template <> MASH::RiskQ as(SEXP);
 }
 
 #endif

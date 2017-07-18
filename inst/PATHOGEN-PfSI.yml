@@ -14,16 +14,24 @@ humanPfSIcpp:
       @param infected_init infection status
       @param chemoprophylaxis_init chemoprophylaxis protection status
       @section Methods:
-        * firstEvent: return first event in queue as named R list
-        * firstTime: return 'tEvent' slot in first event in queue
-        * rmFirstEventFromQ: remove first event in queue and update \code{queueN}
-        * rmTagFromQ(const std::string &tag): remove all events with certain tag from queue and update \code{queueN}
-        * get_queueN: return \code{queueN}
-        * get_EventQ: return entire \code{EventQ} as R list
-        * addEvent2Q(Rcpp::List event): add a list to the \code{EventQ} in correct time order and update \code{queueN}
+        * get_PfID:
+        * push_PfID:
+        * get_tInf:
+        * push_tInf:
+        * get_b:
+        * set_b:
+        * get_c:
+        * set_c:
+        * get_damID:
+        * push_damID:
+        * get_sireID:
+        * push_sireID:
+        * get_infected:
+        * set_infected:
+        * get_chemoprophylaxis:
+        * set_chemoprophylaxis:
       @section Fields:
-        * EventQ: \code{std::vector<Rcpp::List>}
-        * queueN: integer value of size of queue.
+        * a field: talk about me
       @md
       @export
     args:
@@ -36,6 +44,63 @@ humanPfSIcpp:
       - infected_init: bool = FALSE
       - chemoprophylaxis_init: bool = FALSE
   methods:
+
+    get_PfID:
+      return_type: "std::vector<int>"
+    push_PfID:
+      args:
+        - PfID_new: int
+      return_type: void
+
+    get_tInf:
+      return_type: "std::vector<double>"
+    push_tInf:
+      args:
+        - tInf_new: double
+      return_type: void
+
+    get_b:
+      return_type: double
+    set_b:
+      args:
+        - b_new: double
+      return_type: void
+
+    get_c:
+      return_type: double
+    set_c:
+      args:
+        - c_new: double
+      return_type: void
+
+    get_damID:
+      return_type: "std::vector<int>"
+    push_damID:
+      args:
+        - damID_new: int
+      return_type: void
+
+    get_sireID:
+      return_type: "std::vector<int>"
+    push_sireID:
+      args:
+        - sireID_new: int
+      return_type: void
+
+    get_infected:
+      return_type: bool
+    set_infected:
+      args:
+        - infected_new: bool
+      return_type: void
+
+    get_chemoprophylaxis:
+      return_type: bool
+    set_chemoprophylaxis:
+      args:
+        - chemoprophylaxis_new: bool
+      return_type: void
+
     track_history:
       args:
         - tEvent: double
