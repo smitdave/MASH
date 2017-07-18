@@ -178,6 +178,10 @@ void RiskQ__add_HumanHost(MASH::RcppR6::RcppR6<MASH::RiskQ> obj_, int who_new, d
   obj_->add_HumanHost(who_new, pTm_new, w_new);
 }
 // [[Rcpp::export]]
+Rcpp::List RiskQ__get_HumanHost(MASH::RcppR6::RcppR6<MASH::RiskQ> obj_) {
+  return obj_->get_HumanHost();
+}
+// [[Rcpp::export]]
 int RiskQ__get_nOther(MASH::RcppR6::RcppR6<MASH::RiskQ> obj_) {
   return obj_->get_nOther();
 }

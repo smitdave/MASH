@@ -88,6 +88,17 @@ public:
       w.push_back(w_new);
     }
 
+  };
+
+  Rcpp::List get_HumanHost(){
+
+    return(
+      Rcpp::List::create(
+        Rcpp::Named("who") = who,
+        Rcpp::Named("pTm") = pTm,
+        Rcpp::Named("w") = w
+      )
+    );
 
   };
 

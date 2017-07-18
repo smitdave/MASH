@@ -501,6 +501,17 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// RiskQ__get_HumanHost
+Rcpp::List RiskQ__get_HumanHost(MASH::RcppR6::RcppR6<MASH::RiskQ> obj_);
+RcppExport SEXP _MASH_RiskQ__get_HumanHost(SEXP obj_SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::RiskQ> >::type obj_(obj_SEXP);
+    rcpp_result_gen = Rcpp::wrap(RiskQ__get_HumanHost(obj_));
+    return rcpp_result_gen;
+END_RCPP
+}
 // RiskQ__get_nOther
 int RiskQ__get_nOther(MASH::RcppR6::RcppR6<MASH::RiskQ> obj_);
 RcppExport SEXP _MASH_RiskQ__get_nOther(SEXP obj_SEXP) {
@@ -592,6 +603,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_MASH_RiskQ__get_w", (DL_FUNC) &_MASH_RiskQ__get_w, 1},
     {"_MASH_RiskQ__push_w", (DL_FUNC) &_MASH_RiskQ__push_w, 2},
     {"_MASH_RiskQ__add_HumanHost", (DL_FUNC) &_MASH_RiskQ__add_HumanHost, 4},
+    {"_MASH_RiskQ__get_HumanHost", (DL_FUNC) &_MASH_RiskQ__get_HumanHost, 1},
     {"_MASH_RiskQ__get_nOther", (DL_FUNC) &_MASH_RiskQ__get_nOther, 1},
     {"_MASH_RiskQ__set_nOther", (DL_FUNC) &_MASH_RiskQ__set_nOther, 2},
     {"_MASH_RiskQ__add_OtherHost", (DL_FUNC) &_MASH_RiskQ__add_OtherHost, 3},

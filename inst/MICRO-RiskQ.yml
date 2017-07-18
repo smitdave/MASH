@@ -57,6 +57,8 @@ RiskQ:
         - pTm_new: double
         - w_new: double
       return_type: void
+    get_HumanHost:
+      return_type: "Rcpp::List"
 
     get_nOther:
       return_type: int

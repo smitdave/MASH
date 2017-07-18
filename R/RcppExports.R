@@ -187,6 +187,10 @@ RiskQ__add_HumanHost <- function(obj_, who_new, pTm_new, w_new) {
     invisible(.Call('_MASH_RiskQ__add_HumanHost', PACKAGE = 'MASH', obj_, who_new, pTm_new, w_new))
 }
 
+RiskQ__get_HumanHost <- function(obj_) {
+    .Call('_MASH_RiskQ__get_HumanHost', PACKAGE = 'MASH', obj_)
+}
+
 RiskQ__get_nOther <- function(obj_) {
     .Call('_MASH_RiskQ__get_nOther', PACKAGE = 'MASH', obj_)
 }
