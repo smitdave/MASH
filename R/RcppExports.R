@@ -259,7 +259,19 @@ MosquitoFemaleHistory__historyTrack <- function(obj_, privateEnv) {
     invisible(.Call('_MASH_MosquitoFemaleHistory__historyTrack', PACKAGE = 'MASH', obj_, privateEnv))
 }
 
-MosquitoFemaleHistory__bionomics <- function(obj_) {
-    invisible(.Call('_MASH_MosquitoFemaleHistory__bionomics', PACKAGE = 'MASH', obj_))
+MosquitoFemaleHistory__historyFeed <- function(obj_, privateEnv) {
+    invisible(.Call('_MASH_MosquitoFemaleHistory__historyFeed', PACKAGE = 'MASH', obj_, privateEnv))
+}
+
+MosquitoFemaleHistory__calcBionomics <- function(obj_) {
+    invisible(.Call('_MASH_MosquitoFemaleHistory__calcBionomics', PACKAGE = 'MASH', obj_))
+}
+
+MosquitoFemaleHistory__exportHistory <- function(obj_) {
+    .Call('_MASH_MosquitoFemaleHistory__exportHistory', PACKAGE = 'MASH', obj_)
+}
+
+MosquitoFemaleHistory__exportBionomics <- function(obj_) {
+    .Call('_MASH_MosquitoFemaleHistory__exportBionomics', PACKAGE = 'MASH', obj_)
 }
 

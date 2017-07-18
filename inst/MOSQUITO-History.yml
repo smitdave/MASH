@@ -17,10 +17,23 @@ MosquitoFemaleHistory:
       @md
       @export
   methods:
+    # History Tracking
     historyTrack:
       args:
         - privateEnv: "Rcpp::Environment"
       return_type: void
 
-    bionomics:
+    historyFeed:
+      args:
+        - privateEnv: "Rcpp::Environment"
       return_type: void
+
+    calcBionomics:
+      return_type: void
+
+    # History Export
+    exportHistory:
+      return_type: "Rcpp::List"
+
+    exportBionomics:
+      return_type: "Rcpp::List"

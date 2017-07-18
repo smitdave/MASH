@@ -52,7 +52,8 @@ public:
   // historyFeed: track feeding history
   void historyFeed(Rcpp::Environment privateEnv){
 
-    if(privateEnv["hostID"] > 0){
+    int hostID = privateEnv["hostID"];
+    if(hostID > 0){
       // human host
       feedAllH += 1;    // number of blood meals
       feedAllT.push_back(privateEnv["tNow"]);   // times of blood meals
@@ -111,14 +112,32 @@ public:
   // History Export
   ///////////////////////////////////
 
+  // exportHistory: export this mosquito history
   Rcpp::List exportHistory(){
 
+    return(
+      Rcpp::List::create(
+        Rcpp::Named("stateH") = stateH,
+        Rcpp::Named("timeH") = timeH,
+        Rcpp::Named("ixH") = ixH,
+        Rcpp::Named("pSetH") = pSetH,
+        Rcpp::Named("feedAllH") = feedAllH,
+        Rcpp::Named("feedAllT") = feedAllT,
+        Rcpp::Named("feedHumanH") = feedHumanH,
+        Rcpp::Named("feedHumanT") = feedHumanT,
+        Rcpp::Named("batchH") = batchH
+      )
+    );
+
   };
 
+  // exportBionomics: export this mosquito calculated bionomics
   Rcpp::List exportBionomics(){
 
+    return(bionomics);
+
   };
-  
+
 
 // private members
 private:
@@ -133,6 +152,7 @@ private:
   int                      feedHumanH;
   std::vector<double>      feedHumanT;
   std::vector<int>         feedIxH;
+  std::vector<int>         bmSizeH;
   std::vector<int>         batchH;
 
   // bionomics
@@ -152,6 +172,7 @@ inline MosquitoFemaleHistory::MosquitoFemaleHistory(){
   feedHumanH = 0;
   feedHumanT.reserve(50);
   feedIxH.reserve(50);
+  bmSizeH.reserve(50);
   batchH.reserve(50);
 
 }
