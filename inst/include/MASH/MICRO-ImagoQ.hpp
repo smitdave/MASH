@@ -53,7 +53,7 @@ public:
     });
     while(it != ImagoQVec.end()){
       fullIx.emplace_back(std::distance(ImagoQVec.begin(), it));
-      it = std::find_if(std::next(it), std::end(it), [](ImagoSlot ix){
+      it = std::find_if(std::next(it), std::end(ImagoQVec), [](ImagoSlot ix){
         return(ix.N != 0);
       });
     }
@@ -106,7 +106,7 @@ public:
     });
     while(it != ImagoQVec.end()){
       timeIx.emplace_back(std::distance(ImagoQVec.begin(), it));
-      it = std::find_if(std::next(it), std::end(it), [time](ImagoSlot ix){
+      it = std::find_if(std::next(it), std::end(ImagoQVec), [time](ImagoSlot ix){
         return(ix.tEmerge <= time);
       });
     }
