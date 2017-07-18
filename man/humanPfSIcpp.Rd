@@ -31,21 +31,29 @@ A class for storing parameters and state variables of human-stage PfSI infection
 \section{Methods}{
 
 \itemize{
-\item firstEvent: return first event in queue as named R list
-\item firstTime: return 'tEvent' slot in first event in queue
-\item rmFirstEventFromQ: remove first event in queue and update \code{queueN}
-\item rmTagFromQ(const std::string &tag): remove all events with certain tag from queue and update \code{queueN}
-\item get_queueN: return \code{queueN}
-\item get_EventQ: return entire \code{EventQ} as R list
-\item addEvent2Q(Rcpp::List event): add a list to the \code{EventQ} in correct time order and update \code{queueN}
+\item get_PfID:
+\item push_PfID:
+\item get_tInf:
+\item push_tInf:
+\item get_b:
+\item set_b:
+\item get_c:
+\item set_c:
+\item get_damID:
+\item push_damID:
+\item get_sireID:
+\item push_sireID:
+\item get_infected:
+\item set_infected:
+\item get_chemoprophylaxis:
+\item set_chemoprophylaxis:
 }
 }
 
 \section{Fields}{
 
 \itemize{
-\item EventQ: \code{std::vector<Rcpp::List>}
-\item queueN: integer value of size of queue.
+\item a field: talk about me
 }
 }
 

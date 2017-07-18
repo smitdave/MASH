@@ -137,4 +137,61 @@ Rcpp::List humanPfSIcpp__get_history(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> ob
   return obj_->get_history();
 }
 
+// [[Rcpp::export]]
+MASH::RiskQ RiskQ__ctor() {
+  return MASH::RiskQ();
+}
+// [[Rcpp::export]]
+int RiskQ__get_N(MASH::RcppR6::RcppR6<MASH::RiskQ> obj_) {
+  return obj_->get_N();
+}
+// [[Rcpp::export]]
+void RiskQ__set_N(MASH::RcppR6::RcppR6<MASH::RiskQ> obj_, int N_new) {
+  obj_->set_N(N_new);
+}
+// [[Rcpp::export]]
+std::vector<int> RiskQ__get_who(MASH::RcppR6::RcppR6<MASH::RiskQ> obj_) {
+  return obj_->get_who();
+}
+// [[Rcpp::export]]
+void RiskQ__push_who(MASH::RcppR6::RcppR6<MASH::RiskQ> obj_, int who_new) {
+  obj_->push_who(who_new);
+}
+// [[Rcpp::export]]
+std::vector<double> RiskQ__get_pTm(MASH::RcppR6::RcppR6<MASH::RiskQ> obj_) {
+  return obj_->get_pTm();
+}
+// [[Rcpp::export]]
+void RiskQ__push_pTm(MASH::RcppR6::RcppR6<MASH::RiskQ> obj_, double pTm_new) {
+  obj_->push_pTm(pTm_new);
+}
+// [[Rcpp::export]]
+std::vector<double> RiskQ__get_w(MASH::RcppR6::RcppR6<MASH::RiskQ> obj_) {
+  return obj_->get_w();
+}
+// [[Rcpp::export]]
+void RiskQ__push_w(MASH::RcppR6::RcppR6<MASH::RiskQ> obj_, double w_new) {
+  obj_->push_w(w_new);
+}
+// [[Rcpp::export]]
+void RiskQ__add_HumanHost(MASH::RcppR6::RcppR6<MASH::RiskQ> obj_, int who_new, double pTm_new, double w_new) {
+  obj_->add_HumanHost(who_new, pTm_new, w_new);
+}
+// [[Rcpp::export]]
+int RiskQ__get_nOther(MASH::RcppR6::RcppR6<MASH::RiskQ> obj_) {
+  return obj_->get_nOther();
+}
+// [[Rcpp::export]]
+void RiskQ__set_nOther(MASH::RcppR6::RcppR6<MASH::RiskQ> obj_, int nOther_new) {
+  obj_->set_nOther(nOther_new);
+}
+// [[Rcpp::export]]
+void RiskQ__add_OtherHost(MASH::RcppR6::RcppR6<MASH::RiskQ> obj_, double otherW_new, int typeID_new) {
+  obj_->add_OtherHost(otherW_new, typeID_new);
+}
+// [[Rcpp::export]]
+Rcpp::List RiskQ__get_OtherHost(MASH::RcppR6::RcppR6<MASH::RiskQ> obj_) {
+  return obj_->get_OtherHost();
+}
+
 

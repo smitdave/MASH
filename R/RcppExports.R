@@ -12,138 +12,194 @@
 #'
 #' @export
 util_PfSIoneHistory <- function(historyIxH, timeBins, timeSeries) {
-    invisible(.Call('MASH_util_PfSIoneHistory', PACKAGE = 'MASH', historyIxH, timeBins, timeSeries))
+    invisible(.Call('_MASH_util_PfSIoneHistory', PACKAGE = 'MASH', historyIxH, timeBins, timeSeries))
 }
 
 HumanEventQ__ctor <- function(initQ) {
-    .Call('MASH_HumanEventQ__ctor', PACKAGE = 'MASH', initQ)
+    .Call('_MASH_HumanEventQ__ctor', PACKAGE = 'MASH', initQ)
 }
 
 HumanEventQ__firstEvent <- function(obj_) {
-    .Call('MASH_HumanEventQ__firstEvent', PACKAGE = 'MASH', obj_)
+    .Call('_MASH_HumanEventQ__firstEvent', PACKAGE = 'MASH', obj_)
 }
 
 HumanEventQ__firstTime <- function(obj_) {
-    .Call('MASH_HumanEventQ__firstTime', PACKAGE = 'MASH', obj_)
+    .Call('_MASH_HumanEventQ__firstTime', PACKAGE = 'MASH', obj_)
 }
 
 HumanEventQ__rmFirstEventFromQ <- function(obj_) {
-    invisible(.Call('MASH_HumanEventQ__rmFirstEventFromQ', PACKAGE = 'MASH', obj_))
+    invisible(.Call('_MASH_HumanEventQ__rmFirstEventFromQ', PACKAGE = 'MASH', obj_))
 }
 
 HumanEventQ__rmTagFromQ <- function(obj_, tag) {
-    invisible(.Call('MASH_HumanEventQ__rmTagFromQ', PACKAGE = 'MASH', obj_, tag))
+    invisible(.Call('_MASH_HumanEventQ__rmTagFromQ', PACKAGE = 'MASH', obj_, tag))
 }
 
 HumanEventQ__get_queueN <- function(obj_) {
-    .Call('MASH_HumanEventQ__get_queueN', PACKAGE = 'MASH', obj_)
+    .Call('_MASH_HumanEventQ__get_queueN', PACKAGE = 'MASH', obj_)
 }
 
 HumanEventQ__addEvent2Q <- function(obj_, event) {
-    invisible(.Call('MASH_HumanEventQ__addEvent2Q', PACKAGE = 'MASH', obj_, event))
+    invisible(.Call('_MASH_HumanEventQ__addEvent2Q', PACKAGE = 'MASH', obj_, event))
 }
 
 HumanEventQ__get_EventQ <- function(obj_) {
-    .Call('MASH_HumanEventQ__get_EventQ', PACKAGE = 'MASH', obj_)
+    .Call('_MASH_HumanEventQ__get_EventQ', PACKAGE = 'MASH', obj_)
 }
 
 HistoryGeneric__ctor <- function(N) {
-    .Call('MASH_HistoryGeneric__ctor', PACKAGE = 'MASH', N)
+    .Call('_MASH_HistoryGeneric__ctor', PACKAGE = 'MASH', N)
 }
 
 HistoryGeneric__track_history <- function(obj_, tEvent, event) {
-    invisible(.Call('MASH_HistoryGeneric__track_history', PACKAGE = 'MASH', obj_, tEvent, event))
+    invisible(.Call('_MASH_HistoryGeneric__track_history', PACKAGE = 'MASH', obj_, tEvent, event))
 }
 
 HistoryGeneric__get_history <- function(obj_) {
-    .Call('MASH_HistoryGeneric__get_history', PACKAGE = 'MASH', obj_)
+    .Call('_MASH_HistoryGeneric__get_history', PACKAGE = 'MASH', obj_)
 }
 
 HistoryTravel__ctor <- function(N) {
-    .Call('MASH_HistoryTravel__ctor', PACKAGE = 'MASH', N)
+    .Call('_MASH_HistoryTravel__ctor', PACKAGE = 'MASH', N)
 }
 
 HistoryTravel__track_travel <- function(obj_, tTravel, locationH) {
-    invisible(.Call('MASH_HistoryTravel__track_travel', PACKAGE = 'MASH', obj_, tTravel, locationH))
+    invisible(.Call('_MASH_HistoryTravel__track_travel', PACKAGE = 'MASH', obj_, tTravel, locationH))
 }
 
 HistoryTravel__get_travelHistory <- function(obj_) {
-    .Call('MASH_HistoryTravel__get_travelHistory', PACKAGE = 'MASH', obj_)
+    .Call('_MASH_HistoryTravel__get_travelHistory', PACKAGE = 'MASH', obj_)
 }
 
 humanPfSIcpp__ctor <- function(PfID_init, tInf_init, b_init, c_init, damID_init, sireID_init, infected_init, chemoprophylaxis_init) {
-    .Call('MASH_humanPfSIcpp__ctor', PACKAGE = 'MASH', PfID_init, tInf_init, b_init, c_init, damID_init, sireID_init, infected_init, chemoprophylaxis_init)
+    .Call('_MASH_humanPfSIcpp__ctor', PACKAGE = 'MASH', PfID_init, tInf_init, b_init, c_init, damID_init, sireID_init, infected_init, chemoprophylaxis_init)
 }
 
 humanPfSIcpp__get_PfID <- function(obj_) {
-    .Call('MASH_humanPfSIcpp__get_PfID', PACKAGE = 'MASH', obj_)
+    .Call('_MASH_humanPfSIcpp__get_PfID', PACKAGE = 'MASH', obj_)
 }
 
 humanPfSIcpp__push_PfID <- function(obj_, PfID_new) {
-    invisible(.Call('MASH_humanPfSIcpp__push_PfID', PACKAGE = 'MASH', obj_, PfID_new))
+    invisible(.Call('_MASH_humanPfSIcpp__push_PfID', PACKAGE = 'MASH', obj_, PfID_new))
 }
 
 humanPfSIcpp__get_tInf <- function(obj_) {
-    .Call('MASH_humanPfSIcpp__get_tInf', PACKAGE = 'MASH', obj_)
+    .Call('_MASH_humanPfSIcpp__get_tInf', PACKAGE = 'MASH', obj_)
 }
 
 humanPfSIcpp__push_tInf <- function(obj_, tInf_new) {
-    invisible(.Call('MASH_humanPfSIcpp__push_tInf', PACKAGE = 'MASH', obj_, tInf_new))
+    invisible(.Call('_MASH_humanPfSIcpp__push_tInf', PACKAGE = 'MASH', obj_, tInf_new))
 }
 
 humanPfSIcpp__get_b <- function(obj_) {
-    .Call('MASH_humanPfSIcpp__get_b', PACKAGE = 'MASH', obj_)
+    .Call('_MASH_humanPfSIcpp__get_b', PACKAGE = 'MASH', obj_)
 }
 
 humanPfSIcpp__set_b <- function(obj_, b_new) {
-    invisible(.Call('MASH_humanPfSIcpp__set_b', PACKAGE = 'MASH', obj_, b_new))
+    invisible(.Call('_MASH_humanPfSIcpp__set_b', PACKAGE = 'MASH', obj_, b_new))
 }
 
 humanPfSIcpp__get_c <- function(obj_) {
-    .Call('MASH_humanPfSIcpp__get_c', PACKAGE = 'MASH', obj_)
+    .Call('_MASH_humanPfSIcpp__get_c', PACKAGE = 'MASH', obj_)
 }
 
 humanPfSIcpp__set_c <- function(obj_, c_new) {
-    invisible(.Call('MASH_humanPfSIcpp__set_c', PACKAGE = 'MASH', obj_, c_new))
+    invisible(.Call('_MASH_humanPfSIcpp__set_c', PACKAGE = 'MASH', obj_, c_new))
 }
 
 humanPfSIcpp__get_damID <- function(obj_) {
-    .Call('MASH_humanPfSIcpp__get_damID', PACKAGE = 'MASH', obj_)
+    .Call('_MASH_humanPfSIcpp__get_damID', PACKAGE = 'MASH', obj_)
 }
 
 humanPfSIcpp__push_damID <- function(obj_, damID_new) {
-    invisible(.Call('MASH_humanPfSIcpp__push_damID', PACKAGE = 'MASH', obj_, damID_new))
+    invisible(.Call('_MASH_humanPfSIcpp__push_damID', PACKAGE = 'MASH', obj_, damID_new))
 }
 
 humanPfSIcpp__get_sireID <- function(obj_) {
-    .Call('MASH_humanPfSIcpp__get_sireID', PACKAGE = 'MASH', obj_)
+    .Call('_MASH_humanPfSIcpp__get_sireID', PACKAGE = 'MASH', obj_)
 }
 
 humanPfSIcpp__push_sireID <- function(obj_, sireID_new) {
-    invisible(.Call('MASH_humanPfSIcpp__push_sireID', PACKAGE = 'MASH', obj_, sireID_new))
+    invisible(.Call('_MASH_humanPfSIcpp__push_sireID', PACKAGE = 'MASH', obj_, sireID_new))
 }
 
 humanPfSIcpp__get_infected <- function(obj_) {
-    .Call('MASH_humanPfSIcpp__get_infected', PACKAGE = 'MASH', obj_)
+    .Call('_MASH_humanPfSIcpp__get_infected', PACKAGE = 'MASH', obj_)
 }
 
 humanPfSIcpp__set_infected <- function(obj_, infected_new) {
-    invisible(.Call('MASH_humanPfSIcpp__set_infected', PACKAGE = 'MASH', obj_, infected_new))
+    invisible(.Call('_MASH_humanPfSIcpp__set_infected', PACKAGE = 'MASH', obj_, infected_new))
 }
 
 humanPfSIcpp__get_chemoprophylaxis <- function(obj_) {
-    .Call('MASH_humanPfSIcpp__get_chemoprophylaxis', PACKAGE = 'MASH', obj_)
+    .Call('_MASH_humanPfSIcpp__get_chemoprophylaxis', PACKAGE = 'MASH', obj_)
 }
 
 humanPfSIcpp__set_chemoprophylaxis <- function(obj_, chemoprophylaxis_new) {
-    invisible(.Call('MASH_humanPfSIcpp__set_chemoprophylaxis', PACKAGE = 'MASH', obj_, chemoprophylaxis_new))
+    invisible(.Call('_MASH_humanPfSIcpp__set_chemoprophylaxis', PACKAGE = 'MASH', obj_, chemoprophylaxis_new))
 }
 
 humanPfSIcpp__track_history <- function(obj_, tEvent, event) {
-    invisible(.Call('MASH_humanPfSIcpp__track_history', PACKAGE = 'MASH', obj_, tEvent, event))
+    invisible(.Call('_MASH_humanPfSIcpp__track_history', PACKAGE = 'MASH', obj_, tEvent, event))
 }
 
 humanPfSIcpp__get_history <- function(obj_) {
-    .Call('MASH_humanPfSIcpp__get_history', PACKAGE = 'MASH', obj_)
+    .Call('_MASH_humanPfSIcpp__get_history', PACKAGE = 'MASH', obj_)
+}
+
+RiskQ__ctor <- function() {
+    .Call('_MASH_RiskQ__ctor', PACKAGE = 'MASH')
+}
+
+RiskQ__get_N <- function(obj_) {
+    .Call('_MASH_RiskQ__get_N', PACKAGE = 'MASH', obj_)
+}
+
+RiskQ__set_N <- function(obj_, N_new) {
+    invisible(.Call('_MASH_RiskQ__set_N', PACKAGE = 'MASH', obj_, N_new))
+}
+
+RiskQ__get_who <- function(obj_) {
+    .Call('_MASH_RiskQ__get_who', PACKAGE = 'MASH', obj_)
+}
+
+RiskQ__push_who <- function(obj_, who_new) {
+    invisible(.Call('_MASH_RiskQ__push_who', PACKAGE = 'MASH', obj_, who_new))
+}
+
+RiskQ__get_pTm <- function(obj_) {
+    .Call('_MASH_RiskQ__get_pTm', PACKAGE = 'MASH', obj_)
+}
+
+RiskQ__push_pTm <- function(obj_, pTm_new) {
+    invisible(.Call('_MASH_RiskQ__push_pTm', PACKAGE = 'MASH', obj_, pTm_new))
+}
+
+RiskQ__get_w <- function(obj_) {
+    .Call('_MASH_RiskQ__get_w', PACKAGE = 'MASH', obj_)
+}
+
+RiskQ__push_w <- function(obj_, w_new) {
+    invisible(.Call('_MASH_RiskQ__push_w', PACKAGE = 'MASH', obj_, w_new))
+}
+
+RiskQ__add_HumanHost <- function(obj_, who_new, pTm_new, w_new) {
+    invisible(.Call('_MASH_RiskQ__add_HumanHost', PACKAGE = 'MASH', obj_, who_new, pTm_new, w_new))
+}
+
+RiskQ__get_nOther <- function(obj_) {
+    .Call('_MASH_RiskQ__get_nOther', PACKAGE = 'MASH', obj_)
+}
+
+RiskQ__set_nOther <- function(obj_, nOther_new) {
+    invisible(.Call('_MASH_RiskQ__set_nOther', PACKAGE = 'MASH', obj_, nOther_new))
+}
+
+RiskQ__add_OtherHost <- function(obj_, otherW_new, typeID_new) {
+    invisible(.Call('_MASH_RiskQ__add_OtherHost', PACKAGE = 'MASH', obj_, otherW_new, typeID_new))
+}
+
+RiskQ__get_OtherHost <- function(obj_) {
+    .Call('_MASH_RiskQ__get_OtherHost', PACKAGE = 'MASH', obj_)
 }
 
