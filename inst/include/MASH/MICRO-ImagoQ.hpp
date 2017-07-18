@@ -46,48 +46,49 @@ public:
   // clear_ImagoQ: Clear out all populated slots (N>0) in an ImagoQ for the EL4P module of Aquatic Ecology
   void clear_ImagoQ(){
 
-    // find all non-null slots
-    std::vector<int> fullIx;
-    auto it = std::find_if(ImagoQVec.begin(), ImagoQVec.end(), [](ImagoSlot ix){
-      return(ix.N != 0);
-    });
-    while(it != ImagoQVec.end()){
-      fullIx.emplace_back(std::distance(ImagoQVec.begin(), it));
-      it = std::find_if(std::next(it), std::end(ImagoQVec), [](ImagoSlot ix){
-        return(ix.N != 0);
+      // find all non-null slots
+      std::vector<int> fullIx;
+      auto it = std::find_if(ImagoQVec.begin(), ImagoQVec.end(), [](ImagoSlot ix){
+          return(ix.N != 0);
       });
-    }
+      while(it != ImagoQVec.end()){
+          fullIx.emplace_back(std::distance(ImagoQVec.begin(), it));
+          it = std::find_if(std::next(it), std::end(ImagoQVec), [](ImagoSlot ix){
+              return(ix.N != 0);
+          });
+      }
 
-    for(std::vector<int>::iterator it = fullIx.begin(); it != fullIx.end(); it++){
-      ImagoQVec[int(*it)].N = 0;
-      ImagoQVec[int(*it)].tEmerge = -1;
-      ImagoQVec[int(*it)].genotype = -1;
-      ImagoQVec[int(*it)].damID = -1;
-      ImagoQVec[int(*it)].sireID = -1;
-    }
+      for(std::vector<int>::iterator it = fullIx.begin(); it != fullIx.end(); it++){
+          ImagoQVec[*it].N = 0;
+          ImagoQVec[*it].tEmerge = -1;
+          ImagoQVec[*it].genotype = -1;
+          ImagoQVec[*it].damID = -1;
+          ImagoQVec[*it].sireID = -1;
+      }
 
   };
 
   // add_ImagoQ: Add emerging adults to the ImagoQ
   void add_ImagoQ(const int &N_new, const double &tEmerge_new, const int &genotype_new, const int &damID_new, const int &sireID_new){
 
-    // find null slot
-    auto it = std::find(ImagoQVec.begin(), ImagoQVec.end(), [](ImagoSlot ix){
-      return(ix.N == 0);
-    });
+      // find null slot
+      auto it = std::find_if(ImagoQVec.begin(), ImagoQVec.end(), [](ImagoSlot ix){
+          return(ix.N == 0);
+      });
 
-    // insert the new slot into ImagoQ
-    if(it == ImagoQVec.end()){
-      // there are no null slots
-      ImagoQVec.push_back(ImagoSlot(N_new,tEmerge_new,genotype_new,damID_new,sireID_new));
-    } else {
-      // there is a null slot
-      ImagoQVec[int(*it)].N = N_new;
-      ImagoQVec[int(*it)].tEmerge = tEmerge_new;
-      ImagoQVec[int(*it)].genotype = genotype_new;
-      ImagoQVec[int(*it)].damID = damID_new;
-      ImagoQVec[int(*it)].sireID = sireID_new;
-    }
+      // insert the new slot into ImagoQ
+      if(it == ImagoQVec.end()){
+          // there are no null slots
+          ImagoQVec.push_back(ImagoSlot(N_new,tEmerge_new,genotype_new,damID_new,sireID_new));
+      } else {
+          // there is a null slot
+          size_t ix = std::distance(ImagoQVec.begin(), it);
+          ImagoQVec[ix].N = N_new;
+          ImagoQVec[ix].tEmerge = tEmerge_new;
+          ImagoQVec[ix].genotype = genotype_new;
+          ImagoQVec[ix].damID = damID_new;
+          ImagoQVec[ix].sireID = sireID_new;
+      }
 
   };
 
@@ -99,24 +100,24 @@ public:
   // track_ImagoQ: Return the total number of emerging adults in this ImagoQ whose tEmerge <= time
   double track_ImagoQ(const double &time){
 
-    // find slots where tEmerge <= time
-    std::vector<int> timeIx;
-    auto it = std::find_if(ImagoQVec.begin(), ImagoQVec.end(), [time](ImagoSlot ix){
-      return(ix.tEmerge <= time);
-    });
-    while(it != ImagoQVec.end()){
-      timeIx.emplace_back(std::distance(ImagoQVec.begin(), it));
-      it = std::find_if(std::next(it), std::end(ImagoQVec), [time](ImagoSlot ix){
-        return(ix.tEmerge <= time);
+      // find slots where tEmerge <= time
+      std::vector<int> timeIx;
+      auto it = std::find_if(ImagoQVec.begin(), ImagoQVec.end(), [time](ImagoSlot ix){
+          return(ix.tEmerge <= time);
       });
-    }
+      while(it != ImagoQVec.end()){
+          timeIx.emplace_back(std::distance(ImagoQVec.begin(), it));
+          it = std::find_if(std::next(it), std::end(ImagoQVec), [time](ImagoSlot ix){
+              return(ix.tEmerge <= time);
+          });
+      }
 
-    int totalAdults;
-    for(auto it = timeIx.begin(); it != timeIx.end(); it++){
-      totalAdults += ImagoQVec[*it].N;
-    }
+      int totalAdults = 0;
+      for(auto it = timeIx.begin(); it != timeIx.end(); it++){
+          totalAdults += ImagoQVec[*it].N;
+      }
 
-    return(totalAdults);
+      return(totalAdults);
   };
 
 
@@ -131,9 +132,9 @@ public:
     N = N_new;
   };
 
-  Rcpp::List get_ImagoQ(){
-    return(Rcpp::wrap(ImagoQVec));
-  };
+  // Rcpp::List get_ImagoQ(){
+  //   return(Rcpp::wrap(ImagoQVec));
+  // };
 
 
 // private members
