@@ -251,3 +251,15 @@ ImagoQ__get_ImagoQTime <- function(obj_, tNow, clear) {
     .Call('_MASH_ImagoQ__get_ImagoQTime', PACKAGE = 'MASH', obj_, tNow, clear)
 }
 
+MosquitoFemaleHistory__ctor <- function() {
+    .Call('_MASH_MosquitoFemaleHistory__ctor', PACKAGE = 'MASH')
+}
+
+MosquitoFemaleHistory__historyTrack <- function(obj_, privateEnv) {
+    invisible(.Call('_MASH_MosquitoFemaleHistory__historyTrack', PACKAGE = 'MASH', obj_, privateEnv))
+}
+
+MosquitoFemaleHistory__bionomics <- function(obj_) {
+    invisible(.Call('_MASH_MosquitoFemaleHistory__bionomics', PACKAGE = 'MASH', obj_))
+}
+

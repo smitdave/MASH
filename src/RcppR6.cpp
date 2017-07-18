@@ -243,4 +243,17 @@ Rcpp::List ImagoQ__get_ImagoQTime(MASH::RcppR6::RcppR6<MASH::ImagoQ> obj_, doubl
   return obj_->get_ImagoQTime(tNow, clear);
 }
 
+// [[Rcpp::export]]
+MASH::MosquitoFemaleHistory MosquitoFemaleHistory__ctor() {
+  return MASH::MosquitoFemaleHistory();
+}
+// [[Rcpp::export]]
+void MosquitoFemaleHistory__historyTrack(MASH::RcppR6::RcppR6<MASH::MosquitoFemaleHistory> obj_, Rcpp::Environment privateEnv) {
+  obj_->historyTrack(privateEnv);
+}
+// [[Rcpp::export]]
+void MosquitoFemaleHistory__bionomics(MASH::RcppR6::RcppR6<MASH::MosquitoFemaleHistory> obj_) {
+  obj_->bionomics();
+}
+
 

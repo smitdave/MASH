@@ -683,6 +683,37 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// MosquitoFemaleHistory__ctor
+MASH::MosquitoFemaleHistory MosquitoFemaleHistory__ctor();
+RcppExport SEXP _MASH_MosquitoFemaleHistory__ctor() {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    rcpp_result_gen = Rcpp::wrap(MosquitoFemaleHistory__ctor());
+    return rcpp_result_gen;
+END_RCPP
+}
+// MosquitoFemaleHistory__historyTrack
+void MosquitoFemaleHistory__historyTrack(MASH::RcppR6::RcppR6<MASH::MosquitoFemaleHistory> obj_, Rcpp::Environment privateEnv);
+RcppExport SEXP _MASH_MosquitoFemaleHistory__historyTrack(SEXP obj_SEXP, SEXP privateEnvSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::MosquitoFemaleHistory> >::type obj_(obj_SEXP);
+    Rcpp::traits::input_parameter< Rcpp::Environment >::type privateEnv(privateEnvSEXP);
+    MosquitoFemaleHistory__historyTrack(obj_, privateEnv);
+    return R_NilValue;
+END_RCPP
+}
+// MosquitoFemaleHistory__bionomics
+void MosquitoFemaleHistory__bionomics(MASH::RcppR6::RcppR6<MASH::MosquitoFemaleHistory> obj_);
+RcppExport SEXP _MASH_MosquitoFemaleHistory__bionomics(SEXP obj_SEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::MosquitoFemaleHistory> >::type obj_(obj_SEXP);
+    MosquitoFemaleHistory__bionomics(obj_);
+    return R_NilValue;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_MASH_util_PfSIoneHistory", (DL_FUNC) &_MASH_util_PfSIoneHistory, 3},
@@ -745,6 +776,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_MASH_ImagoQ__set_N", (DL_FUNC) &_MASH_ImagoQ__set_N, 2},
     {"_MASH_ImagoQ__get_ImagoQ", (DL_FUNC) &_MASH_ImagoQ__get_ImagoQ, 1},
     {"_MASH_ImagoQ__get_ImagoQTime", (DL_FUNC) &_MASH_ImagoQ__get_ImagoQTime, 3},
+    {"_MASH_MosquitoFemaleHistory__ctor", (DL_FUNC) &_MASH_MosquitoFemaleHistory__ctor, 0},
+    {"_MASH_MosquitoFemaleHistory__historyTrack", (DL_FUNC) &_MASH_MosquitoFemaleHistory__historyTrack, 2},
+    {"_MASH_MosquitoFemaleHistory__bionomics", (DL_FUNC) &_MASH_MosquitoFemaleHistory__bionomics, 1},
     {NULL, NULL, 0}
 };
 

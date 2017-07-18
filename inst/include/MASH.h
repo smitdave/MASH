@@ -15,6 +15,9 @@
 #include <MASH/MICRO-RiskQ.hpp>
 #include <MASH/MICRO-ImagoQ.hpp>
 
+// MOSQUITO classes
+#include <MASH/MOSQUITO-History.hpp>
+
 #include <MASH/RcppR6_post.hpp>
 
 #endif

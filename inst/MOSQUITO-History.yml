@@ -1,0 +1,26 @@
+MosquitoFemaleHistory:
+  name_cpp: MASH::MosquitoFemaleHistory
+  forward_declare: true
+  constructor:
+    roxygen: |
+      Class to store female mosquito histories; \code{\link{MicroMosquitoFemale}} and \code{\link{MicroMosquito}}
+      @title Mosquito Female History Class
+      @section Methods:
+        * clear_ImagoQ:
+        * add_ImagoQ:
+        * track_ImagoQ:
+        * get_N:
+        * set_N:
+        * get_ImagoQ:
+      @section Fields:
+        * a field:
+      @md
+      @export
+  methods:
+    historyTrack:
+      args:
+        - privateEnv: "Rcpp::Environment"
+      return_type: void
+
+    bionomics:
+      return_type: void

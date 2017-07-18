@@ -6,12 +6,8 @@
 \usage{
 emergingAdults_MicroEmerge()
 }
-\value{
-does stuff
-}
 \description{
-This method is bound to \code{Landscape$emergingAdults_Emerge()}
-}
-\examples{
-some_function()
+Grab emerging adult batches where tEmerge <= tNow and return as a list.
+This is a helper function for \code{\link{addCohort_MicroEmerge}}.
+This method is bound to \code{Landscape$emergingAdults_Emerge()}.
 }

@@ -413,33 +413,33 @@ MicroMosquitoMale <- R6::R6Class(classname = "MicroMosquitoMale",
 #' @return list
 #' @examples
 #' MosquitoFemaleHistory(ixH = 0L, pSetH = "l")
-MosquitoFemaleHistory <- function(
-    stateH = NULL,
-    timeH = NULL,
-    ixH,
-    pSetH,
-    feedAllH = 0L,
-    feedAllT = NULL,
-    feedHumanH = 0L,
-    feedHumanT = NULL,
-    feedIxH = NULL,
-    bmSizeH = NULL,
-    batchH = NULL
-  ){
-    list(
-      stateH     = stateH,
-      timeH      = timeH,
-      ixH        = ixH,
-      pSetH      = pSetH,
-      feedAllH   = feedAllH,
-      feedAllT   = feedAllT,
-      feedHumanH = feedHumanH,
-      feedHumanT = feedHumanT,
-      feedIxH    = feedIxH,
-      bmSizeH    = bmSizeH,
-      batchH     = batchH
-      )
-}
+# MosquitoFemaleHistory <- function(
+#     stateH = NULL,
+#     timeH = NULL,
+#     ixH,
+#     pSetH,
+#     feedAllH = 0L,
+#     feedAllT = NULL,
+#     feedHumanH = 0L,
+#     feedHumanT = NULL,
+#     feedIxH = NULL,
+#     bmSizeH = NULL,
+#     batchH = NULL
+#   ){
+#     list(
+#       stateH     = stateH,
+#       timeH      = timeH,
+#       ixH        = ixH,
+#       pSetH      = pSetH,
+#       feedAllH   = feedAllH,
+#       feedAllT   = feedAllT,
+#       feedHumanH = feedHumanH,
+#       feedHumanT = feedHumanT,
+#       feedIxH    = feedIxH,
+#       bmSizeH    = bmSizeH,
+#       batchH     = batchH
+#       )
+# }
 
 
 #' \code{\link{MicroMosquitoMale}} History Object
@@ -453,16 +453,16 @@ MosquitoFemaleHistory <- function(
 #' @return list
 #' @examples
 #' MosquitoMaleHistory(ixH = 0L, pSetH = "l")
-MosquitoMaleHistory <- function(
-    stateH = NULL,
-    timeH = NULL,
-    ixH,
-    pSetH
-  ){
-    list(
-      stateH     = stateH,
-      timeH      = timeH,
-      ixH        = ixH,
-      pSetH      = pSetH
-      )
-}
+# MosquitoMaleHistory <- function(
+#     stateH = NULL,
+#     timeH = NULL,
+#     ixH,
+#     pSetH
+#   ){
+#     list(
+#       stateH     = stateH,
+#       timeH      = timeH,
+#       ixH        = ixH,
+#       pSetH      = pSetH
+#       )
+# }
