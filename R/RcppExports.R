@@ -223,6 +223,10 @@ ImagoQ__clear_ImagoQ <- function(obj_) {
     invisible(.Call('_MASH_ImagoQ__clear_ImagoQ', PACKAGE = 'MASH', obj_))
 }
 
+ImagoQ__clear_ImagoQTime <- function(obj_, time) {
+    invisible(.Call('_MASH_ImagoQ__clear_ImagoQTime', PACKAGE = 'MASH', obj_, time))
+}
+
 ImagoQ__add_ImagoQ <- function(obj_, N_new, tEmerge_new, genotype_new, damID_new, sireID_new) {
     invisible(.Call('_MASH_ImagoQ__add_ImagoQ', PACKAGE = 'MASH', obj_, N_new, tEmerge_new, genotype_new, damID_new, sireID_new))
 }
@@ -241,5 +245,9 @@ ImagoQ__set_N <- function(obj_, N_new) {
 
 ImagoQ__get_ImagoQ <- function(obj_) {
     .Call('_MASH_ImagoQ__get_ImagoQ', PACKAGE = 'MASH', obj_)
+}
+
+ImagoQ__get_ImagoQTime <- function(obj_, tNow, clear) {
+    .Call('_MASH_ImagoQ__get_ImagoQTime', PACKAGE = 'MASH', obj_, tNow, clear)
 }
 

@@ -599,6 +599,17 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// ImagoQ__clear_ImagoQTime
+void ImagoQ__clear_ImagoQTime(MASH::RcppR6::RcppR6<MASH::ImagoQ> obj_, double time);
+RcppExport SEXP _MASH_ImagoQ__clear_ImagoQTime(SEXP obj_SEXP, SEXP timeSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::ImagoQ> >::type obj_(obj_SEXP);
+    Rcpp::traits::input_parameter< double >::type time(timeSEXP);
+    ImagoQ__clear_ImagoQTime(obj_, time);
+    return R_NilValue;
+END_RCPP
+}
 // ImagoQ__add_ImagoQ
 void ImagoQ__add_ImagoQ(MASH::RcppR6::RcppR6<MASH::ImagoQ> obj_, int N_new, double tEmerge_new, int genotype_new, int damID_new, int sireID_new);
 RcppExport SEXP _MASH_ImagoQ__add_ImagoQ(SEXP obj_SEXP, SEXP N_newSEXP, SEXP tEmerge_newSEXP, SEXP genotype_newSEXP, SEXP damID_newSEXP, SEXP sireID_newSEXP) {
@@ -659,6 +670,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// ImagoQ__get_ImagoQTime
+Rcpp::List ImagoQ__get_ImagoQTime(MASH::RcppR6::RcppR6<MASH::ImagoQ> obj_, double tNow, bool clear);
+RcppExport SEXP _MASH_ImagoQ__get_ImagoQTime(SEXP obj_SEXP, SEXP tNowSEXP, SEXP clearSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::ImagoQ> >::type obj_(obj_SEXP);
+    Rcpp::traits::input_parameter< double >::type tNow(tNowSEXP);
+    Rcpp::traits::input_parameter< bool >::type clear(clearSEXP);
+    rcpp_result_gen = Rcpp::wrap(ImagoQ__get_ImagoQTime(obj_, tNow, clear));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_MASH_util_PfSIoneHistory", (DL_FUNC) &_MASH_util_PfSIoneHistory, 3},
@@ -714,11 +738,13 @@ static const R_CallMethodDef CallEntries[] = {
     {"_MASH_RiskQ__get_OtherHost", (DL_FUNC) &_MASH_RiskQ__get_OtherHost, 1},
     {"_MASH_ImagoQ__ctor", (DL_FUNC) &_MASH_ImagoQ__ctor, 0},
     {"_MASH_ImagoQ__clear_ImagoQ", (DL_FUNC) &_MASH_ImagoQ__clear_ImagoQ, 1},
+    {"_MASH_ImagoQ__clear_ImagoQTime", (DL_FUNC) &_MASH_ImagoQ__clear_ImagoQTime, 2},
     {"_MASH_ImagoQ__add_ImagoQ", (DL_FUNC) &_MASH_ImagoQ__add_ImagoQ, 6},
     {"_MASH_ImagoQ__track_ImagoQ", (DL_FUNC) &_MASH_ImagoQ__track_ImagoQ, 2},
     {"_MASH_ImagoQ__get_N", (DL_FUNC) &_MASH_ImagoQ__get_N, 1},
     {"_MASH_ImagoQ__set_N", (DL_FUNC) &_MASH_ImagoQ__set_N, 2},
     {"_MASH_ImagoQ__get_ImagoQ", (DL_FUNC) &_MASH_ImagoQ__get_ImagoQ, 1},
+    {"_MASH_ImagoQ__get_ImagoQTime", (DL_FUNC) &_MASH_ImagoQ__get_ImagoQTime, 3},
     {NULL, NULL, 0}
 };
 

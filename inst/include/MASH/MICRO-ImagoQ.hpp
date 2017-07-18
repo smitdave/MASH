@@ -1,3 +1,12 @@
+////////////////////////////////////////////////////////////
+//
+//  MASH
+//  MICRO Imago Queue Structure
+//  Sean Wu
+//  July 18, 2017
+//
+////////////////////////////////////////////////////////////
+
 #ifndef _MASH_IMAGOQ_HPP_
 #define _MASH_IMAGOQ_HPP_
 
@@ -69,6 +78,32 @@ public:
       N -= fullIx.size();
 
   };
+
+  // clear_ImagoQTime: Clear out all ImagoQ slots where tEmerge <= time
+  void clear_ImagoQTime(const double &time){
+
+    // find slots where tEmerge <= time
+    std::vector<int> timeIx;
+    auto it = std::find_if(ImagoQVec.begin(), ImagoQVec.end(), [time](ImagoSlot ix){
+        return(ix.tEmerge <= time);
+    });
+    while(it != ImagoQVec.end()){
+        timeIx.emplace_back(std::distance(ImagoQVec.begin(), it));
+        it = std::find_if(std::next(it), std::end(ImagoQVec), [time](ImagoSlot ix){
+            return(ix.tEmerge <= time);
+        });
+    }
+
+    for(std::vector<int>::iterator it = timeIx.begin(); it != timeIx.end(); it++){
+        ImagoQVec[*it].N = 0;
+        ImagoQVec[*it].tEmerge = -1;
+        ImagoQVec[*it].genotype = -1;
+        ImagoQVec[*it].damID = -1;
+        ImagoQVec[*it].sireID = -1;
+    }
+
+    N -= timeIx.size();
+  }
 
   // add_ImagoQ: Add emerging adults to the ImagoQ
   void add_ImagoQ(const int &N_new, const double &tEmerge_new, const int &genotype_new, const int &damID_new, const int &sireID_new){
@@ -151,6 +186,48 @@ public:
         )
       );
     }
+    return(Rcpp::wrap(out));
+  };
+
+  // get_ImagoQtNow: get all ImagoSlot emerging adult batches where tEmerge <= tNow
+  Rcpp::List get_ImagoQTime(const double &tNow, const bool &clear){
+
+    // find slots where tEmerge <= time
+    std::vector<int> timeIx;
+    auto it = std::find_if(ImagoQVec.begin(), ImagoQVec.end(), [tNow](ImagoSlot ix){
+        return(ix.tEmerge <= tNow);
+    });
+    while(it != ImagoQVec.end()){
+        timeIx.emplace_back(std::distance(ImagoQVec.begin(), it));
+        it = std::find_if(std::next(it), std::end(ImagoQVec), [tNow](ImagoSlot ix){
+            return(ix.tEmerge <= tNow);
+        });
+    }
+
+    std::vector<Rcpp::List> out;
+    for(auto it = timeIx.begin(); it != timeIx.end(); it++){
+      out.push_back(
+        Rcpp::List::create(
+          Rcpp::Named("N") = ImagoQVec[*it].N,
+          Rcpp::Named("tEmerge") = ImagoQVec[*it].tEmerge,
+          Rcpp::Named("genotype") = ImagoQVec[*it].genotype,
+          Rcpp::Named("damID") = ImagoQVec[*it].damID,
+          Rcpp::Named("sireID") = ImagoQVec[*it].sireID
+        )
+      );
+
+      // clear out the slots if requested
+      if(clear){
+        ImagoQVec[*it].N = 0;
+        ImagoQVec[*it].tEmerge = -1;
+        ImagoQVec[*it].genotype = -1;
+        ImagoQVec[*it].damID = -1;
+        ImagoQVec[*it].sireID = -1;
+        N -= 1;
+      }
+
+    }
+
     return(Rcpp::wrap(out));
   };
 

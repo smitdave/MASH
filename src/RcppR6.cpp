@@ -215,6 +215,10 @@ void ImagoQ__clear_ImagoQ(MASH::RcppR6::RcppR6<MASH::ImagoQ> obj_) {
   obj_->clear_ImagoQ();
 }
 // [[Rcpp::export]]
+void ImagoQ__clear_ImagoQTime(MASH::RcppR6::RcppR6<MASH::ImagoQ> obj_, double time) {
+  obj_->clear_ImagoQTime(time);
+}
+// [[Rcpp::export]]
 void ImagoQ__add_ImagoQ(MASH::RcppR6::RcppR6<MASH::ImagoQ> obj_, int N_new, double tEmerge_new, int genotype_new, int damID_new, int sireID_new) {
   obj_->add_ImagoQ(N_new, tEmerge_new, genotype_new, damID_new, sireID_new);
 }
@@ -233,6 +237,10 @@ void ImagoQ__set_N(MASH::RcppR6::RcppR6<MASH::ImagoQ> obj_, int N_new) {
 // [[Rcpp::export]]
 Rcpp::List ImagoQ__get_ImagoQ(MASH::RcppR6::RcppR6<MASH::ImagoQ> obj_) {
   return obj_->get_ImagoQ();
+}
+// [[Rcpp::export]]
+Rcpp::List ImagoQ__get_ImagoQTime(MASH::RcppR6::RcppR6<MASH::ImagoQ> obj_, double tNow, bool clear) {
+  return obj_->get_ImagoQTime(tNow, clear);
 }
 
 

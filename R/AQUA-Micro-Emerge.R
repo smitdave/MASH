@@ -92,12 +92,12 @@ MICRO.Emerge.Setup <- function(overwrite = TRUE){
 
   AquaticSite$set(which = "public",name = "get_lambda",
             value = get_MicroLambda,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   AquaticSite$set(which = "public",name = "set_lambda",
             value = set_MicroLambda,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
 }
@@ -152,7 +152,8 @@ oneDay_MicroEmergeSite <- function(tNow){
 
   lambdaExact = private$lambda[floor(tNow)%%365+1]
   lambdaEmerge = rpois(n = 1, lambda = lambdaExact)
-  self$add_ImagoQ(newImago = newImago(N = lambdaEmerge, tEmerge = tNow))
+  # self$add_ImagoQ(newImago = newImago(N = lambdaEmerge, tEmerge = tNow))
+  private$ImagoQ$add_ImagoQ(N_new = lambdaEmerge, tEmerge_new = tNow, genotype_new = -1L, damID_new = -1L, sireID_new = -1L)
 
 }
 
@@ -178,6 +179,7 @@ oneDay_MicroEmerge <- function(){
 #' @examples
 #' some_function()
 emergingAdults_MicroEmerge <- function(){
+  tNow = self$get_TilePointer()$get_tNow()
   # use tNow in the TILE and see who is ready to be taken from ImagoQ into the MosyPop.
 }
 
