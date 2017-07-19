@@ -28,5 +28,8 @@ ImagoQ$get_N()
 
 ImagoQ$add_ImagoQ(N_new = 5,tEmerge_new = 0.1,genotype_new = -1L,damID_new = -1L,sireID_new = -1L)
 
-# test AquaticSite
+# test LANDSCAPE
+Landscape_PAR = Landscape.Parameters(nFeed = 10,nAqua = 10,pointGen = "poisson",
+                                     module = "emerge",modulePars = list(N = 10, lambda = 10))
+testLandscape = Landscape$new(Landscape_PAR = )
 

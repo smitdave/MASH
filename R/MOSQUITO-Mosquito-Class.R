@@ -109,9 +109,7 @@ MicroMosquitoFemale <- R6::R6Class(classname = "MicroMosquitoFemale",
 
                             # initialize: needs to take PAR as a parameter because certain module-specific parameter values will be stored there
                             # pointers are also passed down from enclosing MicroMosquitoPopFemale object
-                            initialize = function(id, time, ix, genotype, state, inPointSet,
-                                FemalePopPointer, MalePopPointer, LandscapePointer, HumansPointer, TilePointer,
-                                PAR){
+                            initialize = function(id, time, ix, genotype, state, MBITES_PAR){
 
                               # initialize general fields
 
@@ -125,9 +123,9 @@ MicroMosquitoFemale <- R6::R6Class(classname = "MicroMosquitoFemale",
                               # State and Location
                               private$state      = state       # {F,B,R,L,O,S,M,E,D}
                               private$stateNew   = state       # {F,B,R,L,O,S,M,E,D}
-                              private$inPointSet = inPointSet       # class of site {f,l,s,m}
+                              private$inPointSet = "l"       # class of site {f,l,s,m}
                               private$ix         = ix       # index of site
-                              private$mature     = PAR$mature       # mature
+                              private$mature     = MBITES_PAR$mature       # mature
 
                               # Other State Variables
                               private$lspot     = "l"        # landing spot (i: inside wall, w: outside wall, v: outside vegetation, r: feed, l: leave)
@@ -137,28 +135,21 @@ MicroMosquitoFemale <- R6::R6Class(classname = "MicroMosquitoFemale",
                               # Egg Batch Variables
                               private$bmSize = 0         # the size of the blood meal, relative to max
                               private$batch  = 0         # female eggs in batch
-                              private$eggT   = PAR$eggT         # the minimum time before eggs are mature
-                              private$eggP   = PAR$eggP         # the mimimum provision for eggs to mature
+                              private$eggT   = MBITES_PAR$eggT         # the minimum time before eggs are mature
+                              private$eggP   = MBITES_PAR$eggP         # the mimimum provision for eggs to mature
 
                               # Maturation & Reproduction
                               sire        = 0
-                              energyPreG  = PAR$energyPreG           # pre-gonotrophic energy requirement
+                              energyPreG  = MBITES_PAR$energyPreG           # pre-gonotrophic energy requirement
                               hostID      = 0           # the id of the host: -1::none; 0::not human
 
                               # initialize PATHOGEN object
                               # PAR must contain a function mapped to the R6ClassGenerator object needed
-                              private$Pathogen = PAR$makeMosquitoPathogen()
+                              private$Pathogen = MBITES_PAR$makeMosquitoPathogen()
 
                               # initialize history object
                               private$history = MASH::MosquitoFemaleHistory()
                               private$history$historyInit(ix = ix, inPointSet = inPointSet)
-
-                              # initialize pointers
-                              private$FemalePopPointer = FemalePopPointer
-                              private$MalePopPointer = MalePopPointer
-                              private$LandscapePointer = LandscapePointer
-                              private$HumansPointer = HumansPointer
-                              private$TilePointer = TilePointer
 
                             }, # end initializer
 

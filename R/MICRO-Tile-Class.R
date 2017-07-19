@@ -63,6 +63,8 @@ MicroTile <- R6::R6Class(classname = "MicroTile",
                      private$Landscape = Landscape$new(MicroTile_PAR$Landscape_PAR)
                      private$HumanPop = HumanPop$new(HumanPop_PAR = MicroTile_PAR$HumanPop_PAR)
 
+                     movement = MicroKernel_exactAll(private$Landscape,sigma=3,eps=0.1,beta=0)
+
                      private$tNow = 0
                      private$MicroTile_PAR = MicroTile_PAR
 

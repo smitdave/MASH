@@ -11,6 +11,8 @@ MicroMosquitoPop
 \description{
 This is a generic Mosquito Population class definition, it is a superclass for \code{\link{MicroMosquitoPopFemale}} and \code{\link{MicroMosquitoPopMale}} and cannot be independently instantiated.
 It contains methods and fields which are generic to both the male and female populations, described below.
+Mosquito populations should be initialized last in a \code{\link{MicroTile}} because their initializer functions need to take as arguments
+pointers to the other objects in a tile.
 }
 \section{Fields}{
 

@@ -241,7 +241,7 @@ MicroKernel_SampleMvOb <- function(MvOb){
 #'
 MicroKernel_moveMe_FULL <- function(){
 
-  MvOb = private$myPopPointer$get_movement(ixS = private$ix, state = private$state, inPointSet = private$inPointSet)
+  MvOb = private$FemalePopPointer$get_movement(ixS = private$ix, state = private$state, inPointSet = private$inPointSet)
   pSetNew = switch(private$state,
       F = {"f"},
       L = {"l"},
@@ -260,7 +260,7 @@ MicroKernel_moveMe_FULL <- function(){
 #'
 MicroKernel_moveMe_BRO <- function(){
 
-  MvOb = private$myPopPointer$get_movement(ixS = private$ix, state = private$state, inPointSet = private$inPointSet)
+  MvOb = private$FemalePopPointer$get_movement(ixS = private$ix, state = private$state, inPointSet = private$inPointSet)
   pSetNew = switch(private$state,
       B = {"f"},
       O = {"l"},
@@ -277,7 +277,7 @@ MicroKernel_moveMe_BRO <- function(){
 #'
 MicroKernel_moveMe_BROM <- function(){
 
-  MvOb = private$myPopPointer$get_movement(ixS = private$ix, state = private$state, inPointSet = private$inPointSet)
+  MvOb = private$FemalePopPointer$get_movement(ixS = private$ix, state = private$state, inPointSet = private$inPointSet)
   pSetNew = switch(private$state,
       B = {"f"},
       O = {"l"},
@@ -295,7 +295,7 @@ MicroKernel_moveMe_BROM <- function(){
 #'
 MicroKernel_moveMe_Male <- function(){
 
-  MvOb = private$myPopPointer$get_movement(ixS = private$ix, state = private$state, inPointSet = private$inPointSet)
+  MvOb = private$MalePopPointer$get_movement(ixS = private$ix, state = private$state, inPointSet = private$inPointSet)
   pSetNew = switch(private$state,
       M = {"m"},
       S = {"s"},
