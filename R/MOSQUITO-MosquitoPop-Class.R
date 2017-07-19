@@ -72,7 +72,7 @@ MicroMosquitoPop <- R6::R6Class(classname = "MosquitoPop",
                         return(private$movement)
                       },
 
-                      # return parameter list or element of list
+                      # return parameter list or element of list by name
                       get_MBITES_PAR = function(ixP = NULL){
                         if(is.null(ixP)){
                           return(private$MBITES_PAR)

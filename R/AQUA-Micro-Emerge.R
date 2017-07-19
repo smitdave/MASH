@@ -92,12 +92,12 @@ MICRO.Emerge.Setup <- function(overwrite = TRUE){
 
   AquaticSite$set(which = "public",name = "get_lambda",
             value = get_MicroLambda,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
   AquaticSite$set(which = "public",name = "set_lambda",
             value = set_MicroLambda,
-            overwrite = TRUE
+            overwrite = overwrite
   )
 
 }
@@ -152,7 +152,7 @@ oneDay_MicroEmergeSite <- function(tNow){
 
   lambdaExact = private$lambda[floor(tNow)%%365+1]
   lambdaEmerge = rpois(n = 1, lambda = lambdaExact)
-  self$add_ImagoQ(newImago = newImago(N = lambdaEmerge, tEmerge = tNow))
+  private$ImagoQ$add_ImagoQ(N_new = lambdaEmerge, tEmerge_new = tNow, genotype_new = -1L, damID_new = -1L, sireID_new = -1L)
 
 }
 
@@ -165,26 +165,29 @@ oneDay_MicroEmergeSite <- function(tNow){
 oneDay_MicroEmerge <- function(){
   tNow = self$get_TilePointer()$get_tNow()
   for(ixA in 1:self$AquaSitesN){
-    private$AquaSites[[ixA]]$oneDay_EmergeSite()
+    private$AquaSites[[ixA]]$oneDay_EmergeSite(tNow)
   }
 }
 
 
 #' MICRO \code{\link{Landscape}} Method: Get Emerging Adults from ImagoQ and Zero out ImagoQ
 #'
-#' This method is bound to \code{Landscape$emergingAdults_Emerge()}
+#' Grab emerging adult batches where tEmerge <= tNow and return as a list.
+#' This is a helper function for \code{\link{addCohort_MicroEmerge}}.
+#' This method is bound to \code{AquaticSite$addCohort_MicroEmerge()}.
 #'
-#' @return does stuff
-#' @examples
-#' some_function()
-emergingAdults_MicroEmerge <- function(){
+addCohort_MicroEmergeSite <- function(){
+  tNow = self$get_TilePointer()$get_tNow()
   # use tNow in the TILE and see who is ready to be taken from ImagoQ into the MosyPop.
+  # return(
+  #   private$ImagoQ$get_ImagoQTime(tNow = tNow,clear = TRUE)
+  # )
 }
 
 
 #' MICRO \code{\link{Landscape}} Method: Get Emerging Adults from ImagoQ and Zero out ImagoQ
 #'
-#' This method is bound to \code{Landscape$emergingAdults_Emerge()}
+#' This method is bound to \code{Landscape$addCohort_MicroEmerge()}
 #'
 #' @return does stuff
 #' @examples

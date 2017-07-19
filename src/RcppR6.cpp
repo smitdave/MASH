@@ -182,6 +182,14 @@ Rcpp::List RiskQ__get_HumanHost(MASH::RcppR6::RcppR6<MASH::RiskQ> obj_) {
   return obj_->get_HumanHost();
 }
 // [[Rcpp::export]]
+Rcpp::List RiskQ__get_HumanHostIx(MASH::RcppR6::RcppR6<MASH::RiskQ> obj_, int ix) {
+  return obj_->get_HumanHostIx(ix);
+}
+// [[Rcpp::export]]
+void RiskQ__clear_HumanHost(MASH::RcppR6::RcppR6<MASH::RiskQ> obj_) {
+  obj_->clear_HumanHost();
+}
+// [[Rcpp::export]]
 int RiskQ__get_nOther(MASH::RcppR6::RcppR6<MASH::RiskQ> obj_) {
   return obj_->get_nOther();
 }
@@ -196,6 +204,72 @@ void RiskQ__add_OtherHost(MASH::RcppR6::RcppR6<MASH::RiskQ> obj_, double otherW_
 // [[Rcpp::export]]
 Rcpp::List RiskQ__get_OtherHost(MASH::RcppR6::RcppR6<MASH::RiskQ> obj_) {
   return obj_->get_OtherHost();
+}
+
+// [[Rcpp::export]]
+MASH::ImagoQ ImagoQ__ctor() {
+  return MASH::ImagoQ();
+}
+// [[Rcpp::export]]
+void ImagoQ__clear_ImagoQ(MASH::RcppR6::RcppR6<MASH::ImagoQ> obj_) {
+  obj_->clear_ImagoQ();
+}
+// [[Rcpp::export]]
+void ImagoQ__clear_ImagoQTime(MASH::RcppR6::RcppR6<MASH::ImagoQ> obj_, double time) {
+  obj_->clear_ImagoQTime(time);
+}
+// [[Rcpp::export]]
+void ImagoQ__add_ImagoQ(MASH::RcppR6::RcppR6<MASH::ImagoQ> obj_, int N_new, double tEmerge_new, int genotype_new, int damID_new, int sireID_new) {
+  obj_->add_ImagoQ(N_new, tEmerge_new, genotype_new, damID_new, sireID_new);
+}
+// [[Rcpp::export]]
+double ImagoQ__track_ImagoQ(MASH::RcppR6::RcppR6<MASH::ImagoQ> obj_, double time) {
+  return obj_->track_ImagoQ(time);
+}
+// [[Rcpp::export]]
+int ImagoQ__get_N(MASH::RcppR6::RcppR6<MASH::ImagoQ> obj_) {
+  return obj_->get_N();
+}
+// [[Rcpp::export]]
+void ImagoQ__set_N(MASH::RcppR6::RcppR6<MASH::ImagoQ> obj_, int N_new) {
+  obj_->set_N(N_new);
+}
+// [[Rcpp::export]]
+Rcpp::List ImagoQ__get_ImagoQ(MASH::RcppR6::RcppR6<MASH::ImagoQ> obj_) {
+  return obj_->get_ImagoQ();
+}
+// [[Rcpp::export]]
+Rcpp::List ImagoQ__get_ImagoQTime(MASH::RcppR6::RcppR6<MASH::ImagoQ> obj_, double tNow, bool clear) {
+  return obj_->get_ImagoQTime(tNow, clear);
+}
+
+// [[Rcpp::export]]
+MASH::MosquitoFemaleHistory MosquitoFemaleHistory__ctor() {
+  return MASH::MosquitoFemaleHistory();
+}
+// [[Rcpp::export]]
+void MosquitoFemaleHistory__historyInit(MASH::RcppR6::RcppR6<MASH::MosquitoFemaleHistory> obj_, int ix, std::string inPointSet) {
+  obj_->historyInit(ix, inPointSet);
+}
+// [[Rcpp::export]]
+void MosquitoFemaleHistory__historyTrack(MASH::RcppR6::RcppR6<MASH::MosquitoFemaleHistory> obj_, Rcpp::Environment privateEnv, bool alive) {
+  obj_->historyTrack(privateEnv, alive);
+}
+// [[Rcpp::export]]
+void MosquitoFemaleHistory__historyFeed(MASH::RcppR6::RcppR6<MASH::MosquitoFemaleHistory> obj_, Rcpp::Environment privateEnv) {
+  obj_->historyFeed(privateEnv);
+}
+// [[Rcpp::export]]
+void MosquitoFemaleHistory__calcBionomics(MASH::RcppR6::RcppR6<MASH::MosquitoFemaleHistory> obj_) {
+  obj_->calcBionomics();
+}
+// [[Rcpp::export]]
+Rcpp::List MosquitoFemaleHistory__exportHistory(MASH::RcppR6::RcppR6<MASH::MosquitoFemaleHistory> obj_) {
+  return obj_->exportHistory();
+}
+// [[Rcpp::export]]
+Rcpp::List MosquitoFemaleHistory__exportBionomics(MASH::RcppR6::RcppR6<MASH::MosquitoFemaleHistory> obj_) {
+  return obj_->exportBionomics();
 }
 
 

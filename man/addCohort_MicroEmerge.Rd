@@ -10,7 +10,7 @@ addCohort_MicroEmerge()
 does stuff
 }
 \description{
-This method is bound to \code{Landscape$emergingAdults_Emerge()}
+This method is bound to \code{Landscape$addCohort_MicroEmerge()}
 }
 \examples{
 some_function()

@@ -140,9 +140,7 @@ FeedingSite <- R6::R6Class(classname = "FeedingSite",
                      private$hazI = hazI
                      private$sugar = sugar
                      private$enterP = enterP
-
-                     # init risk list
-                     self$init_riskList(maxH = maxH)
+                     private$RiskQ = MASH::RiskQ()
 
                    },
 
@@ -168,11 +166,7 @@ FeedingSite <- R6::R6Class(classname = "FeedingSite",
 
                    # house entry probability
                    get_enterP = function(){return(private$enterP)},
-                   set_enterP = function(enterP){private$enterP = enterP},
-
-                   # risk list: ixH is the Human$myID to look up
-                   get_riskList = function(){return(private$riskList)},
-                   set_riskList = function(riskList){private$riskList = riskList}
+                   set_enterP = function(enterP){private$enterP = enterP}
 
                  ),
 
@@ -184,7 +178,7 @@ FeedingSite <- R6::R6Class(classname = "FeedingSite",
                    hazI = NULL,      # inside wall hazards
                    sugar = NULL,     # sugar source (only used in MBITES-BRO and MBITES-BROM)
                    enterP = NULL,    # house entry probability
-                   riskList = NULL   # risk list for host bloodfeeding
+                   RiskQ = NULL      # host risk queue
 
                  )
 )
@@ -249,7 +243,8 @@ AquaticSite <- R6::R6Class(classname = "AquaticSite",
                      private$haz = haz
 
                      # shared Aquatic Ecology fields
-                     private$ImagoQ = allocImagoQ(N = maxQ)
+                     # private$ImagoQ = allocImagoQ(N = maxQ)
+                     private$ImagoQ = MASH::ImagoQ()
 
                      # Aquatic Ecology Emerge module fields
                      if(module == "emerge"){

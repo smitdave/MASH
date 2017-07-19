@@ -1,24 +1,18 @@
+////////////////////////////////////////////////////////////
+//
+//  MASH
+//  MICRO Risk Queue Structure
+//  Sean Wu
+//  July 18, 2017
+//
+////////////////////////////////////////////////////////////
+
 #ifndef _MASH_RISKQ_HPP_
 #define _MASH_RISKQ_HPP_
 
 #include <Rcpp.h>
 
 namespace MASH {
-
-// // OtherHost: struct to store information for non-human hosts
-// inline struct OtherHost{
-//   OtherHost(const double &w_init, const int &typeID_init);
-//   double w;
-//   int typeID;
-// };
-//
-// inline OtherHost::OtherHost(const double &w_init, const int &typeID_init){
-//   w = w_init;
-//   typeID = typeID_init;
-// }
-//
-// // OtherHostVector: store OtherHost structs
-// inline typedef std::vector<OtherHost> OtherHostVector;
 
 // RiskQ: Risk Queue class definition
 class RiskQ {
@@ -70,10 +64,11 @@ public:
   // Human Hosts
   ///////////////////////////////////
 
+  // add_HumanHost: add a single human host to the risk queue
   void add_HumanHost(const int &who_new, const double &pTm_new, const double &w_new){
 
     // chcek if new host is already in this RiskQ
-    std::vector<int>::iterator it = find(who.begin(), who.end(), who_new);
+    std::vector<int>::iterator it = std::find(who.begin(), who.end(), who_new);
     if(it != who.end()){
       // host is already in this RiskQ
       int ix = std::distance(who.begin(), it);
@@ -90,6 +85,7 @@ public:
 
   };
 
+  // get_HumanHost: return a named list of all human hosts
   Rcpp::List get_HumanHost(){
 
     return(
@@ -101,6 +97,30 @@ public:
     );
 
   };
+
+  // get_HumanHostIx: return the risk queue information for human identified by their index in 'who'
+  Rcpp::List get_HumanHostIx(const int &ix){
+    std::vector<int>::iterator it = std::find(who.begin(), who.end(), ix);
+    if(it == who.end()){
+      Rcpp::stop("human not found in this RiskQ!");
+    } else {
+      int ixQ = std::distance(who.begin(), it);
+      return(
+        Rcpp::List::create(
+          Rcpp::Named("pTm") = pTm[ixQ],
+          Rcpp::Named("w") = w[ixQ]
+        )
+      );
+    }
+  }
+
+  // clear_HumanHost: clear all human host slots in risk queue
+  void clear_HumanHost(){
+    who.clear();
+    pTm.clear();
+    w.clear();
+    N = 0;
+  }
 
   ///////////////////////////////////
   // Other Hosts

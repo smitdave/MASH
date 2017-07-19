@@ -191,6 +191,14 @@ RiskQ__get_HumanHost <- function(obj_) {
     .Call('_MASH_RiskQ__get_HumanHost', PACKAGE = 'MASH', obj_)
 }
 
+RiskQ__get_HumanHostIx <- function(obj_, ix) {
+    .Call('_MASH_RiskQ__get_HumanHostIx', PACKAGE = 'MASH', obj_, ix)
+}
+
+RiskQ__clear_HumanHost <- function(obj_) {
+    invisible(.Call('_MASH_RiskQ__clear_HumanHost', PACKAGE = 'MASH', obj_))
+}
+
 RiskQ__get_nOther <- function(obj_) {
     .Call('_MASH_RiskQ__get_nOther', PACKAGE = 'MASH', obj_)
 }
@@ -205,5 +213,69 @@ RiskQ__add_OtherHost <- function(obj_, otherW_new, typeID_new) {
 
 RiskQ__get_OtherHost <- function(obj_) {
     .Call('_MASH_RiskQ__get_OtherHost', PACKAGE = 'MASH', obj_)
+}
+
+ImagoQ__ctor <- function() {
+    .Call('_MASH_ImagoQ__ctor', PACKAGE = 'MASH')
+}
+
+ImagoQ__clear_ImagoQ <- function(obj_) {
+    invisible(.Call('_MASH_ImagoQ__clear_ImagoQ', PACKAGE = 'MASH', obj_))
+}
+
+ImagoQ__clear_ImagoQTime <- function(obj_, time) {
+    invisible(.Call('_MASH_ImagoQ__clear_ImagoQTime', PACKAGE = 'MASH', obj_, time))
+}
+
+ImagoQ__add_ImagoQ <- function(obj_, N_new, tEmerge_new, genotype_new, damID_new, sireID_new) {
+    invisible(.Call('_MASH_ImagoQ__add_ImagoQ', PACKAGE = 'MASH', obj_, N_new, tEmerge_new, genotype_new, damID_new, sireID_new))
+}
+
+ImagoQ__track_ImagoQ <- function(obj_, time) {
+    .Call('_MASH_ImagoQ__track_ImagoQ', PACKAGE = 'MASH', obj_, time)
+}
+
+ImagoQ__get_N <- function(obj_) {
+    .Call('_MASH_ImagoQ__get_N', PACKAGE = 'MASH', obj_)
+}
+
+ImagoQ__set_N <- function(obj_, N_new) {
+    invisible(.Call('_MASH_ImagoQ__set_N', PACKAGE = 'MASH', obj_, N_new))
+}
+
+ImagoQ__get_ImagoQ <- function(obj_) {
+    .Call('_MASH_ImagoQ__get_ImagoQ', PACKAGE = 'MASH', obj_)
+}
+
+ImagoQ__get_ImagoQTime <- function(obj_, tNow, clear) {
+    .Call('_MASH_ImagoQ__get_ImagoQTime', PACKAGE = 'MASH', obj_, tNow, clear)
+}
+
+MosquitoFemaleHistory__ctor <- function() {
+    .Call('_MASH_MosquitoFemaleHistory__ctor', PACKAGE = 'MASH')
+}
+
+MosquitoFemaleHistory__historyInit <- function(obj_, ix, inPointSet) {
+    invisible(.Call('_MASH_MosquitoFemaleHistory__historyInit', PACKAGE = 'MASH', obj_, ix, inPointSet))
+}
+
+MosquitoFemaleHistory__historyTrack <- function(obj_, privateEnv, alive) {
+    invisible(.Call('_MASH_MosquitoFemaleHistory__historyTrack', PACKAGE = 'MASH', obj_, privateEnv, alive))
+}
+
+MosquitoFemaleHistory__historyFeed <- function(obj_, privateEnv) {
+    invisible(.Call('_MASH_MosquitoFemaleHistory__historyFeed', PACKAGE = 'MASH', obj_, privateEnv))
+}
+
+MosquitoFemaleHistory__calcBionomics <- function(obj_) {
+    invisible(.Call('_MASH_MosquitoFemaleHistory__calcBionomics', PACKAGE = 'MASH', obj_))
+}
+
+MosquitoFemaleHistory__exportHistory <- function(obj_) {
+    .Call('_MASH_MosquitoFemaleHistory__exportHistory', PACKAGE = 'MASH', obj_)
+}
+
+MosquitoFemaleHistory__exportBionomics <- function(obj_) {
+    .Call('_MASH_MosquitoFemaleHistory__exportBionomics', PACKAGE = 'MASH', obj_)
 }
 
