@@ -46,3 +46,29 @@ mosyHistory$historyTrack(privateEnv = testMosy,alive = FALSE)
 mosyHistory$exportHistory()
 # mosyHistory$calcBionomics()
 mosyHistory$exportBionomics()
+
+
+# test hash table efficiency
+library(hash)
+library(microbenchmark)
+
+makeBigHash <- function(N){
+  xx = hash::hash()
+  for(i in 1:N){
+    hash::.set(hash = xx, keys = i, values = i)
+  }
+  return(xx)
+}
+
+makeBigList <- function(N){
+  xx = vector(mode="list",length = N)
+  for(i in 1:N){
+    xx[[i]] = i
+  }
+  return(xx)
+}
+
+microbenchmark::microbenchmark(
+  makeBigHash(N = 1e4),
+  makeBigList(N = 1e4)
+)
