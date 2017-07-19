@@ -211,8 +211,10 @@ PfSI.Setup <- function(
   # Add PfSI Pathogen Object to 'MicroMosquitoFemale' & 'MicroMosquitoPopFemale' Class
   ###################################################################
 
-  # DO THIS WHEN MOSQUITOES EXIST
-
+  MicroMosquitoFemale$set(which = "public",name = "makePathogen",
+            value = function(){mosquitoPfSI$new()},
+            overwrite = overwrite
+  )
 
   ###################################################################
   # PfSI: Mosquito to Human infectious bite

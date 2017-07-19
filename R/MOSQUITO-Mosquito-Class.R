@@ -125,7 +125,7 @@ MicroMosquitoFemale <- R6::R6Class(classname = "MicroMosquitoFemale",
                               private$stateNew   = state       # {F,B,R,L,O,S,M,E,D}
                               private$inPointSet = "l"       # class of site {f,l,s,m}
                               private$ix         = ix       # index of site
-                              private$mature     = MBITES_PAR$mature       # mature
+                              private$mature     = FALSE       # mature
 
                               # Other State Variables
                               private$lspot     = "l"        # landing spot (i: inside wall, w: outside wall, v: outside vegetation, r: feed, l: leave)
@@ -145,7 +145,7 @@ MicroMosquitoFemale <- R6::R6Class(classname = "MicroMosquitoFemale",
 
                               # initialize PATHOGEN object
                               # PAR must contain a function mapped to the R6ClassGenerator object needed
-                              private$Pathogen = MBITES_PAR$makeMosquitoPathogen()
+                              private$Pathogen = self$makePathogen()
 
                               # initialize history object
                               private$history = MASH::MosquitoFemaleHistory()

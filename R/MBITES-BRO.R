@@ -19,20 +19,20 @@
 #'  * This method is bound to \code{MicroMosquitoFemale$timingExponential()}.
 #'
 #' @md
-MbitesBRO_timingExponential <- function(){
+mbitesBRO_timingExponential <- function(){
   if(self$isActive()){
-    duration = switch(private$state,
-          B = private$myPopPointer$get_MBITES_PAR("B.t"),
-          R = private$myPopPointer$get_MBITES_PAR("R.t"),
-          O = private$myPopPointer$get_MBITES_PAR("O.t")
-    )
+    if(private$state == "B" && private$lspot == 1L){duration = private$FemalePopPointer$get_MBITES_PAR("F_time")}
+    if(private$state == "B" && private$lspot != 1L){duration = private$FemalePopPointer$get_MBITES_PAR("B_time")}
+    if(private$state == "O" && private$lspot == 1L){duration = private$FemalePopPointer$get_MBITES_PAR("L_time")}
+    if(private$state == "O" && private$lspot != 1L){duration = private$FemalePopPointer$get_MBITES_PAR("O_time")}
+    if(private$state == "R"){duration = private$FemalePopPointer$get_MBITES_PAR("R_time")}
     private$tNext = private$tNow + rexp(n=1,rate=1/duration)
   }
 }
 
 
 #################################################################
-# MBITES-BRO: House entering and Resting
+# MBITES-BRO: Landing
 #################################################################
 
 #' MBITES-BRO: Return Landing Spot Weights for \code{MicroMosquitoFemale}
@@ -42,76 +42,31 @@ MbitesBRO_timingExponential <- function(){
 #'
 #' @md
 #' @return vector of landing spot weights
-MbitesBRO_getWTS <- function(){
+mbitesBRO_getWTS <- function(){
   switch(private$state,
-    B = private$myPopPointer$get_MBITES_PAR("Bwts"),
-    R = private$myPopPointer$get_MBITES_PAR("Rwts"),
-    O = private$myPopPointer$get_MBITES_PAR("Owts")
+    B = private$FemalePopPointer$get_MBITES_PAR("B_wts"),
+    R = private$FemalePopPointer$get_MBITES_PAR("R_wts"),
+    O = private$FemalePopPointer$get_MBITES_PAR("O_wts")
   )
 }
 
+#' MBITES-BRO: Land After Flight \code{MicroMosquitoFemale}
+#'
+#' Mosquito lands after a flight, which may cause various events.
+#' This function always calls \code{\link{mbitesGeneric_newSpot}} and may call \code{\link{mbitesGeneric_enterHouse}}
+#'  * This method is bound to \code{MicroMosquitoFemale$landingSpot()}.
+#'
+#' @md
+mbitesBRO_landingSpot <- function(){
+  if(self$isActive()){
+    oldSpot = private$lspot
+    self$newSpot() # choose new lspot
+    if(oldSpot != 5L & private$lspot == 5L){
+      self$enterHouse() # enterHouse
+    }
+  }
+}
 
-
-#    l) Leave the area
-#    r) Reattempt Without Resting;
-#    v) Rest on vegetation
-#    w) Rest on the Outside wall of a structure
-#    i) Rest on the Inside wall of a structure
-
-
-# newSpot= function(M,F.wts=Fwts,R.wts=Rwts,L.wts=Lwts){
-#   if(M$pState=="F" & M$iwofle==6){
-#     5
-#   }else{
-#     wts=switch(M$pState,
-#               "F"=F.wts,
-#               "R"=R.wts,
-#               "L"=L.wts)
-#     probs=InAndOut[M$iwofle,]*wts
-#     i.rmultinom(list(id=c(1:6),pr=probs))
-#   }
-# }
-#
-# surviveRestingHazard=function(M){
-#   if(M$pState!="D"){M}else{
-#     haz=switch(M$iwofle,
-#       "1"=LANDSCAPE$f$haz1[M$f.i],
-#       "2"=LANDSCAPE$f$haz2[M$f.i],
-#       "3"=LANDSCAPE$f$haz3[M$f.i],
-#       "4"=1,
-#       "5"=1,
-#       "6"=LANDSCAPE$l$haz[M$l.i]
-#     )
-#     if(!rbinom(1,1,haz)) M$pState="D"
-#   }
-# M}
-#
-# enterHouse=function(M){
-#  outside=TRUE
-#  while(outside==TRUE & M$pState=="F" & M$iwofle!=5){
-#    if(rbinom(1,1,LANDSCAPE$f$eh[M$f.i])){
-#      outside=FALSE
-#      if(EAVE.TUBE==TRUE) M=fEaveTube(M)
-#    } else {
-#      M$iwofle=newSpot(M, F.wts=Fwts*c(0,1,1,0,1,0))
-#      if(IRS==TRUE) M=fIRS(M)
-#      M=surviveRestingHazard(M)
-#      M=surviveFlightStress(M)
-#    }
-#  }
-# M}
-#
-# landingSpot=function(M){
-# 	if(M$pState!="D"){
-#     oldSpot=M$iwofle
-#     M$iwofle=newSpot(M)
-#     if(M$iwofle<5 & AREA.REPEL ==TRUE) M=fAreaRepel(M)
-#     if(oldSpot>1 & M$iwofle==1) M=enterHouse(M)
-#     if(M$iwofle<3 & IRS==TRUE) M=fIRS(M)
-#     if(M$iwofle<4 & M$pState!="R") M=surviveRestingHazard(M)
-#   }
-# M}
-#
 
 #################################################################
 # Initialize Methods and Fields (Setup)
@@ -123,14 +78,14 @@ MbitesBRO_getWTS <- function(){
 #'
 #' @param overwrite overwrite methods
 #' @examples
-#' MbitesBRO.Setup()
+#' mbitesBRO.Setup()
 #' @export
-MbitesBRO.Setup <- function(overwrite = TRUE){
+mbitesBRO.Setup <- function(overwrite = TRUE){
 
     message("initializing M-BITES generic shared methods")
 
     MicroMosquitoFemale$set(which = "public",name = "timingExponential",
-              value = MbitesBRO_timingExponential,
+              value = mbitesBRO_timingExponential,
               overwrite = overwrite
     )
 

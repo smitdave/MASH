@@ -57,16 +57,17 @@ MicroTile <- R6::R6Class(classname = "MicroTile",
                    # Initialize
                    #################################################
 
-                   initialize = function(MicroTile_PAR){
+                   initialize = function(Landscape_PAR, HumanPop_PAR, savePar = TRUE){
+
+                     # set simulation time
+                     private$tNow = 0
 
                      # generate objects
-                     private$Landscape = Landscape$new(MicroTile_PAR$Landscape_PAR)
-                     private$HumanPop = HumanPop$new(HumanPop_PAR = MicroTile_PAR$HumanPop_PAR)
+                     private$Landscape = Landscape$new(Landscape_PAR)
+                     private$HumanPop = HumanPop$new(HumanPop_PAR)
 
                      movement = MicroKernel_exactAll(private$Landscape,sigma=3,eps=0.1,beta=0)
 
-                     private$tNow = 0
-                     private$MicroTile_PAR = MicroTile_PAR
 
                      # Human & HumanPop Pointers (duplicate for Humans in HumanPop$pop)
                      private$HumanPop$set_TilePointer(self)
@@ -90,41 +91,29 @@ MicroTile <- R6::R6Class(classname = "MicroTile",
                      private$Landscape$set_TilePointer(self)
                      private$Landscape$set_HumansPointer(private$HumanPop)
 
+                     if(savePar){
+                       private$Landscape_PAR = Landscape_PAR
+                       private$HumanPop_PAR = HumanPop_PAR
+                     }
                    },
 
                    #################################################################
                    # Getters & Setters
                    #################################################################
 
-                   get_tNow = function(){
-                     return(private$tNow)
-                   },
-                   set_tNow = function(tNow){
-                     private$tNow = tNow
-                   },
+                   get_tNow = function(){return(private$tNow)},
+                   set_tNow = function(tNow){private$tNow = tNow},
 
-                   get_MicroTile_PAR = function(){
-                     return(private$tNow)
-                   },
-                   set_MicroTile_PAR = function(MicroTile_PAR){
-                     private$MicroTile_PAR = MicroTile_PAR
-                   },
+                   get_MicroTile_PAR = function(){return(private$tNow)},
+                   set_MicroTile_PAR = function(MicroTile_PAR){private$MicroTile_PAR = MicroTile_PAR},
 
-                   get_HumanPop = function(){
-                     return(private$HumanPop)
-                   },
+                   get_HumanPop = function(){return(private$HumanPop)},
 
-                   get_Landscape = function(){
-                     return(private$Landscape)
-                   },
+                   get_Landscape = function(){return(private$Landscape)},
 
-                   get_FemalePop = function(){
-                     return(private$FemalePop)
-                   },
+                   get_FemalePop = function(){return(private$FemalePop)},
 
-                   get_MalePop = function(){
-                     return(private$MalePop)
-                   }
+                   get_MalePop = function(){return(private$MalePop)}
 
                  ),
 
@@ -133,7 +122,8 @@ MicroTile <- R6::R6Class(classname = "MicroTile",
 
                    # Tile level fields
                    tNow = NULL,
-                   MicroTile_PAR = NULL,
+                   Landscape_PAR = NULL,
+                   HumanPop_PAR = NULL,
 
                    # objects interacting on a tile
                    HumanPop = NULL,

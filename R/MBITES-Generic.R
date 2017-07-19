@@ -25,7 +25,7 @@
 #'
 #'
 #' @md
-MbitesGeneric_FemaleBout <- function(){
+mbitesGeneric_FemaleBout <- function(){
 
   # update time and state
   private$tNow = private$tNext # update time
@@ -71,7 +71,7 @@ MbitesGeneric_FemaleBout <- function(){
 #' Check if this mosquito is alive and return a logical value.
 #'  * This method is bound to \code{MicroMosquito$isAlive()}.
 #' @md
-MbitesGeneric_isAlive <- function(){
+mbitesGeneric_isAlive <- function(){
   if(private$stateNew == "D" || private$state == "D"){
     return(FALSE)
   } else {
@@ -84,7 +84,7 @@ MbitesGeneric_isAlive <- function(){
 #' Check if this mosquito is active and return a logical value.
 #'  * This method is bound to \code{MicroMosquito$isActive()}.
 #' @md
-MbitesGeneric_isActive <- function(){
+mbitesGeneric_isActive <- function(){
   if(private$state == "E"){
     return(FALSE)
   } else {
@@ -107,10 +107,47 @@ MbitesGeneric_isActive <- function(){
 #
 ##############################################################
 
-# XX_getWTS <- function(){} are defined in the appropriate module-specific file.
+#' M-BITES (All Modules): Generate New Landing Spot for \code{MicroMosquitoFemale}
+#'
+#' Method for return a new landing spot based on behavioral state of mosquito and weights from \code{\link{mbitesBRO_getWTS}}.
+#' New landing spots generated at the end of the search bout, attempt bout, or after oviposition a mosquito has entered
+#' the area around a feeding site and either rested or attempted to rest.
+#'  * l: 1 leave the area
+#'  * r: 2 reattempt without resting
+#'  * v: 3 rest on vegetation
+#'  * w: 4 rest on the outside wall of a structure
+#'  * i: 5 rest on the inside wall of a structure
+#'
+#'  * This method is bound to \code{MicroMosquitoFemale$newSpot()}.
+#'
+#' @md
+#' @return integer value corresponding to new landing spot
+mbitesGeneric_newSpot <- function(){
+  probs = private$FemalePopPointer$get_MBITES_PAR("InAndOut")[private$lspot,] * self$getWTS()
+  return(
+    sample(x = 5L,size = 1,prob = probs)
+  )
+}
 
-MbitesGeneric_lspotIx <- function(){
-
+#' M-BITES (All Modules): Attempt to Enter a House for \code{MicroMosquitoFemale}
+#'
+#' Method to simulate attempted house entry for mosquito, and call appropriate events if the mosquito enters.
+#'  * This method is bound to \code{MicroMosquitoFemale$enterHouse()}.
+#'
+#' @md
+mbitesGeneric_enterHouse <- function(){
+  if(runif(1) < private$LandscapePointer$get_FeedingSites(private$ix)$get_enterP()){
+    # mosquito is inside of house
+    # private$LandscapePointer$get_FeedingSites(private$ix)$indoorVectorControl()
+  } else {
+    # mosquito is not inside of house
+    private$lspot = self$newSpot()
+    self$surviveFlight()
+    if(private$lspot == 1L){
+      print("using Recall on enterHouse!") # DEBUG
+      Recall()
+    }
+  }
 }
 
 
@@ -132,7 +169,7 @@ MbitesGeneric_lspotIx <- function(){
 #'
 #' @return modifies the \code{MicroMosquitoFemale} and \code{MicroMosquitoMale} classes.
 #' @export
-MbitesGeneric.Setup <- function(overwrite = TRUE){
+mbitesGeneric.Setup <- function(overwrite = TRUE){
 
   # alert user
   message("initializing M-BITES generic shared methods")
@@ -142,12 +179,12 @@ MbitesGeneric.Setup <- function(overwrite = TRUE){
   ##############################################################
 
   MicroMosquito$set(which = "public",name = "isAlive",
-            value = MbitesGeneric_isAlive,
+            value = mbitesGeneric_isAlive,
             overwrite = overwrite
   )
 
   MicroMosquito$set(which = "public",name = "isActive",
-            value = MbitesGeneric_isActive,
+            value = mbitesGeneric_isActive,
             overwrite = overwrite
   )
 

@@ -69,6 +69,11 @@ MicroMosquitoPop <- R6::R6Class(classname = "MosquitoPop",
                         stop("this hasn't been written yet")
                       },
 
+                      get_nullPop = function(){return(private$nullPop)},
+                      update_nullPop = function(){
+                        private$nullPop = private$nullPop = which(vapply(X = private$pop,FUN = is.null,FUN.VALUE = logical(1)))
+                      },
+
                       # generic get_movement method; designed to be overwritten by module-specific parameteric getter
                       get_movement = function(){
                         return(private$movement)
@@ -167,6 +172,7 @@ MicroMosquitoPopFemale <- R6::R6Class(classname = "MicroMosquitoPopFemale",
                              for(ix in 1:length(id_init)){
                                private$pop[[ix]] = MicroMosquitoFemale$new(id_init[ix], time_init[ix], ix_init[ix], genotype_init[ix], state_init[ix],
                                              MBITES_PAR = MBITES_PAR)
+                               private$pop[[ix]]$set_FemalePopPointer(self)
                              }
                              # find NULL indices
                              private$nullPop = which(vapply(X = private$pop,FUN = is.null,FUN.VALUE = logical(1)))
