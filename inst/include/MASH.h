@@ -14,6 +14,7 @@
 // MICRO-specific classes
 #include <MASH/MICRO-RiskQ.hpp>
 #include <MASH/MICRO-ImagoQ.hpp>
+#include <MASH/MICRO-EggQ.hpp>
 
 // MOSQUITO classes
 #include <MASH/MOSQUITO-History.hpp>

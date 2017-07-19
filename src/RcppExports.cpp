@@ -683,6 +683,110 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// EggQ__ctor
+MASH::EggQ EggQ__ctor();
+RcppExport SEXP _MASH_EggQ__ctor() {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    rcpp_result_gen = Rcpp::wrap(EggQ__ctor());
+    return rcpp_result_gen;
+END_RCPP
+}
+// EggQ__clear_EggQ
+void EggQ__clear_EggQ(MASH::RcppR6::RcppR6<MASH::EggQ> obj_);
+RcppExport SEXP _MASH_EggQ__clear_EggQ(SEXP obj_SEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::EggQ> >::type obj_(obj_SEXP);
+    EggQ__clear_EggQ(obj_);
+    return R_NilValue;
+END_RCPP
+}
+// EggQ__clear_EggQTime
+void EggQ__clear_EggQTime(MASH::RcppR6::RcppR6<MASH::EggQ> obj_, double time);
+RcppExport SEXP _MASH_EggQ__clear_EggQTime(SEXP obj_SEXP, SEXP timeSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::EggQ> >::type obj_(obj_SEXP);
+    Rcpp::traits::input_parameter< double >::type time(timeSEXP);
+    EggQ__clear_EggQTime(obj_, time);
+    return R_NilValue;
+END_RCPP
+}
+// EggQ__add_EggQ
+void EggQ__add_EggQ(MASH::RcppR6::RcppR6<MASH::EggQ> obj_, int N_new, double tOviposit_new, int genotype_new, int damID_new, int sireID_new);
+RcppExport SEXP _MASH_EggQ__add_EggQ(SEXP obj_SEXP, SEXP N_newSEXP, SEXP tOviposit_newSEXP, SEXP genotype_newSEXP, SEXP damID_newSEXP, SEXP sireID_newSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::EggQ> >::type obj_(obj_SEXP);
+    Rcpp::traits::input_parameter< int >::type N_new(N_newSEXP);
+    Rcpp::traits::input_parameter< double >::type tOviposit_new(tOviposit_newSEXP);
+    Rcpp::traits::input_parameter< int >::type genotype_new(genotype_newSEXP);
+    Rcpp::traits::input_parameter< int >::type damID_new(damID_newSEXP);
+    Rcpp::traits::input_parameter< int >::type sireID_new(sireID_newSEXP);
+    EggQ__add_EggQ(obj_, N_new, tOviposit_new, genotype_new, damID_new, sireID_new);
+    return R_NilValue;
+END_RCPP
+}
+// EggQ__track_EggQ
+double EggQ__track_EggQ(MASH::RcppR6::RcppR6<MASH::EggQ> obj_, double time);
+RcppExport SEXP _MASH_EggQ__track_EggQ(SEXP obj_SEXP, SEXP timeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::EggQ> >::type obj_(obj_SEXP);
+    Rcpp::traits::input_parameter< double >::type time(timeSEXP);
+    rcpp_result_gen = Rcpp::wrap(EggQ__track_EggQ(obj_, time));
+    return rcpp_result_gen;
+END_RCPP
+}
+// EggQ__get_N
+int EggQ__get_N(MASH::RcppR6::RcppR6<MASH::EggQ> obj_);
+RcppExport SEXP _MASH_EggQ__get_N(SEXP obj_SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::EggQ> >::type obj_(obj_SEXP);
+    rcpp_result_gen = Rcpp::wrap(EggQ__get_N(obj_));
+    return rcpp_result_gen;
+END_RCPP
+}
+// EggQ__set_N
+void EggQ__set_N(MASH::RcppR6::RcppR6<MASH::EggQ> obj_, int N_new);
+RcppExport SEXP _MASH_EggQ__set_N(SEXP obj_SEXP, SEXP N_newSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::EggQ> >::type obj_(obj_SEXP);
+    Rcpp::traits::input_parameter< int >::type N_new(N_newSEXP);
+    EggQ__set_N(obj_, N_new);
+    return R_NilValue;
+END_RCPP
+}
+// EggQ__get_EggQ
+Rcpp::List EggQ__get_EggQ(MASH::RcppR6::RcppR6<MASH::EggQ> obj_);
+RcppExport SEXP _MASH_EggQ__get_EggQ(SEXP obj_SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::EggQ> >::type obj_(obj_SEXP);
+    rcpp_result_gen = Rcpp::wrap(EggQ__get_EggQ(obj_));
+    return rcpp_result_gen;
+END_RCPP
+}
+// EggQ__get_EggQTime
+Rcpp::List EggQ__get_EggQTime(MASH::RcppR6::RcppR6<MASH::EggQ> obj_, double tNow, bool clear);
+RcppExport SEXP _MASH_EggQ__get_EggQTime(SEXP obj_SEXP, SEXP tNowSEXP, SEXP clearSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::EggQ> >::type obj_(obj_SEXP);
+    Rcpp::traits::input_parameter< double >::type tNow(tNowSEXP);
+    Rcpp::traits::input_parameter< bool >::type clear(clearSEXP);
+    rcpp_result_gen = Rcpp::wrap(EggQ__get_EggQTime(obj_, tNow, clear));
+    return rcpp_result_gen;
+END_RCPP
+}
 // MosquitoFemaleHistory__ctor
 MASH::MosquitoFemaleHistory MosquitoFemaleHistory__ctor();
 RcppExport SEXP _MASH_MosquitoFemaleHistory__ctor() {
@@ -822,6 +926,15 @@ static const R_CallMethodDef CallEntries[] = {
     {"_MASH_ImagoQ__set_N", (DL_FUNC) &_MASH_ImagoQ__set_N, 2},
     {"_MASH_ImagoQ__get_ImagoQ", (DL_FUNC) &_MASH_ImagoQ__get_ImagoQ, 1},
     {"_MASH_ImagoQ__get_ImagoQTime", (DL_FUNC) &_MASH_ImagoQ__get_ImagoQTime, 3},
+    {"_MASH_EggQ__ctor", (DL_FUNC) &_MASH_EggQ__ctor, 0},
+    {"_MASH_EggQ__clear_EggQ", (DL_FUNC) &_MASH_EggQ__clear_EggQ, 1},
+    {"_MASH_EggQ__clear_EggQTime", (DL_FUNC) &_MASH_EggQ__clear_EggQTime, 2},
+    {"_MASH_EggQ__add_EggQ", (DL_FUNC) &_MASH_EggQ__add_EggQ, 6},
+    {"_MASH_EggQ__track_EggQ", (DL_FUNC) &_MASH_EggQ__track_EggQ, 2},
+    {"_MASH_EggQ__get_N", (DL_FUNC) &_MASH_EggQ__get_N, 1},
+    {"_MASH_EggQ__set_N", (DL_FUNC) &_MASH_EggQ__set_N, 2},
+    {"_MASH_EggQ__get_EggQ", (DL_FUNC) &_MASH_EggQ__get_EggQ, 1},
+    {"_MASH_EggQ__get_EggQTime", (DL_FUNC) &_MASH_EggQ__get_EggQTime, 3},
     {"_MASH_MosquitoFemaleHistory__ctor", (DL_FUNC) &_MASH_MosquitoFemaleHistory__ctor, 0},
     {"_MASH_MosquitoFemaleHistory__historyInit", (DL_FUNC) &_MASH_MosquitoFemaleHistory__historyInit, 3},
     {"_MASH_MosquitoFemaleHistory__historyTrack", (DL_FUNC) &_MASH_MosquitoFemaleHistory__historyTrack, 3},

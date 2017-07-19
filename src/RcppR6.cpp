@@ -244,6 +244,43 @@ Rcpp::List ImagoQ__get_ImagoQTime(MASH::RcppR6::RcppR6<MASH::ImagoQ> obj_, doubl
 }
 
 // [[Rcpp::export]]
+MASH::EggQ EggQ__ctor() {
+  return MASH::EggQ();
+}
+// [[Rcpp::export]]
+void EggQ__clear_EggQ(MASH::RcppR6::RcppR6<MASH::EggQ> obj_) {
+  obj_->clear_EggQ();
+}
+// [[Rcpp::export]]
+void EggQ__clear_EggQTime(MASH::RcppR6::RcppR6<MASH::EggQ> obj_, double time) {
+  obj_->clear_EggQTime(time);
+}
+// [[Rcpp::export]]
+void EggQ__add_EggQ(MASH::RcppR6::RcppR6<MASH::EggQ> obj_, int N_new, double tOviposit_new, int genotype_new, int damID_new, int sireID_new) {
+  obj_->add_EggQ(N_new, tOviposit_new, genotype_new, damID_new, sireID_new);
+}
+// [[Rcpp::export]]
+double EggQ__track_EggQ(MASH::RcppR6::RcppR6<MASH::EggQ> obj_, double time) {
+  return obj_->track_EggQ(time);
+}
+// [[Rcpp::export]]
+int EggQ__get_N(MASH::RcppR6::RcppR6<MASH::EggQ> obj_) {
+  return obj_->get_N();
+}
+// [[Rcpp::export]]
+void EggQ__set_N(MASH::RcppR6::RcppR6<MASH::EggQ> obj_, int N_new) {
+  obj_->set_N(N_new);
+}
+// [[Rcpp::export]]
+Rcpp::List EggQ__get_EggQ(MASH::RcppR6::RcppR6<MASH::EggQ> obj_) {
+  return obj_->get_EggQ();
+}
+// [[Rcpp::export]]
+Rcpp::List EggQ__get_EggQTime(MASH::RcppR6::RcppR6<MASH::EggQ> obj_, double tNow, bool clear) {
+  return obj_->get_EggQTime(tNow, clear);
+}
+
+// [[Rcpp::export]]
 MASH::MosquitoFemaleHistory MosquitoFemaleHistory__ctor() {
   return MASH::MosquitoFemaleHistory();
 }

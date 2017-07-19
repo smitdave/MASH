@@ -251,6 +251,42 @@ ImagoQ__get_ImagoQTime <- function(obj_, tNow, clear) {
     .Call('_MASH_ImagoQ__get_ImagoQTime', PACKAGE = 'MASH', obj_, tNow, clear)
 }
 
+EggQ__ctor <- function() {
+    .Call('_MASH_EggQ__ctor', PACKAGE = 'MASH')
+}
+
+EggQ__clear_EggQ <- function(obj_) {
+    invisible(.Call('_MASH_EggQ__clear_EggQ', PACKAGE = 'MASH', obj_))
+}
+
+EggQ__clear_EggQTime <- function(obj_, time) {
+    invisible(.Call('_MASH_EggQ__clear_EggQTime', PACKAGE = 'MASH', obj_, time))
+}
+
+EggQ__add_EggQ <- function(obj_, N_new, tOviposit_new, genotype_new, damID_new, sireID_new) {
+    invisible(.Call('_MASH_EggQ__add_EggQ', PACKAGE = 'MASH', obj_, N_new, tOviposit_new, genotype_new, damID_new, sireID_new))
+}
+
+EggQ__track_EggQ <- function(obj_, time) {
+    .Call('_MASH_EggQ__track_EggQ', PACKAGE = 'MASH', obj_, time)
+}
+
+EggQ__get_N <- function(obj_) {
+    .Call('_MASH_EggQ__get_N', PACKAGE = 'MASH', obj_)
+}
+
+EggQ__set_N <- function(obj_, N_new) {
+    invisible(.Call('_MASH_EggQ__set_N', PACKAGE = 'MASH', obj_, N_new))
+}
+
+EggQ__get_EggQ <- function(obj_) {
+    .Call('_MASH_EggQ__get_EggQ', PACKAGE = 'MASH', obj_)
+}
+
+EggQ__get_EggQTime <- function(obj_, tNow, clear) {
+    .Call('_MASH_EggQ__get_EggQTime', PACKAGE = 'MASH', obj_, tNow, clear)
+}
+
 MosquitoFemaleHistory__ctor <- function() {
     .Call('_MASH_MosquitoFemaleHistory__ctor', PACKAGE = 'MASH')
 }

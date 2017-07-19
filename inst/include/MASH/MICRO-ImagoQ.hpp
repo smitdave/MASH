@@ -52,7 +52,7 @@ public:
   // Queue Management
   ///////////////////////////////////
 
-  // clear_ImagoQ: Clear out all populated slots (N>0) in an ImagoQ for the EL4P module of Aquatic Ecology
+  // clear_ImagoQ: Clear out all populated slots (N>0) in an ImagoQ
   void clear_ImagoQ(){
 
       // find all non-null slots

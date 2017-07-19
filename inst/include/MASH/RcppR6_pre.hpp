@@ -17,6 +17,7 @@ namespace MASH { class HistoryTravel; }
 namespace MASH { class humanPfSIcpp; }
 namespace MASH { class RiskQ; }
 namespace MASH { class ImagoQ; }
+namespace MASH { class EggQ; }
 namespace MASH { class MosquitoFemaleHistory; }
 
 namespace Rcpp {
@@ -37,6 +38,8 @@ template <> SEXP wrap(const MASH::RiskQ&);
 template <> MASH::RiskQ as(SEXP);
 template <> SEXP wrap(const MASH::ImagoQ&);
 template <> MASH::ImagoQ as(SEXP);
+template <> SEXP wrap(const MASH::EggQ&);
+template <> MASH::EggQ as(SEXP);
 template <> SEXP wrap(const MASH::MosquitoFemaleHistory&);
 template <> MASH::MosquitoFemaleHistory as(SEXP);
 }

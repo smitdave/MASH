@@ -1,19 +1,19 @@
-ImagoQ:
-  name_cpp: MASH::ImagoQ
+EggQ:
+  name_cpp: MASH::EggQ
   forward_declare: true
   constructor:
     roxygen: |
-      ImagoQ
-      @title MICRO Imago Queue
+      EggQ
+      @title MICRO Egg Queue
       @section Methods:
-        * clear_ImagoQ:
-        * clear_ImagoQTime:
-        * add_ImagoQ:
-        * track_ImagoQ:
+        * clear_EggQ:
+        * clear_EggQTime:
+        * add_EggQ:
+        * track_EggQ:
         * get_N:
         * set_N:
-        * get_ImagoQ:
-        * get_ImagoQTime:
+        * get_EggQ:
+        * get_EggQTime:
       @section Fields:
         * a field:
       @md
@@ -21,25 +21,25 @@ ImagoQ:
   methods:
 
     # Queue Management
-    clear_ImagoQ:
+    clear_EggQ:
       return_type: void
 
-    clear_ImagoQTime:
+    clear_EggQTime:
       args:
         - time: double
       return_type: void
 
-    add_ImagoQ:
+    add_EggQ:
       args:
         - N_new: int
-        - tEmerge_new: double
+        - tOviposit_new: double
         - genotype_new: int
         - damID_new: int
         - sireID_new: int
       return_type: void
 
     # Queue Tracking
-    track_ImagoQ:
+    track_EggQ:
       args:
         - time: double
       return_type: double
@@ -52,10 +52,10 @@ ImagoQ:
         - N_new: int
       return_type: void
 
-    get_ImagoQ:
+    get_EggQ:
       return_type: "Rcpp::List"
 
-    get_ImagoQTime:
+    get_EggQTime:
       args:
         - tNow: double
         - clear: bool

@@ -69,24 +69,78 @@ mbitesBRO_landingSpot <- function(){
 
 
 #################################################################
-# Initialize Methods and Fields (Setup)
+# MBITES-BRO: Generic Bout
 #################################################################
 
-#' MBITES-BRO: Initialize Additional Methods & Fields in \code{MicroMosquitoPop} and \code{MicroMosquito}
+#' MBITES-BRO: One Bout \code{MicroMosquitoFemale}
 #'
-#' Initialize M-BITES BRO (Blood Feeding, Resting, Oviposition) lifecycle model.
+#' Mosquito behavior has a finite set of states (state space of model), within which there are certain biological functions that are always evaluated.
+#' The generic bout runs necessary updates of timing, state, survival, energetics, and queue checks prior to calling the nested
+#' specific bout action, and checks that the mosquito is alive/active before calling the bout. It updates \code{tNext} and \code{stateNew}.
 #'
-#' @param overwrite overwrite methods
-#' @examples
-#' mbitesBRO.Setup()
-#' @export
-mbitesBRO.Setup <- function(overwrite = TRUE){
+#' This corresponds to the following Gillespie-style algorithm:
+#'
+#' 1. tNow is set to tNext from previous bout
+#' 2. rMove: movement between point classes (if needed)
+#' 3. boutFun: run bout function
+#' 4. run energetics and check if alive
+#' 5. run landingSpot and check if alive
+#' 6. run surviveResting/surviveFlight and check if alive
+#' 7. update tNext
+#' 8. update state to stateNew which is determined in the bout
+#'
+#'  * This method is bound to \code{MicroMosquitoFemale$oneBout()}.
+#'
+#' @md
+mbitesBro_oneBout <- function(){
 
-    message("initializing M-BITES generic shared methods")
+  # update time and state
+  private$tNow = private$tNext # update time
+  private$state = private$stateNew # update current state
+  self$timingExponential() # update tNext
 
-    MicroMosquitoFemale$set(which = "public",name = "timingExponential",
-              value = mbitesBRO_timingExponential,
-              overwrite = overwrite
-    )
+  # movement
+  self$moveMe()
+
+  # landing spot
+  self$landingSpot()
+
+  # bout
+  switch(private$state,
+    B = {self$boutB()},
+    R = {self$boutR()},
+    O = {self$boutO()}
+  )
+
+  # energetics
+  self$energetics()
+
+  # survival
+  self$surviveResting()
+  self$surviveFlight()
+
+  # log history
+  private$history$historyTrack()
+
+}
+
+
+#################################################################
+# MBITES-BRO: Simulation
+#################################################################
+
+#' MBITES-BRO: Run Simulation for \code{MicroMosquitoFemale}
+#'
+#' Run the M-BITES life cycle simulation algorithm while alive and has not overrun time in enclosing \code{\link{MicroTile}}.
+#' This method calls \code{\link{mbitesBro_oneBout}} to simulate each life stage.
+#'  * This method is bound to \code{MicroMosquitoFemale$MBITES()}.
+#'
+#' @md
+mbitesBro_MBITES <- function(){
+
+  # run algorithm while alive and has not overrun tile time
+  while(private$tNext < private$TilePointer$get_tNow() && private$stateNew != "D"){
+    self$oneBout()
+  }
 
 }

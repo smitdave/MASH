@@ -105,7 +105,6 @@
 #' @param Swts rep(1,5); sugar bout landing spot weights, see \code{\link{newSpot}}
 #' @param eggT the minimum time before eggs are mature
 #' @param eggP the minimum provision before eggs are mature
-#' @param energyPreG pre-gonotrophic energy requirement
 #' @param Pathogen name of the PATHOGEN module to use, can be in "PfSI", "PfMOI"
 #' @return a named list of parameters
 #' @examples
@@ -240,7 +239,6 @@ MBITES.FULL.Parameters <- function(
 
   eggT = 0,
   eggP = 0,
-  energyPreG = 0,
   Pathogen = "PfSI"
 
 
