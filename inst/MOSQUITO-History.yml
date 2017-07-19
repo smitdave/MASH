@@ -17,6 +17,13 @@ MosquitoFemaleHistory:
       @md
       @export
   methods:
+    # History Constructor
+    historyInit:
+      args:
+        - ix: int
+        - inPointSet: "std::string"
+      return_type: void
+
     # History Tracking
     historyTrack:
       args:

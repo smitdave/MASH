@@ -23,7 +23,14 @@ public:
   // History Constructor
   ///////////////////////////////////
 
+  // MosquitoFemaleHistory: default empty constructor
   MosquitoFemaleHistory();
+
+  // historyInit: set initial values site of emergence when mosy born
+  void historyInit(const int &ix, const std::string &inPointSet){
+    ixH.push_back(ix);
+    pSetH.push_back(inPointSet);
+  };
 
 
   ///////////////////////////////////
@@ -34,13 +41,11 @@ public:
   void historyTrack(const Rcpp::Environment &privateEnv, const bool &alive){
 
     if(alive){
-      Rcpp::Rcout << "alive!" << std::endl;
       stateH.push_back(privateEnv["state"]);  // state trajectory
       timeH.push_back(privateEnv["tNow"]);  // transition times
       ixH.push_back(privateEnv["ix"]);  // sites visited
       pSetH.push_back(privateEnv["inPointSet"]);  // point sets visited
     } else {
-      Rcpp::Rcout << "dead!" << std::endl;
       stateH.push_back(privateEnv["stateNew"]); // state trajectory
       timeH.push_back(privateEnv["tNext"]); // transition times
       this->calcBionomics(); // track bionomics upon death
@@ -76,6 +81,7 @@ public:
     if(stateH.back() != "D"){
       Rcpp::stop("mosquito not dead yet but bionomics are being calculated!");
     } else {
+      // calculate mean and total batch sizes
       if(batchH.size() != 0){
         int batchH_sum = std::accumulate(batchH.begin(), batchH.end(), 0);
         double batchH_mean = batchH_sum / batchH.size();
@@ -180,8 +186,8 @@ inline MosquitoFemaleHistory::MosquitoFemaleHistory(){
 
   bionomics_mBatch = 0.0;
   bionomics_tBatch = 0;
-  bionomics_bmInt.clear(); // might not be necessary
-  bionomics_bmIntH.clear(); // might not be necessary
+  bionomics_bmInt.reserve(10); // might not be necessary
+  bionomics_bmIntH.reserve(10); // might not be necessary
   bionomics_lifespan = 0.0;
 
 }
