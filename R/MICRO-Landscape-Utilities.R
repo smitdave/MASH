@@ -77,52 +77,75 @@ colLuminosity_utility <- function(color,factor,bright,alpha=NULL){
 }
 
 
-# emergeSeasonsPlot <- function(){
-#   pcol = viridis(n = LANDSCAPE$nA)
-#   ylim = range(sapply(LANDSCAPE$aquaSites,function(x){x$season}))
-#   plot(1:365,type="n",ylim = ylim, ylab = expression(lambda[i]), xlab = "Time (Days)")
-#   grid()
-#   for(ix in 1:LANDSCAPE$nA){
-#     lines(1:365, LANDSCAPE$aquaSites[[ix]]$season, col=pcol[ix])
-#   }
-# }
+##########################################
+# Plot Landscape
+##########################################
 
+#' Plot a MICRO Landscape
+#'
+#' Given object of class \code{\link{Landscape}}, produce a plot.
+#'
+#' @param Landscape \code{\link{Landscape}} object
+#' @param xLim x-limits of landscape
+#' @param yLim y-limits of landscape
+#' @param offset additional space on edges of plot
+#' @param bgCol background color of plotting surface
+#' @param cex size of points
+#' @export
+MicroLandscapePlot_utility <- function(Landscape, xLim = c(0,1), yLim = c(0,1), offset = 0.05, bgCol = "grey20", cex = 0.75){
 
-# ##########################################
-# # Static Landscape Plot
-# ##########################################
-#
-# #setup_plot will print the static landscape surface
-# #offset controls the offset on maximum/minimum XY coordinates due to plotting error
-# #bgcol is the background color of the plot; default is #f2ffe6
-# staticLandscapePlot <- function(offset=0.05,bgCol="grey20",cex=0.75){
-#
-#   feedXY = t(sapply(LANDSCAPE$feedSites,function(x){x$siteXY}))
-#   aquaXY = t(sapply(LANDSCAPE$aquaSites,function(x){x$siteXY}))
-#   sugarXY = t(sapply(LANDSCAPE$sugarSites,function(x){x$siteXY}))
-#   mateXY = t(sapply(LANDSCAPE$swarmSites,function(x){x$siteXY}))
-#
-#   #set up plotting options
-#   if(!exists(x = "defaultPar",where = .GlobalEnv)){
-#     # if does not exist, save default graphical parameters
-#     .GlobalEnv$defaultPar = par()
-#   }
-#   par(bg=bgCol,mar=c(0,0,0,0),mgp=c(0,0,0))
-#
-#   #colors
-#   setup_col = ggCol(n=4)
-#
-#   #set up empty grid
-#   plot(1,type="n",axes=F,frame.plot=F,ann=F,xlim=c(LANDSCAPE$xLim[1]-offset,LANDSCAPE$xLim[2]+offset),
-#        ylim=c(LANDSCAPE$yLim[1]-offset,LANDSCAPE$yLim[2]+offset))
-#
-#   points(x = feedXY, pch = 15, col = setup_col[1], cex = cex) #draw feeding sites
-#   points(x = aquaXY, pch = 16, col = setup_col[2], cex = cex) #draw aquatic habitats
-#   points(x = sugarXY, pch = 17, col = setup_col[3], cex = cex) #draw sugar sources
-#   points(x = mateXY, pch = 18, col = setup_col[4], cex = cex) #draw mating sites
-#
-#   legend(x = "topleft", legend = c("Feeding Site","Aquatic Habitat","Sugar Source","Mating Site"),pch = 15:18,
-#          col = setup_col, bty = "n", text.col = "grey80")
-#
-#   par(bg=.GlobalEnv$defaultPar$bg,mar=.GlobalEnv$defaultPar$mar,mgp=.GlobalEnv$defaultPar$mgp)
-# }
+  # extract coordinates
+  nCol = 0
+  if(!is.null(testLandscape$get_FeedingSites())){
+    feedXY = t(vapply(X = testLandscape$get_FeedingSites(),FUN = function(x){x$get_siteXY()},FUN.VALUE = numeric(2)))
+    nCol = nCol + 1
+  }
+  if(!is.null(testLandscape$get_AquaSites())){
+    aquaXY = t(vapply(X = testLandscape$get_AquaSites(),FUN = function(x){x$get_siteXY()},FUN.VALUE = numeric(2)))
+    nCol = nCol + 1
+  }
+  if(!is.null(testLandscape$get_SugarSites())){
+    sugarXY = t(vapply(X = testLandscape$get_SugarSites(),FUN = function(x){x$get_siteXY()},FUN.VALUE = numeric(2)))
+    nCol = nCol + 1
+  }
+  if(!is.null(testLandscape$get_MatingSites())){
+    mateXY = t(vapply(X = testLandscape$get_MatingSites(),FUN = function(x){x$get_siteXY()},FUN.VALUE = numeric(2)))
+    nCol = nCol + 1
+  }
+
+  #set up plotting options
+  defaultPars = par()
+  par(bg=bgCol,mar=c(0,0,0,0),mgp=c(0,0,0))
+
+  #colors
+  setup_col = ggCol_utility(n=nCol)
+
+  #set up empty grid
+  plot(1,type="n",axes=F,frame.plot=F,ann=F,xlim=c(xLim[1]-offset,xLim[2]+offset),
+       ylim=c(yLim[1]-offset,yLim[2]+offset))
+
+  # plot
+  legend = NULL
+  if(exists(x = "feedXY")){
+    points(x = feedXY, pch = 15, col = setup_col[1], cex = cex) #draw feeding sites
+    legend = "Feeding Site"
+  }
+  if(exists(x = "aquaXY")){
+    points(x = aquaXY, pch = 16, col = setup_col[2], cex = cex) #draw aquatic habitats
+    legend = c(legend,"Aquatic Habitat")
+  }
+  if(exists(x = "sugarXY")){
+    points(x = sugarXY, pch = 17, col = setup_col[3], cex = cex) #draw sugar sources
+    legend = c(legend,"Sugar Source")
+  }
+  if(exists(x = "mateXY")){
+    points(x = mateXY, pch = 18, col = setup_col[4], cex = cex) #draw mating sites
+    legend = c(legend,"Mating Site")
+  }
+
+  legend(x = "topleft", legend = legend,pch = 15:18,
+         col = setup_col, bty = "n", text.col = "grey80")
+
+  # reset graphical parameters
+  par(bg=defaultPars$bg,mar=defaultPars$mar,mgp=defaultPars$mgp)
+}

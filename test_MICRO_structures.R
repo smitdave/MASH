@@ -31,5 +31,9 @@ ImagoQ$add_ImagoQ(N_new = 5,tEmerge_new = 0.1,genotype_new = -1L,damID_new = -1L
 # test LANDSCAPE
 Landscape_PAR = Landscape.Parameters(nFeed = 10,nAqua = 10,pointGen = "poisson",
                                      module = "emerge",modulePars = list(N = 10, lambda = 10))
-testLandscape = Landscape$new(Landscape_PAR = )
 
+AquaEmergeLambdaPlot_utility(Landscape_PAR$AquaticSite_PAR$lambda)
+
+testLandscape = Landscape$new(Landscape_PAR = Landscape_PAR)
+
+MicroLandscapePlot_utility(testLandscape)
