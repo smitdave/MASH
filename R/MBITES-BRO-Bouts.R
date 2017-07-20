@@ -69,6 +69,13 @@ mbitesBRO_landingSpot <- function(){
 
 
 #################################################################
+# MBITES-BRO: Blood Feeding Bout
+#################################################################
+
+
+
+
+#################################################################
 # MBITES-BRO: Generic Bout
 #################################################################
 
@@ -120,7 +127,7 @@ mbitesBro_oneBout <- function(){
   self$surviveFlight()
 
   # log history
-  private$history$historyTrack()
+  private$history$historyTrack(privateEnv = private, alive = self$isAlive())
 
 }
 
