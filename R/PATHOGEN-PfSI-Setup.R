@@ -113,7 +113,7 @@ PfSI.Setup <- function(
   ###################################################################
 
   # PfSI_PAR: list of PfSI parameters added to private field of 'Human' class
-  Human$set(which = "private",name = "PfSI_PAR",
+  HumanPop$set(which = "private",name = "PfSI_PAR",
             value = list(
               Pf_c   = Pf_c,
               Pf_b   = Pf_b,
@@ -147,9 +147,14 @@ PfSI.Setup <- function(
             overwrite = overwrite
   )
 
-  # setter for PfSI_PAR
-  Human$set(which = "public",name = "set_PfSI_PAR",
-            value = Human_set_PfSI_PAR,
+  HumanPop$set(which = "public",name = "get_PfSI_PAR",
+            value = HumanPop_get_PfSI_PAR,
+            overwrite = overwrite
+  )
+
+  # set PfSI_PAR for a HumanPop; this is useful for simulating multiple populations with different parameter values
+  HumanPop$set(which = "public",name = "set_PfSI_PAR",
+            value = HumanPop_set_PfSI_PAR,
             overwrite = overwrite
   )
 
@@ -194,11 +199,6 @@ PfSI.Setup <- function(
 
   Human$set(which = "public",name = "set_humanPfSI",
             value = Human_set_humanPfSI,
-            overwrite = overwrite
-  )
-
-  Human$set(which = "public",name = "get_humanPfSI",
-            value = Human_get_humanPfSI,
             overwrite = overwrite
   )
 
@@ -428,7 +428,7 @@ PfSI.Setup <- function(
   # vaccination
   Human$set(which = "public",name = "add2Q_pevaccinatePfSI",
             value = add2Q_pevaccinatePfSI,
-
+            overwrite = overwrite
   )
 
   Human$set(which = "public",name = "event_pevaccinatePfSI",
@@ -504,20 +504,6 @@ PfSI.Setup <- function(
 
   Human$set(which = "public",name = "lmTest_PfSI",
             value = lmTest_PfSI,
-            overwrite = overwrite
-  )
-
-  ###################################################################
-  # PfSI Auxiliary Definitions
-  ###################################################################
-
-  ##########################################
-  # 'HumanPop' Class Methods
-  ##########################################
-
-  # set PfSI_PAR for a HumanPop; this is useful for simulating multiple populations with different parameter values
-  HumanPop$set(which = "public",name = "set_PfSI_PAR",
-            value = HumanPop_set_PfSI_PAR,
             overwrite = overwrite
   )
 

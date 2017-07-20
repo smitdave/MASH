@@ -4,8 +4,8 @@
 \alias{Human_set_humanPfSI}
 \title{PfSI \code{Human} Method: Set Human-stage PfSI Object}
 \usage{
-Human_set_humanPfSI(PfID, tInf = NULL, b = 0.55, c = 0.15, damID = NULL,
-  sireID = NULL, infected = FALSE, chemoprophylaxis = FALSE)
+Human_set_humanPfSI(PfID, tInf = -1L, b = 0.55, c = 0.15, damID = -1L,
+  sireID = -1L, infected = FALSE, chemoprophylaxis = FALSE)
 }
 \description{
 Set the \code{\link{humanPfSI}} object in a human.

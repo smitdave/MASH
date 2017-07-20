@@ -61,79 +61,79 @@ Rcpp::List HistoryTravel__get_travelHistory(MASH::RcppR6::RcppR6<MASH::HistoryTr
 }
 
 // [[Rcpp::export]]
-MASH::humanPfSIcpp humanPfSIcpp__ctor(int PfID_init, double tInf_init, double b_init, double c_init, int damID_init, int sireID_init, bool infected_init, bool chemoprophylaxis_init) {
-  return MASH::humanPfSIcpp(PfID_init, tInf_init, b_init, c_init, damID_init, sireID_init, infected_init, chemoprophylaxis_init);
+MASH::humanPfSI humanPfSI__ctor(int PfID_init, double tInf_init, double b_init, double c_init, int damID_init, int sireID_init, bool infected_init, bool chemoprophylaxis_init) {
+  return MASH::humanPfSI(PfID_init, tInf_init, b_init, c_init, damID_init, sireID_init, infected_init, chemoprophylaxis_init);
 }
 // [[Rcpp::export]]
-std::vector<int> humanPfSIcpp__get_PfID(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_) {
+std::vector<int> humanPfSI__get_PfID(MASH::RcppR6::RcppR6<MASH::humanPfSI> obj_) {
   return obj_->get_PfID();
 }
 // [[Rcpp::export]]
-void humanPfSIcpp__push_PfID(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_, int PfID_new) {
+void humanPfSI__push_PfID(MASH::RcppR6::RcppR6<MASH::humanPfSI> obj_, int PfID_new) {
   obj_->push_PfID(PfID_new);
 }
 // [[Rcpp::export]]
-std::vector<double> humanPfSIcpp__get_tInf(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_) {
+std::vector<double> humanPfSI__get_tInf(MASH::RcppR6::RcppR6<MASH::humanPfSI> obj_) {
   return obj_->get_tInf();
 }
 // [[Rcpp::export]]
-void humanPfSIcpp__push_tInf(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_, double tInf_new) {
+void humanPfSI__push_tInf(MASH::RcppR6::RcppR6<MASH::humanPfSI> obj_, double tInf_new) {
   obj_->push_tInf(tInf_new);
 }
 // [[Rcpp::export]]
-double humanPfSIcpp__get_b(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_) {
+double humanPfSI__get_b(MASH::RcppR6::RcppR6<MASH::humanPfSI> obj_) {
   return obj_->get_b();
 }
 // [[Rcpp::export]]
-void humanPfSIcpp__set_b(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_, double b_new) {
+void humanPfSI__set_b(MASH::RcppR6::RcppR6<MASH::humanPfSI> obj_, double b_new) {
   obj_->set_b(b_new);
 }
 // [[Rcpp::export]]
-double humanPfSIcpp__get_c(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_) {
+double humanPfSI__get_c(MASH::RcppR6::RcppR6<MASH::humanPfSI> obj_) {
   return obj_->get_c();
 }
 // [[Rcpp::export]]
-void humanPfSIcpp__set_c(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_, double c_new) {
+void humanPfSI__set_c(MASH::RcppR6::RcppR6<MASH::humanPfSI> obj_, double c_new) {
   obj_->set_c(c_new);
 }
 // [[Rcpp::export]]
-std::vector<int> humanPfSIcpp__get_damID(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_) {
+std::vector<int> humanPfSI__get_damID(MASH::RcppR6::RcppR6<MASH::humanPfSI> obj_) {
   return obj_->get_damID();
 }
 // [[Rcpp::export]]
-void humanPfSIcpp__push_damID(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_, int damID_new) {
+void humanPfSI__push_damID(MASH::RcppR6::RcppR6<MASH::humanPfSI> obj_, int damID_new) {
   obj_->push_damID(damID_new);
 }
 // [[Rcpp::export]]
-std::vector<int> humanPfSIcpp__get_sireID(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_) {
+std::vector<int> humanPfSI__get_sireID(MASH::RcppR6::RcppR6<MASH::humanPfSI> obj_) {
   return obj_->get_sireID();
 }
 // [[Rcpp::export]]
-void humanPfSIcpp__push_sireID(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_, int sireID_new) {
+void humanPfSI__push_sireID(MASH::RcppR6::RcppR6<MASH::humanPfSI> obj_, int sireID_new) {
   obj_->push_sireID(sireID_new);
 }
 // [[Rcpp::export]]
-bool humanPfSIcpp__get_infected(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_) {
+bool humanPfSI__get_infected(MASH::RcppR6::RcppR6<MASH::humanPfSI> obj_) {
   return obj_->get_infected();
 }
 // [[Rcpp::export]]
-void humanPfSIcpp__set_infected(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_, bool infected_new) {
+void humanPfSI__set_infected(MASH::RcppR6::RcppR6<MASH::humanPfSI> obj_, bool infected_new) {
   obj_->set_infected(infected_new);
 }
 // [[Rcpp::export]]
-bool humanPfSIcpp__get_chemoprophylaxis(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_) {
+bool humanPfSI__get_chemoprophylaxis(MASH::RcppR6::RcppR6<MASH::humanPfSI> obj_) {
   return obj_->get_chemoprophylaxis();
 }
 // [[Rcpp::export]]
-void humanPfSIcpp__set_chemoprophylaxis(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_, bool chemoprophylaxis_new) {
+void humanPfSI__set_chemoprophylaxis(MASH::RcppR6::RcppR6<MASH::humanPfSI> obj_, bool chemoprophylaxis_new) {
   obj_->set_chemoprophylaxis(chemoprophylaxis_new);
 }
 // [[Rcpp::export]]
-void humanPfSIcpp__track_history(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_, double tEvent, std::string event) {
+void humanPfSI__track_history(MASH::RcppR6::RcppR6<MASH::humanPfSI> obj_, double tEvent, std::string event) {
   obj_->track_history(tEvent, event);
 }
 // [[Rcpp::export]]
-Rcpp::List humanPfSIcpp__get_history(MASH::RcppR6::RcppR6<MASH::humanPfSIcpp> obj_) {
+Rcpp::List humanPfSI__get_history(MASH::RcppR6::RcppR6<MASH::humanPfSI> obj_) {
   return obj_->get_history();
 }
 

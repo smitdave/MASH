@@ -11,4 +11,5 @@ HumanPop_set_PfSI_PAR(PfSI_PAR)
 }
 \description{
 Set PfSI_PAR for a HumanPop; this is useful for simulating multiple populations with different parameter values.
+This method is bound to \code{HumanPop$set_PfSI_PAR()}
 }

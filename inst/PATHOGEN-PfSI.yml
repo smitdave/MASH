@@ -1,5 +1,5 @@
-humanPfSIcpp:
-  name_cpp: MASH::humanPfSIcpp
+humanPfSI:
+  name_cpp: MASH::humanPfSI
   forward_declare: true
   constructor:
     roxygen: |

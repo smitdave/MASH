@@ -117,13 +117,12 @@ Human <- R6::R6Class(classname="Human",
                          private$bWeight = bWeight
                        },
 
-                       # generics
-                       get_public = function(){
-                         return(as.list(private))
+                       # Pathogens
+                       get_Pathogens = function(){
+                         return(private$Pathogens)
                        },
-
-                       get_Public = function(){
-                         return(as.list(self))
+                       set_Pathogens = function(Pathogens){
+                         private$Pathogens = Pathogens
                        },
 
                        #################################################
@@ -223,7 +222,7 @@ Human <- R6::R6Class(classname="Human",
                        bWeight = NULL,
 
                        # Pathogens
-                       Pathogens = list(),
+                       Pathogens = NULL,
 
                        # Pointers
                        PopPointer = NULL, # point to HumanPop$pop that encloses this human

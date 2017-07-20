@@ -5,7 +5,7 @@
 
 namespace MASH {
 
-class humanPfSIcpp {
+class humanPfSI {
 // public members
 public:
 
@@ -13,7 +13,7 @@ public:
   // Human Stage PfSI Constructor
   ///////////////////////////////////
 
-  humanPfSIcpp(const int &PfID_init, const double &tInf_init = -1,
+  humanPfSI(const int &PfID_init, const double &tInf_init = -1,
     const double &b_init = 0.55, const double &c_init = 0.15,
     const int &damID_init = -1, const int &sireID_init = -1,
     const bool &infected_init = false, const bool &chemoprophylaxis_init = false);
@@ -119,7 +119,7 @@ private:
 };
 
 // inline definition of constructor to accept default argument values
-inline humanPfSIcpp::humanPfSIcpp(const int &PfID_init, const double &tInf_init,
+inline humanPfSI::humanPfSI(const int &PfID_init, const double &tInf_init,
   const double &b_init, const double &c_init,
   const int &damID_init, const int &sireID_init,
   const bool &infected_init, const bool &chemoprophylaxis_init){

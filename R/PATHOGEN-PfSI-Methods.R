@@ -8,12 +8,25 @@
 #
 #################################################################
 
+###################################################################
+# PfSI Parameter Getters & Setters
+###################################################################
+
 #' PfSI \code{Human} Method: Get PfSI_PAR
 #'
 #' Get either entire list or one named element of PfSI_PAR. See \code{\link{PfSI.Parameters}} for definitions.
 #' This method is bound to \code{Human$get_PfSI_PAR()}
 #'
 Human_get_PfSI_PAR <- function(ix = NULL){
+  return(private$HumansPointer$get_PfSI_PAR(ix))
+}
+
+#' PfSI \code{HumanPop} Method: Get PfSI_PAR
+#'
+#' Get either entire list or one named element of PfSI_PAR. See \code{\link{PfSI.Parameters}} for definitions.
+#' This method is bound to \code{HumanPop$get_PfSI_PAR()}
+#' @param PfSI_PAR new parameter list, see \code{\link{PfSI.Parameters}}
+HumanPop_get_PfSI_PAR <- function(ix = NULL){
   if(is.null(ix)){
     return(private$PfSI_PAR)
   } else {
@@ -21,12 +34,12 @@ Human_get_PfSI_PAR <- function(ix = NULL){
   }
 }
 
-#' PfSI \code{Human} Method: Set PfSI_PAR
+#' PfSI \code{HumanPop} Method: Set PfSI Paramters for a \code{\link{HumanPop}}
 #'
-#' Set either entire list of PfSI_PAR. See \code{\link{PfSI.Parameters}} for definitions.
-#' This method is bound to \code{Human$set_PfSI_PAR()}
-#'
-Human_set_PfSI_PAR <- function(PfSI_PAR){
+#' Set PfSI_PAR for a HumanPop; this is useful for simulating multiple populations with different parameter values.
+#' This method is bound to \code{HumanPop$set_PfSI_PAR()}
+#' @param PfSI_PAR new parameter list, see \code{\link{PfSI.Parameters}}
+HumanPop_set_PfSI_PAR <- function(PfSI_PAR){
   private$PfSI_PAR = PfSI_PAR
 }
 
@@ -53,16 +66,16 @@ PfSI_increment_PfID <- function(){
 init_MICRO_PfSI <- function(PfPR, tStart = 0){
 
   private$PfID = 1L
-  if(is.null(private$Pathogens$Pf)){ # only add the PfSI object if NULL
-    self$set_humanPfSI()
-  }
+  self$set_humanPfSI()
+
 
   for(ixH in 1:self$nHumans){
 
     if(runif(1) < PfPR){
       private$pop[[ixH]]$infectHumanPfSI(tEvent = tStart, PAR = list(damID=-1L,sireID=-1L))
     } else {
-      private$pop[[ixH]]$track_history(tEvent = tStart, event = "S")
+      # private$pop[[ixH]]$track_history(tEvent = tStart, event = "S")
+      private$pop[[ixH]]$get_Pathogens()$track_history(tEvent = tStart, event = "S")
     }
 
   }
@@ -79,9 +92,8 @@ init_MICRO_PfSI <- function(PfPR, tStart = 0){
 init_MACRO_PfSI <- function(PfPR, tStart = 0){
 
   private$PfID = 1L
-  if(is.null(private$Pathogens$Pf)){ # only add the PfSI object if NULL
-    self$set_humanPfSI()
-  }
+  self$set_humanPfSI()
+
 
   patchID = private$patchID
   patches = unique(patchID)
@@ -96,7 +108,8 @@ init_MACRO_PfSI <- function(PfPR, tStart = 0){
       if(runif(1) < PfPR[ixP]){
         private$pop[[ixH]]$infectHumanPfSI(tEvent = tStart, PAR = list(damID=-1L,sireID=-1L))
       } else {
-        private$pop[[ixH]]$track_history(tEvent = tStart, event = "S")
+        # private$pop[[ixH]]$track_history(tEvent = tStart, event = "S")
+        private$pop[[ixH]]$get_Pathogens()$track_history(tEvent = tStart, event = "S")
       }
 
     } # end iter over humans
@@ -127,48 +140,42 @@ init_MacroTile_PfSI <- function(PfPR, tStart = 0){
 #' Set the \code{\link{humanPfSI}} object in a human.
 #' This method is bound to \code{Human$set_humanPfSI()}
 #'
-Human_set_humanPfSI <- function(PfID, tInf = NULL, b = 0.55, c = 0.15, damID = NULL, sireID = NULL, infected = FALSE, chemoprophylaxis = FALSE){
-  private$Pathogens$Pf = humanPfSI$new(PfID=PfID,tInf=tInf,b=b,c=c,damID=damID,sireID=sireID,infected=infected,chemoprophylaxis=chemoprophylaxis)
-}
-
-#' PfSI \code{Human} Method: Get Human-stage PfSI Object
-#'
-#' Get the \code{\link{humanPfSI}} object in a human.
-#' This method is bound to \code{Human$get_humanPfSI()}
-#'
-Human_get_humanPfSI <- function(){
-  return(private$Pathogens$Pf)
+Human_set_humanPfSI <- function(PfID, tInf = -1L, b = 0.55, c = 0.15, damID = -1L, sireID = -1L, infected = FALSE, chemoprophylaxis = FALSE){
+  # private$Pathogens$Pf = humanPfSI$new(PfID=PfID,tInf=tInf,b=b,c=c,damID=damID,sireID=sireID,infected=infected,chemoprophylaxis=chemoprophylaxis)
+  private$Pathogens = humanPfSI(PfID, tInf, b, c, damID, sireID, infected, chemoprophylaxis)
 }
 
 #' PfSI \code{HumanPop} Method: Set Human-stage PfSI Object
 #'
-#' Set the \code{\link{humanPfSI}} object in a human poulation.
+#' Set the \code{\link{humanPfSI}} object in a human poulation; this does not initialize infection, only sets the object.
 #' This method is bound to \code{HumanPop$set_humanPfSI()}
 #'
 #' @param b infected mosquito to human transmission efficiency
 #' @param c infected human to mosquito transmission efficiency
 HumanPop_set_humanPfSI <- function(b = NULL, c = NULL){
 
-  # sanity checks
-  if(is.null(b)){
-    private$pop[[1]]$get_PfSI_PAR()$Pf_b
-    b = rep(x = private$pop[[1]]$get_PfSI_PAR("Pf_b"),times = self$nHumans)
-  } else {
-    if(length(b)!=self$nHumans){
-      stop(paste0("length of b: ",length(b)," must be equal to size of human population: ",self$nHumans))
-    }
-  }
-  if(is.null(c)){
-    c = rep(x = private$pop[[1]]$get_PfSI_PAR("Pf_c"),times = self$nHumans)
-  } else {
-    if(length(c)!=self$nHumans){
-      stop(paste0("length of c: ",length(c)," must be equal to size of human population: ",self$nHumans))
-    }
-  }
+  b = private$PfSI_PAR$Pf_b
+  c = private$PfSI_PAR$Pf_c
+  # # sanity checks
+  # if(is.null(b)){
+  #   private$pop[[1]]$get_PfSI_PAR()$Pf_b
+  #   b = rep(x = private$pop[[1]]$get_PfSI_PAR("Pf_b"),times = self$nHumans)
+  # } else {
+  #   if(length(b)!=self$nHumans){
+  #     stop(paste0("length of b: ",length(b)," must be equal to size of human population: ",self$nHumans))
+  #   }
+  # }
+  # if(is.null(c)){
+  #   c = rep(x = private$pop[[1]]$get_PfSI_PAR("Pf_c"),times = self$nHumans)
+  # } else {
+  #   if(length(c)!=self$nHumans){
+  #     stop(paste0("length of c: ",length(c)," must be equal to size of human population: ",self$nHumans))
+  #   }
+  # }
 
   # set pathogens
   for(ixH in 1:self$nHumans){
-    private$pop[[ixH]]$set_humanPfSI(PfID = NULL, b = b[ixH], c = c[ixH])
+    private$pop[[ixH]]$set_humanPfSI(PfID = -1L, b = b, c = c)
   }
 
 }
@@ -191,7 +198,8 @@ HumanPop_set_humanPfSI <- function(b = NULL, c = NULL){
 #' This method is bound to \code{Human$ttClearPf()}
 #'
 PfSI_ttClearPf <- function(){
-  return(rexp(n = 1, rate = 1/private$PfSI_PAR$DurationPf))
+  return(rexp(n = 1, rate = 1/self$get_PfSI_PAR("DurationPf")))
+  # return(rexp(n = 1, rate = 1/private$PfSI_PAR$DurationPf))
 }
 
 #' PfSI \code{Human} Method: Duration of Latency
@@ -201,7 +209,8 @@ PfSI_ttClearPf <- function(){
 #' This method is bound to \code{Human$ttInfectionPf()}
 #'
 PfSI_ttInfectionPf <- function(){
-  return(private$PfSI_PAR$LatentPf)
+  return(self$get_PfSI_PAR("LatentPf"))
+  # return(private$PfSI_PAR$LatentPf)
 }
 
 #' PfSI \code{Human} Method: Timing of Fever Incident
@@ -211,7 +220,8 @@ PfSI_ttInfectionPf <- function(){
 #' This method is bound to \code{Human$ttFeverPf()}
 #'
 PfSI_ttFeverPf <- function(){
-  return(private$PfSI_PAR$mnFeverPf)
+  return(self$get_PfSI_PAR("mnFeverPf"))
+  # return(private$PfSI_PAR$mnFeverPf)
 }
 
 #' PfSI \code{Human} Method: Timing of Treatment
@@ -221,7 +231,8 @@ PfSI_ttFeverPf <- function(){
 #' This method is bound to \code{Human$ttTreatPf()}
 #'
 PfSI_ttTreatPf <- function(){
-  return(private$PfSI_PAR$mnTreatPf)
+  return(self$get_PfSI_PAR("mnTreatPf"))
+  # return(private$PfSI_PAR$mnTreatPf)
 }
 
 #' PfSI \code{Human} Method: Duration of Protection from Chemoprophylaxis
@@ -231,7 +242,8 @@ PfSI_ttTreatPf <- function(){
 #' This method is bound to \code{Human$ttSusceptiblePf()}
 #'
 PfSI_ttSusceptiblePf <- function(){
-  return(private$PfSI_PAR$mnChemoprophylaxisPf)
+  return(self$get_PfSI_PAR("mnChemoprophylaxisPf"))
+  # return(private$PfSI_PAR$mnChemoprophylaxisPf)
 }
 
 #' PfSI \code{Human} Method: Duration of protection by PE Vaccination
@@ -241,7 +253,8 @@ PfSI_ttSusceptiblePf <- function(){
 #' This method is bound to \code{Human$ttPEWanePf()}
 #'
 PfSI_ttPEWanePf <- function(){
-  return(rnorm(n = 1, mean = private$PfSI_PAR$mnPEPf, sd = private$PfSI_PAR$vrPEPf))
+  return(rnorm(n = 1, mean = self$get_PfSI_PAR("mnPEPf"), sd = self$get_PfSI_PAR("vrPEPf")))
+  # return(rnorm(n = 1, mean = private$PfSI_PAR$mnPEPf, sd = private$PfSI_PAR$vrPEPf))
 }
 
 #' PfSI \code{Human} Method: Duration of protection by GS Vaccination
@@ -251,7 +264,8 @@ PfSI_ttPEWanePf <- function(){
 #' This method is bound to \code{Human$ttGSWanePf()}
 #'
 PfSI_ttGSWanePf <- function(){
-  return(rnorm(n = 1, mean = private$PfSI_PAR$mnGSPf, sd = private$PfSI_PAR$vrGSPf))
+  return(rnorm(n = 1, mean = self$get_PfSI_PAR("mnGSPf"), sd = self$get_PfSI_PAR("vrGSPf")))
+  # return(rnorm(n = 1, mean = private$PfSI_PAR$mnGSPf, sd = private$PfSI_PAR$vrGSPf))
 }
 
 
@@ -290,7 +304,7 @@ probeHost_PfSI <- function(tBite, mosquitoPfSI){
 #' @param tBite time of bite
 #' @param mosquitoPfSI \code{\link{mosquitoPfSI}} object passed from mosquito to human
 infectiousBite_PfSI <- function(tBite, PAR){
-  if(runif(1) < private$Pathogens$Pf$get_b()){
+  if(runif(1) < private$Pathogens$get_b()){
 
     PfIx = sample(x = which(PAR$mosquitoPfSI$get_spz()>0), size = 1) # sample a clonal variant if multiple
     PAR = list(damID = PfIx, sireID = PfIx)
@@ -367,22 +381,35 @@ event_infectHumanPfSI <- function(tEvent, PAR = NULL){
 #' @param tEvent time of infection
 #' @param PAR must be a list containing \code{damID} and \code{sireID}
 infectHumanPfSI <- function(tEvent, PAR){
-  if(!private$Pathogens$Pf$get_infected() & !private$Pathogens$Pf$get_chemoprophylaxis()){
-    self$track_history(tEvent = tEvent, event = "I") # track history
-    private$Pathogens$Pf$set_infected(TRUE)
+  if(!private$Pathogens$get_infected() & !private$Pathogens$get_chemoprophylaxis()){
+    private$Pathogens$track_history(tEvent = tEvent, event = "I") # track history
+    private$Pathogens$set_infected(TRUE)
+    # increment PfID
+    private$Pathogens$push_PfID(private$HumansPointer$increment_PfID())
 
-    # newID = self$get_HumansPointer()$increment_PfID()
-    # private$Pathogens$Pf$push_PfID(newID)
-
-    private$Pathogens$Pf$push_PfID(self$get_HumansPointer()$increment_PfID())
-
-    private$Pathogens$Pf$push_damID(PAR$damID)
-    private$Pathogens$Pf$push_sireID(PAR$sireID)
-    if(runif(1) < private$PfSI_PAR$FeverPf){
+    private$Pathogens$push_damID(PAR$damID)
+    private$Pathogens$push_sireID(PAR$sireID)
+    if(runif(1) < self$get_PfSI_PAR("FeverPf")){
         self$add2Q_feverPfSI(tEvent = tEvent)
     }
     self$add2Q_endPfSI(tEvent = tEvent)
   }
+  # if(!private$Pathogens$Pf$get_infected() & !private$Pathogens$Pf$get_chemoprophylaxis()){
+  #   self$track_history(tEvent = tEvent, event = "I") # track history
+  #   private$Pathogens$Pf$set_infected(TRUE)
+  #
+  #   # newID = self$get_HumansPointer()$increment_PfID()
+  #   # private$Pathogens$Pf$push_PfID(newID)
+  #
+  #   private$Pathogens$Pf$push_PfID(self$get_HumansPointer()$increment_PfID())
+  #
+  #   private$Pathogens$Pf$push_damID(PAR$damID)
+  #   private$Pathogens$Pf$push_sireID(PAR$sireID)
+  #   if(runif(1) < private$PfSI_PAR$FeverPf){
+  #       self$add2Q_feverPfSI(tEvent = tEvent)
+  #   }
+  #   self$add2Q_endPfSI(tEvent = tEvent)
+  # }
 }
 
 ###################################################################
@@ -424,9 +451,9 @@ event_endPfSI <- function(tEvent, PAR = NULL){
 #' @param tEvent time of clearance
 #' @param PAR \code{NULL}
 endPfSI <- function(tEvent, PAR){
-  if(private$Pathogens$Pf$get_infected()){
-    self$track_history(tEvent = tEvent, event = "S") # track history
-    private$Pathogens$Pf$set_infected(FALSE)
+  if(private$Pathogens$get_infected()){
+    private$Pathogens$track_history(tEvent = tEvent, event = "S") # track history
+    private$Pathogens$set_infected(FALSE)
   }
 }
 
@@ -471,8 +498,8 @@ event_feverPfSI <- function(tEvent, PAR = NULL){
 #' @param tEvent time of fever
 #' @param PAR \code{NULL}
 feverPfSI <- function(tEvent, PAR){
-  self$track_history(tEvent = tEvent, event = "F")
-  if(runif(1) < private$PfSI_PAR$TreatPf){
+  private$Pathogens$track_history(tEvent = tEvent, event = "F")
+  if(runif(1) < self$get_PfSI_PAR("TreatPf")){
     self$add2Q_treatPfSI(tEvent = tEvent)
   }
 }
@@ -519,12 +546,12 @@ event_treatPfSI <- function(tEvent, PAR = NULL){
 treatPfSI <- function(tEvent, PAR){
 
   # treat
-  if(private$Pathogens$Pf$get_infected()){
-    private$Pathogens$Pf$set_infected(FALSE)
-    self$track_history(tEvent = tEvent, event = "S")
+  if(private$Pathogens$get_infected()){
+    private$Pathogens$set_infected(FALSE)
+    private$Pathogens$track_history(tEvent = tEvent, event = "S")
   }
-  private$Pathogens$Pf$set_chemoprophylaxis(TRUE)
-  self$track_history(tEvent = tEvent, event = "P")
+  private$Pathogens$set_chemoprophylaxis(TRUE)
+  private$Pathogens$track_history(tEvent = tEvent, event = "P")
   # Initiate a period of protection from chemoprophylaxis
   self$add2Q_endprophylaxisPfSI(tEvent = tEvent)
 
@@ -571,8 +598,8 @@ event_endprophylaxisPfSI <- function(tEvent, PAR = NULL){
 #' @param PAR \code{NULL}
 endprophylaxisPfSI <- function(tEvent, PAR){
   # End Prophylaxis
-  self$track_history(tEvent = tEvent, event = "S")
-  private$Pathogens$Pf$set_chemoprophylaxis(FALSE)
+  private$Pathogens$track_history(tEvent = tEvent, event = "S")
+  private$Pathogens$set_chemoprophylaxis(FALSE)
 
 }
 
@@ -617,9 +644,9 @@ event_pevaccinatePfSI <- function(tEvent, PAR = NULL){
 #' @param tEvent begin PE protection
 #' @param PAR \code{NULL}
 pevaccinatePfSI <- function(tEvent, PAR){
-  if(runif(1) < private$PfSI_PAR$PEProtectPf){
-    self$track_history(tEvent = tEvent, event = "PEvaxx")
-    private$Pathogens$Pf$set_b(private$PfSI_PAR$Pf_b * (1-private$PfSI_PAR$peBlockPf))
+  if(runif(1) < self$get_PfSI_PAR("PEProtectPf")){
+    private$Pathogens$track_history(tEvent = tEvent, event = "PEvaxx")
+    private$Pathogens$set_b(self$get_PfSI_PAR("Pf_b") * (1-self$get_PfSI_PAR("peBlockPf")))
     self$add2Q_pewanePfSI(tEvent = tEvent)
   }
 }
@@ -661,8 +688,8 @@ event_pewanePfSI <- function(tEvent, PAR = NULL){
 #' @param tEvent end PE protection
 #' @param PAR \code{NULL}
 pewanePfSI <- function(tEvent, PAR){
-  self$track_history(tEvent = tEvent, event = "PEwane")
-  private$Pathogens$Pf$set_b(private$PfSI_PAR$Pf_b)
+  private$Pathogens$track_history(tEvent = tEvent, event = "PEwane")
+  private$Pathogens$set_b(self$get_PfSI_PAR("Pf_b"))
 }
 
 ###################################################################
@@ -705,9 +732,9 @@ event_gsvaccinatePfSI <- function(tEvent, PAR = NULL){
 #' @param tEvent begin gs protection
 #' @param PAR \code{NULL}
 gsvaccinatePfSI <- function(tEvent, PAR){
-  if(runif(1) < private$PfSI_PAR$GSProtectPf){
-    self$track_history(tEvent = tEvent, event = "GSvaxx")
-    private$Pathogens$Pf$set_c(private$PfSI_PAR$Pf_c * (1-private$PfSI_PAR$gsBlockPf))
+  if(runif(1) < self$get_PfSI_PAR("GSProtectPf")){
+    private$Pathogens$track_history(tEvent = tEvent, event = "GSvaxx")
+    private$Pathogens$set_c(self$get_PfSI_PAR("Pf_c") * (1-self$get_PfSI_PAR("gsBlockPf")))
     self$add2Q_gswanePfSI(tEvent = tEvent)
   }
 }
@@ -749,8 +776,8 @@ event_gswanePfSI <- function(tEvent, PAR = NULL){
 #' @param tEvent end GS protection
 #' @param PAR \code{NULL}
 gswanePfSI <- function(tEvent, PAR){
-  self$track_history(tEvent = tEvent, event = "GSwane")
-  private$Pathogens$Pf$set_c(private$PfSI_PAR$Pf_c)
+  private$Pathogens$track_history(tEvent = tEvent, event = "GSwane")
+  private$Pathogens$set_c(self$get_PfSI_PAR("Pf_c"))
 }
 
 
@@ -765,10 +792,10 @@ gswanePfSI <- function(tEvent, PAR){
 #'  * if susceptible: false positive is detected with probability \code{rdtSpecPf}, see \code{\link{PfSI.Parameters}}
 #' @md
 rdtTest_PfSI <- function(tEvent, PAR){
-  if(private$Pathogens$Pf$get_infected()){
-    runif(1) < private$PfSI_PAR$rdtSensPf
+  if(private$Pathogens$get_infected()){
+    runif(1) < self$get_PfSI_PAR("rdtSensPf")
   } else {
-    runif(1) < private$PfSI_PAR$rdtSpecPf
+    runif(1) < self$get_PfSI_PAR("rdtSpecPf")
   }
 }
 
@@ -780,26 +807,8 @@ rdtTest_PfSI <- function(tEvent, PAR){
 #' @md
 lmTest_PfSI <- function(tEvent, PAR){
   if(private$Pathogens$Pf$get_infected()){
-    runif(1) < private$PfSI_PAR$lmSensPf
+    runif(1) < self$get_PfSI_PAR("lmSensPf")
   } else {
-    runif(1) < private$PfSI_PAR$lmSpecPf
-  }
-}
-
-###################################################################
-# PfSI Auxiliary Definitions
-###################################################################
-
-##########################################
-# 'HumanPop' Class Methods
-##########################################
-
-#' PfSI \code{HumanPop} Method: Set PfSI Paramters for a \code{\link{HumanPop}}
-#'
-#' Set PfSI_PAR for a HumanPop; this is useful for simulating multiple populations with different parameter values.
-#' @param PfSI_PAR new parameter list, see \code{\link{PfSI.Parameters}}
-HumanPop_set_PfSI_PAR <- function(PfSI_PAR){
-  for(ixH in 1:self$nHumans){
-    private$pop[[ixH]]$set_PfSI_PAR(PfSI_PAR)
+    runif(1) < self$get_PfSI_PAR("lmSpecPf")
   }
 }
