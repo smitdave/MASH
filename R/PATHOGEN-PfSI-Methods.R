@@ -288,7 +288,7 @@ PfSI_ttGSWanePf <- function(){
 #' @param tBite time of bite
 #' @param mosquitoPfSI \code{\link{mosquitoPfSI}} object passed from mosquito to human
 probeHost_PfSI <- function(tBite, mosquitoPfSI){
-  if(any(mosquitoPfSI$get_spz()>0)){
+  if(mosquitoPfSI$get_infected()){
     PAR = list(mosquitoPfSI = mosquitoPfSI)
     self$infectiousBite_PfSI(tBite, PAR)
   }
@@ -306,8 +306,7 @@ probeHost_PfSI <- function(tBite, mosquitoPfSI){
 infectiousBite_PfSI <- function(tBite, PAR){
   if(runif(1) < private$Pathogens$get_b()){
 
-    PfIx = sample(x = which(PAR$mosquitoPfSI$get_spz()>0), size = 1) # sample a clonal variant if multiple
-    PAR = list(damID = PfIx, sireID = PfIx)
+    PAR = list(damID = PAR$mosquitoPfSI$get_damID(), sireID = PAR$mosquitoPfSI$get_sireID())
 
     tInfStart = tBite + self$ttInfectionPf()
     self$add2Q_infectHumanPfSI(tEvent = tInfStart, PAR = PAR)

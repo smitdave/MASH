@@ -5,6 +5,7 @@
 
 namespace MASH {
 
+// Human-stage PfSI Object
 class humanPfSI {
 // public members
 public:
@@ -141,6 +142,83 @@ inline humanPfSI::humanPfSI(const int &PfID_init, const double &tInf_init,
     eventT.push_back(-1);
 
   }
+
+// Mosquito-stage PfSI Object
+class mosquitoPfSI {
+// public members
+public:
+
+  ///////////////////////////////////
+  // Human Stage PfSI Constructor
+  ///////////////////////////////////
+
+  mosquitoPfSI(const int &PfID_init, const double &tInf_init = -1,
+    const int &damID_init = -1, const int &sireID_init = -1, const bool &infected_init = false);
+
+  ///////////////////////////////////
+  // Getters & Setters
+  ///////////////////////////////////
+
+  int get_PfID(){
+    return(PfID);
+  };
+  void set_PfID(const int &PfID_new){
+    PfID = PfID_new;
+  }
+
+  double get_tInf(){
+    return(tInf);
+  };
+  void set_tInf(const double &tInf_new){
+    tInf = tInf_new;
+  };
+
+  int get_damID(){
+    return(damID);
+  };
+  void set_damID(const int &damID_new){
+    damID = damID_new;
+  };
+
+  int get_sireID(){
+    return(sireID);
+  };
+  void set_sireID(const int &sireID_new){
+    sireID = sireID_new;
+  };
+
+  bool get_infected(){
+    return(infected);
+  };
+  void set_infected(const bool &infected_new){
+    infected = infected_new;
+  };
+
+// private members
+private:
+
+  // PfSI Parameters & State Variables
+  int PfID; // pathogen ID
+  double tInf; // time of infection (human to mosquito transmission)
+  int damID; // female gametocyte mother
+  int sireID; // male gametocyte father
+  bool infected; // infection
+
+};
+
+// inline definition of constructor to accept default argument values
+inline mosquitoPfSI::mosquitoPfSI(const int &PfID_init, const double &tInf_init,
+  const int &damID_init, const int &sireID_init, const bool &infected_init){
+
+    // set parameters and state variables
+    PfID = PfID_init;
+    tInf = tInf_init;
+    damID = damID_init;
+    sireID = sireID_init;
+    infected = infected_init;
+
+  }
+
 
 }
 

@@ -20,6 +20,9 @@ template <> inline std::string generator_name<MASH::HistoryTravel >() {return ".
 template <> inline std::string   class_name_r<MASH::humanPfSI >() {return "humanPfSI";}
 template <> inline std::string   package_name<MASH::humanPfSI >() {return "MASH";}
 template <> inline std::string generator_name<MASH::humanPfSI >() {return ".R6_humanPfSI";}
+template <> inline std::string   class_name_r<MASH::mosquitoPfSI >() {return "mosquitoPfSI";}
+template <> inline std::string   package_name<MASH::mosquitoPfSI >() {return "MASH";}
+template <> inline std::string generator_name<MASH::mosquitoPfSI >() {return ".R6_mosquitoPfSI";}
 template <> inline std::string   class_name_r<MASH::RiskQ >() {return "RiskQ";}
 template <> inline std::string   package_name<MASH::RiskQ >() {return "MASH";}
 template <> inline std::string generator_name<MASH::RiskQ >() {return ".R6_RiskQ";}
@@ -76,6 +79,12 @@ template <> inline SEXP wrap(const MASH::humanPfSI& x) {
 }
 template <> inline MASH::humanPfSI as(SEXP x) {
   return *(MASH::RcppR6::RcppR6<MASH::humanPfSI>(x));
+}
+template <> inline SEXP wrap(const MASH::mosquitoPfSI& x) {
+  return wrap(MASH::RcppR6::RcppR6<MASH::mosquitoPfSI>(x));
+}
+template <> inline MASH::mosquitoPfSI as(SEXP x) {
+  return *(MASH::RcppR6::RcppR6<MASH::mosquitoPfSI>(x));
 }
 template <> inline SEXP wrap(const MASH::RiskQ& x) {
   return wrap(MASH::RcppR6::RcppR6<MASH::RiskQ>(x));

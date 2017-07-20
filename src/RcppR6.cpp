@@ -138,6 +138,51 @@ Rcpp::List humanPfSI__get_history(MASH::RcppR6::RcppR6<MASH::humanPfSI> obj_) {
 }
 
 // [[Rcpp::export]]
+MASH::mosquitoPfSI mosquitoPfSI__ctor(int PfID_init, double tInf_init, int damID_init, int sireID_init, bool infected_init) {
+  return MASH::mosquitoPfSI(PfID_init, tInf_init, damID_init, sireID_init, infected_init);
+}
+// [[Rcpp::export]]
+int mosquitoPfSI__get_PfID(MASH::RcppR6::RcppR6<MASH::mosquitoPfSI> obj_) {
+  return obj_->get_PfID();
+}
+// [[Rcpp::export]]
+void mosquitoPfSI__set_PfID(MASH::RcppR6::RcppR6<MASH::mosquitoPfSI> obj_, int PfID_new) {
+  obj_->set_PfID(PfID_new);
+}
+// [[Rcpp::export]]
+double mosquitoPfSI__get_tInf(MASH::RcppR6::RcppR6<MASH::mosquitoPfSI> obj_) {
+  return obj_->get_tInf();
+}
+// [[Rcpp::export]]
+void mosquitoPfSI__set_tInf(MASH::RcppR6::RcppR6<MASH::mosquitoPfSI> obj_, double tInf_new) {
+  obj_->set_tInf(tInf_new);
+}
+// [[Rcpp::export]]
+int mosquitoPfSI__get_damID(MASH::RcppR6::RcppR6<MASH::mosquitoPfSI> obj_) {
+  return obj_->get_damID();
+}
+// [[Rcpp::export]]
+void mosquitoPfSI__set_damID(MASH::RcppR6::RcppR6<MASH::mosquitoPfSI> obj_, int damID_new) {
+  obj_->set_damID(damID_new);
+}
+// [[Rcpp::export]]
+int mosquitoPfSI__get_sireID(MASH::RcppR6::RcppR6<MASH::mosquitoPfSI> obj_) {
+  return obj_->get_sireID();
+}
+// [[Rcpp::export]]
+void mosquitoPfSI__set_sireID(MASH::RcppR6::RcppR6<MASH::mosquitoPfSI> obj_, int sireID_new) {
+  obj_->set_sireID(sireID_new);
+}
+// [[Rcpp::export]]
+bool mosquitoPfSI__get_infected(MASH::RcppR6::RcppR6<MASH::mosquitoPfSI> obj_) {
+  return obj_->get_infected();
+}
+// [[Rcpp::export]]
+void mosquitoPfSI__set_infected(MASH::RcppR6::RcppR6<MASH::mosquitoPfSI> obj_, bool infected_new) {
+  obj_->set_infected(infected_new);
+}
+
+// [[Rcpp::export]]
 MASH::RiskQ RiskQ__ctor() {
   return MASH::RiskQ();
 }

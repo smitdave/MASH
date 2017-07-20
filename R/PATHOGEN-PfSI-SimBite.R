@@ -34,7 +34,7 @@ SimBitePfSI.Setup <- function(
   Human$set(which = "public",name = "add2Q_SimBitePfSI",
             value = function(tEvent, PAR = NULL){
               PAR = list()
-              PAR$mosquitoPfSI = mosquitoPfSI$new(PfID = -1L, tInf = -1L, spz = 1L, damID = -1L, sireID = -1L)
+              PAR$mosquitoPfSI = mosquitoPfSI(PfID_init = -1L, tInf_init = -1L, damID_init = -1L, sireID_init = -1L, infected_init = TRUE)
               private$EventQueue$addEvent2Q(event = self$event_SimBitePfSI(tEvent = tEvent, PAR = PAR))
             },
             overwrite = overwrite

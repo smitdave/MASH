@@ -1,3 +1,4 @@
+# Human-stage PfSI Object
 humanPfSI:
   name_cpp: MASH::humanPfSI
   forward_declare: true
@@ -108,3 +109,74 @@ humanPfSI:
       return_type: void
     get_history:
       return_type: "Rcpp::List"
+
+# Mosquito-stage PfSI Object
+mosquitoPfSI:
+  name_cpp: MASH::mosquitoPfSI
+  forward_declare: true
+  constructor:
+    roxygen: |
+      A class for storing parameters and state variables of mosquito-stage PfSI infections.
+      @title PfSI Mosquito Stage Pathogen Class
+      @param PfID_init PfID derived from the infecting human's gametocytes
+      @param tInf_init time of current infection (successful human to mosquito transmission event)
+      @param damID_init female gametocyte 'mother'
+      @param sireID_init male gametocyte 'father'
+      @param infected_init infection status
+      @section Methods:
+        * get_PfID:
+        * set_PfID:
+        * get_tInf:
+        * set_tInf:
+        * get_damID:
+        * set_damID:
+        * get_sireID:
+        * set_sireID:
+        * get_infected:
+        * set_infected:
+      @section Fields:
+        * a field: talk about me
+      @md
+      @export
+    args:
+      - PfID_init: int
+      - tInf_init: double = -1
+      - damID_init: int = -1
+      - sireID_init: int = -1
+      - infected_init: bool = FALSE
+  methods:
+
+    get_PfID:
+      return_type: "int"
+    set_PfID:
+      args:
+        - PfID_new: int
+      return_type: void
+
+    get_tInf:
+      return_type: double
+    set_tInf:
+      args:
+        - tInf_new: double
+      return_type: void
+
+    get_damID:
+      return_type: int
+    set_damID:
+      args:
+        - damID_new: int
+      return_type: void
+
+    get_sireID:
+      return_type: int
+    set_sireID:
+      args:
+        - sireID_new: int
+      return_type: void
+
+    get_infected:
+      return_type: bool
+    set_infected:
+      args:
+        - infected_new: bool
+      return_type: void
