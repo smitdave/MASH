@@ -8,6 +8,40 @@
 #
 #################################################################
 
+
+# interaction > 0 competition for host resources; interaction < 0 facilitation against host immune system
+oneHuman = function(biteRate = 1/50, recoveryRate = 1/200, interaction = 1, tMax = 1000){
+  MOI = 0
+  time = 0
+  while(time < tMax){
+    # sample which event happens next; ie what happens first? (Gillespie algorithm)
+    nextBite = time + rexp(1,biteRate)
+
+    if(MOI>0){
+      nextClearance = time + rexp(1,(recoveryRate) * (MOI^interaction))
+      event = which.min(x = c(nextBite, nextClearance))
+      if(event == 1){
+        # infection
+        MOI = MOI + 1
+        time = time + nextBite
+      } else {
+        # recovery
+        MOI = MOI -1
+        time = time + nextClearance
+      }
+
+    } else {
+      event = 1
+      MOI = MOI + 1
+      time = time + nextBite
+    }
+
+    print(paste0("event: ",event," current MOI: ",MOI," happened at time: ",time))
+  }
+  return(MOI)
+}
+
+
 # # queueMG1.dy: dynamical system representation of stochastic process (infinite population size)
 # queueMG1.dy = function(t, y, par, foi, MX){
 #   dy = 0 * y # vector of derivatives

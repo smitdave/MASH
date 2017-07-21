@@ -141,7 +141,6 @@ init_MacroTile_PfSI <- function(PfPR, tStart = 0){
 #' This method is bound to \code{Human$set_humanPfSI()}
 #'
 Human_set_humanPfSI <- function(PfID, tInf = -1L, b = 0.55, c = 0.15, damID = -1L, sireID = -1L, infected = FALSE, chemoprophylaxis = FALSE){
-  # private$Pathogens$Pf = humanPfSI$new(PfID=PfID,tInf=tInf,b=b,c=c,damID=damID,sireID=sireID,infected=infected,chemoprophylaxis=chemoprophylaxis)
   private$Pathogens = humanPfSI(PfID, tInf, b, c, damID, sireID, infected, chemoprophylaxis)
 }
 
@@ -156,22 +155,6 @@ HumanPop_set_humanPfSI <- function(b = NULL, c = NULL){
 
   b = private$PfSI_PAR$Pf_b
   c = private$PfSI_PAR$Pf_c
-  # # sanity checks
-  # if(is.null(b)){
-  #   private$pop[[1]]$get_PfSI_PAR()$Pf_b
-  #   b = rep(x = private$pop[[1]]$get_PfSI_PAR("Pf_b"),times = self$nHumans)
-  # } else {
-  #   if(length(b)!=self$nHumans){
-  #     stop(paste0("length of b: ",length(b)," must be equal to size of human population: ",self$nHumans))
-  #   }
-  # }
-  # if(is.null(c)){
-  #   c = rep(x = private$pop[[1]]$get_PfSI_PAR("Pf_c"),times = self$nHumans)
-  # } else {
-  #   if(length(c)!=self$nHumans){
-  #     stop(paste0("length of c: ",length(c)," must be equal to size of human population: ",self$nHumans))
-  #   }
-  # }
 
   # set pathogens
   for(ixH in 1:self$nHumans){
@@ -199,7 +182,6 @@ HumanPop_set_humanPfSI <- function(b = NULL, c = NULL){
 #'
 PfSI_ttClearPf <- function(){
   return(rexp(n = 1, rate = 1/self$get_PfSI_PAR("DurationPf")))
-  # return(rexp(n = 1, rate = 1/private$PfSI_PAR$DurationPf))
 }
 
 #' PfSI \code{Human} Method: Duration of Latency
@@ -210,7 +192,6 @@ PfSI_ttClearPf <- function(){
 #'
 PfSI_ttInfectionPf <- function(){
   return(self$get_PfSI_PAR("LatentPf"))
-  # return(private$PfSI_PAR$LatentPf)
 }
 
 #' PfSI \code{Human} Method: Timing of Fever Incident
@@ -221,7 +202,6 @@ PfSI_ttInfectionPf <- function(){
 #'
 PfSI_ttFeverPf <- function(){
   return(self$get_PfSI_PAR("mnFeverPf"))
-  # return(private$PfSI_PAR$mnFeverPf)
 }
 
 #' PfSI \code{Human} Method: Timing of Treatment
@@ -232,7 +212,6 @@ PfSI_ttFeverPf <- function(){
 #'
 PfSI_ttTreatPf <- function(){
   return(self$get_PfSI_PAR("mnTreatPf"))
-  # return(private$PfSI_PAR$mnTreatPf)
 }
 
 #' PfSI \code{Human} Method: Duration of Protection from Chemoprophylaxis
@@ -243,7 +222,6 @@ PfSI_ttTreatPf <- function(){
 #'
 PfSI_ttSusceptiblePf <- function(){
   return(self$get_PfSI_PAR("mnChemoprophylaxisPf"))
-  # return(private$PfSI_PAR$mnChemoprophylaxisPf)
 }
 
 #' PfSI \code{Human} Method: Duration of protection by PE Vaccination
@@ -254,7 +232,6 @@ PfSI_ttSusceptiblePf <- function(){
 #'
 PfSI_ttPEWanePf <- function(){
   return(rnorm(n = 1, mean = self$get_PfSI_PAR("mnPEPf"), sd = self$get_PfSI_PAR("vrPEPf")))
-  # return(rnorm(n = 1, mean = private$PfSI_PAR$mnPEPf, sd = private$PfSI_PAR$vrPEPf))
 }
 
 #' PfSI \code{Human} Method: Duration of protection by GS Vaccination
@@ -265,7 +242,6 @@ PfSI_ttPEWanePf <- function(){
 #'
 PfSI_ttGSWanePf <- function(){
   return(rnorm(n = 1, mean = self$get_PfSI_PAR("mnGSPf"), sd = self$get_PfSI_PAR("vrGSPf")))
-  # return(rnorm(n = 1, mean = private$PfSI_PAR$mnGSPf, sd = private$PfSI_PAR$vrGSPf))
 }
 
 
@@ -393,22 +369,6 @@ infectHumanPfSI <- function(tEvent, PAR){
     }
     self$add2Q_endPfSI(tEvent = tEvent)
   }
-  # if(!private$Pathogens$Pf$get_infected() & !private$Pathogens$Pf$get_chemoprophylaxis()){
-  #   self$track_history(tEvent = tEvent, event = "I") # track history
-  #   private$Pathogens$Pf$set_infected(TRUE)
-  #
-  #   # newID = self$get_HumansPointer()$increment_PfID()
-  #   # private$Pathogens$Pf$push_PfID(newID)
-  #
-  #   private$Pathogens$Pf$push_PfID(self$get_HumansPointer()$increment_PfID())
-  #
-  #   private$Pathogens$Pf$push_damID(PAR$damID)
-  #   private$Pathogens$Pf$push_sireID(PAR$sireID)
-  #   if(runif(1) < private$PfSI_PAR$FeverPf){
-  #       self$add2Q_feverPfSI(tEvent = tEvent)
-  #   }
-  #   self$add2Q_endPfSI(tEvent = tEvent)
-  # }
 }
 
 ###################################################################

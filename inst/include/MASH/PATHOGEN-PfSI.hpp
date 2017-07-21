@@ -149,7 +149,7 @@ class mosquitoPfSI {
 public:
 
   ///////////////////////////////////
-  // Human Stage PfSI Constructor
+  // Mosquito Stage PfSI Constructor
   ///////////////////////////////////
 
   mosquitoPfSI(const int &PfID_init, const double &tInf_init = -1,
