@@ -13,11 +13,13 @@ ImagoQ
 
 \itemize{
 \item clear_ImagoQ:
+\item clear_ImagoQTime:
 \item add_ImagoQ:
 \item track_ImagoQ:
 \item get_N:
 \item set_N:
 \item get_ImagoQ:
+\item get_ImagoQTime:
 }
 }
 

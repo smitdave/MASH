@@ -11,7 +11,7 @@ SEARCH.MicroKernel.Setup(MBITES = "BRO", overwrite = TRUE)
 \itemize{
 \item BRO: Blood Feeding, Resting, Oviposition module
 \item BROM: Blood Feeding, Resting, Oviposition, Mating module
-\item Full: Full life cycle M-BITES module
+\item FULL: Full life cycle M-BITES module
 }}
 }
 \value{

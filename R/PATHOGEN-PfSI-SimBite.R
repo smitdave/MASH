@@ -21,7 +21,7 @@
 #' SimBitePfSI.Setup()
 #' @export
 SimBitePfSI.Setup <- function(
-
+  overwrite = TRUE
 ){
 
     message("initializing PfSI SimBite module")
@@ -34,23 +34,26 @@ SimBitePfSI.Setup <- function(
   Human$set(which = "public",name = "add2Q_SimBitePfSI",
             value = function(tEvent, PAR = NULL){
               PAR = list()
-              PAR$mosquitoPfSI = mosquitoPfSI$new(PfID = -1L, tInf = -1L, spz = 1L, damID = -1L, sireID = -1L)
+              PAR$mosquitoPfSI = mosquitoPfSI(PfID_init = -1L, tInf_init = -1L, damID_init = -1L, sireID_init = -1L, infected_init = TRUE)
               private$EventQueue$addEvent2Q(event = self$event_SimBitePfSI(tEvent = tEvent, PAR = PAR))
-            }
+            },
+            overwrite = overwrite
   )
 
   # event_SimBitePfSI: simulated bite event
   Human$set(which = "public",name = "event_SimBitePfSI",
             value = function(tEvent, PAR = NULL){
               list(tEvent = tEvent, PAR = PAR, tag = "SimBitePfSI")
-            }
+            },
+            overwrite = overwrite
   )
 
   # SimBitePfSI
   Human$set(which = "public",name = "SimBitePfSI",
             value = function(tEvent, PAR){
               self$probeHost_PfSI(tEvent, PAR$mosquitoPfSI)
-            }
+            },
+            overwrite = overwrite
   )
 
   ###################################################################
@@ -68,7 +71,8 @@ SimBitePfSI.Setup <- function(
                      private$pop[[ixH]]$add2Q_SimBitePfSI(tEvent = tBite)
                    }
                  }
-               }
+               },
+               overwrite = overwrite
   )
 
   # queueVaccination
@@ -79,13 +83,14 @@ SimBitePfSI.Setup <- function(
                    private$pop[[ixH]]$add2Q_pevaccinatePfSI(tEvent = tVaccine)
                    private$pop[[ixH]]$add2Q_treatPfSI(tEvent = tTreat)
                  }
-               }
+               },
+               overwrite = overwrite
   )
 
   # queueBitesNegBinom_SimBitePfSI
   HumanPop$set(which = "public",name = "queueBitesNegBinom_SimBitePfSI",
                value = queueBitesNegBinom_SimBitePfSI,
-               overwrite = TRUE
+               overwrite = overwrite
   )
 
 }

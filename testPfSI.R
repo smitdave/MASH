@@ -20,7 +20,7 @@ SimBitePfSI.Setup()
 # simulate a single human population
 #################################################################
 
-nHumans = 500
+nHumans = 50
 HumanPop_PAR = HumanPop.Parameters(nSite = 1,bWeight = NULL,siteSize = nHumans,siteMin = nHumans)
 pop = HumanPop$new(HumanPop_PAR)
 PfSI_PAR = PfSI.Parameters(TreatPf = 1)
@@ -33,9 +33,7 @@ pop$queueBites_SimBitePfSI(tMax = tMax,bitingRate = 1/15)
 pop$queueVaccination_SimBitePfSI(tVaccine = (365*1),tTreat = (365*1)+1,fracPop = 0.75)
 pop$simHumans(tPause = tMax+10)
 
-pop$get_History()
-
-pfsiHist = pop$get_History()
+pfsiHist = lapply(X = pop$get_Human(),FUN = function(x){x$get_Pathogens()$get_history()})
 plot_PfSI(pfsiHist)
 
 

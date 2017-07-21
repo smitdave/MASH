@@ -7,11 +7,13 @@ ImagoQ:
       @title MICRO Imago Queue
       @section Methods:
         * clear_ImagoQ:
+        * clear_ImagoQTime:
         * add_ImagoQ:
         * track_ImagoQ:
         * get_N:
         * set_N:
         * get_ImagoQ:
+        * get_ImagoQTime:
       @section Fields:
         * a field:
       @md

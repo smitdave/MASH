@@ -69,18 +69,27 @@ MICRO.Emerge.Setup <- function(overwrite = TRUE){
   # One Day 'Emerge'
   #################################################################
 
+  # lambda to ImagoQ
   AquaticSite$set(which = "public",name = "oneDay_EmergeSite",
             value = oneDay_MicroEmergeSite,
             overwrite = overwrite
   )
 
+  # lambda to ImagoQ
   Landscape$set(which = "public",name = "oneDay_Emerge",
             value = oneDay_MicroEmerge,
             overwrite = overwrite
   )
 
-  Landscape$set(which = "public",name = "emergingAdults_Emerge",
-            value = emergingAdults_MicroEmerge,
+  # ImagoQ to MicroMosquitoPopFemale
+  AquaticSite$set(which = "public",name = "addCohort_MicroEmerge",
+            value = addCohort_MicroEmergeSite,
+            overwrite = overwrite
+  )
+
+  # ImagoQ to MicroMosquitoPopFemale
+  Landscape$set(which = "public",name = "addCohort_MicroEmerge",
+            value = addCohort_MicroEmerge,
             overwrite = overwrite
   )
 
@@ -152,7 +161,9 @@ oneDay_MicroEmergeSite <- function(tNow){
 
   lambdaExact = private$lambda[floor(tNow)%%365+1]
   lambdaEmerge = rpois(n = 1, lambda = lambdaExact)
-  private$ImagoQ$add_ImagoQ(N_new = lambdaEmerge, tEmerge_new = tNow, genotype_new = -1L, damID_new = -1L, sireID_new = -1L)
+  if(lambdaEmerge > 0){
+    private$ImagoQ$add_ImagoQ(N_new = lambdaEmerge, tEmerge_new = tNow, genotype_new = -1L, damID_new = -1L, sireID_new = -1L)
+  }
 
 }
 
@@ -193,5 +204,6 @@ addCohort_MicroEmergeSite <- function(){
 #' @examples
 #' some_function()
 addCohort_MicroEmerge <- function(){
-  stop("write me please!!!")
+  tNow = self$get_TilePointer()$get_tNow()
+
 }

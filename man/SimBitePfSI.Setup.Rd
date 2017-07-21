@@ -4,7 +4,7 @@
 \alias{SimBitePfSI.Setup}
 \title{Initialize SimBite PfSI Module}
 \usage{
-SimBitePfSI.Setup()
+SimBitePfSI.Setup(overwrite = TRUE)
 }
 \arguments{
 \item{Pf_c}{0.15; transmission efficiency: infected human to mosquito}

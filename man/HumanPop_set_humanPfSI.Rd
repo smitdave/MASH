@@ -12,6 +12,6 @@ HumanPop_set_humanPfSI(b = NULL, c = NULL)
 \item{c}{infected human to mosquito transmission efficiency}
 }
 \description{
-Set the \code{\link{humanPfSI}} object in a human poulation.
+Set the \code{\link{humanPfSI}} object in a human poulation; this does not initialize infection, only sets the object.
 This method is bound to \code{HumanPop$set_humanPfSI()}
 }

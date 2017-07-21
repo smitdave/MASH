@@ -10,6 +10,7 @@ classes:
   # MICRO classes
   - inst/MICRO-RiskQ.yml
   - inst/MICRO-ImagoQ.yml
+  - inst/MICRO-EggQ.yml
 
   # MOSQUITO classes
   - inst/MOSQUITO-History.yml
