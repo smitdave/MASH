@@ -10,7 +10,7 @@
 
 
 # interaction > 0 competition for host resources; interaction < 0 facilitation against host immune system
-oneHuman = function(biteRate = 1/50, recoveryRate = 1/200, interaction = 1, tMax = 1000){
+oneHuman = function(biteRate = 1/50, recoveryRate = 1/200, interaction = 0, tMax = 1000){
   MOI = 0
   time = 0
   while(time < tMax){
