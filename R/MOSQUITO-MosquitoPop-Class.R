@@ -17,6 +17,8 @@
 #'
 #' This is a generic Mosquito Population class definition, it is a superclass for \code{\link{MicroMosquitoPopFemale}} and \code{\link{MicroMosquitoPopMale}} and cannot be independently instantiated.
 #' It contains methods and fields which are generic to both the male and female populations, described below.
+#' Mosquito populations should be initialized last in a \code{\link{MicroTile}} because their initializer functions need to take as arguments
+#' pointers to the other objects in a tile.
 #'
 #' @docType class
 #' @format An \code{\link{R6Class}} generator object
@@ -67,6 +69,11 @@ MicroMosquitoPop <- R6::R6Class(classname = "MosquitoPop",
                         stop("this hasn't been written yet")
                       },
 
+                      get_nullPop = function(){return(private$nullPop)},
+                      update_nullPop = function(){
+                        private$nullPop = private$nullPop = which(vapply(X = private$pop,FUN = is.null,FUN.VALUE = logical(1)))
+                      },
+
                       # generic get_movement method; designed to be overwritten by module-specific parameteric getter
                       get_movement = function(){
                         return(private$movement)
@@ -112,6 +119,7 @@ MicroMosquitoPop <- R6::R6Class(classname = "MosquitoPop",
 
                       # Fields
                       pop = NULL,               # mosquito population
+                      nullPop = NULL,           # null entries in list for memory allocation
                       movement = NULL,          # movement object (type depends on specific SEARCH module)
                       MBITES_PAR = NULL,        # MBITES Parameters
 
@@ -128,6 +136,7 @@ MicroMosquitoPop <- R6::R6Class(classname = "MosquitoPop",
 # Female Mosquito Population Class
 #################################################################
 
+# MicroMosquitoPopFemale:
 MicroMosquitoPopFemale <- R6::R6Class(classname = "MicroMosquitoPopFemale",
                        inherit = MicroMosquitoPop,
                        portable = TRUE,
@@ -137,8 +146,38 @@ MicroMosquitoPopFemale <- R6::R6Class(classname = "MicroMosquitoPopFemale",
 
                        public = list(
 
-                         # initializer
-                         # initialize = function(N, )
+                         ##############################################################
+                         # Initializer
+                         ##############################################################
+
+                         # N: size of vector to allocate (NOT number of mosquitoes)
+                         initialize = function(N, id_init, time_init, ix_init, genotype_init, state_init,
+                           MBITES_PAR, movement){
+
+                             # Initialize population level fields prior to allocating container
+                             private$MBITES_PAR = MBITES_PAR
+                             private$movement = movement
+
+                             # allocate population
+                             private$pop = vector(mode="list",length=N)
+                             lengths = NULL; lengths[1] = length(id_init); lengths[2] = length(time_init); lengths[3] = length(ix_init); lengths[4] = length(genotype_init); lengths[5] = length(state_init);
+                             if(length(unique(lengths)) != 1){
+                               stop("one or more of the input vectors to MicroMosquitoPopFemale initializer is not the same length")
+                             }
+                             if(N < length(id_init)){
+                               stop("please set N greater than the initial cohort size")
+                             }
+
+                             # allocate initial cohort
+                             for(ix in 1:length(id_init)){
+                               private$pop[[ix]] = MicroMosquitoFemale$new(id_init[ix], time_init[ix], ix_init[ix], genotype_init[ix], state_init[ix],
+                                             MBITES_PAR = MBITES_PAR)
+                               private$pop[[ix]]$set_FemalePopPointer(self)
+                             }
+                             # find NULL indices
+                             private$nullPop = which(vapply(X = private$pop,FUN = is.null,FUN.VALUE = logical(1)))
+
+                         } # end initializer
 
                        ),
 

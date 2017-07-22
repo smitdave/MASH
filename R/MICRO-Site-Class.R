@@ -264,22 +264,29 @@ AquaticSite <- R6::R6Class(classname = "AquaticSite",
                    #################################################
 
                    get_haz = function(){return(private$haz)},
-                   set_haz = function(haz){private$haz = haz}
+                   set_haz = function(haz){private$haz = haz},
+
+                   get_ImagoQ = function(){return(private$ImagoQ)},
+                   set_ImagoQ = function(ImagoQ){private$ImagoQ = ImagoQ},
+
+                   get_EggQ = function(){return(private$EggQ)},
+                   set_EggQ = function(EggQ){private$EggQ = EggQ},
+
+                   get_lambda = function(){return(private$lambda)},
+                   set_lambda = function(lambda){private$lambda = lambda}
 
                  ),
 
                  # private members
                  private = list(
 
-                   # shared fields
                    haz = NULL,
+
                    ImagoQ = NULL,
+                   EggQ = NULL,
 
                    # Emerge fields
-                   lambda = NULL,
-
-                   # EL4P fields
-                   EggQ = NULL
+                   lambda = NULL
 
                  )
 )

@@ -241,7 +241,7 @@ MicroKernel_SampleMvOb <- function(MvOb){
 #'
 MicroKernel_moveMe_FULL <- function(){
 
-  MvOb = private$myPopPointer$get_movement(ixS = private$ix, state = private$state, inPointSet = private$inPointSet)
+  MvOb = private$FemalePopPointer$get_movement(ixS = private$ix, state = private$state, inPointSet = private$inPointSet)
   pSetNew = switch(private$state,
       F = {"f"},
       L = {"l"},
@@ -260,7 +260,7 @@ MicroKernel_moveMe_FULL <- function(){
 #'
 MicroKernel_moveMe_BRO <- function(){
 
-  MvOb = private$myPopPointer$get_movement(ixS = private$ix, state = private$state, inPointSet = private$inPointSet)
+  MvOb = private$FemalePopPointer$get_movement(ixS = private$ix, state = private$state, inPointSet = private$inPointSet)
   pSetNew = switch(private$state,
       B = {"f"},
       O = {"l"},
@@ -277,7 +277,7 @@ MicroKernel_moveMe_BRO <- function(){
 #'
 MicroKernel_moveMe_BROM <- function(){
 
-  MvOb = private$myPopPointer$get_movement(ixS = private$ix, state = private$state, inPointSet = private$inPointSet)
+  MvOb = private$FemalePopPointer$get_movement(ixS = private$ix, state = private$state, inPointSet = private$inPointSet)
   pSetNew = switch(private$state,
       B = {"f"},
       O = {"l"},
@@ -295,7 +295,7 @@ MicroKernel_moveMe_BROM <- function(){
 #'
 MicroKernel_moveMe_Male <- function(){
 
-  MvOb = private$myPopPointer$get_movement(ixS = private$ix, state = private$state, inPointSet = private$inPointSet)
+  MvOb = private$MalePopPointer$get_movement(ixS = private$ix, state = private$state, inPointSet = private$inPointSet)
   pSetNew = switch(private$state,
       M = {"m"},
       S = {"s"},
@@ -417,7 +417,7 @@ get_MicroKernel_movement_Male <- function(ixS, state, inPointSet){
 #' @param MBITES what M-BITES module to run?
 #'  * BRO: Blood Feeding, Resting, Oviposition module
 #'  * BROM: Blood Feeding, Resting, Oviposition, Mating module
-#'  * Full: Full life cycle M-BITES module
+#'  * FULL: Full life cycle M-BITES module
 #' @md
 #' @return does stuff
 #' @examples
@@ -459,7 +459,7 @@ SEARCH.MicroKernel.Setup <- function(MBITES = "BRO", overwrite = TRUE){
                 overwrite = overwrite
     )
 
-  } else if(MBITES == "full"){
+  } else if(MBITES == "FULL"){
 
     MicroMosquitoPopFemale$set(which = "public",name = "get_movement",
                 value = get_MicroKernel_movement_FULL,
@@ -471,7 +471,7 @@ SEARCH.MicroKernel.Setup <- function(MBITES = "BRO", overwrite = TRUE){
     )
 
   } else {
-    stop("argument MBITES must be a character in 'BRO', 'BROM', or 'full'")
+    stop("argument MBITES must be a character in 'BRO', 'BROM', or 'FULL'")
   }
 
 }

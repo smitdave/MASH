@@ -405,7 +405,7 @@ infectHumanPfMOI <- function(tEvent, PAR){
       self$add2Q_feverPfMOI(tEvent = tEvent)
     }
 
-    self$add2Q_endPfMOI(tEvent = tEvent)
+    self$add2Q_endPfMOI(tEvent = tEvent, PAR = list(PfID = PfID))
     private$Pathogens$Pf$track_history(eventT = tEvent, event = "I") # write me
   }
 
