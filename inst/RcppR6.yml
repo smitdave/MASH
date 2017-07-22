@@ -6,6 +6,7 @@ classes:
 
   # PATHOGEN classes
   - inst/PATHOGEN-PfSI.yml
+  - inst/PATHOGEN-PfMOI.yml
 
   # MICRO classes
   - inst/MICRO-RiskQ.yml
