@@ -10,6 +10,7 @@
 
 // PATHOGEN classes
 #include <MASH/PATHOGEN-PfSI.hpp>
+#include <MASH/PATHOGEN-PfMOI.hpp>
 
 // MICRO-specific classes
 #include <MASH/MICRO-RiskQ.hpp>
