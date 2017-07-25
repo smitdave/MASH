@@ -319,6 +319,10 @@ mosquitoPfMOIcpp__push_sireID <- function(obj_, sireID_new) {
     invisible(.Call('_MASH_mosquitoPfMOIcpp__push_sireID', PACKAGE = 'MASH', obj_, sireID_new))
 }
 
+mosquitoPfMOIcpp__add_Infection <- function(obj_, PfID_new, tInf_new, damID_new, sireID_new) {
+    invisible(.Call('_MASH_mosquitoPfMOIcpp__add_Infection', PACKAGE = 'MASH', obj_, PfID_new, tInf_new, damID_new, sireID_new))
+}
+
 mosquitoPfMOIcpp__get_Infection <- function(obj_, PfID_ix) {
     .Call('_MASH_mosquitoPfMOIcpp__get_Infection', PACKAGE = 'MASH', obj_, PfID_ix)
 }

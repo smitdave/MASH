@@ -178,7 +178,7 @@ public:
   // Mosquito Stage PfMOI Constructor
   ///////////////////////////////////
 
-  mosquitoPfMOIcpp(const int &PfID_init, const double &tInf_init = -1,
+  mosquitoPfMOIcpp(const int &PfID_init = -1, const double &tInf_init = -1,
     const int &MOI_init = 0,
     const int &damID_init = -1, const int &sireID_init = -1);
 
@@ -224,6 +224,15 @@ public:
   ///////////////////////////////////
   // Infection Dynamics
   ///////////////////////////////////
+
+  // add a new infection
+  void add_Infection(const int &PfID_new, const double &tInf_new, const int &damID_new, const int &sireID_new){
+    PfID.push_back(PfID_new);
+    tInf.push_back(tInf_new);
+    damID.push_back(damID_new);
+    sireID.push_back(sireID_new);
+    MOI += 1;
+  };
 
   // return the clonal variant associated with given PfID
   Rcpp::List get_Infection(const int &PfID_ix){
@@ -294,6 +303,11 @@ inline mosquitoPfMOIcpp::mosquitoPfMOIcpp(const int &PfID_init, const double &tI
   const int &damID_init, const int &sireID_init){
 
     // set parameters and state variables
+    PfID.clear();
+    tInf.clear();
+    damID.clear();
+    sireID.clear();
+
     PfID.push_back(PfID_init);
     tInf.push_back(tInf_init);
     damID.push_back(damID_init);

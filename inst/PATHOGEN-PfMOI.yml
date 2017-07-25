@@ -196,6 +196,14 @@ mosquitoPfMOIcpp:
       return_type: void
 
     # Infection Dynamics
+    add_Infection:
+      args:
+        - PfID_new: int
+        - tInf_new: double
+        - damID_new: int
+        - sireID_new: int
+      return_type: void
+
     get_Infection:
       args:
         - PfID_ix: int

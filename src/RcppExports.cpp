@@ -881,6 +881,20 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// mosquitoPfMOIcpp__add_Infection
+void mosquitoPfMOIcpp__add_Infection(MASH::RcppR6::RcppR6<MASH::mosquitoPfMOIcpp> obj_, int PfID_new, double tInf_new, int damID_new, int sireID_new);
+RcppExport SEXP _MASH_mosquitoPfMOIcpp__add_Infection(SEXP obj_SEXP, SEXP PfID_newSEXP, SEXP tInf_newSEXP, SEXP damID_newSEXP, SEXP sireID_newSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::mosquitoPfMOIcpp> >::type obj_(obj_SEXP);
+    Rcpp::traits::input_parameter< int >::type PfID_new(PfID_newSEXP);
+    Rcpp::traits::input_parameter< double >::type tInf_new(tInf_newSEXP);
+    Rcpp::traits::input_parameter< int >::type damID_new(damID_newSEXP);
+    Rcpp::traits::input_parameter< int >::type sireID_new(sireID_newSEXP);
+    mosquitoPfMOIcpp__add_Infection(obj_, PfID_new, tInf_new, damID_new, sireID_new);
+    return R_NilValue;
+END_RCPP
+}
 // mosquitoPfMOIcpp__get_Infection
 Rcpp::List mosquitoPfMOIcpp__get_Infection(MASH::RcppR6::RcppR6<MASH::mosquitoPfMOIcpp> obj_, int PfID_ix);
 RcppExport SEXP _MASH_mosquitoPfMOIcpp__get_Infection(SEXP obj_SEXP, SEXP PfID_ixSEXP) {
@@ -1458,6 +1472,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_MASH_mosquitoPfMOIcpp__push_damID", (DL_FUNC) &_MASH_mosquitoPfMOIcpp__push_damID, 2},
     {"_MASH_mosquitoPfMOIcpp__get_sireID", (DL_FUNC) &_MASH_mosquitoPfMOIcpp__get_sireID, 1},
     {"_MASH_mosquitoPfMOIcpp__push_sireID", (DL_FUNC) &_MASH_mosquitoPfMOIcpp__push_sireID, 2},
+    {"_MASH_mosquitoPfMOIcpp__add_Infection", (DL_FUNC) &_MASH_mosquitoPfMOIcpp__add_Infection, 5},
     {"_MASH_mosquitoPfMOIcpp__get_Infection", (DL_FUNC) &_MASH_mosquitoPfMOIcpp__get_Infection, 2},
     {"_MASH_mosquitoPfMOIcpp__get_InfectionEIP", (DL_FUNC) &_MASH_mosquitoPfMOIcpp__get_InfectionEIP, 2},
     {"_MASH_RiskQ__ctor", (DL_FUNC) &_MASH_RiskQ__ctor, 0},

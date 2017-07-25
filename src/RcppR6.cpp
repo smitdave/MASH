@@ -312,6 +312,10 @@ void mosquitoPfMOIcpp__push_sireID(MASH::RcppR6::RcppR6<MASH::mosquitoPfMOIcpp> 
   obj_->push_sireID(sireID_new);
 }
 // [[Rcpp::export]]
+void mosquitoPfMOIcpp__add_Infection(MASH::RcppR6::RcppR6<MASH::mosquitoPfMOIcpp> obj_, int PfID_new, double tInf_new, int damID_new, int sireID_new) {
+  obj_->add_Infection(PfID_new, tInf_new, damID_new, sireID_new);
+}
+// [[Rcpp::export]]
 Rcpp::List mosquitoPfMOIcpp__get_Infection(MASH::RcppR6::RcppR6<MASH::mosquitoPfMOIcpp> obj_, int PfID_ix) {
   return obj_->get_Infection(PfID_ix);
 }
