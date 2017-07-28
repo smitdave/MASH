@@ -247,6 +247,17 @@ public:
     );
   };
 
+  // get clonal variants just depending on their position in vector
+  Rcpp::List get_InfectionIx(const int &ix){
+    return(
+      Rcpp::List::create(
+        Rcpp::Named("PfID") = PfID[ix],
+        Rcpp::Named("damID") = damID[ix],
+        Rcpp::Named("sireID") = sireID[ix]
+      )
+    );
+  };
+
   // get_InfectionEIP: argument 'incubation' = tNow - EIP; only return infections that started at tNow - EIP in the past
   // because only those can possibly have passed the EIP and produced sporozoites.
   Rcpp::List get_InfectionEIP(const double &incubation){
@@ -254,12 +265,12 @@ public:
     // find infections where tInf < tNow - EIP (incubation)
     std::vector<int> incubationIx;
     auto it = std::find_if(tInf.begin(), tInf.end(), [incubation](const double &infectionTime){
-        return(infectionTime < incubation);
+        return(infectionTime <= incubation);
     });
     while(it != tInf.end()){
         incubationIx.emplace_back(std::distance(tInf.begin(), it));
         it = std::find_if(std::next(it), std::end(tInf), [incubation](const double &infectionTime){
-            return(infectionTime < incubation);
+            return(infectionTime <= incubation);
         });
     }
 
@@ -284,6 +295,24 @@ public:
         Rcpp::Named("sireID") = sireID_out
       )
     );
+  };
+
+  // same as above but only return the indices
+  std::vector<int> which_EIP(const double &inubation) {
+
+    // find infections where tInf < tNow - EIP (incubation)
+    std::vector<int> incubationIx;
+    auto it = std::find_if(tInf.begin(), tInf.end(), [incubation](const double &infectionTime){
+        return(infectionTime <= incubation);
+    });
+    while(it != tInf.end()){
+        incubationIx.emplace_back(std::distance(tInf.begin(), it));
+        it = std::find_if(std::next(it), std::end(tInf), [incubation](const double &infectionTime){
+            return(infectionTime <= incubation);
+        });
+    }
+
+    return(incubationIx);
   };
 
 // private members

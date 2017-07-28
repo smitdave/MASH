@@ -209,7 +209,17 @@ mosquitoPfMOIcpp:
         - PfID_ix: int
       return_type: "Rcpp::List"
 
+    get_InfectionIx:
+      args:
+        - ix: int
+      return_type: "Rcpp::List"
+
     get_InfectionEIP:
       args:
         - incubation: double
       return_type: "Rcpp::List"
+
+    which_EIP:
+      args:
+        - incubation: double
+      return_type: "std::vector<int>"
