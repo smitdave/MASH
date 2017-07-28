@@ -43,6 +43,7 @@
 #' @return return a list
 #' @examples
 #' PfMOI.Parameters()
+#' @md
 #' @export
 PfMOI.Parameters <- function(
 

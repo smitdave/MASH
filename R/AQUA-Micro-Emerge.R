@@ -183,7 +183,7 @@ oneDay_MicroEmerge <- function(){
 
 #' MICRO \code{\link{Landscape}} Method: Get Emerging Adults from ImagoQ and Zero out ImagoQ
 #'
-#' Grab emerging adult batches where tEmerge <= tNow and return as a list.
+#' Grab emerging adult batches where tEmerge <= tNow and add to the \code{\link{MicroMosquitoPop}}.
 #' This is a helper function for \code{\link{addCohort_MicroEmerge}}.
 #' This method is bound to \code{AquaticSite$addCohort_MicroEmerge()}.
 #'
@@ -198,6 +198,7 @@ addCohort_MicroEmergeSite <- function(){
 
 #' MICRO \code{\link{Landscape}} Method: Get Emerging Adults from ImagoQ and Zero out ImagoQ
 #'
+#' Grab emerging adult batches where tEmerge <= tNow and add to the \code{\link{MicroMosquitoPop}}.
 #' This method is bound to \code{Landscape$addCohort_MicroEmerge()}
 #'
 #' @return does stuff

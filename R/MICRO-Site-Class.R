@@ -63,6 +63,10 @@ MicroSite <- R6::R6Class(classname = "Site",
                    get_searchWt = function(){return(private$searchWt)},
                    set_searchWt = function(searchWt){private$searchWt = searchWt},
 
+                   # site type (1 is domestic, 0 is not peri-domestic)
+                   get_siteType = function(){return(private$siteType)},
+                   set_siteType = function(siteType){priate$siteType = siteType},
+
                    #################################################
                    # Pointers
                    #################################################
@@ -79,6 +83,7 @@ MicroSite <- R6::R6Class(classname = "Site",
                    ix = 0L,
                    siteXY = vector(mode="numeric",length=2L),
                    searchWt = 0L,
+                   siteType = NULL,   # an aquatic or sugar site could be inside of a house, for example.
 
                    # Pointers
                    LandscapePointer = NULL
@@ -129,8 +134,7 @@ FeedingSite <- R6::R6Class(classname = "FeedingSite",
                    # Initialize
                    #################################################
 
-                   # maxH: passed to init_riskList
-                   initialize = function(ix, siteXY, searchWt, enterP, hazV = 0, hazW = 0, hazI = 0, sugar = NULL, maxH = 20L){
+                   initialize = function(ix, siteXY, searchWt, enterP, hazV = 0, hazW = 0, hazI = 0, sugar = NULL, siteType = 1L){
 
                      private$ix = ix
                      private$siteXY = siteXY
@@ -140,6 +144,7 @@ FeedingSite <- R6::R6Class(classname = "FeedingSite",
                      private$hazI = hazI
                      private$sugar = sugar
                      private$enterP = enterP
+                     private$siteType = siteType
                      private$RiskQ = MASH::RiskQ()
 
                    },
@@ -234,7 +239,7 @@ AquaticSite <- R6::R6Class(classname = "AquaticSite",
                    #################################################
 
                    # maxQ: pre-alloc ImagoQ and EggQ size
-                   initialize = function(ix, siteXY, searchWt, module, lambda = NULL, haz = 0, maxQ = 20L){
+                   initialize = function(ix, siteXY, searchWt, module, lambda = NULL, haz = 0, siteType = 0L maxQ = 20L){
 
                      # generic fields
                      private$ix = ix

@@ -21,19 +21,49 @@
 #' @md
 mbitesBRO_timingExponential <- function(){
   if(self$isActive()){
-    if(private$state == "B" && private$lspot == 1L){duration = private$FemalePopPointer$get_MBITES_PAR("F_time")}
-    if(private$state == "B" && private$lspot != 1L){duration = private$FemalePopPointer$get_MBITES_PAR("B_time")}
-    if(private$state == "O" && private$lspot == 1L){duration = private$FemalePopPointer$get_MBITES_PAR("L_time")}
-    if(private$state == "O" && private$lspot != 1L){duration = private$FemalePopPointer$get_MBITES_PAR("O_time")}
-    if(private$state == "R"){duration = private$FemalePopPointer$get_MBITES_PAR("R_time")}
+    duration = switch(private$state,
+      B = {private$FemalePopPointer$get_MBITES_PAR("B_time")},
+      R = {private$FemalePopPointer$get_MBITES_PAR("R_time")},
+      O = {private$FemalePopPointer$get_MBITES_PAR("O_time")}
+    )
     private$tNext = private$tNow + rexp(n=1,rate=1/duration)
   }
 }
 
 
 #################################################################
-# MBITES-BRO: Landing
+#  MBITES-BRO: Post-bout Landing, House Entering, and Resting
+#
+#  HOUSE ENTERING & RESTING BEHAVIOR:
+#  At the end of the search bout, attempt bout, or after Egg
+#  laying a mosquito has entered the area around a feeding
+#  station and either rested or attempted to rest:
+#    l) Leave the area
+#    r) Reattempt Without Resting;
+#    v) Rest on vegetation
+#    w) Rest on the Outside wall of a structure
+#    i) Rest on the Inside wall of a structure
+#
 #################################################################
+
+#' MBITES-BRO: Return Site Type \code{MicroMosquitoFemale}
+#'
+#' Method to return integer corresponding to site type of \code{\link{MicroSite}} this mosquito is currently at.
+#'  Site Types:
+#'  * 1: peri-domestic site
+#'  * 0: not peri-domestic site
+#'
+#'  * This method is bound to \code{MicroMosquitoFemale$getMySiteType()}.
+#'
+#' @md
+#' @return vector of landing spot weights
+mbitesBRO_getMySiteType <- function(){
+  switch(private$inPointSet,
+    f = {return(private$LandscapePointer$get_FeedingSites(private$ix)$get_siteType())},
+    l = {return(private$LandscapePointer$get_AquaSites(private$ix)$get_siteType())},
+    {stop("MBITES-BRO mosquito is in site other than f or l")}
+  )
+}
 
 #' MBITES-BRO: Return Landing Spot Weights for \code{MicroMosquitoFemale}
 #'
@@ -50,18 +80,63 @@ mbitesBRO_getWTS <- function(){
   )
 }
 
+#' MBITES-BRO: Generate New Landing Spot for \code{MicroMosquitoFemale}
+#'
+#' Method for return a new landing spot based on behavioral state of mosquito and weights from \code{\link{mbitesBRO_getWTS}}.
+#' New landing spots generated at the end of the search bout, attempt bout, or after oviposition a mosquito has entered
+#' the area around a feeding site and either rested or attempted to rest.
+#'  * i: 1 rest on the inside wall of a structure
+#'  * w: 2 rest on the outside wall of a structure
+#'  * v: 3 rest on vegetation
+#'  * r: 4 reattempt without resting
+#'  * l: 5 leave the area
+#'
+#'  * This method is bound to \code{MicroMosquitoFemale$newSpot()}.
+#'
+#' @md
+#' @return integer value corresponding to new landing spot
+mbitesBro_newSpot <- function(){
+  if(self$getMySiteType() == 1){
+    probs = private$FemalePopPointer$get_MBITES_PAR("InAndOut")[private$lspot,] * self$getWTS()
+    sample(x = 5L,size = 1,prob = probs)
+  } else {
+    return(3L)
+  }
+}
+
+#' MBITES-BRO: Attempt to Enter a House for \code{MicroMosquitoFemale}
+#'
+#' Method to simulate attempted house entry for mosquito, and call appropriate events if the mosquito enters.
+#'  * This method is bound to \code{MicroMosquitoFemale$enterHouse()}.
+#'
+#' @md
+mbitesBro_enterHouse <- function(){
+  if(runif(1) < private$LandscapePointer$get_FeedingSites(private$ix)$get_enterP()){
+    # mosquito is inside of house
+    print(paste0("mosquito ",private$id," is entering house ",private$ix," at time: ",private$tNow)) # DEBUG
+  } else {
+    # mosquito is not inside of house
+    private$lspot = self$newSpot()
+    self$surviveFlight()
+    if(private$lspot == 1L){
+      print(paste0("mosquito ",private$id," is using Recall to enter house ",private$ix," at time: ",private$tNow)) # DEBUG
+      Recall()
+    }
+  }
+}
+
 #' MBITES-BRO: Land After Flight \code{MicroMosquitoFemale}
 #'
 #' Mosquito lands after a flight, which may cause various events.
-#' This function always calls \code{\link{mbitesGeneric_newSpot}} and may call \code{\link{mbitesGeneric_enterHouse}}
+#' This function always calls \code{\link{mbitesBro_newSpot}} and may call \code{\link{mbitesBro_enterHouse}}
 #'  * This method is bound to \code{MicroMosquitoFemale$landingSpot()}.
 #'
 #' @md
 mbitesBRO_landingSpot <- function(){
   if(self$isActive()){
     oldSpot = private$lspot
-    self$newSpot() # choose new lspot
-    if(oldSpot != 5L & private$lspot == 5L){
+    private$lspot = self$newSpot() # choose new lspot
+    if(oldSpot != 1L & private$lspot == 1L){
       self$enterHouse() # enterHouse
     }
   }
