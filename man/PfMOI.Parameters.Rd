@@ -4,15 +4,21 @@
 \alias{PfMOI.Parameters}
 \title{Initialize PfMOI Module Parameters}
 \usage{
-PfMOI.Parameters(MosyMaxI = 1L, Pf_c = 0.15, Pf_b = 0.55,
-  DurationPf = 200, LatentPf = 10, FeverPf = 0.3, mnFeverPf = 10,
-  vrFeverPf = 0.1, TreatPf = 0.5, mnTreatPf = 3,
+PfMOI.Parameters(InteractionPf = 0, MosyMaxI = 1L, Pf_c = 0.15,
+  Pf_b = 0.55, DurationPf = 200, LatentPf = 10, FeverPf = 0.3,
+  mnFeverPf = 10, vrFeverPf = 0.1, TreatPf = 0.5, mnTreatPf = 3,
   mnChemoprophylaxisPf = 32, PEProtectPf = 0.99, peBlockPf = 1,
   mnPEPf = 270, vrPEPf = 50, GSProtectPf = 1, gsBlockPf = 0.9,
   mnGSPf = 180, vrGSPf = 20, rdtSensPf = 0.9, rdtSpecPf = 0.1,
   lmSensPf = 0.9, lmSpecPf = 0.1)
 }
 \arguments{
+\item{InteractionPf}{if using pathogen interaction model of clearance this parameter control strength of interaction
+* 0: no interaction (reduces to independent clearance)
+* <0: facilitation against host immune system (slower clearance rate than independent queueing)
+* >0: competition for host resources (faster clearance rate than independent queueing)
+*  See \url{https://doi.org/10.1186/1475-2875-8-87} for details of queueing model with pathogen interaction.}
+
 \item{MosyMaxI}{maximum number of clonal variants passed in single mosquito to human transmission event (set to \code{-1L} for unlimited)}
 
 \item{Pf_c}{infected human to mosquito transmission efficiency}

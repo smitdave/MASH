@@ -14,6 +14,12 @@
 #' in \code{\link{MicroMosquitoFemale}} for PfMOI infection model.
 #'
 #' @param overwrite overwrite existing methods and fields?
+#' @param interaction independent clearance or pathogen interaction model for calculating infection clearance waiting times (if \code{FALSE} use \code{\link{PfMOI_ttClearPf_Independent}}, if \code{TRUE} use \code{\link{PfMOI_ttClearPf_Interaction}})
+#' @param InteractionPf if using pathogen interaction model of clearance this parameter control strength of interaction
+#'  * 0: no interaction (reduces to independent clearance)
+#'  * <0: facilitation against host immune system (slower clearance rate than independent queueing)
+#'  * >0: competition for host resources (faster clearance rate than independent queueing)
+#'  *  See \url{https://doi.org/10.1186/1475-2875-8-87} for details of queueing model with pathogen interaction.
 #' @param MosyMaxI maximum number of clonal variants passed in single mosquito to human transmission event (set to \code{-1L} for unlimited)
 #' @param Pf_c infected human to mosquito transmission efficiency
 #' @param Pf_b infected mosquito to human transmission efficiency
@@ -38,10 +44,13 @@
 #' @param lmSensPf Light Microscopy sensitivity
 #' @param lmSpecPf Light Microscopy specificity
 #' @return Defines a field (list) PfSI_PAR in \code{\link{HumanPop}} and public methods in \code{\link{Human}}
+#' @md
 #' @export
 PfMOI.Setup <- function(
 
   overwrite = TRUE,
+  interaction = FALSE,
+  InteractionPf = 0,
 
   ########################################
   #  Transmission & Infection
@@ -103,6 +112,7 @@ PfMOI.Setup <- function(
   # PfMOI_PAR: list of PfMOI parameters added to private field of 'HumanPop' class
   HumanPop$set(which = "private",name = "PfMOI_PAR",
             value = list(
+              InteractionPf = InteractionPf,
               MosyMaxI =  MosyMaxI,
               Pf_c = Pf_c,
               Pf_b = Pf_b,
@@ -196,10 +206,17 @@ PfMOI.Setup <- function(
   # PfMOI Event Timing
   #################################################################
 
-  Human$set(which = "public",name = "ttClearPf",
-            value = PfMOI_ttClearPf,
-            overwrite = overwrite
-  )
+  if(interaction){
+    Human$set(which = "public",name = "ttClearPf",
+              value = PfMOI_ttClearPf_Interaction,
+              overwrite = overwrite
+    )
+  } else {
+    Human$set(which = "public",name = "ttClearPf",
+              value = PfMOI_ttClearPf_Independent,
+              overwrite = overwrite
+    )
+  }
 
   Human$set(which = "public",name = "ttInfectionPf",
             value = PfMOI_ttInfectionPf,

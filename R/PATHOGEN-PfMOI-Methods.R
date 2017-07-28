@@ -195,7 +195,7 @@ HumanPop_set_humanPfMOI <- function(b = NULL, c = NULL){
 #' This method is called from \code{\link{}}
 #' This method is bound to \code{Human$ttClearPf()}
 #'
-PfMOI_ttClearPf <- function(){
+PfMOI_ttClearPf_Independent <- function(){
   return(rexp(n=1, rate=1/self$get_PfMOI_PAR("DurationPf")))
 }
 
