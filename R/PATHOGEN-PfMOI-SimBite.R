@@ -112,7 +112,7 @@ probeHost_SimBitePfMOI <- function(tBite, mosquitoPfMOI){
 #' @param PAR write me!
 add2Q_SimBitePfMOI <- function(tEvent, PAR = NULL){
   PAR = list()
-  PAR$mosquitoPfMOI = mosquitoPfMOI$new(PfID = -1L, tInf = -1L, MOI = 1L, damID = -1L, sireID = -1L)
+  PAR$mosquitoPfMOI = mosquitoPfMOI(PfID = -1L, tInf = -1L, MOI = 1L, damID = -1L, sireID = -1L)
   private$EventQueue$addEvent2Q(event = self$event_SimBitePfMOI(tEvent = tEvent, PAR = PAR))
 }
 

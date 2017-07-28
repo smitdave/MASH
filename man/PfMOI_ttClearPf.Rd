@@ -8,6 +8,7 @@ PfMOI_ttClearPf()
 }
 \description{
 How many days does a single PfMOI infection last? See \code{\link{PfMOI.Parameters}} parameter \code{DurationPf} for baseline clearance rate.
+This function  calculates clearance rate under the assumption of independent clearance (M/M/1 queueing process for infection).
 This method is called from \code{\link{}}
 This method is bound to \code{Human$ttClearPf()}
 }

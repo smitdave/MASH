@@ -6,7 +6,7 @@
 namespace MASH {
 
 // Human-stage PfMOI Object
-class humanPfMOIcpp {
+class humanPfMOI {
 // public members
 public:
 
@@ -14,7 +14,7 @@ public:
   // Human Stage PfMOI Constructor
   ///////////////////////////////////
 
-  humanPfMOIcpp(const int &PfID_init, const double &tInf_init = -1, const int &MOI_init = 0,
+  humanPfMOI(const int &PfID_init, const double &tInf_init = -1, const int &MOI_init = 0,
     const double &b_init = 0.55, const double &c_init = 0.15,
     const int &damID_init = -1, const int &sireID_init = -1,
     const bool &chemoprophylaxis_init = false);
@@ -145,7 +145,7 @@ private:
 };
 
 // inline definition of constructor to accept default argument values
-inline humanPfMOIcpp::humanPfMOIcpp(const int &PfID_init, const double &tInf_init,
+inline humanPfMOI::humanPfMOI(const int &PfID_init, const double &tInf_init,
   const int &MOI_init, const double &b_init, const double &c_init,
   const int &damID_init, const int &sireID_init,
   const bool &chemoprophylaxis_init){
@@ -170,7 +170,7 @@ inline humanPfMOIcpp::humanPfMOIcpp(const int &PfID_init, const double &tInf_ini
 
 
 // Mosquito-stage PfMOI Object
-class mosquitoPfMOIcpp {
+class mosquitoPfMOI {
 // public members
 public:
 
@@ -178,7 +178,7 @@ public:
   // Mosquito Stage PfMOI Constructor
   ///////////////////////////////////
 
-  mosquitoPfMOIcpp(const int &PfID_init = -1, const double &tInf_init = -1,
+  mosquitoPfMOI(const int &PfID_init = -1, const double &tInf_init = -1,
     const int &MOI_init = 0,
     const int &damID_init = -1, const int &sireID_init = -1);
 
@@ -298,7 +298,7 @@ public:
   };
 
   // same as above but only return the indices
-  std::vector<int> which_EIP(const double &inubation) {
+  std::vector<int> which_EIP(const double &incubation) {
 
     // find infections where tInf < tNow - EIP (incubation)
     std::vector<int> incubationIx;
@@ -328,7 +328,7 @@ private:
 };
 
 // inline definition of constructor to accept default argument values
-inline mosquitoPfMOIcpp::mosquitoPfMOIcpp(const int &PfID_init, const double &tInf_init, const int &MOI_init,
+inline mosquitoPfMOI::mosquitoPfMOI(const int &PfID_init, const double &tInf_init, const int &MOI_init,
   const int &damID_init, const int &sireID_init){
 
     // set parameters and state variables

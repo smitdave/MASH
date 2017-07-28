@@ -16,8 +16,8 @@ namespace MASH { class HistoryGeneric; }
 namespace MASH { class HistoryTravel; }
 namespace MASH { class humanPfSI; }
 namespace MASH { class mosquitoPfSI; }
-namespace MASH { class humanPfMOIcpp; }
-namespace MASH { class mosquitoPfMOIcpp; }
+namespace MASH { class humanPfMOI; }
+namespace MASH { class mosquitoPfMOI; }
 namespace MASH { class RiskQ; }
 namespace MASH { class ImagoQ; }
 namespace MASH { class EggQ; }
@@ -39,10 +39,10 @@ template <> SEXP wrap(const MASH::humanPfSI&);
 template <> MASH::humanPfSI as(SEXP);
 template <> SEXP wrap(const MASH::mosquitoPfSI&);
 template <> MASH::mosquitoPfSI as(SEXP);
-template <> SEXP wrap(const MASH::humanPfMOIcpp&);
-template <> MASH::humanPfMOIcpp as(SEXP);
-template <> SEXP wrap(const MASH::mosquitoPfMOIcpp&);
-template <> MASH::mosquitoPfMOIcpp as(SEXP);
+template <> SEXP wrap(const MASH::humanPfMOI&);
+template <> MASH::humanPfMOI as(SEXP);
+template <> SEXP wrap(const MASH::mosquitoPfMOI&);
+template <> MASH::mosquitoPfMOI as(SEXP);
 template <> SEXP wrap(const MASH::RiskQ&);
 template <> MASH::RiskQ as(SEXP);
 template <> SEXP wrap(const MASH::ImagoQ&);

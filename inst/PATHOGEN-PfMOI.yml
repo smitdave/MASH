@@ -1,6 +1,6 @@
 # Human-stage PfMOI Object
-humanPfMOIcpp:
-  name_cpp: MASH::humanPfMOIcpp
+humanPfMOI:
+  name_cpp: MASH::humanPfMOI
   forward_declare: true
   constructor:
     roxygen: |
@@ -124,8 +124,8 @@ humanPfMOIcpp:
       return_type: "Rcpp::List"
 
 # Mosquito-stage PfMOI Object
-mosquitoPfMOIcpp:
-  name_cpp: MASH::mosquitoPfMOIcpp
+mosquitoPfMOI:
+  name_cpp: MASH::mosquitoPfMOI
   forward_declare: true
   constructor:
     roxygen: |

@@ -4,8 +4,8 @@
 \alias{Human_set_humanPfMOI}
 \title{PfMOI \code{Human} Method: Set Human-stage PfMOI Object}
 \usage{
-Human_set_humanPfMOI(PfID, tInf = NULL, MOI = 0L, b = 0.55, c = 0.15,
-  damID = NULL, sireID = NULL)
+Human_set_humanPfMOI(PfID, tInf = -1L, MOI = 0L, b = 0.55, c = 0.15,
+  damID = -1L, sireID = -1L, chemoprophylaxis = FALSE)
 }
 \description{
 Set the \code{\link{humanPfMOI}} object in a human.
