@@ -9,7 +9,7 @@ add2Q_infectHumanPfMOI(tEvent, PAR = NULL)
 \arguments{
 \item{tEvent}{time of infection}
 
-\item{PAR}{single clonal variant returned from \code{mosquitoPfMOI$get_clone()}}
+\item{PAR}{single clonal variant returned from \code{mosquitoPfMOI$get_InfectionIx()}}
 }
 \description{
 Add a PfMOI infection to the event queue.

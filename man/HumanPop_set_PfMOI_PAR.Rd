@@ -7,9 +7,9 @@
 HumanPop_set_PfMOI_PAR(PfMOI_PAR)
 }
 \arguments{
-\item{PfMOI_PAR}{new parameter list, see \code{\link{PfMOI.Parameters}}}
+\item{PfMOI_PAR}{new parameter list, see \code{\link{PfSI.Parameters}}}
 }
 \description{
 Set PfMOI_PAR for a HumanPop; this is useful for simulating multiple populations with different parameter values.
-This function is bound to \code{HumanPop$set_PfMOI_PAR()}
+This method is bound to \code{HumanPop$set_PfMOI_PAR()}
 }

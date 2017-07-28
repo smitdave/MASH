@@ -26,6 +26,12 @@ SimBitePfMOI.Setup <- function(PfMOI_PAR = NULL, overwrite = TRUE){
   # Simulated biting on 'Human' Class
   ###################################################################
 
+  # probeHost_PfMOI
+  Human$set(which = "public",name = "probeHost_PfMOI",
+            value = probeHost_SimBitePfMOI,
+            overwrite = overwrite
+  )
+
   # add2Q_SimBitePfMOI
   Human$set(which = "public",name = "add2Q_SimBitePfSI",
             value = add2Q_SimBitePfMOI,
@@ -62,6 +68,36 @@ SimBitePfMOI.Setup <- function(PfMOI_PAR = NULL, overwrite = TRUE){
 
 
 ###################################################################
+# PfMOI Simulated Host Probing
+###################################################################
+
+#' PfMOI \code{Human} Method: Simulated Host Probing
+#'
+#' This method is a filler for a host probing event in called in \code{\link{SimBitePfMOI}}.
+#' If the bite is infectious, the method calls \code{\link{infectiousBite_PfMOI}}, otherwise does nothing.
+#' This method is bound to \code{Human$probeHost_PfMOI()} after correct initialization with \code{\link{SimBitePfMOI.Setup}}.
+#'
+#' @param tBite time of bite
+#' @param mosquitoPfMOI \code{\link{mosquitoPfMOI}} object passed from mosquito to human
+probeHost_SimBitePfMOI <- function(tBite, mosquitoPfMOI){
+
+  MOI = mosquitoPfMOI$get_MOI()
+
+  if(MOI>0){
+    N = self$get_PfMOI_PAR("MosyMaxI")
+
+    infNum = max(MOI,N)
+    for(i in 1:infNum){
+      infNum = infNum - 1L
+      PAR = mosquitoPfMOI$get_InfectionIx(i)
+      self$infectiousBite_PfMOI(tBite, PAR)
+    }
+  }
+
+}
+
+
+###################################################################
 # PfMOI SimBite methods for 'Human'
 ###################################################################
 
@@ -76,7 +112,7 @@ SimBitePfMOI.Setup <- function(PfMOI_PAR = NULL, overwrite = TRUE){
 #' @param PAR write me!
 add2Q_SimBitePfMOI <- function(tEvent, PAR = NULL){
   PAR = list()
-  PAR$mosquitoPfMOI = mosquitoPfMOI$new(PfID = -1L, tInf = -1L, MOI = 1L, damID = -1L, sireID = -1L)
+  PAR$mosquitoPfMOI = mosquitoPfMOI(PfID = -1L, tInf = -1L, MOI = 1L, damID = -1L, sireID = -1L)
   private$EventQueue$addEvent2Q(event = self$event_SimBitePfMOI(tEvent = tEvent, PAR = PAR))
 }
 

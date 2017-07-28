@@ -6,7 +6,7 @@
 namespace MASH {
 
 // Human-stage PfMOI Object
-class humanPfMOIcpp {
+class humanPfMOI {
 // public members
 public:
 
@@ -14,7 +14,7 @@ public:
   // Human Stage PfMOI Constructor
   ///////////////////////////////////
 
-  humanPfMOIcpp(const int &PfID_init, const double &tInf_init = -1, const int &MOI_init = 0,
+  humanPfMOI(const int &PfID_init, const double &tInf_init = -1, const int &MOI_init = 0,
     const double &b_init = 0.55, const double &c_init = 0.15,
     const int &damID_init = -1, const int &sireID_init = -1,
     const bool &chemoprophylaxis_init = false);
@@ -145,7 +145,7 @@ private:
 };
 
 // inline definition of constructor to accept default argument values
-inline humanPfMOIcpp::humanPfMOIcpp(const int &PfID_init, const double &tInf_init,
+inline humanPfMOI::humanPfMOI(const int &PfID_init, const double &tInf_init,
   const int &MOI_init, const double &b_init, const double &c_init,
   const int &damID_init, const int &sireID_init,
   const bool &chemoprophylaxis_init){
@@ -153,6 +153,7 @@ inline humanPfMOIcpp::humanPfMOIcpp(const int &PfID_init, const double &tInf_ini
     // set parameters and state variables
     PfID.push_back(PfID_init);
     tInf.push_back(tInf_init);
+    MOI = MOI_init;
     b = b_init;
     c = c_init;
     damID.push_back(damID_init);
@@ -170,7 +171,7 @@ inline humanPfMOIcpp::humanPfMOIcpp(const int &PfID_init, const double &tInf_ini
 
 
 // Mosquito-stage PfMOI Object
-class mosquitoPfMOIcpp {
+class mosquitoPfMOI {
 // public members
 public:
 
@@ -178,7 +179,7 @@ public:
   // Mosquito Stage PfMOI Constructor
   ///////////////////////////////////
 
-  mosquitoPfMOIcpp(const int &PfID_init, const double &tInf_init = -1,
+  mosquitoPfMOI(const int &PfID_init = -1, const double &tInf_init = -1,
     const int &MOI_init = 0,
     const int &damID_init = -1, const int &sireID_init = -1);
 
@@ -225,10 +226,30 @@ public:
   // Infection Dynamics
   ///////////////////////////////////
 
+  // add a new infection
+  void add_Infection(const int &PfID_new, const double &tInf_new, const int &damID_new, const int &sireID_new){
+    PfID.push_back(PfID_new);
+    tInf.push_back(tInf_new);
+    damID.push_back(damID_new);
+    sireID.push_back(sireID_new);
+    MOI += 1;
+  };
+
   // return the clonal variant associated with given PfID
   Rcpp::List get_Infection(const int &PfID_ix){
     auto it = std::find(PfID.begin(), PfID.end(), PfID_ix);
     size_t ix = std::distance(PfID.begin(), it);
+    return(
+      Rcpp::List::create(
+        Rcpp::Named("PfID") = PfID[ix],
+        Rcpp::Named("damID") = damID[ix],
+        Rcpp::Named("sireID") = sireID[ix]
+      )
+    );
+  };
+
+  // get clonal variants just depending on their position in vector
+  Rcpp::List get_InfectionIx(const int &ix){
     return(
       Rcpp::List::create(
         Rcpp::Named("PfID") = PfID[ix],
@@ -245,12 +266,12 @@ public:
     // find infections where tInf < tNow - EIP (incubation)
     std::vector<int> incubationIx;
     auto it = std::find_if(tInf.begin(), tInf.end(), [incubation](const double &infectionTime){
-        return(infectionTime < incubation);
+        return(infectionTime <= incubation);
     });
     while(it != tInf.end()){
         incubationIx.emplace_back(std::distance(tInf.begin(), it));
         it = std::find_if(std::next(it), std::end(tInf), [incubation](const double &infectionTime){
-            return(infectionTime < incubation);
+            return(infectionTime <= incubation);
         });
     }
 
@@ -277,6 +298,24 @@ public:
     );
   };
 
+  // same as above but only return the indices
+  std::vector<int> which_EIP(const double &incubation) {
+
+    // find infections where tInf < tNow - EIP (incubation)
+    std::vector<int> incubationIx;
+    auto it = std::find_if(tInf.begin(), tInf.end(), [incubation](const double &infectionTime){
+        return(infectionTime <= incubation);
+    });
+    while(it != tInf.end()){
+        incubationIx.emplace_back(std::distance(tInf.begin(), it));
+        it = std::find_if(std::next(it), std::end(tInf), [incubation](const double &infectionTime){
+            return(infectionTime <= incubation);
+        });
+    }
+
+    return(incubationIx);
+  };
+
 // private members
 private:
 
@@ -290,10 +329,15 @@ private:
 };
 
 // inline definition of constructor to accept default argument values
-inline mosquitoPfMOIcpp::mosquitoPfMOIcpp(const int &PfID_init, const double &tInf_init, const int &MOI_init,
+inline mosquitoPfMOI::mosquitoPfMOI(const int &PfID_init, const double &tInf_init, const int &MOI_init,
   const int &damID_init, const int &sireID_init){
 
     // set parameters and state variables
+    PfID.clear();
+    tInf.clear();
+    damID.clear();
+    sireID.clear();
+
     PfID.push_back(PfID_init);
     tInf.push_back(tInf_init);
     damID.push_back(damID_init);

@@ -9,6 +9,7 @@
 #################################################################
 
 rm(list=ls())
+gc()
 library(MASH)
 
 # set.seed(42)
@@ -59,7 +60,7 @@ HumanPopulation$init_MICRO_PfMOI(PfMOI = NULL)
 
 # queue bites and PE vaccination
 tMax = 365*5
-bites = SimBite_MeanBites(nH = nHumans,meanNumberBites = 100,days = tMax,plot = FALSE)
+bites = SimBite_MeanBites(nH = nHumans,meanNumberBites = 100,days = tMax,plot = F)
 HumanPopulation$queueBites_SimBitePfMOI(bites = bites)
 HumanPopulation$queueVaccination_SimBitePfMOI(tVaccine = 365*3,tTreat = (365*3)+1,fracPop = 0.25)
 
@@ -67,3 +68,5 @@ HumanPopulation$queueVaccination_SimBitePfMOI(tVaccine = 365*3,tTreat = (365*3)+
 # debug(HumanPopulation$get_Human(1)$probeHost_PfMOI)
 # debug(HumanPopulation$simHumans)
 HumanPopulation$simHumans(tPause = tMax+10)
+
+HumanPopulation$get_PfMOI_history()

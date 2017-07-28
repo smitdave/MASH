@@ -130,6 +130,18 @@ init_MacroTile_PfSI <- function(PfPR, tStart = 0){
   private$HumanPop$init_MACRO_PfSI(PfPR, tStart)
 }
 
+#' PfSI \code{HumanPop} Method: Get PfSI Histories
+#'
+#' Get all PfSI histories, stored in class \code{\link{humanPfSI}}
+#' This function is bound to \code{HumanPop$get_PfSI_history()}
+HumanPop_get_PfSI_history <- function(){
+  PfSI_history = vector(mode="list",length=self$nHumans)
+  for(ixH in 1:self$nHumans){
+    PfSI_history[[ixH]] = private$pop[[ixH]]$get_Pathogens()$get_history()
+  }
+  return(PfSI_history)
+}
+
 
 ###################################################################
 # Add PfSI Pathogen Object to 'Human' & 'HumanPop' Class

@@ -1,6 +1,6 @@
 # Human-stage PfMOI Object
-humanPfMOIcpp:
-  name_cpp: MASH::humanPfMOIcpp
+humanPfMOI:
+  name_cpp: MASH::humanPfMOI
   forward_declare: true
   constructor:
     roxygen: |
@@ -124,8 +124,8 @@ humanPfMOIcpp:
       return_type: "Rcpp::List"
 
 # Mosquito-stage PfMOI Object
-mosquitoPfMOIcpp:
-  name_cpp: MASH::mosquitoPfMOIcpp
+mosquitoPfMOI:
+  name_cpp: MASH::mosquitoPfMOI
   forward_declare: true
   constructor:
     roxygen: |
@@ -196,12 +196,30 @@ mosquitoPfMOIcpp:
       return_type: void
 
     # Infection Dynamics
+    add_Infection:
+      args:
+        - PfID_new: int
+        - tInf_new: double
+        - damID_new: int
+        - sireID_new: int
+      return_type: void
+
     get_Infection:
       args:
         - PfID_ix: int
+      return_type: "Rcpp::List"
+
+    get_InfectionIx:
+      args:
+        - ix: int
       return_type: "Rcpp::List"
 
     get_InfectionEIP:
       args:
         - incubation: double
       return_type: "Rcpp::List"
+
+    which_EIP:
+      args:
+        - incubation: double
+      return_type: "std::vector<int>"
