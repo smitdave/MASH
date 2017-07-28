@@ -97,11 +97,11 @@ PfMOI.Setup <- function(
   message(paste0("initializing PfMOI PATHOGEN module"))
 
   ###################################################################
-  # Add PfMOI Parameters to 'Human' Class
+  # Add PfMOI Parameters to 'HumanPop' Class
   ###################################################################
 
-  # PfMOI_PAR: list of PfMOI parameters added to private field of 'Human' class
-  Human$set(which = "private",name = "PfMOI_PAR",
+  # PfMOI_PAR: list of PfMOI parameters added to private field of 'HumanPop' class
+  HumanPop$set(which = "private",name = "PfMOI_PAR",
             value = list(
               MosyMaxI =  MosyMaxI,
               Pf_c = Pf_c,
@@ -136,9 +136,9 @@ PfMOI.Setup <- function(
             overwrite = overwrite
   )
 
-  # Human setter for PfMOI_PAR
-  Human$set(which = "public",name = "set_PfMOI_PAR",
-            value = Human_set_PfMOI_PAR,
+  # HumanPop getter for PfMOI_PAR
+  HumanPop$set(which = "public",name = "get_PfMOI_PAR",
+            value = HumanPop_get_PfMOI_PAR,
             overwrite = overwrite
   )
 
@@ -148,9 +148,16 @@ PfMOI.Setup <- function(
             overwrite = overwrite
   )
 
+
   #################################################################
   # PfMOI Utilties for 'HumanPop' and 'Human'
   #################################################################
+
+  # PfID counter
+  HumanPop$set(which = "private",name = "PfID",
+            value = 0L,
+            overwrite = overwrite
+  )
 
   # increment_PfID when new liver-stage infection begins
   HumanPop$set(which = "public",name = "increment_PfID",
@@ -164,27 +171,23 @@ PfMOI.Setup <- function(
             overwrite = overwrite
   )
 
-  # Set Human-stage PfMOI Object for human
+  # get PfMOI history
+  HumanPop$set(which = "public",name = "get_PfMOI_history",
+            value = HumanPop_get_PfMOI_history,
+            overwrite = overwrite
+  )
+
+  ###################################################################
+  # Add PfMOI Pathogen Object to 'Human' & 'HumanPop' Class
+  ###################################################################
+
   Human$set(which = "public",name = "set_humanPfMOI",
             value = Human_set_humanPfMOI,
             overwrite = overwrite
   )
 
-  # Get Human-stage PfMOI Object for human
-  Human$set(which = "public",name = "get_humanPfMOI",
-            value = Human_get_humanPfMOI,
-            overwrite = overwrite
-  )
-
-  # Set Human-stage PfMOI Object for humanPop
   HumanPop$set(which = "public",name = "set_humanPfMOI",
             value = HumanPop_set_humanPfMOI,
-            overwrite = overwrite
-  )
-
-  # get PfMOI history
-  HumanPop$set(which = "public",name = "get_PfMOI_history",
-            value = HumanPop_get_PfMOI_history,
             overwrite = overwrite
   )
 
@@ -249,10 +252,10 @@ PfMOI.Setup <- function(
   # Add methods to 'Human' Class
   ###################################################################
 
-  Human$set(which = "public",name = "probeHost_PfMOI",
-            value = probeHost_PfMOI,
-            overwrite = overwrite
-  )
+  # Human$set(which = "public",name = "probeHost_PfMOI",
+  #           value = probeHost_PfMOI,
+  #           overwrite = overwrite
+  # )
 
   Human$set(which = "public",name = "infectiousBite_PfMOI",
             value = infectiousBite_PfMOI,

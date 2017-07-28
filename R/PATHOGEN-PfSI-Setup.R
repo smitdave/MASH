@@ -109,10 +109,10 @@ PfSI.Setup <- function(
   message(paste0("initializing PfSI PATHOGEN module"))
 
   ###################################################################
-  # Add PfSI Parameters to 'Human' Class
+  # Add PfSI Parameters to 'HumanPop' Class
   ###################################################################
 
-  # PfSI_PAR: list of PfSI parameters added to private field of 'Human' class
+  # PfSI_PAR: list of PfSI parameters added to private field of 'HumanPop' class
   HumanPop$set(which = "private",name = "PfSI_PAR",
             value = list(
               Pf_c   = Pf_c,
@@ -189,6 +189,12 @@ PfSI.Setup <- function(
   # initialize PfSI infections for MACRO
   MacroTile$set(which = "public",name = "init_PfSI",
             value = init_MacroTile_PfSI,
+            overwrite = overwrite
+  )
+
+  # history getter
+  HumanPop$set(which = "public",name = "get_PfSI_history",
+            value = HumanPop_get_PfSI_history,
             overwrite = overwrite
   )
 
