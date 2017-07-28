@@ -153,6 +153,7 @@ inline humanPfMOI::humanPfMOI(const int &PfID_init, const double &tInf_init,
     // set parameters and state variables
     PfID.push_back(PfID_init);
     tInf.push_back(tInf_init);
+    MOI = MOI_init;
     b = b_init;
     c = c_init;
     damID.push_back(damID_init);

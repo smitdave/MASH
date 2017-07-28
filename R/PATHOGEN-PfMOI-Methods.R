@@ -67,13 +67,9 @@ PfMOI_increment_PfID <- function(){
 init_MICRO_PfMOI <- function(PfMOI = NULL, tStart = 0){
 
   private$PfID = 1L
-  if(is.null(private$Pathogens$Pf)){ # only add the PfMOI object if NULL
-    self$set_humanPfMOI()
-  } else {
-    if(length(PfMOI)!=self$nHumans){
-      stop("length of PfMOI must equal the number of humans in HumanPop object")
-    }
-  }
+  self$set_humanPfMOI()
+
+  if(is.null(PfMOI)){PfMOI = rep(0,self$nHumans)}
 
   for(ixH in 1:length(PfMOI)){
     if(PfMOI[ixH] == 0){
@@ -142,7 +138,7 @@ init_MICRO_PfMOI <- function(PfMOI = NULL, tStart = 0){
 HumanPop_get_PfMOI_history <- function(){
   PfMOI_history = vector(mode="list",length=self$nHumans)
   for(ixH in 1:self$nHumans){
-    PfMOI_history[[ixH]] = private$pop[[ixH]]$get_humanPfMOI()$get_history()
+    PfMOI_history[[ixH]] = private$pop[[ixH]]$get_Pathogens()$get_history()
   }
   return(PfMOI_history)
 }
@@ -443,7 +439,7 @@ infectHumanPfMOI <- function(tEvent, PAR){
     }
 
     self$add2Q_endPfMOI(tEvent = tEvent, PAR = list(PfID = PfID))
-    private$Pathogens$track_history(eventT = tEvent, event = "I")
+    private$Pathogens$track_history(tEvent = tEvent, event = "I")
   }
 
 }
@@ -495,7 +491,7 @@ event_endPfMOI = function(tEvent, PAR = NULL){
 #' @md
 endPfMOI <- function(tEvent, PAR){
   private$Pathogens$clear_Infection(PAR$PfID)
-  private$Pathogens$track_history(eventT = tEvent, event = "C")
+  private$Pathogens$track_history(tEvent = tEvent, event = "C")
 }
 
 ###################################################################
@@ -540,7 +536,7 @@ event_feverPfMOI <- function(tEvent, PAR = NULL){
 #' @param PAR \code{NULL}
 #' @md
 feverPfMOI <- function(tEvent, PAR){
-  private$Pathogens$track_history(eventT = tEvent, event = "F")
+  private$Pathogens$track_history(tEvent = tEvent, event = "F")
   if(runif(1) < self$get_PfMOI_PAR("TreatPf")){
     self$add2Q_treatPfMOI(tEvent = tEvent)
   }
@@ -591,8 +587,8 @@ treatPfMOI <- function(tEvent, PAR){
   private$Pathogens$set_chemoprophylaxis(TRUE)
   private$EventQueue$rmTagFromQ(tag = "endPfMOI") # take out all clearance events
 
-  private$Pathogens$track_history(eventT = tEvent, event = "S")
-  private$Pathogens$track_history(eventT = tEvent, event = "P")
+  private$Pathogens$track_history(tEvent = tEvent, event = "S")
+  private$Pathogens$track_history(tEvent = tEvent, event = "P")
 
   # Initiate a period of protection from chemoprophylaxis
   self$add2Q_endprophylaxisPfMOI(tEvent)
@@ -640,7 +636,7 @@ event_endprophylaxisPfMOI <- function(tEvent, PAR = NULL){
 endprophylaxisPfMOI <- function(tEvent, PAR){
   # End Prophylaxis
   private$Pathogens$set_chemoprophylaxis(FALSE)
-  private$Pathogens$track_history(eventT = tEvent, event = "PP")
+  private$Pathogens$track_history(tEvent = tEvent, event = "PP")
 
 }
 
@@ -688,7 +684,7 @@ pevaccinatePfMOI <- function(tEvent, PAR){
   if(runif(1) < self$get_PfMOI_PAR("PEProtectPf")){
     private$Pathogens$set_b(self$get_PfMOI_PAR("Pf_b") * (1-self$get_PfMOI_PAR("peBlockPf")))
     self$add2Q_pewanePfMOI(tEvent = tEvent)
-    private$Pathogens$track_history(eventT = tEvent, event = "PEvaxx")
+    private$Pathogens$track_history(tEvent = tEvent, event = "PEvaxx")
   }
 }
 
@@ -730,7 +726,7 @@ event_pewanePfMOI <- function(tEvent, PAR = NULL){
 #' @param PAR \code{NULL}
 pewanePfMOI <- function(tEvent, PAR){
   private$Pathogens$set_b(self$get_PfMOI_PAR("Pf_b"))
-  private$Pathogens$track_history(eventT = tEvent, event = "PEwane")
+  private$Pathogens$track_history(tEvent = tEvent, event = "PEwane")
 }
 
 
@@ -777,7 +773,7 @@ gsvaccinatePfMOI <- function(tEvent, PAR){
   if(runif(1) < self$get_PfMOI_PAR("GSProtectPf")){
     private$Pathogens$Pf$set_c(self$get_PfMOI_PAR("Pf_c") * (1-self$get_PfMOI_PAR("gsBlockPf")))
     self$add2Q_gswanePfMOI(tEvent = tEvent)
-    private$Pathogens$track_history(eventT = tEvent, event = "GSvaxx")
+    private$Pathogens$track_history(tEvent = tEvent, event = "GSvaxx")
   }
 }
 
@@ -819,5 +815,5 @@ event_gswanePfMOI <- function(tEvent, PAR = NULL){
 #' @param PAR \code{NULL}
 gswanePfMOI <- function(tEvent, PAR){
   private$Pathogens$set_c(self$get_PfMOI_PAR("Pf_c"))
-  private$Pathogens$track_history(eventT = tEvent, event = "GSwane")
+  private$Pathogens$track_history(tEvent = tEvent, event = "GSwane")
 }

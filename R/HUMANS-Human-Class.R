@@ -85,7 +85,7 @@ Human <- R6::R6Class(classname="Human",
 
                        #eventQ
                        get_EventQ = function(){
-                         return(private$eventQ)
+                         return(private$EventQueue)
                        },
 
                        #Alive
@@ -94,11 +94,6 @@ Human <- R6::R6Class(classname="Human",
                        },
                        set_Alive = function(Alive){
                          private$Alive = Alive
-                       },
-
-                       #queueN
-                       get_queueN = function(){
-                         return(private$queueN)
                        },
 
                        # history

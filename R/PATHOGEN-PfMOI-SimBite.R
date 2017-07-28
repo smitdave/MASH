@@ -90,7 +90,7 @@ probeHost_SimBitePfMOI <- function(tBite, mosquitoPfMOI){
     for(i in 1:infNum){
       infNum = infNum - 1L
       PAR = mosquitoPfMOI$get_InfectionIx(i)
-      self$infectiousBite(tBite, PAR)
+      self$infectiousBite_PfMOI(tBite, PAR)
     }
   }
 
