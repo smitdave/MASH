@@ -171,7 +171,11 @@ FeedingSite <- R6::R6Class(classname = "FeedingSite",
 
                    # house entry probability
                    get_enterP = function(){return(private$enterP)},
-                   set_enterP = function(enterP){private$enterP = enterP}
+                   set_enterP = function(enterP){private$enterP = enterP},
+
+                   # host risk queue
+                   get_RiskQ = function(){return(private$RiskQ)},
+                   set_RiskQ = function(RiskQ){return(private$RiskQ = RiskQ)}
 
                  ),
 

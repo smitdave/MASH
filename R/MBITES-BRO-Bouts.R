@@ -148,6 +148,9 @@ mbitesBRO_landingSpot <- function(){
 #################################################################
 
 
+mbitesBRO_boutB <- function(){
+
+}
 
 
 #################################################################
@@ -157,13 +160,19 @@ mbitesBRO_landingSpot <- function(){
 #' MBITES-BRO: One Bout \code{MicroMosquitoFemale}
 #'
 #' Mosquito behavior has a finite set of states (state space of model), within which there are certain biological functions that are always evaluated.
+#' A bout is the actions taken by a mosquito between a launch and landing; \code{mbitesBro_oneBout} handles all the biological imperatives that occur during a bout,
+#' while specialized bout action methods handle the events that occur due to the purpose of the bout.
+#'  * \code{\link{mbitesBRO_boutB}}: blood feeding bout
+#'  * \code{\link{mbitesBRO_boutR}}: blood feeding bout
+#'  * \code{\link{mbitesBRO_boutO}}: blood feeding bout
+#'
 #' The generic bout runs necessary updates of timing, state, survival, energetics, and queue checks prior to calling the nested
 #' specific bout action, and checks that the mosquito is alive/active before calling the bout. It updates \code{tNext} and \code{stateNew}.
 #'
 #' This corresponds to the following Gillespie-style algorithm:
 #'
 #' 1. tNow is set to tNext from previous bout
-#' 2. rMove: movement between point classes (if needed)
+#' 2. moveMe: movement between point classes (if needed)
 #' 3. boutFun: run bout function
 #' 4. run energetics and check if alive
 #' 5. run landingSpot and check if alive
@@ -191,7 +200,8 @@ mbitesBro_oneBout <- function(){
   switch(private$state,
     B = {self$boutB()},
     R = {self$boutR()},
-    O = {self$boutO()}
+    O = {self$boutO()},
+    {stop("illegal behavioral state for MBITES-BRO")}
   )
 
   # energetics

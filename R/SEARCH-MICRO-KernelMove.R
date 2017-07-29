@@ -28,6 +28,7 @@ SEARCH.MicroKernel.Setup <- function(MBITES = "BRO", overwrite = TRUE){
 
   message(paste0("initializing MICRO component methods & fields for MicroMosquitoPop & MicroMosquito Class for M-BITES module: ",MBITES))
 
+  # male movement does not change betwen female lifecycle modules
   MicroMosquitoPopMale$set(which = "public",name = "get_movement",
               value = get_MicroKernel_movement_Male,
               overwrite = overwrite
@@ -37,6 +38,16 @@ SEARCH.MicroKernel.Setup <- function(MBITES = "BRO", overwrite = TRUE){
               overwrite = overwrite
   )
 
+  # generic movement methods
+  MicroMosquitoPopFemale$set(which = "public",name = "SampleMove",
+              value = MicroKernel_SampleMvOb_MicroMosquitoPopFemale,
+              overwrite = overwrite
+  )
+
+  # MicroMosquitoPopMale$set(which = "public",name = "SampleMove",
+  #             value = MicroKernel_SampleMvOb_MicroMosquitoPopMale,
+  #             overwrite = overwrite
+  # )
 
   if(MBITES == "BRO"){
 
@@ -150,6 +161,7 @@ MicroKernel_SampleMvOb_MicroMosquitoPopFemale <- function(ixS, state, inPointSet
 }
 
 # need to write the above function for males
+# MicroKernel_SampleMvOb_MicroMosquitoPopMale
 
 
 #################################################################
