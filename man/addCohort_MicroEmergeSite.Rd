@@ -7,7 +7,7 @@
 addCohort_MicroEmergeSite()
 }
 \description{
-Grab emerging adult batches where tEmerge <= tNow and return as a list.
+Grab emerging adult batches where tEmerge <= tNow and add to the \code{\link{MicroMosquitoPop}}.
 This is a helper function for \code{\link{addCohort_MicroEmerge}}.
 This method is bound to \code{AquaticSite$addCohort_MicroEmerge()}.
 }

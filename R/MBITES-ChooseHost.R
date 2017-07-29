@@ -1,14 +1,14 @@
 #################################################################
 #
 #   MASH
-#   R6-ified
-#   M-BITES Host Choosing Methods
+#   M-BITES
+#   Host Choosing Methods
 #   David Smith, Hector Sanchez, Sean Wu
 #   July 28, 2017
 #
 #################################################################
 
-#' MBITES: Generic Host Choosing for \code{\link{MicroMosquitoFemale}}
+#' MBITES-Generic: Host Choosing for \code{\link{MicroMosquitoFemale}}
 #'
 #' Choose a human or animal host at a site.
 #'  * This method is bound to \code{MicroMosquitoFemale$chooseHost()}.

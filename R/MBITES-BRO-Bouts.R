@@ -3,6 +3,7 @@
 #   MASH
 #   R6-ified
 #   MBITES-BRO (Blood Feeding, Resting, Oviposition)
+#   Main Bout Methods & Auxiliary Definitions
 #   David Smith, Hector Sanchez, Sean Wu
 #   June 5, 2017
 #
@@ -61,7 +62,7 @@ mbitesBRO_getMySiteType <- function(){
   switch(private$inPointSet,
     f = {return(private$LandscapePointer$get_FeedingSites(private$ix)$get_siteType())},
     l = {return(private$LandscapePointer$get_AquaSites(private$ix)$get_siteType())},
-    {stop("MBITES-BRO mosquito is in site other than f or l")}
+    {stop("illegal point set for MBITES-BRO")}
   )
 }
 

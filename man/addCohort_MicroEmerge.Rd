@@ -10,6 +10,7 @@ addCohort_MicroEmerge()
 does stuff
 }
 \description{
+Grab emerging adult batches where tEmerge <= tNow and add to the \code{\link{MicroMosquitoPop}}.
 This method is bound to \code{Landscape$addCohort_MicroEmerge()}
 }
 \examples{

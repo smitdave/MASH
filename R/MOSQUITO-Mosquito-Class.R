@@ -128,7 +128,7 @@ MicroMosquitoFemale <- R6::R6Class(classname = "MicroMosquitoFemale",
                               private$mature     = FALSE       # mature
 
                               # Other State Variables
-                              private$lspot     = "l"        # landing spot (i: inside wall, w: outside wall, v: outside vegetation, r: feed, l: leave)
+                              private$lspot     = 5L        # landing spot (i: inside wall, w: outside wall, v: outside vegetation, r: feed, l: leave)
                               private$damage    = 0        # wing tattering
                               private$energy    = 1        # energy reserves
 

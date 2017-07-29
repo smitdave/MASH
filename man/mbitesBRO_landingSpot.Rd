@@ -8,7 +8,7 @@ mbitesBRO_landingSpot()
 }
 \description{
 Mosquito lands after a flight, which may cause various events.
-This function always calls \code{\link{mbitesGeneric_newSpot}} and may call \code{\link{mbitesGeneric_enterHouse}}
+This function always calls \code{\link{mbitesBro_newSpot}} and may call \code{\link{mbitesBro_enterHouse}}
 \itemize{
 \item This method is bound to \code{MicroMosquitoFemale$landingSpot()}.
 }

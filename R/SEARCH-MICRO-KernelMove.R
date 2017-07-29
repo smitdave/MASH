@@ -130,8 +130,8 @@ SEARCH.MicroKernel.Setup <- function(MBITES = "BRO", overwrite = TRUE){
 #'  * This function is bound to \code{MicroMosquitoPopFemale$SampleMove}
 #'
 #' @param ixS: current site index \code{ix} of this mosquito
-#' @param state
-#' @param inPointSet
+#' @param state: current behavioral state of this mosquito
+#' @param inPointSet: current point set this mosquito is in
 #' @return new index
 #' @md
 MicroKernel_SampleMvOb_MicroMosquitoPopFemale <- function(ixS, state, inPointSet){

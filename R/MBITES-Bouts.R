@@ -13,7 +13,7 @@
 # Checks of Life Status
 ##############################################################
 
-#' MBITES: Generic Alive Check for \code{MicroMosquito}
+#' MBITES-Generic: Alive Check for \code{MicroMosquito}
 #'
 #' Check if this mosquito is alive and return a logical value.
 #'  * This method is bound to \code{MicroMosquito$isAlive()}.
@@ -26,7 +26,7 @@ mbitesGeneric_isAlive <- function(){
   }
 }
 
-#' MBITES: Generic Active Check for \code{MicroMosquito}
+#' MBITES-Generic: Active Check for \code{MicroMosquito}
 #'
 #' Check if this mosquito is active and return a logical value.
 #'  * This method is bound to \code{MicroMosquito$isActive()}.

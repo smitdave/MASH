@@ -8,14 +8,22 @@ mbitesBro_oneBout()
 }
 \description{
 Mosquito behavior has a finite set of states (state space of model), within which there are certain biological functions that are always evaluated.
-The generic bout runs necessary updates of timing, state, survival, energetics, and queue checks prior to calling the nested
-specific bout action, and checks that the mosquito is alive/active before calling the bout. It updates \code{tNext} and \code{stateNew}.
+A bout is the actions taken by a mosquito between a launch and landing; \code{mbitesBro_oneBout} handles all the biological imperatives that occur during a bout,
+while specialized bout action methods handle the events that occur due to the purpose of the bout.
+\itemize{
+\item \code{\link{mbitesBRO_boutB}}: blood feeding bout
+\item \code{\link{mbitesBRO_boutR}}: blood feeding bout
+\item \code{\link{mbitesBRO_boutO}}: blood feeding bout
+}
 }
 \details{
+The generic bout runs necessary updates of timing, state, survival, energetics, and queue checks prior to calling the nested
+specific bout action, and checks that the mosquito is alive/active before calling the bout. It updates \code{tNext} and \code{stateNew}.
+
 This corresponds to the following Gillespie-style algorithm:
 \enumerate{
 \item tNow is set to tNext from previous bout
-\item rMove: movement between point classes (if needed)
+\item moveMe: movement between point classes (if needed)
 \item boutFun: run bout function
 \item run energetics and check if alive
 \item run landingSpot and check if alive
