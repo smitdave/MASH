@@ -66,9 +66,9 @@ init_MicroHumanPop_ActivitySpace <- function(nDaily = 1.4){
 init_MicroHuman_ActivitySpace <- function(nDaily){
 
   Nplaces = 1 + rpois(n=1,lambda=3)
-  Nplaces = min(Nplaces,self$get_LandscapePointer()$FeedingSitesN)
+  Nplaces = min(Nplaces,private$LandscapePointer$FeedingSitesN)
   p = rbeta(n=1,shape1=100,shape2=6)
-  loc = sample(x = (1:self$get_LandscapePointer()$FeedingSitesN)[-private$hhID],size = Nplaces)
+  loc = sample(x = (1:private$LandscapePointer$FeedingSitesN)[-private$hhID],size = Nplaces)
 
   # set my ActivitySpace
   private$ActivitySpace$nDaily = nDaily
@@ -95,7 +95,6 @@ sim_MicroHumanPop_ActivitySpace <- function(){
 
 }
 
-
 #' MICRO \code{\link{Human}} Method: Initialize Activity Space
 #'
 #' This function is bound to \code{Human$sim_ActivitySpace()}
@@ -104,7 +103,7 @@ sim_MicroHuman_ActivitySpace <- function(){
 
   # add risk at home site
   pD = rbeta(n=1,shape1=100,shape2=100*(1-private$ActivitySpace$p)/private$ActivitySpace$p) # proportion of time at home site today
-  self$get_LandscapePointer()$get_FeedingSites(private$hhID)$add_riskList(who = private$myID, pTm = pD, w = private$bWeight) # add home site risk to Landscape$FeedingSite
+  private$LandscapePointer$get_FeedingSites(private$hhID)$get_RiskQ()$add_HumanHost(who_new = private$myID, pTm_new = pD, w_new = private$bWeight) # add home site risk to Landscape$FeedingSite
 
   # add risk from visited sites
   nD = min(rpois(n=1,lambda=private$ActivitySpace$nDaily),private$ActivitySpace$Nplaces) # draw random number of other sites visited
@@ -112,7 +111,7 @@ sim_MicroHuman_ActivitySpace <- function(){
     # sample sites in loc vector to visit
     fD = sample(x = Nplaces, size = nD, replace = FALSE)
     for(ixS in 1:nD){
-      self$get_LandscapePointer()$get_FeedingSites(private$ActivitySpace$loc[fD[ixS]])$add_riskList(who = private$myID, pTm = (1-pD)/nD, w = private$bWeight)
+      private$LandscapePointer$get_FeedingSites(private$ActivitySpace$loc[fD[ixS]])$get_RiskQ()$add_HumanHost(who_new = private$myID, pTm_new = (1-pD)/nD, w_new = private$bWeight)
     }
   }
 

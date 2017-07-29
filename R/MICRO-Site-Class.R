@@ -63,6 +63,10 @@ MicroSite <- R6::R6Class(classname = "Site",
                    get_searchWt = function(){return(private$searchWt)},
                    set_searchWt = function(searchWt){private$searchWt = searchWt},
 
+                   # site type (1 is domestic, 0 is not peri-domestic)
+                   get_siteType = function(){return(private$siteType)},
+                   set_siteType = function(siteType){priate$siteType = siteType},
+
                    #################################################
                    # Pointers
                    #################################################
@@ -79,6 +83,7 @@ MicroSite <- R6::R6Class(classname = "Site",
                    ix = 0L,
                    siteXY = vector(mode="numeric",length=2L),
                    searchWt = 0L,
+                   siteType = NULL,   # an aquatic or sugar site could be inside of a house, for example.
 
                    # Pointers
                    LandscapePointer = NULL
@@ -129,8 +134,7 @@ FeedingSite <- R6::R6Class(classname = "FeedingSite",
                    # Initialize
                    #################################################
 
-                   # maxH: passed to init_riskList
-                   initialize = function(ix, siteXY, searchWt, enterP, hazV = 0, hazW = 0, hazI = 0, sugar = NULL, maxH = 20L){
+                   initialize = function(ix, siteXY, searchWt, enterP, hazV = 0, hazW = 0, hazI = 0, sugar = NULL, siteType = 1L){
 
                      private$ix = ix
                      private$siteXY = siteXY
@@ -140,6 +144,7 @@ FeedingSite <- R6::R6Class(classname = "FeedingSite",
                      private$hazI = hazI
                      private$sugar = sugar
                      private$enterP = enterP
+                     private$siteType = siteType
                      private$RiskQ = MASH::RiskQ()
 
                    },
@@ -160,13 +165,28 @@ FeedingSite <- R6::R6Class(classname = "FeedingSite",
                    get_hazI = function(){return(private$hazI)},
                    set_hazI = function(hazI){private$hazI = hazI},
 
-                   # sugar source (only used in MBITES-BRO and MBITES-BROM)
-                   get_sugar = function(){return(private$sugar)},
-                   set_sugar = function(sugar){private$sugar = sugar},
+                   # get hazard based on lspot
+                   get_hazLspot = function(lspot){
+                     switch(lspot,
+                       "1" = {return(private$hazI)},
+                       "2" = {return(private$hazW)},
+                       "3" = {return(private$hazV)},
+                       "4" = {return(0)},
+                       "5" = {return(0)}
+                      )
+                   },
+
+                  #  # sugar source (only used in MBITES-BRO and MBITES-BROM)
+                  #  get_sugar = function(){return(private$sugar)},
+                  #  set_sugar = function(sugar){private$sugar = sugar},
 
                    # house entry probability
                    get_enterP = function(){return(private$enterP)},
-                   set_enterP = function(enterP){private$enterP = enterP}
+                   set_enterP = function(enterP){private$enterP = enterP},
+
+                   # host risk queue
+                   get_RiskQ = function(){return(private$RiskQ)},
+                   set_RiskQ = function(RiskQ){private$RiskQ = RiskQ}
 
                  ),
 
@@ -176,7 +196,7 @@ FeedingSite <- R6::R6Class(classname = "FeedingSite",
                    hazV = NULL,      # vegetation hazards
                    hazW = NULL,      # outside wall hazards
                    hazI = NULL,      # inside wall hazards
-                   sugar = NULL,     # sugar source (only used in MBITES-BRO and MBITES-BROM)
+                  #  sugar = NULL,     # sugar source (only used in MBITES-BRO and MBITES-BROM)
                    enterP = NULL,    # house entry probability
                    RiskQ = NULL      # host risk queue
 
@@ -234,7 +254,7 @@ AquaticSite <- R6::R6Class(classname = "AquaticSite",
                    #################################################
 
                    # maxQ: pre-alloc ImagoQ and EggQ size
-                   initialize = function(ix, siteXY, searchWt, module, lambda = NULL, haz = 0, maxQ = 20L){
+                   initialize = function(ix, siteXY, searchWt, module, lambda = NULL, haz = 0, siteType = 0L, maxQ = 20L){
 
                      # generic fields
                      private$ix = ix

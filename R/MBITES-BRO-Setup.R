@@ -19,9 +19,9 @@
 #'
 #' @param overwrite overwrite methods
 #' @examples
-#' mbitesBRO.Setup()
+#' MBITES.BRO.Setup()
 #' @export
-mbitesBRO.Setup <- function(overwrite = TRUE){
+MBITES.BRO.Setup <- function(overwrite = TRUE){
 
     message("initializing M-BITES BRO methods")
 
