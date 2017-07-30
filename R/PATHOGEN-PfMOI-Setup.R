@@ -21,6 +21,7 @@
 #'  * >0: competition for host resources (faster clearance rate than independent queueing)
 #'  *  See \url{https://doi.org/10.1186/1475-2875-8-87} for details of queueing model with pathogen interaction.
 #' @param MosyMaxI maximum number of clonal variants passed in single mosquito to human transmission event (set to \code{-1L} for unlimited)
+#' @param HumanMaxI maximum number of clonal variants passed in single human to mosquito transmission event (set to \code{-1L} for unlimited)
 #' @param Pf_c infected human to mosquito transmission efficiency
 #' @param Pf_b infected mosquito to human transmission efficiency
 #' @param DurationPf duration of infection (assuming clonal variants are cleared independently)
@@ -56,6 +57,7 @@ PfMOI.Setup <- function(
   #  Transmission & Infection
   ########################################
   MosyMaxI =  1L,
+  HumanMaxI = 1L,
   Pf_c = 0.15,
   Pf_b = 0.55,
 
@@ -114,6 +116,7 @@ PfMOI.Setup <- function(
             value = list(
               InteractionPf = InteractionPf,
               MosyMaxI =  MosyMaxI,
+              HumanMaxI =  HumanMaxI,
               Pf_c = Pf_c,
               Pf_b = Pf_b,
               DurationPf = DurationPf,

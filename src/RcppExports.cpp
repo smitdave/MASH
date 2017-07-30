@@ -744,6 +744,17 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// humanPfMOI__get_Infection
+Rcpp::List humanPfMOI__get_Infection(MASH::RcppR6::RcppR6<MASH::humanPfMOI> obj_);
+RcppExport SEXP _MASH_humanPfMOI__get_Infection(SEXP obj_SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::humanPfMOI> >::type obj_(obj_SEXP);
+    rcpp_result_gen = Rcpp::wrap(humanPfMOI__get_Infection(obj_));
+    return rcpp_result_gen;
+END_RCPP
+}
 // humanPfMOI__track_history
 void humanPfMOI__track_history(MASH::RcppR6::RcppR6<MASH::humanPfMOI> obj_, double tEvent, std::string event);
 RcppExport SEXP _MASH_humanPfMOI__track_history(SEXP obj_SEXP, SEXP tEventSEXP, SEXP eventSEXP) {
@@ -1495,6 +1506,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_MASH_humanPfMOI__set_chemoprophylaxis", (DL_FUNC) &_MASH_humanPfMOI__set_chemoprophylaxis, 2},
     {"_MASH_humanPfMOI__add_Infection", (DL_FUNC) &_MASH_humanPfMOI__add_Infection, 4},
     {"_MASH_humanPfMOI__clear_Infection", (DL_FUNC) &_MASH_humanPfMOI__clear_Infection, 2},
+    {"_MASH_humanPfMOI__get_Infection", (DL_FUNC) &_MASH_humanPfMOI__get_Infection, 1},
     {"_MASH_humanPfMOI__track_history", (DL_FUNC) &_MASH_humanPfMOI__track_history, 3},
     {"_MASH_humanPfMOI__get_history", (DL_FUNC) &_MASH_humanPfMOI__get_history, 1},
     {"_MASH_mosquitoPfMOI__ctor", (DL_FUNC) &_MASH_mosquitoPfMOI__ctor, 5},

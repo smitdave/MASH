@@ -263,6 +263,10 @@ void humanPfMOI__clear_Infection(MASH::RcppR6::RcppR6<MASH::humanPfMOI> obj_, in
   obj_->clear_Infection(PfID_ix);
 }
 // [[Rcpp::export]]
+Rcpp::List humanPfMOI__get_Infection(MASH::RcppR6::RcppR6<MASH::humanPfMOI> obj_) {
+  return obj_->get_Infection();
+}
+// [[Rcpp::export]]
 void humanPfMOI__track_history(MASH::RcppR6::RcppR6<MASH::humanPfMOI> obj_, double tEvent, std::string event) {
   obj_->track_history(tEvent, event);
 }

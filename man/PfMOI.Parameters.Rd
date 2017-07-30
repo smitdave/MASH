@@ -4,13 +4,13 @@
 \alias{PfMOI.Parameters}
 \title{Initialize PfMOI Module Parameters}
 \usage{
-PfMOI.Parameters(InteractionPf = 0, MosyMaxI = 1L, Pf_c = 0.15,
-  Pf_b = 0.55, DurationPf = 200, LatentPf = 10, FeverPf = 0.3,
-  mnFeverPf = 10, vrFeverPf = 0.1, TreatPf = 0.5, mnTreatPf = 3,
-  mnChemoprophylaxisPf = 32, PEProtectPf = 0.99, peBlockPf = 1,
-  mnPEPf = 270, vrPEPf = 50, GSProtectPf = 1, gsBlockPf = 0.9,
-  mnGSPf = 180, vrGSPf = 20, rdtSensPf = 0.9, rdtSpecPf = 0.1,
-  lmSensPf = 0.9, lmSpecPf = 0.1)
+PfMOI.Parameters(InteractionPf = 0, MosyMaxI = 1L, HumanMaxI = 1L,
+  Pf_c = 0.15, Pf_b = 0.55, DurationPf = 200, LatentPf = 10,
+  FeverPf = 0.3, mnFeverPf = 10, vrFeverPf = 0.1, TreatPf = 0.5,
+  mnTreatPf = 3, mnChemoprophylaxisPf = 32, PEProtectPf = 0.99,
+  peBlockPf = 1, mnPEPf = 270, vrPEPf = 50, GSProtectPf = 1,
+  gsBlockPf = 0.9, mnGSPf = 180, vrGSPf = 20, rdtSensPf = 0.9,
+  rdtSpecPf = 0.1, lmSensPf = 0.9, lmSpecPf = 0.1)
 }
 \arguments{
 \item{InteractionPf}{if using pathogen interaction model of clearance this parameter control strength of interaction
@@ -24,6 +24,8 @@ PfMOI.Parameters(InteractionPf = 0, MosyMaxI = 1L, Pf_c = 0.15,
 }}
 
 \item{MosyMaxI}{maximum number of clonal variants passed in single mosquito to human transmission event (set to \code{-1L} for unlimited)}
+
+\item{HumanMaxI}{maximum number of clonal variants passed in single human to mosquito transmission event (set to \code{-1L} for unlimited)}
 
 \item{Pf_c}{infected human to mosquito transmission efficiency}
 
