@@ -206,7 +206,8 @@ mbitesBro_oneBout <- function(){
   )
 
   # energetics
-  self$energetics()
+  # SUGAR ENERGETICS NOT IMPLEMENTED IN MBITES-BRO
+  # self$energetics()
 
   # survival
   self$surviveResting()

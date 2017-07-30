@@ -136,7 +136,7 @@ MBITES.BRO.Parameters <- function(
   ##########################################
   # Egg Laying Attempt
   ##########################################
-  O_surv = (0.9 * 0.9),
+  O_surv = 0.80,
   # ela.p = .9,   # Egg Laying Attempt . Prob Survives (Base)
   ela.s = .7,   # Egg Laying Attempt . Prob Success
   O_time = 1,    # Egg Laying Attempt . Mean Time Elapsed
