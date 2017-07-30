@@ -73,6 +73,10 @@ void humanPfSI__push_PfID(MASH::RcppR6::RcppR6<MASH::humanPfSI> obj_, int PfID_n
   obj_->push_PfID(PfID_new);
 }
 // [[Rcpp::export]]
+int humanPfSI__back_PfID(MASH::RcppR6::RcppR6<MASH::humanPfSI> obj_) {
+  return obj_->back_PfID();
+}
+// [[Rcpp::export]]
 std::vector<double> humanPfSI__get_tInf(MASH::RcppR6::RcppR6<MASH::humanPfSI> obj_) {
   return obj_->get_tInf();
 }

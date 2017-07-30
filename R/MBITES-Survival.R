@@ -28,7 +28,7 @@ mbitesGeneric_surviveFlight <- function(){
     if(private$FemalePopPointer$get_MBITES_PAR("SENESCE")){
       p = p * self$pSenesce()
     }
-    if(runif(1) > p){
+    if(runif(1) < 1-p){
       private$stateNew = "D"
     }
   }
@@ -86,7 +86,7 @@ mbitesGeneric_pSenesce <- function(){
 #' Run generic resting survival probailities for bouts (launch to launch).
 #'  * This method is bound to \code{MicroMosquitoFemale$surviveResting()}.
 #' @md
-surviveResting <- function(){
+mbitesGeneric_surviveResting <- function(){
   if(self$isActive()){
     if(runif(1) < self$get_restHaz()){
       private$stateNew = "D"

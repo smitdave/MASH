@@ -83,6 +83,10 @@ humanPfSI__push_PfID <- function(obj_, PfID_new) {
     invisible(.Call('_MASH_humanPfSI__push_PfID', PACKAGE = 'MASH', obj_, PfID_new))
 }
 
+humanPfSI__back_PfID <- function(obj_) {
+    .Call('_MASH_humanPfSI__back_PfID', PACKAGE = 'MASH', obj_)
+}
+
 humanPfSI__get_tInf <- function(obj_) {
     .Call('_MASH_humanPfSI__get_tInf', PACKAGE = 'MASH', obj_)
 }

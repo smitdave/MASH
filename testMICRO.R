@@ -14,18 +14,19 @@ library(MASH)
 MICRO.Aqua.Setup(module = "emerge",overwrite = TRUE)
 MICRO.Emerge.Setup(overwrite = TRUE)
 
-xx = FeedingSite$new(ix = 1, siteXY = c(0.5,0.5), searchWt = 0.5, enterP = 0.9, maxH=2)
-xx$add_riskList(who = 1,pTm = 0.5,w = 9)
-xx$get_riskList()
+xx = FeedingSite$new(ix = 1, siteXY = c(0.5,0.5), searchWt = 0.5, enterP = 0.9)
+xx$get_RiskQ()$add_HumanHost(who_new = 1,pTm_new = 0.5,w_new = 9)
+xx$get_RiskQ()$get_HumanHost()
+xx$get_RiskQ()$get_OtherHost()
 
-xx$add_riskList(who = 2,pTm = 0.23,w = 2)
-xx$get_riskList()
-
-xx$add_riskList(who = 1,pTm = 0.3423,w = 32)
-xx$get_riskList()
-
-xx$add_riskList(who = 3,pTm = 232,w = 4.53)
-xx$get_riskList()
+# xx$add_riskList(who = 2,pTm = 0.23,w = 2)
+# xx$get_riskList()
+#
+# xx$add_riskList(who = 1,pTm = 0.3423,w = 32)
+# xx$get_riskList()
+#
+# xx$add_riskList(who = 3,pTm = 232,w = 4.53)
+# xx$get_riskList()
 
 
 yy = AquaticSite$new(ix = 1, siteXY = c(0.5,0.5), searchWt = 99, lambda = 500, haz = 0, maxQ = 2L)

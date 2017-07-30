@@ -21,6 +21,11 @@
 #' and MicroMosquitoMale classes. Different genotypes still depend on the internal list of parameters
 #' to parameterize these functions and functional forms for equations.
 #'
+#' @param TATTER
+#' @param SENESCE
+#' @param SUGAR
+#' @param OVERFEED
+#' @param REFEED
 #' @param batchSize character switch that should be one of \code{"bms","norm"} for egg batch sizes dependent on bloodmeal size or normally distributed
 #' @param eggMatT character switch that should be one of \code{"off","norm"} for egg batch maturation time turned off or normally distributed
 #'

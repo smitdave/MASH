@@ -154,7 +154,7 @@ HumanPop_get_PfMOI_history <- function(){
 #' This method is bound to \code{Human$set_humanPfMOI()}
 #'
 Human_set_humanPfMOI <- function(PfID, tInf = -1L, MOI = 0L, b = 0.55, c = 0.15, damID = -1L, sireID = -1L, chemoprophylaxis = FALSE){
-  private$Pathogens = humanPfMOI(PfID, tInf, MOI, b, c, damID, sireID, chemoprophylaxis)
+  private$Pathogens = MASH::humanPfMOI(PfID, tInf, MOI, b, c, damID, sireID, chemoprophylaxis)
 }
 
 #' PfMOI \code{HumanPop} Method: Set Human-stage PfMOI Object

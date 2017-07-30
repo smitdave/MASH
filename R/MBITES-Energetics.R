@@ -1,278 +1,139 @@
 #################################################################
 #
 #   MASH
-#   R6-ified
-#   MBITES Energetics Method Definitions
+#   MBITES
+#   Sugar feeding, blood feeding, overfeed, refeed, egg batch
 #   David Smith, Hector Sanchez, Sean Wu
 #   May 8, 2017
 #
 #################################################################
 
-# clearOutput <- function(directory){
-#   if(!dir.exists(paste0(directory,"OUTPUT"))){
-#     stop("directory does not exist; nothing to clear")
-#   }
-#   dirFiles = system(command = paste0("ls ",directory,"OUTPUT/"),intern = TRUE)
-#   xx = menu(c("Yes", "No"), title=paste0("There are ",length(dirFiles)," files in OUTPUT/.. are you sure you want to delete all?"))
-#   if(xx==1){
-#     file.remove(paste0(directory,"OUTPUT/",dirFiles))
-#   }
-# }
+#################################################################
+# Sugar Energetics
+#################################################################
 
-#' Initialize Energetics Methods for M-BITES
+#' MBITES-Generic: Probability of Death due to Energy Reserves for \code{\link{MicroMosquitoFemale}}
 #'
-#' This function initializes generic methods for M-BITES models; please note that the
-#' switches for this function modify only the methods that are added to the MicroMosquitoFemale
-#' and MicroMosquitoMale classes. Different genotypes still depend on the internal list of parameters
-#' to parameterize these functions and functional forms for equations.
-#'
-#' @param batchSize character switch that should be one of \code{"bms","norm"} for egg batch sizes dependent on bloodmeal size or normally distributed
-#' @param eggMatT character switch that should be one of \code{"off","norm"} for egg batch maturation time turned off or normally distributed
-#' @param reFeedType character switch that should be one of \code{"pr","egg"} for refeeding as probability based on size of bloodmeal or based on egg batch size.
-#'
-#'
-#' @return modifies the \code{MicroMosquitoFemale} and \code{MicroMosquitoMale} classes.
-#' @export
-init.mbitesEnergetics <- function(
-
-    SUGAR = TRUE,
-    OVERFEED = TRUE,
-    REFEED = TRUE,
-    batchSize = "bms",
-    eggMatT = "off",
-    reFeedType = "pr"
-
-  ){
-
-  ##########################################
-  # Sugar Energetics
-  ##########################################
-
-  if(SUGAR){
-    # energetics: manage sugar-based mosquito energetics
-    Mosquito$set(which = "public",name = "energetics",
-                 value = function(){
-                   if(self$isAlive()){
-
-                     energyNew = private$energy - private$PAR$S.u
-                     private$energy = max(energyNew,0)
-
-                     if(runif(1) < 1-self$pEnergySurvival()){
-                       private$stateNew = "D"
-                     } else {
-                       self$queueSugarBout()
-                     }
-
-                   }
-                 }
-    )
-
-    # pEnergySurvival: Incremental mortality as a function of energy reserves
-    Mosquito$set(which = "public",name = "pEnergySurvival",
-                 value = function(){
-                   return(exp(private$PAR$S.a*private$energy)/(S.b + exp(private$PAR$S.a*private$energy)))
-                 }
-    )
-
-    # pSugarBout: probability to queue sugar bout as function of energy reserves
-    Mosquito$set(which = "public",name = "pSugarBout",
-                 value = function(){
-                   return((2+private$PAR$S.sb)/(1+private$PAR$S.sb)-exp(private$PAR$S.sa*private$energy)/(private$PAR$S.sb+exp(private$PAR$S.sa*private$energy)))
-                 }
-    )
-
-    # queueSugarBout: queue sugar feeding bout based on energy reserves
-    Mosquito$set(which = "public",name = "queueSugarBout",
-                 value = function(){
-                   if(runif(1) < self$pSugarBout){
-                     private$stateNew = "S"
-                   }
-                 }
-    )
-  }
-
-  ##########################################
-  # Bloodmeal Energetics
-  ##########################################
-
-  # rBloodMealSize: random size of blood meal
-  MicroMosquitoFemale$set(which = "public",name = "rBloodMealSize",
-               value = function(){
-                 return(rbeta(n=1,private$PAR$bm.a,private$PAR$bm.b))
-               }
+#' Incremental mortality as a function of energy reserves given by \deqn{ \frac{e^{S.a\times energy}}{S.b+e^{S.a\times energy}} }
+#'  * This method is bound to \code{MicroMosquitoFemale$pEnergySurvival()}.
+#' @md
+mbitesGeneric_pEnergySurvival <- function(){
+  return(
+    exp(private$FemalePopPointer$get_MBITES_PAR("S.a")*private$energy)/(private$FemalePopPointer$get_MBITES_PAR("S.b") + exp(private$FemalePopPointer$get_MBITES_PAR("S.a")*private$energy))
   )
-
-  # bloodEnergetics: manage blood-based mosquito energetics
-  MicroMosquitoFemale$set(which = "public",name = "bloodEnergetics",
-               value = function(){
-
-                 private$energy = max(1,(private$energy + private$PAR$B.energy))
-
-                 if(!private$mature){
-                   private$energyPreG = private$energyPreG - private$PAR$preGblood
-                   if(private$energyPreG <= 0){
-                     private$mature = TRUE
-                   }
-                 }
-
-               }
-  )
-
-  # bloodMeal: take a blood meal on a host
-  MicroMosquitoFemale$set(which = "public",name = "bloodMeal",
-                     value = function(){
-
-                       private$bmSize = self$rBloodMealSize()
-                       self$bloodEnergetics()
-                       if(private$PAR$OVERFEED){ # overfeed
-                         self$overFeed()
-                         if(!self$isAlive()){
-                           return(NULL)
-                         }
-                       }
-                       # mated and mature mosquitoes produce eggs
-                       if(private$mated & private$mature){
-                         private$batch = self$BatchSize()
-                         private$eggT = private$tNow + self$eggMaturationTime()
-                       }
-
-                     }
-  )
-
-  ##############################
-  #  Overfeed
-  ##############################
-
-  if(OVERFEED){
-
-    MicroMosquitoFemale$set(which = "public",name = "pOverFeed",
-                       value = function(){
-                         return(exp(private$PAR$of.a*private$bmSize)/(private$PAR$of.b + exp(private$PAR$of.a*private$bmSize)))
-                       }
-    )
-
-    MicroMosquitoFemale$set(which = "public",name = "overFeed",
-                       value = function(){
-                         if(runif(1) < self$pOverFeed){
-                           private$stateNew = "D"
-                         }
-                       }
-    )
-
-  }
-
-  ##############################
-  #  Refeed
-  ##############################
-
-  if(REFEED){
-
-    if(reFeedType == "pr"){
-
-      ##############################
-      #  reFeedF.Pr
-      ##############################
-
-      MicroMosquitoFemale$set(which = "public",name = "pReFeed",
-                         value = function(){
-                           return((2+private$PAR$rf.b)/(1+private$PAR$rf.b) - exp(private$PAR$rf.a*private$bmSize)/(private$PAR$rf.b + exp(private$PAR$rf.a*private$bmSize)))
-                         }
-      )
-
-      MicroMosquitoFemale$set(which = "public",name = "reFeed",
-                         value = function(){
-
-                          if(self$isAlive()){
-                            if(runif(1) < self$pReFeed()){
-                              private$stateNew = "B"
-                            } else {
-                              private$stateNew = "L"
-                            }
-                          }
-
-                         }
-      )
-
-    } else if(reFeedType == "egg"){
-
-      ##############################
-      #  reFeedF.Egg
-      ##############################
-
-      MicroMosquitoFemale$set(which = "public",name = "reFeed",
-                         value = function(){
-
-                           if(self$isAlive()){
-                             if(private$tNow > private$eggT & private$eggP > private$PAR$eggP.min){
-                               private$stateNew = "L"
-                             } else {
-                               private$stateNew = "B"
-                             }
-                           }
-
-                         }
-      )
-
-    } else {
-      stop("if REFEED enabled please select reFeedType from {'pr','egg'}")
-    }
-
-  }
-
-  ######################################
-  #  Egg Batch
-  ######################################
-
-  if(batchSize == "bms"){
-
-    MicroMosquitoFemale$set(which = "public",name = "BatchSize",
-                       value = function(){
-                         return(private$bmSize*private$PAR$maxBatch)
-                       }
-    )
-
-  } else if(batchSize == "norm"){
-
-    MicroMosquitoFemale$set(which = "public",name = "BatchSize",
-                       value = function(){
-                         return(ceiling(rnorm(1, private$PAR$bs.m, private$PAR$bs.v)))
-                       }
-    )
-
-  } else {
-    stop("must specify batchSize in {'bms','norm'}")
-  }
-
-  if(eggMatT == "off"){
-
-    MicroMosquitoFemale$set(which = "public",name = "eggMaturationTime",
-                       value = function(){
-                         return(0)
-                       }
-    )
-
-  } else if(eggMatT == "norm"){
-
-    MicroMosquitoFemale$set(which = "public",name = "eggMaturationTime",
-                       value = function(){
-                         max(0,rnorm(1, private$PAR$emt.m, private$PAR$emt.V))
-                       }
-    )
-
-  } else {
-    stop("must specify eggMatT in {'off','norm'}")
-  }
-
-  MicroMosquitoFemale$set(which = "public",name = "makeBatches",
-                     value = function(){
-                       # #. makeBatches: make an egg batch and deposit on the landscape
-                       # #batch: size of egg batch
-                       # #ixM: mosquito ID
-                       # #tNow: current time
-                       # addBatch2Q(M$batch, M$ix, M$tNow, M$id, M$sire) # aquaticEcology.R
-                       print(paste0("mosy: ",private$id,", is calling makeBatches() at: ",private$tNow))
-                     }
-  )
-
-
 }
+
+#' MBITES-Generic: Probability to Queue Sugar Bout due to Energy Reserves for \code{\link{MicroMosquitoFemale}}
+#'
+#' Probability to queue sugar bout as function of energy reserves given by \deqn{ \frac{2+S.sb}{1+S.sb}-\frac{e^{S.sa\times energy}}{S.sb+e^{S.sa\times energy}} }
+#'  * This method is bound to \code{MicroMosquitoFemale$pSugarBout()}.
+#' @md
+mbitesGeneric_pSugarBout <- function(){
+  return(
+    (2+private$FemalePopPointer$get_MBITES_PAR("S.sb"))/(1+private$FemalePopPointer$get_MBITES_PAR("S.sb"))-exp(private$FemalePopPointer$get_MBITES_PAR("S.sa")*private$energy)/(private$FemalePopPointer$get_MBITES_PAR("S.sb")+exp(private$FemalePopPointer$get_MBITES_PAR("S.sa")*private$energy))
+  )
+}
+
+
+#################################################################
+# Blood Energetics
+#################################################################
+
+#' MBITES-Generic: Draw Bloodmeal Size for \code{\link{MicroMosquitoFemale}}
+#'
+#' Draw a bloodmeal size from Beta(bm.a,bm.b)
+#'  * This method is bound to \code{MicroMosquitoFemale$rBloodMealSize()}.
+#' @md
+mbitesGeneric_rBloodMealSize <- function(){
+  return(
+    rbeta(n=1,private$FemalePopPointer$get_MBITES_PAR("bm.a"),private$FemalePopPointer$get_MBITES_PAR("bm.b"))
+  )
+}
+
+
+#################################################################
+# Overfeed
+#################################################################
+
+#' MBITES-Generic: Probaility of Overfeeding due to Bloodmeal Size for \code{\link{MicroMosquitoFemale}}
+#'
+#' Probability of death due to overfeeding from bloodmeal size given by \deqn{\frac{e^{of.a\times bmSize}}{of.b+e^{of.a\times bmSize}}}
+#'  * This method is bound to \code{MicroMosquitoFemale$pOverFeed()}.
+#' @md
+mbitesGeneric_pOverFeed <- function(){
+  return(
+    exp(private$FemalePopPointer$get_MBITES_PAR("of.a")*private$bmSize)/(private$FemalePopPointer$get_MBITES_PAR("of.b") + exp(private$FemalePopPointer$get_MBITES_PAR("of.a")*private$bmSize))
+  )
+}
+
+
+#################################################################
+# Refeed
+#################################################################
+
+#' MBITES-Generic: Probaility to re-enter Blood Feeding Cycle from Incomplete Feeding for \code{\link{MicroMosquitoFemale}}
+#'
+#' Probability to re-enter blood feeding cycle after incomplete blood feeding given by \deqn{ \frac{2+rf.b}{1+rf.b}-\frac{e^{rf.a\times bmSize}}{rf.b+e^{rf.a\times bmSize}} }
+#'  * This method is bound to \code{MicroMosquitoFemale$pReFeed()}.
+#' @md
+mbitesGeneric_pReFeed <- function(){
+  return(
+    (2+private$FemalePopPointer$get_MBITES_PAR("rf.b"))/(1+private$FemalePopPointer$get_MBITES_PAR("rf.b")) - exp(private$FemalePopPointer$get_MBITES_PAR("rf.a")*private$bmSize)/(private$FemalePopPointer$get_MBITES_PAR("rf.b") + exp(private$FemalePopPointer$get_MBITES_PAR("rf.a")*private$bmSize))
+  )
+}
+
+
+#################################################################
+# Egg Batch
+#################################################################
+
+#' MBITES-Generic: Draw Normally-distributed Egg Batch Size for \code{\link{MicroMosquitoFemale}}
+#'
+#' Draw a egg batch size from Normal(bs.m,bs.v)
+#'  * This method is bound to \code{MicroMosquitoFemale$rBatchSize()}.
+#' @md
+mbitesGeneric_rBatchSizeNorm <- function(){
+  return(
+    ceiling(rnorm(1, private$FemalePopPointer$get_MBITES_PAR("bs.m"), private$FemalePopPointer$get_MBITES_PAR("bs.v")))
+  )
+}
+
+#' MBITES-Generic: Egg Batch Size due to Bloodmeal Size for \code{\link{MicroMosquitoFemale}}
+#'
+#' Give an egg batch size given by \deqn{ bmSize\times maxBatch }
+#'  * This method is bound to \code{MicroMosquitoFemale$rBatchSize()}.
+#' @md
+mbitesGeneric_rBatchSizeBms <- function(){
+  return(
+    ceiling(private$bmSize*private$FemalePopPointer$get_MBITES_PAR("maxBatch"))
+  )
+}
+
+#' MBITES-Generic: Normally-distributed Egg Maturation Time for \code{\link{MicroMosquitoFemale}}
+#'
+#' Draw an egg maturation time from Normal(emt.m,emt.v)
+#'  * This method is bound to \code{MicroMosquitoFemale$rEggMaturationTime()}.
+#' @md
+mbitesGeneric_rEggMaturationTimeNorm <- function(){
+  return(
+    max(0,rnorm(1, private$FemalePopPointer$get_MBITES_PAR("emt.m"), private$FemalePopPointer$get_MBITES_PAR("emt.v")))
+  )
+}
+
+#' MBITES-Generic: No Egg Maturation Time for \code{\link{MicroMosquitoFemale}}
+#'
+#' Instant egg maturation.
+#'  * This method is bound to \code{MicroMosquitoFemale$rEggMaturationTime()}.
+#' @md
+mbitesGeneric_rEggMaturationTimeOff <- function(){
+  return(0)
+}
+
+# #' MBITES-Generic: Make an Egg Batch and Oviposit for \code{\link{MicroMosquitoFemale}}
+# #'
+# #' Make an egg batch and deposit on the landscape.
+# #'  * This method is bound to \code{MicroMosquitoFemale$makeBatches()}.
+# #' @md
+# mbitesGeneric_makeBatches <- function(){
+#   addBatch2Q(M$batch, M$ix, M$tNow, M$id, M$sire) # aquaticEcology.R
+# }
