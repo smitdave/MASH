@@ -28,7 +28,7 @@ mbitesGeneric_surviveFlight <- function(){
     if(private$FemalePopPointer$get_MBITES_PAR("SENESCE")){
       p = p * self$pSenesce()
     }
-    if(runif(1) > p){
+    if(runif(1) < 1-p){
       private$stateNew = "D"
     }
   }

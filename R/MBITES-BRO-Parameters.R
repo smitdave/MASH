@@ -92,19 +92,25 @@ MBITES.BRO.Parameters <- function(
   ##########################################
   # Blood Feeding Bout
   ##########################################
-  B_surv = (0.98 * 0.9),
-  # bfa.p = .98,  # Blood Feed Attempt . Prob Survives (Base)
-  bfa.s = .3,   # Blood Feed Attempt . Prob Succeeds
-  B_time = 2/3,  # Blood Feed Attempt . Mean Time Elapsed (in Days)
+
+  B_surv = 0.85, # prob survives (for surviveFlight)
+  B_succeed = 0.3, # prob success (for boutB)
+  B_time = 3/4,  # Blood Feed Attempt . Mean Time Elapsed (in Days)
   Q = 0.9,      # Proportion of Bites on Humans
 
   ##########################################
-  # Blood Feeding Search
+  # Host Encounter
   ##########################################
-  bfs.L = 0.1,  # Blood Feed Search . Prob Leaves Location
-  bfs.E = .95,  # Blood Feed Search . Prob Enters New Location
-  # bfs.p = 0.9,  # Blood Feed Search . Prob Survives
-  F_time = 2/24, # Blood Feed Search . Mean Time Elapsed (in Days)
+
+  # human host
+  surviveH = 1, # survival probability for initial encounter (survive to probe)
+  probeH = 1, # probability that undeterred during probing
+  surviveprobeH = 1, # survival probability for host probing
+  feedH = 1, # probability to successfully feed
+
+  #animal host
+  surviveZ = 1, # survival probability for initial encounter (survive to feed)
+  feedZ = 1, # probability to successfully feed
 
   ##########################################
   # Partial Blood Feeding
@@ -186,7 +192,12 @@ MBITES.BRO.Parameters <- function(
   eggT = 0,
   eggP = 0,
   energyPreG = 0,
-  Pathogen = "PfSI"
+
+  ##########################################
+  # Pathogen Transmission
+  ##########################################
+
+  PfEIP = 12
 
 ){
 

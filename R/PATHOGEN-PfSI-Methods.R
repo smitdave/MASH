@@ -74,7 +74,6 @@ init_MICRO_PfSI <- function(PfPR, tStart = 0){
     if(runif(1) < PfPR){
       private$pop[[ixH]]$infectHumanPfSI(tEvent = tStart, PAR = list(damID=-1L,sireID=-1L))
     } else {
-      # private$pop[[ixH]]$track_history(tEvent = tStart, event = "S")
       private$pop[[ixH]]$get_Pathogens()$track_history(tEvent = tStart, event = "S")
     }
 
@@ -108,7 +107,6 @@ init_MACRO_PfSI <- function(PfPR, tStart = 0){
       if(runif(1) < PfPR[ixP]){
         private$pop[[ixH]]$infectHumanPfSI(tEvent = tStart, PAR = list(damID=-1L,sireID=-1L))
       } else {
-        # private$pop[[ixH]]$track_history(tEvent = tStart, event = "S")
         private$pop[[ixH]]$get_Pathogens()$track_history(tEvent = tStart, event = "S")
       }
 
@@ -153,7 +151,7 @@ HumanPop_get_PfSI_history <- function(){
 #' This method is bound to \code{Human$set_humanPfSI()}
 #'
 Human_set_humanPfSI <- function(PfID, tInf = -1L, b = 0.55, c = 0.15, damID = -1L, sireID = -1L, infected = FALSE, chemoprophylaxis = FALSE){
-  private$Pathogens = humanPfSI(PfID, tInf, b, c, damID, sireID, infected, chemoprophylaxis)
+  private$Pathogens = MASH::humanPfSI(PfID, tInf, b, c, damID, sireID, infected, chemoprophylaxis)
 }
 
 #' PfSI \code{HumanPop} Method: Set Human-stage PfSI Object
@@ -174,12 +172,6 @@ HumanPop_set_humanPfSI <- function(b = NULL, c = NULL){
   }
 
 }
-
-###################################################################
-# Add PfSI Pathogen Object to 'MicroMosquitoFemale' & 'MicroMosquitoPopFemale' Class
-###################################################################
-
-# DO THIS WHEN MOSQUITOES EXIST
 
 
 ###################################################################
@@ -258,6 +250,62 @@ PfSI_ttGSWanePf <- function(){
 
 
 ###################################################################
+# PfSI Methods for 'MicroMosquitoFemale'
+###################################################################
+
+#' PfSI Helper Code for Pathogen Initialization in \code{\link{MicroMosquitoFemale}}
+#'
+#' Initializes an empty PfSI pathogen in \code{\link{MicroMosquitoFemale}} called during object initialization.
+#'  * This method is bound to \code{MicroMosquitoFemale$init_Pathogens()}
+#'
+#' @md
+#' @export
+init_Pathogens_PfSI <- function(){
+  private$Pathogens = MASH::mosquitoPfSI(PfID_init = -1L, infected_init = FALSE)
+}
+
+#' PfSI \code{\link{MicroMosquitoFemale}} Method: Host Probing
+#'
+#' The mosquito probes the host prior to successful feeding. Probing occurs during code\{MicroMosquitoFemale$humanEncounter()}.
+#' Mosquito to human pathogen transmission occurs during host probing.
+#' If the PfSI infection has passed the EIP, \code{\link{probeHost_PfSI}} is called via the mosquito's pointer to the \code{\link{HumanPop}} class
+#' to initiate the PfSI infection process.
+#'  * This method is bound to \code{MicroMosquitoFemale$probing()}
+#'
+#' @md
+probing_PfSI <- function(){
+  # if mosquito has active infection
+  if(private$Pathogens$get_tInf() != -1L){
+    # update the moquito infection
+    if(private$tNow > (private$Pathogens$get_tInf() + private$FemalePopPointer$get_MBITES_PAR("PfEIP"))){
+      private$Pathogens$set_infected(TRUE)
+      private$HumansPointer$get_Human(ixH = private$hostID)$probeHost_PfSI(tBite = private$tNow, mosquitoPfSI = private$Pathogens)
+    }
+  }
+}
+
+#' PfSI \code{\link{MicroMosquitoFemale}} Method: Host Feeding
+#'
+#' The mosquito feeds on the host. Feeding occurs during code\{MicroMosquitoFemale$humanEncounter()}.
+#' Human to mosquito pathogen transmission occurs during host feeding.
+#'  * This method is bound to \code{MicroMosquitoFemale$feeding()}
+#'
+#' @md
+feeding_PfSI <- function(){
+  # if human is infected
+  if(private$HumansPointer$get_Human(ixH = private$hostID)$get_Pathogens()$get_infected()){
+    if(runif(1) < private$HumansPointer$get_Human(ixH = private$hostID)$get_Pathogens()$get_c()){
+      # if human to mosquito transmission successful set the PfSI object in the mosquito accordingly
+      PfID = private$HumansPointer$get_Human(ixH = private$hostID)$get_Pathogens()$back_PfID()
+      private$Pathogens$set_tInf(private$tNow)
+      private$Pathogens$set_PfID(PfID)
+      private$Pathogens$set_damID(PfID)
+      private$Pathogens$set_sireID(PfID)
+    }
+  }
+}
+
+###################################################################
 # Add PfSI Events to 'Human' Class
 # 'XX' family of functions for human event queues
 ###################################################################
@@ -277,7 +325,7 @@ PfSI_ttGSWanePf <- function(){
 #' @param mosquitoPfSI \code{\link{mosquitoPfSI}} object passed from mosquito to human
 probeHost_PfSI <- function(tBite, mosquitoPfSI){
   if(mosquitoPfSI$get_infected()){
-    PAR = list(mosquitoPfSI = mosquitoPfSI)
+    PAR = list(damID = mosquitoPfSI$get_damID(), sireID = mosquitoPfSI$get_sireID())
     self$infectiousBite_PfSI(tBite, PAR)
   }
 
@@ -293,39 +341,10 @@ probeHost_PfSI <- function(tBite, mosquitoPfSI){
 #' @param mosquitoPfSI \code{\link{mosquitoPfSI}} object passed from mosquito to human
 infectiousBite_PfSI <- function(tBite, PAR){
   if(runif(1) < private$Pathogens$get_b()){
-
-    PAR = list(damID = PAR$mosquitoPfSI$get_damID(), sireID = PAR$mosquitoPfSI$get_sireID())
-
     tInfStart = tBite + self$ttInfectionPf()
     self$add2Q_infectHumanPfSI(tEvent = tInfStart, PAR = PAR)
   }
 }
-
-
-###################################################################
-# PfSI: Human to Mosquito infectious bite
-# Add methods to 'MicroMosquitoFemale' Classe
-###################################################################
-
-# its okay if this function takes as a direct argument humanPfSI;
-# like probeHost_PfSI, the functions that directly interact between classes are ok to pass these things by name rather than generic PAR
-# try to reserve generic argument names like PAR when all modification is within-class; ie, when there will be no ambiguity.
-# do not use when objects are passed between classes
-
-# infectMosquito_PfSI <- function(tBite, ixH, ixS, ixM){
-#   with(HUMANS[[ixH]]$Pathogens$Pf,{
-#     if(infected==TRUE & rbinom(1,1,HUMANS[[ixH]]$Pathogens$Pf$c)){
-#       infObj = makePfM(ixH, tBite, ixS)
-#       if(PfTransmission_TRACK){
-#         trackPfTransmission(M2H = FALSE, tBite = tBite, ixH = ixH, ixS = ixS, ixM = ixM, PfM = infObj$PfM)
-#       }
-#       return(infObj)
-#     } else {
-#       infObj = list(infected = FALSE)
-#       return(infObj)
-#     }
-#   })
-# }
 
 
 ###################################################################

@@ -52,6 +52,8 @@ humanPfSI:
       args:
         - PfID_new: int
       return_type: void
+    back_PfID:
+      return_type: int
 
     get_tInf:
       return_type: "std::vector<double>"

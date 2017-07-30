@@ -29,6 +29,9 @@ public:
   void push_PfID(const int &PfID_new){
     PfID.push_back(PfID_new);
   };
+  int back_PfID(){
+    return(PfID.back());
+  };
 
   std::vector<double> get_tInf(){
     return(tInf);

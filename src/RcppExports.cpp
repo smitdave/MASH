@@ -213,6 +213,17 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// humanPfSI__back_PfID
+int humanPfSI__back_PfID(MASH::RcppR6::RcppR6<MASH::humanPfSI> obj_);
+RcppExport SEXP _MASH_humanPfSI__back_PfID(SEXP obj_SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::humanPfSI> >::type obj_(obj_SEXP);
+    rcpp_result_gen = Rcpp::wrap(humanPfSI__back_PfID(obj_));
+    return rcpp_result_gen;
+END_RCPP
+}
 // humanPfSI__get_tInf
 std::vector<double> humanPfSI__get_tInf(MASH::RcppR6::RcppR6<MASH::humanPfSI> obj_);
 RcppExport SEXP _MASH_humanPfSI__get_tInf(SEXP obj_SEXP) {
@@ -1437,6 +1448,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_MASH_humanPfSI__ctor", (DL_FUNC) &_MASH_humanPfSI__ctor, 8},
     {"_MASH_humanPfSI__get_PfID", (DL_FUNC) &_MASH_humanPfSI__get_PfID, 1},
     {"_MASH_humanPfSI__push_PfID", (DL_FUNC) &_MASH_humanPfSI__push_PfID, 2},
+    {"_MASH_humanPfSI__back_PfID", (DL_FUNC) &_MASH_humanPfSI__back_PfID, 1},
     {"_MASH_humanPfSI__get_tInf", (DL_FUNC) &_MASH_humanPfSI__get_tInf, 1},
     {"_MASH_humanPfSI__push_tInf", (DL_FUNC) &_MASH_humanPfSI__push_tInf, 2},
     {"_MASH_humanPfSI__get_b", (DL_FUNC) &_MASH_humanPfSI__get_b, 1},

@@ -145,7 +145,7 @@ MicroMosquitoFemale <- R6::R6Class(classname = "MicroMosquitoFemale",
 
                               # initialize PATHOGEN object
                               # PAR must contain a function mapped to the R6ClassGenerator object needed
-                              private$Pathogen = self$makePathogen()
+                              self$init_Pathogens()
 
                               # initialize history object
                               private$history = MASH::MosquitoFemaleHistory()
@@ -294,9 +294,12 @@ MicroMosquitoFemale <- R6::R6Class(classname = "MicroMosquitoFemale",
                               return(private$hostID)
                             },
 
-                            # Pathogen
-                            get_Pathogen = function(){
-                              return(private$Pathogen)
+                            # Pathogens
+                            get_Pathogens = function(){
+                              return(private$Pathogens)
+                            },
+                            init_Pathogens = function(){
+                              private$Pathogens = NULL
                             }
 
                           ),
@@ -341,8 +344,8 @@ MicroMosquitoFemale <- R6::R6Class(classname = "MicroMosquitoFemale",
                             energyPreG  = NULL,          # pre-gonotrophic energy requirement
                             hostID      = 0,           # the id of the host: -1::none; 0::not human
 
-                            # Pathogen
-                            Pathogen      = NULL,
+                            # Pathogens
+                            Pathogens      = NULL,
 
                             # Pointers
                             FemalePopPointer = NULL,  # Point to enclosing MicroMosquitoPopFemale

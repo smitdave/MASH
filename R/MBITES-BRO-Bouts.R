@@ -128,8 +128,15 @@ mbitesBro_enterHouse <- function(){
 
 #' MBITES-BRO: Land After Flight \code{MicroMosquitoFemale}
 #'
-#' Mosquito lands after a flight, which may cause various events.
+#' Mosquito lands after a flight (choose a landing spot), which may cause various events.
 #' This function always calls \code{\link{mbitesBro_newSpot}} and may call \code{\link{mbitesBro_enterHouse}}
+#' Landing spots include:
+#'  * i: 1 rest on the inside wall of a structure
+#'  * w: 2 rest on the outside wall of a structure
+#'  * v: 3 rest on vegetation
+#'  * r: 4 reattempt without resting
+#'  * l: 5 leave the area
+#'
 #'  * This method is bound to \code{MicroMosquitoFemale$landingSpot()}.
 #'
 #' @md
@@ -148,10 +155,42 @@ mbitesBRO_landingSpot <- function(){
 # MBITES-BRO: Blood Feeding Bout
 #################################################################
 
-
+#' MBITES-BRO: Blood Feeding Bout \code{MicroMosquitoFemale}
+#'
+#' A mosquito runs a blood feeding bout (all actions taken launch to launch when blood feeding required).
+#'  * This method is bound to \code{MicroMosquitoFemale$boutB()}.
+#'
+#' @md
 mbitesBRO_boutB <- function(){
+  # check success
+  if(runif(1) < private$FemalePopPointer$get_MBITES_PAR("B_succeed")){
+    self$ChooseHost() # MBITES-BRO-ChooseHost.R
+  } else {
+    private$hostID = 0L
+  }
+
+  if(private$hostID > 0){
+    self$humanEncounter() # MBITES-BRO-HostEncounter.R
+  } else if(private$hostID == -1){
+    self$zooEncounter() # MBITES-BRO-HostEncounter.R
+  } else if(private$hostID == 0){
+    return(NULL)
+  } else {
+    stop("illegal hostID value")
+  }
 
 }
+
+
+#################################################################
+# MBITES-BRO: Post-Prandial Resting Bout
+#################################################################
+
+
+#################################################################
+# MBITES-BRO: Egg Laying Bout
+#################################################################
+
 
 
 #################################################################
