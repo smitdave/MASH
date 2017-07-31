@@ -69,14 +69,19 @@ MicroMosquitoPop <- R6::R6Class(classname = "MosquitoPop",
                         stop("this hasn't been written yet")
                       },
 
+                      # getter for nullPop
                       get_nullPop = function(){return(private$nullPop)},
+                      # update nullPop
                       update_nullPop = function(){
-                        private$nullPop = private$nullPop = which(vapply(X = private$pop,FUN = is.null,FUN.VALUE = logical(1)))
+                        private$nullPop = which(vapply(X = private$pop,FUN = is.null,FUN.VALUE = logical(1)))
                       },
 
                       # generic get_movement method; designed to be overwritten by module-specific parameteric getter
                       get_movement = function(){
                         return(private$movement)
+                      },
+                      set_movment = function(movement){
+                        private$movement = movement
                       },
 
                       # return parameter list or element of list by name
@@ -86,6 +91,9 @@ MicroMosquitoPop <- R6::R6Class(classname = "MosquitoPop",
                         } else {
                           return(private$MBITES_PAR[[ixP]])
                         }
+                      },
+                      set_MBITES_PAR = function(MBITES_PAR){
+                        private$MBITES_PAR = MBITES_PAR
                       },
 
                       #################################################################
@@ -151,8 +159,7 @@ MicroMosquitoPopFemale <- R6::R6Class(classname = "MicroMosquitoPopFemale",
                          ##############################################################
 
                          # N: size of vector to allocate (NOT number of mosquitoes)
-                         initialize = function(N, id_init, time_init, ix_init, genotype_init, state_init,
-                           MBITES_PAR, movement){
+                         initialize = function(N, id_init, time_init, ix_init, genotype_init, state_init, MBITES_PAR, movement){
 
                              # Initialize population level fields prior to allocating container
                              private$MBITES_PAR = MBITES_PAR
@@ -175,9 +182,28 @@ MicroMosquitoPopFemale <- R6::R6Class(classname = "MicroMosquitoPopFemale",
                                private$pop[[ix]]$set_FemalePopPointer(self)
                              }
                              # find NULL indices
-                             private$nullPop = which(vapply(X = private$pop,FUN = is.null,FUN.VALUE = logical(1)))
+                             self$update_nullPop()
 
-                         } # end initializer
+                         }, # end initializer
+
+                         ##############################################################
+                         # Cohort Methods
+                         ##############################################################
+
+                         # push_pop: from a single ImagoSlot; add a cohort.
+                         push_pop = function(N, tEmerge, genotype, damID, sireID){
+                           if(N > length(nullPop)){
+                             self$extend_pop()
+                           }
+                           for(i in 1:N){
+                             private$pop[[private$nullPop[i]]] = MicroMosquitoFemale$new
+                           }
+                         },
+
+                         # extend_pop: extend the pop vecor
+                         extend_pop = function(){
+
+                         }
 
                        ),
 

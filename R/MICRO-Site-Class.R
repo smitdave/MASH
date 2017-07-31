@@ -254,7 +254,7 @@ AquaticSite <- R6::R6Class(classname = "AquaticSite",
                    #################################################
 
                    # maxQ: pre-alloc ImagoQ and EggQ size
-                   initialize = function(ix, siteXY, searchWt, module, lambda = NULL, haz = 0, siteType = 0L, maxQ = 20L){
+                   initialize = function(ix, siteXY, searchWt, module, lambda = NULL, haz = 0, siteType = 0L){
 
                      # generic fields
                      private$ix = ix
@@ -268,11 +268,9 @@ AquaticSite <- R6::R6Class(classname = "AquaticSite",
 
                      # Aquatic Ecology Emerge module fields
                      if(module == "emerge"){
-                       # Emerge module
                        private$lambda = lambda
                      } else if(module == "EL4P"){
-                       # EL4P module
-                       private$EggQ = allocEggQ(N = maxQ)
+                       private$EggQ = MASH::EggQ()
                      } else {
                        stop("unrecognized module")
                      }

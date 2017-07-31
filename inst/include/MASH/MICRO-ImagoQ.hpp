@@ -195,12 +195,12 @@ public:
     // find slots where tEmerge <= time
     std::vector<int> timeIx;
     auto it = std::find_if(ImagoQVec.begin(), ImagoQVec.end(), [tNow](ImagoSlot ix){
-        return(ix.tEmerge <= tNow);
+        return(ix.tEmerge <= tNow && ix.N != 0);
     });
     while(it != ImagoQVec.end()){
         timeIx.emplace_back(std::distance(ImagoQVec.begin(), it));
         it = std::find_if(std::next(it), std::end(ImagoQVec), [tNow](ImagoSlot ix){
-            return(ix.tEmerge <= tNow);
+            return(ix.tEmerge <= tNow && ix.N != 0);
         });
     }
 

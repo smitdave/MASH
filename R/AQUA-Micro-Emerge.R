@@ -188,11 +188,20 @@ oneDay_MicroEmerge <- function(){
 #' This method is bound to \code{AquaticSite$addCohort_MicroEmerge()}.
 #'
 addCohort_MicroEmergeSite <- function(){
-  tNow = self$get_TilePointer()$get_tNow()
+  tNow = private$LandscapePointer$get_TilePointer()$get_tNow()
   # use tNow in the TILE and see who is ready to be taken from ImagoQ into the MosyPop.
+  EmeringAdults = private$ImagoQ$get_ImagoQTime(tNow = tNow,clear = TRUE)
+
+  if(length(EmeringAdults) > 0){
+    for(i in 1:length(EmergingAdults)){
+      private$LandscapePointer$$get_MosquitoPopFemalePointer()$push_pop(N = EmeringAdults[[i]]$N, tEmerge = EmeringAdults[[i]]$tEmerge, genotype = EmeringAdults[[i]]$genotype, damID = EmeringAdults[[i]]$damID, sireID = EmeringAdults[[i]]$sireID)
+    }
+  }
+
   # return(
   #   private$ImagoQ$get_ImagoQTime(tNow = tNow,clear = TRUE)
   # )
+  rm(EmeringAdults)
 }
 
 
@@ -205,6 +214,6 @@ addCohort_MicroEmergeSite <- function(){
 #' @examples
 #' some_function()
 addCohort_MicroEmerge <- function(){
-  tNow = self$get_TilePointer()$get_tNow()
+  tNow = private$TilePointer$get_tNow()
 
 }

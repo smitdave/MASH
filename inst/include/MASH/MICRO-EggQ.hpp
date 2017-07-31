@@ -196,12 +196,12 @@ public:
     // find slots where tEmerge <= time
     std::vector<int> timeIx;
     auto it = std::find_if(EggQVec.begin(), EggQVec.end(), [tNow](EggSlot ix){
-        return(ix.tOviposit <= tNow);
+        return(ix.tOviposit <= tNow && ix.N != 0);
     });
     while(it != EggQVec.end()){
         timeIx.emplace_back(std::distance(EggQVec.begin(), it));
         it = std::find_if(std::next(it), std::end(EggQVec), [tNow](EggSlot ix){
-            return(ix.tOviposit <= tNow);
+            return(ix.tOviposit <= tNow && ix.N != 0);
         });
     }
 

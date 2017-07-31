@@ -84,5 +84,6 @@ RiskQ:
         - otherW_new: double
         - typeID_new: int
       return_type: void
+      
     get_OtherHost:
       return_type: "Rcpp::List"
