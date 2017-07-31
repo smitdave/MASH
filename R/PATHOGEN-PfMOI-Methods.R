@@ -271,16 +271,16 @@ PfMOI_ttGSWanePf <- function(){
 # PfMOI Methods for 'MicroMosquitoFemale'
 ###################################################################
 
-# #' PfMOI Helper Code for Pathogen Initialization in \code{\link{MicroMosquitoFemale}}
-# #'
-# #' Initializes an empty PfMOI pathogen in \code{\link{MicroMosquitoFemale}} called during object initialization.
-# #'  * This method is bound to \code{MicroMosquitoFemale$init_Pathogens()}
-# #'
-# #' @md
-# #' @export
-# init_Pathogens_PfMOI <- function(){
-#   private$Pathogens = MASH::PfMOI(PfID_init = -1L, infected_init = FALSE)
-# }
+#' PfMOI Helper Code for Pathogen Initialization in \code{\link{MicroMosquitoFemale}}
+#'
+#' Initializes an empty PfMOI pathogen in \code{\link{MicroMosquitoFemale}} called during object initialization.
+#'  * This method is bound to \code{MicroMosquitoFemale$init_Pathogens()}
+#'
+#' @md
+#' @export
+init_Pathogens_PfMOI <- function(){
+  private$Pathogens = MASH::PfMOI()
+}
 
 #' PfMOI \code{\link{MicroMosquitoFemale}} Method: Host Probing
 #'

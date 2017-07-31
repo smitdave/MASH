@@ -9,9 +9,9 @@ MBITES.BRO.Parameters(B_wts = rep(1, 6), R_wts = rep(1, 6), O_wts = rep(1,
   2), c(1, 1, 1, 0, 1), c(6, 4, 2, 1, 0)), byrow = FALSE, ncol = 5),
   B_surv = 0.85, B_succeed = 0.3, B_time = 3/4, Q = 0.9, surviveH = 1,
   probeH = 1, surviveprobeH = 1, feedH = 1, surviveZ = 1, feedZ = 1,
-  bms.a = 7.5, bms.b = 2.5, bms.z = 0.01, rf.a = 18, rf.b = 10000,
-  of.a = 5, of.b = 500, R_surv = 0.9, R_time = 0.8, reFeed = 0.2,
-  O_surv = 0.8, ela.s = 0.7, O_time = 1, L_time = 0.3, els.a = 0.95,
+  R_surv = 0.9, R_time = 0.8, reFeed = 0.2, O_surv = 0.8,
+  O_succeed = 0.7, O_time = 1.3, bms.a = 7.5, bms.b = 2.5,
+  bms.z = 0.01, rf.a = 18, rf.b = 10000, of.a = 5, of.b = 500,
   sns.a = 0.1, sns.b = 100, sgr.d = 1/10, sgr.p = 0.95, sgr.t = 1/24,
   sgr.a = 50, sgr.b = 10, sgr.sa = 50, sgr.sb = 200, sgr.sz = 1,
   sgr.cvr = 0.2, ttsz.p = 0.5, ttsz.a = 5, ttsz.b = 95, ttr.a = 10,
@@ -31,6 +31,12 @@ MBITES.BRO.Parameters(B_wts = rep(1, 6), R_wts = rep(1, 6), O_wts = rep(1,
 
 \item{Q}{Proportion of Bites on Humans}
 
+\item{R_time}{Resting: Mean Time Elapsed (in Days)}
+
+\item{reFeed}{WRITE ME}
+
+\item{O_time}{Egg Laying Attempt: Mean Time Elapsed}
+
 \item{bms.a}{Blood Meal Size, a}
 
 \item{bms.b}{Blood Meal Size, b}
@@ -44,18 +50,6 @@ MBITES.BRO.Parameters(B_wts = rep(1, 6), R_wts = rep(1, 6), O_wts = rep(1,
 \item{of.a}{Overfeed WRITE ME}
 
 \item{of.b}{Overfeed WRITE ME}
-
-\item{R_time}{Resting: Mean Time Elapsed (in Days)}
-
-\item{reFeed}{WRITE ME}
-
-\item{ela.s}{Egg Laying Attempt: Prob Success}
-
-\item{O_time}{Egg Laying Attempt: Mean Time Elapsed}
-
-\item{L_time}{Egg Laying Search: Mean Time Elapsed}
-
-\item{els.a}{Egg Laying Search: Prob Accepts}
 
 \item{sns.a}{WRITE ME}
 
@@ -117,7 +111,13 @@ MBITES.BRO.Parameters(B_wts = rep(1, 6), R_wts = rep(1, 6), O_wts = rep(1,
 
 \item{ela.p}{Egg Laying Attempt: Prob Survives (Base)}
 
+\item{ela.s}{Egg Laying Attempt: Prob Success}
+
 \item{els.p}{Egg Laying Search: Prob Survives (Base)}
+
+\item{L_time}{Egg Laying Search: Mean Time Elapsed}
+
+\item{els.a}{Egg Laying Search: Prob Accepts}
 
 \item{Pathogen}{name of the PATHOGEN module to use, can be in "PfSI", "PfMOI"}
 }

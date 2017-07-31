@@ -7,7 +7,7 @@
 mbitesBRO_boutB()
 }
 \description{
-A mosquito runs a blood feeding bout (all actions taken launch to launch when blood feeding required).
+A mosquito performs a blood feeding bout (all actions taken launch to launch when blood feeding required).
 \itemize{
 \item This method is bound to \code{MicroMosquitoFemale$boutB()}.
 }

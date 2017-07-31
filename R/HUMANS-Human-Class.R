@@ -55,7 +55,7 @@ Human <- R6::R6Class(classname="Human",
                          private$hhID = hhID
                          private$bDay = bDay
                          private$bWeight = bWeight
-                         private$EventQueue = HumanEventQ()
+                         private$EventQueue = MASH::HumanEventQ()
                        },
 
                        #################################################

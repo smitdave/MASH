@@ -113,6 +113,21 @@ MBITES.BRO.Parameters <- function(
   feedZ = 1, # probability to successfully feed
 
   ##########################################
+  # Post Prandial Resting
+  ##########################################
+  R_surv = 0.9,
+  R_time = 0.8,  # Resting . Mean Time Elapsed (in Days)
+  reFeed = 0.2,
+
+  ##########################################
+  # Egg Laying Bout
+  ##########################################
+  O_surv = 0.80,
+  O_succeed = .7,   # Egg Laying Attempt . Prob Success
+  O_time = 1.3,    # Egg Laying Attempt . Mean Time Elapsed
+
+
+  ##########################################
   # Partial Blood Feeding
   ##########################################
   bms.a = 7.5,  # Blood Meal Size, a
@@ -130,29 +145,6 @@ MBITES.BRO.Parameters <- function(
   ##########################################
   of.a=5,
   of.b=500,
-
-  ##########################################
-  # Post Prandial Resting
-  ##########################################
-  R_surv = 0.9,
-  # ppr.p = .9,   # Resting . Prob Survives (Base)
-  R_time = 0.8,  # Resting . Mean Time Elapsed (in Days)
-  reFeed = 0.2,
-
-  ##########################################
-  # Egg Laying Attempt
-  ##########################################
-  O_surv = 0.80,
-  # ela.p = .9,   # Egg Laying Attempt . Prob Survives (Base)
-  ela.s = .7,   # Egg Laying Attempt . Prob Success
-  O_time = 1,    # Egg Laying Attempt . Mean Time Elapsed
-
-  ##########################################
-  # Egg Laying Search
-  ##########################################
-  # els.p = .9,   # Egg Laying Search . Prob Survives (Base)
-  L_time = .3,   # Egg Laying Search . Mean Time Elapsed
-  els.a = .95,  # Egg Laying Search . Prob Accepts
 
   ##########################################
   # SENESCE

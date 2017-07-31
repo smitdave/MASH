@@ -108,6 +108,30 @@ PfMOI.Setup <- function(
   message(paste0("initializing PfMOI PATHOGEN module"))
 
   ###################################################################
+  # PfMOI MICRO Mosquito methods
+  ###################################################################
+
+  ###################################################################
+  # Add PfMOI Pathogen Object to 'MicroMosquitoFemale' & 'MicroMosquitoPopFemale' Class
+  ###################################################################
+
+  MicroMosquitoFemale$set(which = "public",name = "probing",
+            value = probing_PfMOI,
+            overwrite = overwrite
+  )
+
+  MicroMosquitoFemale$set(which = "public",name = "feeding",
+            value = feeding_PfMOI,
+            overwrite = overwrite
+  )
+
+  MicroMosquitoFemale$set(which = "public",name = "init_Pathogens",
+            value = init_Pathogens_PfMOI,
+            overwrite = overwrite
+  )
+
+
+  ###################################################################
   # Add PfMOI Parameters to 'HumanPop' Class
   ###################################################################
 
