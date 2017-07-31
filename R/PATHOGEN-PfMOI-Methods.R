@@ -380,7 +380,7 @@ probeHost_PfMOI <- function(tBite, EIP, mosquitoPfMOI){
   infectionsN = max(length(infections),self$get_PfMOI_PAR("MosyMaxI"))
 
   for(i in 1:infectionsN){
-    self$infectiousBite_PfMOI(tBite, PAR = infections[[i]])
+    self$infectiousBite_PfMOI(tBite, PAR = list(PfID = infections$PfID[i],damID = infections$damID[i],sireID = infections$sireID[i]))
   }
 }
 
