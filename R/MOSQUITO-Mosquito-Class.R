@@ -300,6 +300,24 @@ MicroMosquitoFemale <- R6::R6Class(classname = "MicroMosquitoFemale",
                             },
                             init_Pathogens = function(){
                               private$Pathogens = NULL
+                            },
+
+                            ##############################################################
+                            # Return Data from MosquitoFemaleHistory object
+                            ##############################################################
+
+                            # history
+                            get_history = function(){
+                              return(
+                                private$history$exportHistory()
+                              )
+                            },
+
+                            # bionomics
+                            get_bionomics = function(){
+                              return(
+                                private$history$exportBionomics
+                              )
                             }
 
                           ),

@@ -59,9 +59,9 @@ MicroTile <- R6::R6Class(classname = "MicroTile",
 
                    # Landscape_PAR: Landscape.Parameters (MICRO-Landscape-Parameters.R)
                    # HumanPop_PAR: HumanPop.Parameters (HUMANS-HumanPop-Parameters.R)
-                   # MBITES_PAR: MBITES.XX.Parameters (MBITES-XX-Parameters.R)
-                   # MBITES_module: character in {BRO,BROS,BROM,BROMS,FULL}
-                   initialize = function(Landscape_PAR, HumanPop_PAR, MBITES_PAR, MBITES_module){
+                   # MosquitoPop_PAR: MBITES.XX.Parameters (MBITES-XX-Parameters.R)
+                   # directory: directory to write data to (ex: "/Users/slwu89/Desktop/mash.out/")
+                   initialize = function(Landscape_PAR, HumanPop_PAR, MosquitoPop_PAR, directory){
 
                      # set simulation time
                      private$tNow = 0
