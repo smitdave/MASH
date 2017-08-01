@@ -8,10 +8,10 @@
 #
 #################################################################
 
-#' Initialize MICRO Mosquito Population Parameters
+#' Setup MICRO Mosquito Population & M-BITES Module for a \code{\link{MicroTile}}
 #'
 #' Generate a list of parameters to initialize \code{\link{MicroMosquitoPopFemale}} and (optionally) \code{\link{MicroMosquitoPopMale}} for initialization of
-#' mosquito populations in a microsimulation tile \code{\link{MicroTile}}. For MICRO simulations, this function automatically interfaces with the necessary M-BITES initialization functions.
+#' mosquito populations in a microsimulation tile \code{\link{MicroTile}}. For MICRO simulations, this function automatically interfaces with the necessary M-BITES setup functions.
 #'
 #' @param module which M-BITES module to use (must be a character in "BRO","BROM","BROS","BROMS","FULL")
 #' @param aquaModule which Aquatic Ecology module to use (must be a character in "emerge", "EL4P")
@@ -31,7 +31,7 @@
 #' MicroMosquitoPop.Parameters()
 #' @md
 #' @export
-MicroMosquitoPop.Parameters <- function(
+MicroMosquitoPop.Setup <- function(
     module,
     aquaModule,
     N_female,
@@ -41,6 +41,8 @@ MicroMosquitoPop.Parameters <- function(
     ix_male = NULL,
     genotype_female,
     genotype_male = NULL,
+    batchSize = "bms",
+    eggMatT = "off",
     ...
   ){
 
@@ -75,7 +77,7 @@ MicroMosquitoPop.Parameters <- function(
           # set parameters
           MicroMosquitoPopFemale$set(which = "private",name = "MBITES_PAR",
                                   value = MosquitoPop_PAR$MBITES_PAR,
-                                  overwrite = overwrite
+                                  overwrite = TRUE
           )
         },
         BROS = {print("havent written")},

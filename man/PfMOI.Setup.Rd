@@ -22,9 +22,7 @@ PfMOI.Setup(overwrite = TRUE, interaction = FALSE, InteractionPf = 0,
 \itemize{
 \item 0: no interaction (reduces to independent clearance)
 \item <0: facilitation against host immune system (slower clearance rate than independent queueing)
-\item 
-
-0: competition for host resources (faster clearance rate than independent queueing)
+\item 0<: competition for host resources (faster clearance rate than independent queueing)
 \item See \url{https://doi.org/10.1186/1475-2875-8-87} for details of queueing model with pathogen interaction.
 }}
 

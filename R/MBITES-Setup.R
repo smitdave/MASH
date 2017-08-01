@@ -17,16 +17,15 @@
 #' Initialize Generic Methods for M-BITES
 #'
 #' This function initializes generic methods for M-BITES models; please note that the
-#' switches for this function modify only the methods that are added to the MicroMosquitoFemale
-#' and MicroMosquitoMale classes. Different genotypes still depend on the internal list of parameters
-#' to parameterize these functions and functional forms for equations.
+#' switches for this function modify only the methods that are added to the \code{\link{MicroMosquitoFemale}}
+#' and \code{\link{MicroMosquitoMale}} classes.
 #'
 #' @param batchSize character switch that should be one of \code{"bms","norm"} for egg batch sizes dependent on bloodmeal size or normally distributed
 #' @param eggMatT character switch that should be one of \code{"off","norm"} for egg batch maturation time turned off or normally distributed
 #'
 #'
 #'
-#' @return modifies the \code{MicroMosquitoFemale} and \code{MicroMosquitoMale} classes.
+#' @return modifies the \code{\link{MicroMosquitoFemale}} and \code{\link{MicroMosquitoMale}} classes.
 #' @export
 mbitesGeneric.Setup <- function(
   overwrite = TRUE,
