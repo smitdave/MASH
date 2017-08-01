@@ -4,10 +4,12 @@
 \alias{MBITES.BRO.Setup}
 \title{MBITES-BRO: Initialize Additional Methods & Fields in \code{\link{MicroMosquitoPopFemale}} and \code{\link{MicroMosquitoFemale}}}
 \usage{
-MBITES.BRO.Setup(overwrite = TRUE)
+MBITES.BRO.Setup(overwrite = TRUE, aquaModule)
 }
 \arguments{
 \item{overwrite}{overwrite methods}
+
+\item{aquaModule}{character in "emerge" or "EL4P"}
 }
 \description{
 Initialize M-BITES BRO (Blood Feeding, Resting, Oviposition) lifecycle model.

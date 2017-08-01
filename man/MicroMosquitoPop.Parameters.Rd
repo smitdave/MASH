@@ -4,11 +4,14 @@
 \alias{MicroMosquitoPop.Parameters}
 \title{Initialize MICRO Mosquito Population Parameters}
 \usage{
-MicroMosquitoPop.Parameters(module, N_female, N_male = NULL, time = 0,
-  ix_female, ix_male = NULL, genotype_female, genotype_male = NULL, ...)
+MicroMosquitoPop.Parameters(module, aquaModule, N_female, N_male = NULL,
+  time = 0, ix_female, ix_male = NULL, genotype_female,
+  genotype_male = NULL, ...)
 }
 \arguments{
 \item{module}{which M-BITES module to use (must be a character in "BRO","BROM","BROS","BROMS","FULL")}
+
+\item{aquaModule}{which Aquatic Ecology module to use (must be a character in "emerge", "EL4P")}
 
 \item{N_female}{number of female mosquitoes}
 
@@ -28,13 +31,17 @@ MicroMosquitoPop.Parameters(module, N_female, N_male = NULL, time = 0,
 \itemize{
 \item MBITES-BRO: pass to \code{\link{MBITES.BRO.Parameters}}
 }}
+
+\item{batchSize}{passed to \code{\link{mbitesGeneric.Setup}}}
+
+\item{eggMatT}{passed to \code{\link{mbitesGeneric.Setup}}}
 }
 \value{
 return a list
 }
 \description{
 Generate a list of parameters to initialize \code{\link{MicroMosquitoPopFemale}} and (optionally) \code{\link{MicroMosquitoPopMale}} for initialization of
-mosquito populations in a microsimulation tile \code{\link{MicroTile}}.
+mosquito populations in a microsimulation tile \code{\link{MicroTile}}. For MICRO simulations, this function automatically interfaces with the necessary M-BITES initialization functions.
 }
 \examples{
 MicroMosquitoPop.Parameters()

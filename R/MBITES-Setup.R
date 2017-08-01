@@ -38,7 +38,16 @@ mbitesGeneric.Setup <- function(
   message("initializing M-BITES generic shared methods")
 
   ##############################################################
-  # Checks of Life Status
+  # MBITES-ChooseHost.R
+  ##############################################################
+
+  MicroMosquitoFemale$set(which = "public",name = "chooseHost",
+            value = mbitesGeneric_chooseHost,
+            overwrite = overwrite
+  )
+
+  ##############################################################
+  # MBITES-Auxiliary.R
   ##############################################################
 
   MicroMosquitoFemale$set(which = "public",name = "isAlive",
@@ -62,8 +71,33 @@ mbitesGeneric.Setup <- function(
   )
 
   ##############################################################
-  # Egg Batch Switches
+  # MBITES-Energetics.R
   ##############################################################
+
+  MicroMosquitoFemale$set(which = "public",name = "pEnergySurvival",
+            value = mbitesGeneric_pEnergySurvival,
+            overwrite = overwrite
+  )
+
+  MicroMosquitoFemale$set(which = "public",name = "pSugarBout",
+            value = mbitesGeneric_pSugarBout,
+            overwrite = overwrite
+  )
+
+  MicroMosquitoFemale$set(which = "public",name = "rBloodMealSize",
+            value = mbitesGeneric_rBloodMealSize,
+            overwrite = overwrite
+  )
+
+  MicroMosquitoFemale$set(which = "public",name = "pOverFeed",
+            value = mbitesGeneric_pOverFeed,
+            overwrite = overwrite
+  )
+
+  MicroMosquitoFemale$set(which = "public",name = "pReFeed",
+            value = mbitesGeneric_pReFeed,
+            overwrite = overwrite
+  )
 
   # rBatchSize
   switch(batchSize,
@@ -99,6 +133,38 @@ mbitesGeneric.Setup <- function(
     {stop("unrecognized entry for eggMatT")}
   )
 
+  # MicroMosquitoFemale$set(which = "public",name = "makeBatches",
+  #           value = mbitesGeneric_makeBatches,
+  #           overwrite = overwrite
+  # )
 
+  ##############################################################
+  # MBITES-Survival.R
+  ##############################################################
+
+  MicroMosquitoFemale$set(which = "public",name = "surviveFlight",
+            value = mbitesGeneric_surviveFlight,
+            overwrite = overwrite
+  )
+
+  MicroMosquitoFemale$set(which = "public",name = "rTatterSize",
+            value = mbitesGeneric_rTatterSize,
+            overwrite = overwrite
+  )
+
+  MicroMosquitoFemale$set(which = "public",name = "pTatter",
+            value = mbitesGeneric_pTatter,
+            overwrite = overwrite
+  )
+
+  MicroMosquitoFemale$set(which = "public",name = "pSenesce",
+            value = mbitesGeneric_pSenesce,
+            overwrite = overwrite
+  )
+
+  MicroMosquitoFemale$set(which = "public",name = "surviveResting",
+            value = mbitesGeneric_surviveResting,
+            overwrite = overwrite
+  )
 
 }

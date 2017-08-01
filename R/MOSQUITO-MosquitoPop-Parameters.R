@@ -70,8 +70,13 @@ MicroMosquitoPop.Parameters <- function(
         BRO = {
           # setup generic M-BITES methods
           mbitesGeneric.Setup(overwrite = TRUE, batchSize = batchSize, eggMatT = eggMatT)
-
-
+          # setup M-BITES BRO methods
+          MBITES.BRO.Setup(overwrite = TRUE, aquaModule = aquaModule)
+          # set parameters
+          MicroMosquitoPopFemale$set(which = "private",name = "MBITES_PAR",
+                                  value = MosquitoPop_PAR$MBITES_PAR,
+                                  overwrite = overwrite
+          )
         },
         BROS = {print("havent written")},
         BROM = {print("havent written")},

@@ -258,10 +258,6 @@ MicroMosquitoFemale <- R6::R6Class(classname = "MicroMosquitoFemale",
                               return(private$energy)
                             },
 
-                            get_history = function(){
-                              return(private$history)
-                            },
-
                             # Female Fields
 
                             # Egg Batch Variables
@@ -316,7 +312,7 @@ MicroMosquitoFemale <- R6::R6Class(classname = "MicroMosquitoFemale",
                             # bionomics
                             get_bionomics = function(){
                               return(
-                                private$history$exportBionomics
+                                private$history$exportBionomics()
                               )
                             }
 

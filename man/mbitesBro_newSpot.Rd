@@ -10,7 +10,7 @@ mbitesBro_newSpot()
 integer value corresponding to new landing spot
 }
 \description{
-Method for return a new landing spot based on behavioral state of mosquito and weights from \code{\link{mbitesBRO_getWTS}}.
+Method for return a new landing spot based on behavioral state of mosquito and weights from \code{\link{mbitesBRO_get_WTS}}.
 New landing spots generated at the end of the search bout, attempt bout, or after oviposition a mosquito has entered
 the area around a feeding site and either rested or attempted to rest.
 \itemize{
