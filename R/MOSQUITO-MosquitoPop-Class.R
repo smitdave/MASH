@@ -48,8 +48,7 @@ MicroMosquitoPopFemale <- R6::R6Class(classname = "MicroMosquitoPopFemale",
 
                              # allocate population
                              private$pop = vector(mode="list",length=(N*5))
-                             lengths = NULL; lengths[1] = length(time_init); lengths[2] = length(ix_init); lengths[3] = length(genotype_init);
-                             if(length(unique(lengths)) != 1){
+                             if(length(ix_init) != length(genotype_init)){
                                stop("one or more of the input vectors to MicroMosquitoPopFemale initializer is not the same length")
                              }
 

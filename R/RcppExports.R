@@ -491,8 +491,8 @@ MosquitoFemaleHistory__ctor <- function() {
     .Call('_MASH_MosquitoFemaleHistory__ctor', PACKAGE = 'MASH')
 }
 
-MosquitoFemaleHistory__historyInit <- function(obj_, ix, inPointSet) {
-    invisible(.Call('_MASH_MosquitoFemaleHistory__historyInit', PACKAGE = 'MASH', obj_, ix, inPointSet))
+MosquitoFemaleHistory__historyInit <- function(obj_, privateEnv) {
+    invisible(.Call('_MASH_MosquitoFemaleHistory__historyInit', PACKAGE = 'MASH', obj_, privateEnv))
 }
 
 MosquitoFemaleHistory__historyTrack <- function(obj_, privateEnv, alive) {

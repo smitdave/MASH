@@ -11,6 +11,43 @@
 rm(list=ls())
 library(MASH)
 
+#################################################################
+# Microsimulation Tile Tests
+#################################################################
+
+MBITES_module = "BRO"
+AQUA_module = "emerge"
+
+# XX.Setup() functions to initialize classes for MICRO
+MICRO.Humans.Setup(overwrite = TRUE)
+SEARCH.MicroKernel.Setup(MBITES = "BRO",overwrite = TRUE)
+MICRO.Emerge.Setup(overwrite = TRUE)
+PfSI.Setup(overwrite = TRUE)
+
+# XX.Parameters() functions to generate parameters for objects in a MicroTile
+Landscape_PAR = Landscape.Parameters(nFeed = 2,nAqua = 2,module = AQUA_module,modulePars = list(N=2,lambda=10))
+AquaEmergeLambdaPlot_utility(Landscape_PAR$AquaticSite_PAR$lambda)
+HumanPop_PAR = HumanPop.Parameters(nSite = 2,siteSize = 3,siteMin = 1)
+MosquitoPop_PAR = MicroMosquitoPop.Setup(module = MBITES_module,
+                                         aquaModule = AQUA_module,
+                                         N_female = 20,
+                                         time = 0,
+                                         ix_female = rep(1,20),
+                                         genotype_female = rep(1,20),
+                                         batchSize = "bms",
+                                         eggMatT = "off")
+
+# Generate a MicroTile
+tile = MicroTile$new(Landscape_PAR,
+                     HumanPop_PAR,
+                     MosquitoPop_PAR,
+                     directory = "/Users/slwu89/Desktop/mash.out/")
+
+
+#################################################################
+# Component Tests
+#################################################################
+
 MICRO.Emerge.Setup(overwrite = TRUE)
 
 xx = FeedingSite$new(ix = 1, siteXY = c(0.5,0.5), searchWt = 0.5, enterP = 0.9)

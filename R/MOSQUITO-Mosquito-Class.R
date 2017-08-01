@@ -149,7 +149,7 @@ MicroMosquitoFemale <- R6::R6Class(classname = "MicroMosquitoFemale",
 
                               # initialize history object
                               private$history = MASH::MosquitoFemaleHistory()
-                              private$history$historyInit(ix = ix, inPointSet = inPointSet)
+                              private$history$historyInit(privateEnv = private)
 
                             }, # end initializer
 
