@@ -78,6 +78,22 @@ MicroMosquitoPopFemale <- R6::R6Class(classname = "MicroMosquitoPopFemale",
                            stop("this hasn't been written yet")
                          },
 
+                         which_alive = function(){
+                           return(
+                             sum(vapply(X = private$pop, FUN = function(x){
+                                  if(is.null(x)){
+                                    return(FALSE)
+                                  } else {
+                                    if(x$isAlive()){
+                                      return(TRUE)
+                                    } else {
+                                      return(FALSE)
+                                    }
+                                  }
+                               }, FUN.VALUE = logical(1)))
+                            )
+                         },
+
                          # getter for nullPop
                          get_nullPop = function(){return(private$nullPop)},
                          # update nullPop
@@ -103,6 +119,13 @@ MicroMosquitoPopFemale <- R6::R6Class(classname = "MicroMosquitoPopFemale",
                          },
                          set_MBITES_PAR = function(MBITES_PAR){
                            private$MBITES_PAR = MBITES_PAR
+                         },
+
+                         get_directory = function(){
+                           return(private$directory)
+                         },
+                         set_directory = function(directory){
+                           private$directory = directory
                          },
 
                          #################################################################

@@ -17,7 +17,7 @@
 #' @param aquaModule which Aquatic Ecology module to use (must be a character in "emerge", "EL4P")
 #' @param N_female number of female mosquitoes
 #' @param N_male number of male mosquitoes
-#' @param time initial time to start populations
+#' @param time initial time to start populations (typically 0)
 #' @param ix_female vector of starting location indices for females (indices of \code{\link{AquaticSite}} they emerge from)
 #' @param ix_male vector of starting location indices for males (indices of \code{\link{AquaticSite}} they emerge from)
 #' @param genotype_female vector of genotpes for females

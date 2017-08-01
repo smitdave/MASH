@@ -20,7 +20,7 @@
 #'
 #'
 #' @param S pointer to list of starting sites (for example, Landscape$get_AquaSites())
-#' @param D pointer to list of destination sites
+#' @param D pointer to list of destination sites (for example, Landscape$get_FeedingSites())
 #' @param N number of random starting sites
 #' @param dMax maximum distance for distance bins
 #' @param dMesh granularity of distance bins

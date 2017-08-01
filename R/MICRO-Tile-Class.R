@@ -59,38 +59,63 @@ MicroTile <- R6::R6Class(classname = "MicroTile",
 
                    # Landscape_PAR: Landscape.Parameters (MICRO-Landscape-Parameters.R)
                    # HumanPop_PAR: HumanPop.Parameters (HUMANS-HumanPop-Parameters.R)
-                   # MosquitoPop_PAR: MBITES.XX.Parameters (MBITES-XX-Parameters.R)
+                   # MosquitoPop_PAR: MicroMosquitoPop.Setup (MOSQUITO-MosquitoPop-Parameters.R)
                    # directory: directory to write data to (ex: "/Users/slwu89/Desktop/mash.out/")
                    initialize = function(Landscape_PAR, HumanPop_PAR, MosquitoPop_PAR, directory){
 
-                     # set simulation time
-                     private$tNow = 0
+                     # Set Objects
 
-                     # generate objects
+                     # set simulation time
+                     private$tNow = 1
+
+                     # generate landscape object
                      private$Landscape = Landscape$new(Landscape_PAR)
+
+                     # generate human object
                      private$HumanPop = HumanPop$new(HumanPop_PAR)
 
                      # generate movement object
                      movement = MicroKernel_exactAll(private$Landscape,sigma=3,eps=0.1,beta=0)
 
-                     # generate mosquito object
-                     private$FemalePop = MicroMosquitoPopFemale$new()
+                     # generate female mosquito object
+                     private$FemalePop = MicroMosquitoPopFemale$new(N = MosquitoPop_PAR$N_female,  # number of female mosquitoes at initialization
+                                                                  time_init = MosquitoPop_PAR$time,  # time simulation begins
+                                                                  ix_init = MosquitoPop_PAR$ix_female,  # landscape indices of female mosquitoes
+                                                                  genotype_init = MosquitoPop_PAR$genotype_female,  # genotypes of females
+                                                                  MBITES_PAR = MosquitoPop_PAR$MBITES_PAR,  # M-BITES parameters
+                                                                  module = MosquitoPop_PAR$module,  # M-BITES module
+                                                                  movement = movement,  # movement object
+                                                                  directory = directory)  #  directory to write output
 
+
+                     # Set Pointers
 
                      # Human & HumanPop Pointers (duplicate for Humans in HumanPop$pop)
                      private$HumanPop$set_TilePointer(self)
                      private$HumanPop$set_LandscapePointer(private$Landscape)
+                     private$HumanPop$set_FemalePopPointer(private$FemalePop)
 
                      for(ixH in 1:private$HumanPop$nHumans){
                        private$HumanPop$get_Human(ixH)$set_TilePointer(self)
                        private$HumanPop$get_Human(ixH)$set_LandscapePointer(private$Landscape)
+                       private$HumanPop$get_Human(ixH)$set_FemalePopPointer(private$FemalePop)
                      }
 
                      # Landscape Pointers
                      private$Landscape$set_TilePointer(self)
                      private$Landscape$set_HumansPointer(private$HumanPop)
+                     private$Landscape$set_MosquitoPopFemalePointer(private$FemalePop)
 
+                     # Female Mosquito Population Pointers
+                     private$FemalePop$set_TilePointer(self)
+                     private$FemalePop$set_LandscapePointer(private$Landscape)
+                     private$FemalePop$set_HumansPointer(private$HumanPop)
 
+                     for(ixM in private$FemalePop$which_alive()){
+                       private$FemalePop$get_MosquitoIxM(ixM)$set_TilePointer(self)
+                       private$FemalePop$get_MosquitoIxM(ixM)$set_LandscapePointer(private$Landscape)
+                       private$FemalePop$get_MosquitoIxM(ixM)$set_HumansPointer(private$HumanPop)
+                     }
 
                    },
 

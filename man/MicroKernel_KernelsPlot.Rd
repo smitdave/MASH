@@ -10,7 +10,7 @@ MicroKernel_KernelsPlot(S, D, N = 50, dMesh = 0.01, dMax = NULL,
 \arguments{
 \item{S}{pointer to list of starting sites (for example, Landscape$get_AquaSites())}
 
-\item{D}{pointer to list of destination sites}
+\item{D}{pointer to list of destination sites (for example, Landscape$get_FeedingSites())}
 
 \item{N}{number of random starting sites}
 

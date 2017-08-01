@@ -17,7 +17,7 @@ MicroMosquitoPop.Setup(module, aquaModule, N_female, N_male = NULL,
 
 \item{N_male}{number of male mosquitoes}
 
-\item{time}{initial time to start populations}
+\item{time}{initial time to start populations (typically 0)}
 
 \item{ix_female}{vector of starting location indices for females (indices of \code{\link{AquaticSite}} they emerge from)}
 
