@@ -157,7 +157,7 @@ mbitesBRO_landingSpot <- function(){
 
 #' MBITES-BRO: Blood Feeding Bout \code{MicroMosquitoFemale}
 #'
-#' A mosquito runs a blood feeding bout (all actions taken launch to launch when blood feeding required).
+#' A mosquito performs a blood feeding bout (all actions taken launch to launch when blood feeding required).
 #'  * This method is bound to \code{MicroMosquitoFemale$boutB()}.
 #'
 #' @md
@@ -186,11 +186,53 @@ mbitesBRO_boutB <- function(){
 # MBITES-BRO: Post-Prandial Resting Bout
 #################################################################
 
+#' MBITES-BRO: Post-Prandial Resting Bout \code{MicroMosquitoFemale}
+#'
+#' A mosquito performs a post-prandial resting bout (all actions taken launch to launch when resting required).
+#'  * This method is bound to \code{MicroMosquitoFemale$boutR()}.
+#'
+#' @md
+mbitesBRO_boutR <- function(){
+  if(self$isAlive()){
+    if(private$FemalePopPointer$get_MBITES_PAR("REFEED")){
+      if(runif(1) < self$pReFeed()){
+        private$stateNew = "B"
+      } else {
+        private$stateNew = "O"
+      }
+    }
+  }
+}
+
 
 #################################################################
 # MBITES-BRO: Egg Laying Bout
 #################################################################
 
+#' MBITES-BRO: Egg Laying Bout \code{MicroMosquitoFemale}
+#'
+#' A mosquito performs a oviposition bout (all actions taken launch to launch when oviposition required).
+#'  * This method is bound to \code{MicroMosquitoFemale$boutO()}.
+#'
+#' @md
+mbitesBRO_boutO <- function(){
+  if(self$isAlive()){
+    self$layEggs()
+  }
+}
+
+#' MBITES-BRO: Lay Eggs \code{MicroMosquitoFemale}
+#'
+#' During an oviposition bout \code{\link{mbitesBRO_boutO}}, lay eggs (this is just a filler to clear out the \code{batch} field of the mosquito; egg laying is not implemented in any modules relying on "Emerge" Aquatic Ecology module)
+#'  * This method is bound to \code{MicroMosquitoFemale$layEggs()}.
+#'
+#' @md
+mbitesBRO_layEggs_Emerge <- function(){
+  if(runif(1) < private$FemalePopPointer$get_MBITES_PAR("O_succeed")){
+    private$batch = 0
+    private$stateNew = "B"
+  }
+}
 
 
 #################################################################
@@ -272,7 +314,7 @@ mbitesBro_oneBout <- function(){
 mbitesBro_MBITES <- function(){
 
   # run algorithm while alive and has not overrun tile time
-  while(private$tNext < private$TilePointer$get_tNow() && private$stateNew != "D"){
+  while(private$tNext < private$TilePointer$get_tNow() & private$stateNew != "D"){
     self$oneBout()
   }
 

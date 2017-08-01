@@ -57,7 +57,11 @@ MicroTile <- R6::R6Class(classname = "MicroTile",
                    # Initialize
                    #################################################
 
-                   initialize = function(Landscape_PAR, HumanPop_PAR, savePar = TRUE){
+                   # Landscape_PAR: Landscape.Parameters (MICRO-Landscape-Parameters.R)
+                   # HumanPop_PAR: HumanPop.Parameters (HUMANS-HumanPop-Parameters.R)
+                   # MBITES_PAR: MBITES.XX.Parameters (MBITES-XX-Parameters.R)
+                   # MBITES_module: character in {BRO,BROS,BROM,BROMS,FULL}
+                   initialize = function(Landscape_PAR, HumanPop_PAR, MBITES_PAR, MBITES_module){
 
                      # set simulation time
                      private$tNow = 0
@@ -66,35 +70,28 @@ MicroTile <- R6::R6Class(classname = "MicroTile",
                      private$Landscape = Landscape$new(Landscape_PAR)
                      private$HumanPop = HumanPop$new(HumanPop_PAR)
 
+                     # generate movement object
                      movement = MicroKernel_exactAll(private$Landscape,sigma=3,eps=0.1,beta=0)
+
+                     # generate mosquito object
+                     private$FemalePop = MicroMosquitoPopFemale$new()
 
 
                      # Human & HumanPop Pointers (duplicate for Humans in HumanPop$pop)
                      private$HumanPop$set_TilePointer(self)
                      private$HumanPop$set_LandscapePointer(private$Landscape)
 
-                     # Human & HumanPop initilization
                      for(ixH in 1:private$HumanPop$nHumans){
-                       # pointers
                        private$HumanPop$get_Human(ixH)$set_TilePointer(self)
                        private$HumanPop$get_Human(ixH)$set_LandscapePointer(private$Landscape)
-                      #  # travel
-                      #  private$HumanPop$get_Human(ixH)$set_location(MacroTile_PAR$HumanPop_PAR$homeIDs[ixH])
-                      #  private$HumanPop$get_Human(ixH)$set_patchID(MacroTile_PAR$HumanPop_PAR$homeIDs[ixH])
-                      #  private$HumanPop$get_Human(ixH)$init_travel(n=2)
-                      #  # update baseline human biting weight
-                      #  myPatch = private$HumanPop$get_Human(ixH)$get_patchID()
-                      #  private$Patches$accumulate_bWeightHuman(bWeightHuman = private$HumanPop$get_Human(ixH)$get_bWeight(), ix = myPatch)
                      }
 
                      # Landscape Pointers
                      private$Landscape$set_TilePointer(self)
                      private$Landscape$set_HumansPointer(private$HumanPop)
 
-                     if(savePar){
-                       private$Landscape_PAR = Landscape_PAR
-                       private$HumanPop_PAR = HumanPop_PAR
-                     }
+
+
                    },
 
                    #################################################################
@@ -103,9 +100,6 @@ MicroTile <- R6::R6Class(classname = "MicroTile",
 
                    get_tNow = function(){return(private$tNow)},
                    set_tNow = function(tNow){private$tNow = tNow},
-
-                   get_MicroTile_PAR = function(){return(private$tNow)},
-                   set_MicroTile_PAR = function(MicroTile_PAR){private$MicroTile_PAR = MicroTile_PAR},
 
                    get_HumanPop = function(){return(private$HumanPop)},
 

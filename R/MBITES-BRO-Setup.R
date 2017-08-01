@@ -13,7 +13,7 @@
 # Initialize Methods and Fields (Setup)
 #################################################################
 
-#' MBITES-BRO: Initialize Additional Methods & Fields in \code{MicroMosquitoPop} and \code{MicroMosquito}
+#' MBITES-BRO: Initialize Additional Methods & Fields in \code{\link{MicroMosquitoPopFemale}} and \code{\link{MicroMosquitoFemale}}
 #'
 #' Initialize M-BITES BRO (Blood Feeding, Resting, Oviposition) lifecycle model.
 #'

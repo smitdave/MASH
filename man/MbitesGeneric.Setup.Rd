@@ -4,7 +4,7 @@
 \alias{mbitesGeneric.Setup}
 \title{Initialize Generic Methods for M-BITES}
 \usage{
-mbitesGeneric.Setup(overwrite = TRUE)
+mbitesGeneric.Setup(overwrite = TRUE, batchSize = "bms", eggMatT = "off")
 }
 \arguments{
 \item{batchSize}{character switch that should be one of \code{"bms","norm"} for egg batch sizes dependent on bloodmeal size or normally distributed}

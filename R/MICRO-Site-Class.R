@@ -9,90 +9,6 @@
 #################################################################
 
 #################################################################
-# Generic Site Definition
-#################################################################
-
-#' MICRO Generic Site Class Definition
-#'
-#'
-#'
-#'
-#' @docType class
-#' @format An \code{\link{R6Class}} generator object
-#' @keywords R6 class
-#' @details
-#'
-#'
-#'
-#'
-#'
-#' @section Methods:
-#' \describe{
-#'   \item{\code{new(reg, DataStorageClass.g0, ...)}}{...}
-#'   \item{\code{fit(data)}}{...}
-#'   \item{\code{predict(newdata)}}{...}
-#'   \item{\code{predictAeqa(newdata)}}{...}
-#' }
-#' @section Active Bindings:
-#' \describe{
-#'   \item{\code{cats}}{...}
-#' }
-#' @export
-MicroSite <- R6::R6Class(classname = "Site",
-                 portable = TRUE,
-                 cloneable = FALSE,
-                 lock_class = FALSE,
-                 lock_objects = FALSE,
-
-                 # public members
-                 public = list(
-
-                   #################################################
-                   # Getters and Setters
-                   #################################################
-
-                   # site index
-                   get_ix = function(){return(private$ix)},
-                   set_ix = function(ix){private$ix = ix},
-
-                   # site coordinates
-                   get_siteXY = function(){return(private$siteXY)},
-                   set_siteXY = function(newSiteXY){private$siteXY = siteXY},
-
-                   # search weight
-                   get_searchWt = function(){return(private$searchWt)},
-                   set_searchWt = function(searchWt){private$searchWt = searchWt},
-
-                   # site type (1 is domestic, 0 is not peri-domestic)
-                   get_siteType = function(){return(private$siteType)},
-                   set_siteType = function(siteType){priate$siteType = siteType},
-
-                   #################################################
-                   # Pointers
-                   #################################################
-
-                   # landscape pointer
-                   get_LandscapePointer = function(){return(private$LandscapePointer)},
-                   set_LandscapePointer = function(LandscapePointer){private$LandscapePointer = LandscapePointer}
-
-                 ),
-
-                 # private members
-                 private = list(
-
-                   ix = 0L,
-                   siteXY = vector(mode="numeric",length=2L),
-                   searchWt = 0L,
-                   siteType = NULL,   # an aquatic or sugar site could be inside of a house, for example.
-
-                   # Pointers
-                   LandscapePointer = NULL
-
-                 )
-)
-
-
-#################################################################
 # Blood Feeding Site
 #################################################################
 
@@ -121,7 +37,6 @@ MicroSite <- R6::R6Class(classname = "Site",
 #' @md
 #' @export
 FeedingSite <- R6::R6Class(classname = "FeedingSite",
-                 inherit = MicroSite,
                  portable = TRUE,
                  cloneable = FALSE,
                  lock_class = FALSE,
@@ -152,6 +67,26 @@ FeedingSite <- R6::R6Class(classname = "FeedingSite",
                    #################################################
                    # Getters and Setters
                    #################################################
+
+                   # Generic
+
+                   # site index
+                   get_ix = function(){return(private$ix)},
+                   set_ix = function(ix){private$ix = ix},
+
+                   # site coordinates
+                   get_siteXY = function(){return(private$siteXY)},
+                   set_siteXY = function(newSiteXY){private$siteXY = siteXY},
+
+                   # search weight
+                   get_searchWt = function(){return(private$searchWt)},
+                   set_searchWt = function(searchWt){private$searchWt = searchWt},
+
+                   # site type (1 is domestic, 0 is not peri-domestic)
+                   get_siteType = function(){return(private$siteType)},
+                   set_siteType = function(siteType){priate$siteType = siteType},
+
+                   # FeedingSite
 
                    # vegetation hazards
                    get_hazV = function(){return(private$hazV)},
@@ -186,19 +121,36 @@ FeedingSite <- R6::R6Class(classname = "FeedingSite",
 
                    # host risk queue
                    get_RiskQ = function(){return(private$RiskQ)},
-                   set_RiskQ = function(RiskQ){private$RiskQ = RiskQ}
+                   set_RiskQ = function(RiskQ){private$RiskQ = RiskQ},
+
+                   #################################################
+                   # Pointers
+                   #################################################
+
+                   # landscape pointer
+                   get_LandscapePointer = function(){return(private$LandscapePointer)},
+                   set_LandscapePointer = function(LandscapePointer){private$LandscapePointer = LandscapePointer}
 
                  ),
 
                  # private members
                  private = list(
 
+                   # generic fields
+                   ix = 0L,
+                   siteXY = vector(mode="numeric",length=2L),
+                   searchWt = 0L,
+                   siteType = NULL,   # an aquatic or sugar site could be inside of a house, for example.
+
+                   # FeedingSite fields
                    hazV = NULL,      # vegetation hazards
                    hazW = NULL,      # outside wall hazards
                    hazI = NULL,      # inside wall hazards
-                  #  sugar = NULL,     # sugar source (only used in MBITES-BRO and MBITES-BROM)
                    enterP = NULL,    # house entry probability
-                   RiskQ = NULL      # host risk queue
+                   RiskQ = NULL,      # host risk queue
+
+                   # Pointers
+                   LandscapePointer = NULL
 
                  )
 )
@@ -240,7 +192,6 @@ FeedingSite <- R6::R6Class(classname = "FeedingSite",
 #' }
 #' @export
 AquaticSite <- R6::R6Class(classname = "AquaticSite",
-                 inherit = MicroSite,
                  portable = TRUE,
                  cloneable = FALSE,
                  lock_class = FALSE,
@@ -254,7 +205,7 @@ AquaticSite <- R6::R6Class(classname = "AquaticSite",
                    #################################################
 
                    # maxQ: pre-alloc ImagoQ and EggQ size
-                   initialize = function(ix, siteXY, searchWt, module, lambda = NULL, haz = 0, siteType = 0L, maxQ = 20L){
+                   initialize = function(ix, siteXY, searchWt, module, lambda = NULL, haz = 0, siteType = 0L){
 
                      # generic fields
                      private$ix = ix
@@ -268,11 +219,9 @@ AquaticSite <- R6::R6Class(classname = "AquaticSite",
 
                      # Aquatic Ecology Emerge module fields
                      if(module == "emerge"){
-                       # Emerge module
                        private$lambda = lambda
                      } else if(module == "EL4P"){
-                       # EL4P module
-                       private$EggQ = allocEggQ(N = maxQ)
+                       private$EggQ = MASH::EggQ()
                      } else {
                        stop("unrecognized module")
                      }
@@ -282,6 +231,26 @@ AquaticSite <- R6::R6Class(classname = "AquaticSite",
                    #################################################
                    # Getters and Setters
                    #################################################
+
+                   # Generic
+
+                   # site index
+                   get_ix = function(){return(private$ix)},
+                   set_ix = function(ix){private$ix = ix},
+
+                   # site coordinates
+                   get_siteXY = function(){return(private$siteXY)},
+                   set_siteXY = function(newSiteXY){private$siteXY = siteXY},
+
+                   # search weight
+                   get_searchWt = function(){return(private$searchWt)},
+                   set_searchWt = function(searchWt){private$searchWt = searchWt},
+
+                   # site type (1 is domestic, 0 is not peri-domestic)
+                   get_siteType = function(){return(private$siteType)},
+                   set_siteType = function(siteType){priate$siteType = siteType},
+
+                   # AquaticSite
 
                    get_haz = function(){return(private$haz)},
                    set_haz = function(haz){private$haz = haz},
@@ -293,20 +262,36 @@ AquaticSite <- R6::R6Class(classname = "AquaticSite",
                    set_EggQ = function(EggQ){private$EggQ = EggQ},
 
                    get_lambda = function(){return(private$lambda)},
-                   set_lambda = function(lambda){private$lambda = lambda}
+                   set_lambda = function(lambda){private$lambda = lambda},
+
+                   #################################################
+                   # Pointers
+                   #################################################
+
+                   # landscape pointer
+                   get_LandscapePointer = function(){return(private$LandscapePointer)},
+                   set_LandscapePointer = function(LandscapePointer){private$LandscapePointer = LandscapePointer}
 
                  ),
 
                  # private members
                  private = list(
 
-                   haz = NULL,
+                   # generic fields
+                   ix = 0L,
+                   siteXY = vector(mode="numeric",length=2L),
+                   searchWt = 0L,
+                   siteType = NULL,   # an aquatic or sugar site could be inside of a house, for example.
 
+                   # AquaticSite fields
+
+                   haz = NULL,
                    ImagoQ = NULL,
                    EggQ = NULL,
+                   lambda = NULL,
 
-                   # Emerge fields
-                   lambda = NULL
+                   # Pointers
+                   LandscapePointer = NULL
 
                  )
 )

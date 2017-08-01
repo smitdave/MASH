@@ -1,9 +1,8 @@
 #################################################################
 #
 #   MASH
-#   R6-ified
-#   Aquatic Ecology for Sites:
-#   Specific Functions for "Emerge" Module
+#   MICRO Aquatic Ecology: Emerge
+#   Method definitions
 #   Hector Sanchez & David Smith, Hector Sanchez, Sean Wu
 #   May 10, 2017
 #
@@ -43,71 +42,6 @@ makeLambda_Micro <- function(aquaPars){
 
     return(lambdaOut)
   })
-
-}
-
-
-#################################################################
-# Setup
-#################################################################
-
-#' Initialize Emerge MODULE
-#'
-#' This function initializes methods and fields for the 'Emerge' MODULE of Aquatic Ecology COMPONENT.
-#' It modifies \code{\link{AquaticSite}} and \code{\link{Landscape}} classes.
-#'
-#' @param dunno sdf
-#' @return stuff
-#' @examples
-#' Aqua.Emerge.Setup()
-#' @export
-MICRO.Emerge.Setup <- function(overwrite = TRUE){
-
-  message("initializing 'Emerge' module for Aquatic Ecology")
-
-  #################################################################
-  # One Day 'Emerge'
-  #################################################################
-
-  # lambda to ImagoQ
-  AquaticSite$set(which = "public",name = "oneDay_EmergeSite",
-            value = oneDay_MicroEmergeSite,
-            overwrite = overwrite
-  )
-
-  # lambda to ImagoQ
-  Landscape$set(which = "public",name = "oneDay_Emerge",
-            value = oneDay_MicroEmerge,
-            overwrite = overwrite
-  )
-
-  # ImagoQ to MicroMosquitoPopFemale
-  AquaticSite$set(which = "public",name = "addCohort_MicroEmerge",
-            value = addCohort_MicroEmergeSite,
-            overwrite = overwrite
-  )
-
-  # ImagoQ to MicroMosquitoPopFemale
-  Landscape$set(which = "public",name = "addCohort_MicroEmerge",
-            value = addCohort_MicroEmerge,
-            overwrite = overwrite
-  )
-
-
-
-  #################################################################
-  # Lambda
-  #################################################################
-
-  AquaticSite$set(which = "public",name = "get_lambda",
-            value = get_MicroLambda,
-            overwrite = overwrite
-  )
-
-  AquaticSite$set(which = "public",name = "set_lambda",
-            value = set_MicroLambda,
-            overwrite = overwrite
-  )
 
 }
 
@@ -174,7 +108,7 @@ oneDay_MicroEmergeSite <- function(tNow){
 #' This method is bound to \code{Landscape$oneDay_Emerge()}.
 #'
 oneDay_MicroEmerge <- function(){
-  tNow = self$get_TilePointer()$get_tNow()
+  tNow = private$TilePointer$get_tNow()
   for(ixA in 1:self$AquaSitesN){
     private$AquaSites[[ixA]]$oneDay_EmergeSite(tNow)
   }
@@ -183,28 +117,35 @@ oneDay_MicroEmerge <- function(){
 
 #' MICRO \code{\link{Landscape}} Method: Get Emerging Adults from ImagoQ and Zero out ImagoQ
 #'
-#' Grab emerging adult batches where tEmerge <= tNow and add to the \code{\link{MicroMosquitoPop}}.
+#' Grab emerging adult batches where tEmerge <= tNow and add to the \code{\link{MicroMosquitoPopFemale}}.
 #' This is a helper function for \code{\link{addCohort_MicroEmerge}}.
-#' This method is bound to \code{AquaticSite$addCohort_MicroEmerge()}.
+#' This method is bound to \code{AquaticSite$addCohort_MicroEmergeSite()}.
 #'
-addCohort_MicroEmergeSite <- function(){
-  tNow = self$get_TilePointer()$get_tNow()
+addCohort_MicroEmergeSite <- function(tNow){
   # use tNow in the TILE and see who is ready to be taken from ImagoQ into the MosyPop.
-  # return(
-  #   private$ImagoQ$get_ImagoQTime(tNow = tNow,clear = TRUE)
-  # )
+  EmeringAdults = private$ImagoQ$get_ImagoQTime(tNow = tNow,clear = TRUE)
+
+  if(length(EmeringAdults) > 0){
+    for(i in 1:length(EmergingAdults)){
+      private$LandscapePointer$get_MosquitoPopFemalePointer()$push_pop(N = EmeringAdults[[i]]$N, tEmerge = EmeringAdults[[i]]$tEmerge, ix = private$ix, genotype = EmeringAdults[[i]]$genotype, damID = EmeringAdults[[i]]$damID, sireID = EmeringAdults[[i]]$sireID)
+    }
+  }
+
+  rm(EmeringAdults)
 }
 
 
 #' MICRO \code{\link{Landscape}} Method: Get Emerging Adults from ImagoQ and Zero out ImagoQ
 #'
-#' Grab emerging adult batches where tEmerge <= tNow and add to the \code{\link{MicroMosquitoPop}}.
+#' Grab emerging adult batches where tEmerge <= tNow and add to the \code{\link{MicroMosquitoPopFemale}}.
 #' This method is bound to \code{Landscape$addCohort_MicroEmerge()}
 #'
 #' @return does stuff
 #' @examples
 #' some_function()
 addCohort_MicroEmerge <- function(){
-  tNow = self$get_TilePointer()$get_tNow()
-
+  tNow = private$TilePointer$get_tNow()
+  for(ixA in 1:self$AquaSitesN){
+    private$AquaSites[[ixA]]$addCohort_MicroEmergeSite(tNow)
+  }
 }

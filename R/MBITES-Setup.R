@@ -21,11 +21,6 @@
 #' and MicroMosquitoMale classes. Different genotypes still depend on the internal list of parameters
 #' to parameterize these functions and functional forms for equations.
 #'
-#' @param TATTER
-#' @param SENESCE
-#' @param SUGAR
-#' @param OVERFEED
-#' @param REFEED
 #' @param batchSize character switch that should be one of \code{"bms","norm"} for egg batch sizes dependent on bloodmeal size or normally distributed
 #' @param eggMatT character switch that should be one of \code{"off","norm"} for egg batch maturation time turned off or normally distributed
 #'
@@ -33,7 +28,11 @@
 #'
 #' @return modifies the \code{MicroMosquitoFemale} and \code{MicroMosquitoMale} classes.
 #' @export
-mbitesGeneric.Setup <- function(overwrite = TRUE){
+mbitesGeneric.Setup <- function(
+  overwrite = TRUE,
+  batchSize = "bms",
+  eggMatT = "off"
+  ){
 
   # alert user
   message("initializing M-BITES generic shared methods")
@@ -42,14 +41,64 @@ mbitesGeneric.Setup <- function(overwrite = TRUE){
   # Checks of Life Status
   ##############################################################
 
-  MicroMosquito$set(which = "public",name = "isAlive",
+  MicroMosquitoFemale$set(which = "public",name = "isAlive",
             value = mbitesGeneric_isAlive,
             overwrite = overwrite
   )
 
-  MicroMosquito$set(which = "public",name = "isActive",
+  MicroMosquitoFemale$set(which = "public",name = "isActive",
             value = mbitesGeneric_isActive,
             overwrite = overwrite
   )
+
+  MicroMosquitoMale$set(which = "public",name = "isAlive",
+            value = mbitesGeneric_isAlive,
+            overwrite = overwrite
+  )
+
+  MicroMosquitoMale$set(which = "public",name = "isActive",
+            value = mbitesGeneric_isActive,
+            overwrite = overwrite
+  )
+
+  ##############################################################
+  # Egg Batch Switches
+  ##############################################################
+
+  # rBatchSize
+  switch(batchSize,
+    bms = {
+      MicroMosquitoFemale$set(which = "public",name = "rBatchSize",
+                value = mbitesGeneric_rBatchSizeBms,
+                overwrite = overwrite
+      )
+    },
+    norm = {
+      MicroMosquitoFemale$set(which = "public",name = "rBatchSize",
+                value = mbitesGeneric_rBatchSizeNorm,
+                overwrite = overwrite
+      )
+    },
+    {stop("unrecognized entry for batchSize")}
+  )
+
+  # rEggMaturationTime
+  switch(eggMatT,
+    off = {
+      MicroMosquitoFemale$set(which = "public",name = "rEggMaturationTime",
+                value = mbitesGeneric_rEggMaturationTimeOff,
+                overwrite = overwrite
+      )
+    },
+    norm = {
+      MicroMosquitoFemale$set(which = "public",name = "rEggMaturationTime",
+                value = mbitesGeneric_rEggMaturationTimeNorm,
+                overwrite = overwrite
+      )
+    },
+    {stop("unrecognized entry for eggMatT")}
+  )
+
+
 
 }

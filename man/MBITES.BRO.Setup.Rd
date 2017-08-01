@@ -2,7 +2,7 @@
 % Please edit documentation in R/MBITES-BRO-Setup.R
 \name{MBITES.BRO.Setup}
 \alias{MBITES.BRO.Setup}
-\title{MBITES-BRO: Initialize Additional Methods & Fields in \code{MicroMosquitoPop} and \code{MicroMosquito}}
+\title{MBITES-BRO: Initialize Additional Methods & Fields in \code{\link{MicroMosquitoPopFemale}} and \code{\link{MicroMosquitoFemale}}}
 \usage{
 MBITES.BRO.Setup(overwrite = TRUE)
 }

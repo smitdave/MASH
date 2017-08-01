@@ -17,7 +17,7 @@ MicroKernel_SampleMvOb_MicroMosquitoPopFemale(ixS, state, inPointSet)
 new index
 }
 \description{
-This method is a helper for \code{\link{MicroKernel_moveMe}} and samples the appropriate MvOb in MvAll in the enclosing \code{\link{MicroMosquitoPop}} object.
+This method is a helper for \code{\link{MicroKernel_moveMe}} and samples the appropriate MvOb in MvAll in the enclosing \code{\link{MicroMosquitoPopFemale}} object.
 \itemize{
 \item This function is bound to \code{MicroMosquitoPopFemale$SampleMove}
 }

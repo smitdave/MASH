@@ -177,13 +177,6 @@ HumanPop_set_humanPfMOI <- function(b = NULL, c = NULL){
 }
 
 
-###################################################################
-# Add PfMOI Pathogen Object to 'MicroMosquitoFemale' & 'MicroMosquitoPopFemale' Class
-###################################################################
-
-# DO THIS WHEN MOSQUITOES EXIST
-
-
 #################################################################
 # PfMOI Event Timing
 #################################################################
@@ -273,36 +266,66 @@ PfMOI_ttGSWanePf <- function(){
   return(rnorm(n = 1, mean = self$get_PfMOI_PAR("mnGSPf"), sd = self$get_PfMOI_PAR("vrGSPf")))
 }
 
+
 ###################################################################
-# PfMOI Diagnostics
+# PfMOI Methods for 'MicroMosquitoFemale'
 ###################################################################
 
-#' PfMOI \code{Human} Method: Rapid Diagnostic Test
+#' PfMOI Helper Code for Pathogen Initialization in \code{\link{MicroMosquitoFemale}}
 #'
-#' Administer RDT to this human.
-#'  * if infected: true positive is detected with probability \code{rdtSensPf}, see \code{\link{PfMOI.Parameters}}
-#'  * if susceptible: false positive is detected with probability \code{rdtSpecPf}, see \code{\link{PfMOI.Parameters}}
+#' Initializes an empty PfMOI pathogen in \code{\link{MicroMosquitoFemale}} called during object initialization.
+#'  * This method is bound to \code{MicroMosquitoFemale$init_Pathogens()}
+#'
 #' @md
-rdtTest_PfMOI <- function(tEvent, PAR){
-  if(private$Pathogens$get_MOI()>0){
-    runif(1) < self$get_PfMOI_PAR("rdtSensPf")
-  } else {
-    runif(1) < self$get_PfMOI_PAR("rdtSpecPf")
+#' @export
+init_Pathogens_PfMOI <- function(){
+  private$Pathogens = MASH::PfMOI()
+}
+
+#' PfMOI \code{\link{MicroMosquitoFemale}} Method: Host Probing
+#'
+#' The mosquito probes the host prior to successful feeding. Probing occurs during code\{MicroMosquitoFemale$humanEncounter()}.
+#' Mosquito to human pathogen transmission occurs during host probing.
+#' If the PfMOI infection(s) has passed the EIP, \code{\link{probeHost_PfMOI}} is called via the mosquito's pointer to the \code{\link{HumanPop}} class
+#' to initiate the PfMOI infection process.
+#'  * This method is bound to \code{MicroMosquitoFemale$probing()}
+#'
+#' @md
+probing_PfMOI <- function(){
+  # if mosquito has active infection(s) that have passed the EIP
+  if(private$Pathogens$get_MOI() > 0 & length(private$Pathogens$which_EIP(private$tNow - private$FemalePopPointer$get_MBITES_PAR("PfEIP")) > 0)){
+    # pass mosquitoPfMOI object to probed human
+    private$HumansPointer$get_Human(ixH = private$hostID)$probeHost_PfMOI(tBite = private$tNow, EIP = private$FemalePopPointer$get_MBITES_PAR("PfEIP"), mosquitoPfMOI = private$Pathogens)
   }
 }
 
-#' PfMOI \code{Human} Method: Light Microscopy Test
+#' PfMOI \code{\link{MicroMosquitoFemale}} Method: Host Feeding
 #'
-#' Administer light microscopy to this human.
-#'  * if infected: true positive is detected with probability \code{lmSensPf}, see \code{\link{PfMOI.Parameters}}
-#'  * if susceptible: false positive is detected with probability \code{lmSpecPf}, see \code{\link{PfMOI.Parameters}}
+#' The mosquito feeds on the host. Feeding occurs during code\{MicroMosquitoFemale$humanEncounter()}.
+#' Human to mosquito pathogen transmission occurs during host feeding.
+#'  * This method is bound to \code{MicroMosquitoFemale$feeding()}
+#'
 #' @md
-lmTest_PfMOI <- function(tEvent, PAR){
-  if(private$Pathogens$get_MOI()>0){
-    runif(1) < self$get_PfMOI_PAR("lmSensPf")
-  } else {
-    runif(1) < self$get_PfMOI_PAR("lmSpecPf")
+feeding_PfMOI <- function(){
+  hostMOI = private$HumansPointer$get_Human(ixH = private$hostID)$get_Pathogens()$get_MOI()
+
+  if(hostMOI > 0){
+    infectionsN = max(hostMOI,private$HumansPointer$get_PfMOI_PAR("HumanMaxI"))
+    infections = private$HumansPointer$get_Human(ixH = private$hostID)$get_Pathogens()$get_Infection()
+
+    for(i in 1:infectionsN){
+
+      private$Pathogens$add_Infection(
+          PfID_new = infections$PfID[i],
+          tInf_new = private$tNow,
+          damID_new = infections$damID[i],
+          sireID_new = infections$sireID[i],
+      )
+
+    }
+
   }
+
 }
 
 
@@ -316,24 +339,50 @@ lmTest_PfMOI <- function(tEvent, PAR){
 # Add methods to 'Human' Class
 ###################################################################
 
-# #' PfMOI \code{Human} Method: Host Probing
-# #'
-# #' This method is called by a mosquito when she probes a human host, but may also be called by \code{\link{SimBitePfSI}} as a filler.
-# #' If the biting mosquito is infectious, the method calls \code{\link{infectiousBite_PfSI}}, otherwise does nothing.
-# #' This method is bound to \code{Human$probeHost_PfSI()}
-# #'
-# #' @param tBite time of bite
-# #' @param mosquitoPfSI \code{\link{mosquitoPfSI}} object passed from mosquito to human
-# probeHost_SimBitePfMOI <- function(tBite, mosquitoPfSI){
-#   MOI = mosquitoPfMOI$get_MOI()
-#
-#   if(MOI>0){
-#     N = self$get_PfMOI_PAR("MosyMaxI")
-#     infWhich = mosquitoPfMOI$which_EIP(tBite - # EIP #)
-#     # only add those infections that have passed the EIP (which should be kept in the mosquito)
-#   }
-#
-# }
+#' PfMOI \code{\link{Human}} Method: Simulated Host Probing
+#'
+#' This method is a filler for a host probing event in called in \code{\link{SimBitePfMOI}}.
+#' If the \code{\link{mosquitoPfMOI}} has MOI > 0 this function calls \code{\link{infectiousBite_PfMOI}} until all infections exhausted or paramter "MosyMaxI" is reached.
+#'  * This method is bound to \code{Human$probeHost_PfMOI()} after correct initialization with \code{\link{SimBitePfMOI.Setup}}.
+#'
+#' @param tBite time of bite
+#' @param mosquitoPfMOI \code{\link{mosquitoPfMOI}} object passed from mosquito to human
+#' @md
+probeHost_SimBitePfMOI <- function(tBite, mosquitoPfMOI){
+
+  MOI = mosquitoPfMOI$get_MOI()
+
+  if(MOI>0){
+    N = self$get_PfMOI_PAR("MosyMaxI")
+
+    infNum = max(MOI,N)
+    for(i in 1:infNum){
+      PAR = mosquitoPfMOI$get_InfectionIx(i)
+      self$infectiousBite_PfMOI(tBite, PAR)
+    }
+  }
+
+}
+
+#' PfMOI \code{\link{Human}} Method: Host Probing
+#'
+#' This method is called by a mosquito when she probes a human host, but may also be called by \code{\link{SimBitePfSI}} as a filler.
+#' If the biting mosquito is infectious, the method calls \code{\link{infectiousBite_PfMOI}}, otherwise does nothing.
+#'  * This method is bound to \code{Human$probeHost_PfMOI()}
+#'
+#' @param tBite time of bite
+#' @param EIP length of entomological incubation period
+#' @param mosquitoPfMOI \code{\link{mosquitoPfMOI}} object passed from mosquito to human
+#' @md
+probeHost_PfMOI <- function(tBite, EIP, mosquitoPfMOI){
+
+  infections = mosquitoPfMOI$get_InfectionEIP(tBite - EIP)
+  infectionsN = max(length(infections),self$get_PfMOI_PAR("MosyMaxI"))
+
+  for(i in 1:infectionsN){
+    self$infectiousBite_PfMOI(tBite, PAR = list(PfID = infections$PfID[i],damID = infections$damID[i],sireID = infections$sireID[i]))
+  }
+}
 
 #' PfMOI \code{Human} Method: Infectious Bite on Human
 #'
@@ -350,39 +399,6 @@ infectiousBite_PfMOI <- function(tBite, PAR){
     self$add2Q_infectHumanPfMOI(tEvent = tInfStart, PAR = PAR)
   }
 }
-
-
-###################################################################
-# PfMOI: Human to Mosquito infectious bite
-# Add methods to 'MicroMosquitoFemale' Classe
-###################################################################
-
-# infectMosquito_PfMOI <- function(){
-#
-# }
-
-# # From bloodstream infection to infect the mosquito
-#
-# infectMosquito_PfMOI = function(ixH, t, x, y){with(HUMANS[[ixH]]$Pathogens$Pf,{
-#   if(MOI>0 & rbinom(1,1,HUMANS[[ixH]]$Pathogens$Pf$c)){
-#       return(makePfM(ixH, t, x, y))
-#   } else {
-#     return(list(infected=FALSE))
-#   }
-# })}
-#
-# pathOBJ_PfMOI = function(b=Pf_b, c=Pf_c){
-#   list(
-#     MOI = 0,
-#     pfid = 0,
-#     chemoprophylaxis = FALSE,
-#     b = b,
-#     c = c,
-#     eventT = -1,
-#     events = "init",
-#     MOIvsT = 0
-#   )
-# }
 
 
 ###################################################################
@@ -816,4 +832,37 @@ event_gswanePfMOI <- function(tEvent, PAR = NULL){
 gswanePfMOI <- function(tEvent, PAR){
   private$Pathogens$set_c(self$get_PfMOI_PAR("Pf_c"))
   private$Pathogens$track_history(tEvent = tEvent, event = "GSwane")
+}
+
+
+###################################################################
+# PfMOI Diagnostics
+###################################################################
+
+#' PfMOI \code{Human} Method: Rapid Diagnostic Test
+#'
+#' Administer RDT to this human.
+#'  * if infected: true positive is detected with probability \code{rdtSensPf}, see \code{\link{PfMOI.Parameters}}
+#'  * if susceptible: false positive is detected with probability \code{rdtSpecPf}, see \code{\link{PfMOI.Parameters}}
+#' @md
+rdtTest_PfMOI <- function(tEvent, PAR){
+  if(private$Pathogens$get_MOI()>0){
+    runif(1) < self$get_PfMOI_PAR("rdtSensPf")
+  } else {
+    runif(1) < self$get_PfMOI_PAR("rdtSpecPf")
+  }
+}
+
+#' PfMOI \code{Human} Method: Light Microscopy Test
+#'
+#' Administer light microscopy to this human.
+#'  * if infected: true positive is detected with probability \code{lmSensPf}, see \code{\link{PfMOI.Parameters}}
+#'  * if susceptible: false positive is detected with probability \code{lmSpecPf}, see \code{\link{PfMOI.Parameters}}
+#' @md
+lmTest_PfMOI <- function(tEvent, PAR){
+  if(private$Pathogens$get_MOI()>0){
+    runif(1) < self$get_PfMOI_PAR("lmSensPf")
+  } else {
+    runif(1) < self$get_PfMOI_PAR("lmSpecPf")
+  }
 }

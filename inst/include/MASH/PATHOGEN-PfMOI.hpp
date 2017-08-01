@@ -89,6 +89,7 @@ public:
     damID.push_back(damID_new);
     sireID.push_back(sireID_new);
     MOI += 1;
+    // eventually can push back this stuff to some history vectors.
   };
 
   // completely clear the infection associated with index ix
@@ -100,6 +101,43 @@ public:
     damID.erase(damID.begin()+ix);
     sireID.erase(sireID.begin()+ix);
     MOI -= 1;
+  };
+
+  // get all infections where PfID != -1
+  Rcpp::List get_Infection(){
+
+    std::vector<int> infIx;
+    auto it = std::find_if(PfID.begin(), PfID.end(), [](const int &PfID_iter){
+        return(PfID_iter != -1);
+    });
+    while(it != PfID.end()){
+        infIx.emplace_back(std::distance(PfID.begin(), it));
+        it = std::find_if(std::next(it), std::end(PfID), [](const int &PfID_iter){
+            return(PfID_iter != -1);
+        });
+    }
+
+    // export these infections that have passed the EIP
+    std::vector<int> PfID_out;
+    std::vector<int> damID_out;
+    std::vector<int> sireID_out;
+    std::transform(infIx.begin(), infIx.end(), std::back_inserter(PfID_out), [this](size_t ix){
+      return(PfID[ix]);
+    });
+    std::transform(infIx.begin(), infIx.end(), std::back_inserter(damID_out), [this](size_t ix){
+      return(damID[ix]);
+    });
+    std::transform(infIx.begin(), infIx.end(), std::back_inserter(sireID_out), [this](size_t ix){
+      return(sireID[ix]);
+    });
+
+    return(
+      Rcpp::List::create(
+        Rcpp::Named("PfID") = PfID_out,
+        Rcpp::Named("damID") = damID_out,
+        Rcpp::Named("sireID") = sireID_out
+      )
+    );
   };
 
   ///////////////////////////////////
@@ -266,19 +304,19 @@ public:
     // find infections where tInf < tNow - EIP (incubation)
     std::vector<int> incubationIx;
     auto it = std::find_if(tInf.begin(), tInf.end(), [incubation](const double &infectionTime){
-        return(infectionTime <= incubation);
+        return(infectionTime < incubation && infectionTime != -1);
     });
     while(it != tInf.end()){
         incubationIx.emplace_back(std::distance(tInf.begin(), it));
         it = std::find_if(std::next(it), std::end(tInf), [incubation](const double &infectionTime){
-            return(infectionTime <= incubation);
+            return(infectionTime < incubation && infectionTime != -1);
         });
     }
 
     // export these infections that have passed the EIP
-    std::vector<int> PfID_out(incubationIx.size());
-    std::vector<int> damID_out(incubationIx.size());
-    std::vector<int> sireID_out(incubationIx.size());
+    std::vector<int> PfID_out;
+    std::vector<int> damID_out;
+    std::vector<int> sireID_out;
     std::transform(incubationIx.begin(), incubationIx.end(), std::back_inserter(PfID_out), [this](size_t ix){
       return(PfID[ix]);
     });
@@ -304,12 +342,12 @@ public:
     // find infections where tInf < tNow - EIP (incubation)
     std::vector<int> incubationIx;
     auto it = std::find_if(tInf.begin(), tInf.end(), [incubation](const double &infectionTime){
-        return(infectionTime <= incubation);
+        return(infectionTime < incubation && infectionTime != -1);
     });
     while(it != tInf.end()){
         incubationIx.emplace_back(std::distance(tInf.begin(), it));
         it = std::find_if(std::next(it), std::end(tInf), [incubation](const double &infectionTime){
-            return(infectionTime <= incubation);
+            return(infectionTime < incubation && infectionTime != -1);
         });
     }
 

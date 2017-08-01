@@ -114,6 +114,9 @@ humanPfMOI:
         - PfID_ix: int
       return_type: void
 
+    get_Infection:
+      return_type: "Rcpp::List"
+
     # PfMOI History
     track_history:
       args:

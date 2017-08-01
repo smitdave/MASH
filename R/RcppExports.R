@@ -271,6 +271,10 @@ humanPfMOI__clear_Infection <- function(obj_, PfID_ix) {
     invisible(.Call('_MASH_humanPfMOI__clear_Infection', PACKAGE = 'MASH', obj_, PfID_ix))
 }
 
+humanPfMOI__get_Infection <- function(obj_) {
+    .Call('_MASH_humanPfMOI__get_Infection', PACKAGE = 'MASH', obj_)
+}
+
 humanPfMOI__track_history <- function(obj_, tEvent, event) {
     invisible(.Call('_MASH_humanPfMOI__track_history', PACKAGE = 'MASH', obj_, tEvent, event))
 }

@@ -263,6 +263,10 @@ void humanPfMOI__clear_Infection(MASH::RcppR6::RcppR6<MASH::humanPfMOI> obj_, in
   obj_->clear_Infection(PfID_ix);
 }
 // [[Rcpp::export]]
+Rcpp::List humanPfMOI__get_Infection(MASH::RcppR6::RcppR6<MASH::humanPfMOI> obj_) {
+  return obj_->get_Infection();
+}
+// [[Rcpp::export]]
 void humanPfMOI__track_history(MASH::RcppR6::RcppR6<MASH::humanPfMOI> obj_, double tEvent, std::string event) {
   obj_->track_history(tEvent, event);
 }
@@ -418,7 +422,7 @@ void ImagoQ__clear_ImagoQTime(MASH::RcppR6::RcppR6<MASH::ImagoQ> obj_, double ti
   obj_->clear_ImagoQTime(time);
 }
 // [[Rcpp::export]]
-void ImagoQ__add_ImagoQ(MASH::RcppR6::RcppR6<MASH::ImagoQ> obj_, int N_new, double tEmerge_new, int genotype_new, int damID_new, int sireID_new) {
+void ImagoQ__add_ImagoQ(MASH::RcppR6::RcppR6<MASH::ImagoQ> obj_, int N_new, double tEmerge_new, int genotype_new, std::string damID_new, std::string sireID_new) {
   obj_->add_ImagoQ(N_new, tEmerge_new, genotype_new, damID_new, sireID_new);
 }
 // [[Rcpp::export]]
@@ -455,7 +459,7 @@ void EggQ__clear_EggQTime(MASH::RcppR6::RcppR6<MASH::EggQ> obj_, double time) {
   obj_->clear_EggQTime(time);
 }
 // [[Rcpp::export]]
-void EggQ__add_EggQ(MASH::RcppR6::RcppR6<MASH::EggQ> obj_, int N_new, double tOviposit_new, int genotype_new, int damID_new, int sireID_new) {
+void EggQ__add_EggQ(MASH::RcppR6::RcppR6<MASH::EggQ> obj_, int N_new, double tOviposit_new, int genotype_new, std::string damID_new, std::string sireID_new) {
   obj_->add_EggQ(N_new, tOviposit_new, genotype_new, damID_new, sireID_new);
 }
 // [[Rcpp::export]]

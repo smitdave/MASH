@@ -15,7 +15,7 @@
 
 #' MBITES-BRO: Get Baseline Survival Probability for \code{\link{MicroMosquitoFemale}}
 #'
-#' Get baseline survival probability for \code{\link{mbitesBRO_surviveFlight}}.
+#' Get baseline survival probability for \code{\link{mbitesGeneric_surviveFlight}}.
 #'  * This method is bound to \code{MicroMosquitoFemale$get_surviveFlightProb()}.
 #' @md
 mbitesBRO_get_surviveFlightProb <- function(){
@@ -34,7 +34,7 @@ mbitesBRO_get_surviveFlightProb <- function(){
 
 #' MBITES-BRO: Get Resting Hazards for \code{\link{MicroMosquitoFemale}}
 #'
-#' Get resting hazards for \code{\link{mbitesBRO_surviveFlight}}.
+#' Get resting hazards for \code{\link{mbitesGeneric_surviveResting}}.
 #'  * This method is bound to \code{MicroMosquitoFemale$get_restHaz()}.
 #' @md
 mbitesBRO_get_restHaz <- function(){

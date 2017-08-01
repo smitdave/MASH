@@ -11,7 +11,6 @@
 rm(list=ls())
 library(MASH)
 
-MICRO.Aqua.Setup(module = "emerge",overwrite = TRUE)
 MICRO.Emerge.Setup(overwrite = TRUE)
 
 xx = FeedingSite$new(ix = 1, siteXY = c(0.5,0.5), searchWt = 0.5, enterP = 0.9)
@@ -29,16 +28,22 @@ xx$get_RiskQ()$get_OtherHost()
 # xx$get_riskList()
 
 
-yy = AquaticSite$new(ix = 1, siteXY = c(0.5,0.5), searchWt = 99, lambda = 500, haz = 0, maxQ = 2L)
+yy = AquaticSite$new(ix = 1, siteXY = c(0.5,0.5), searchWt = 99, lambda = 500, haz = 0, module = "emerge")
 yy$get_ImagoQ()
-yy$add_ImagoQ(newImago = newImago(N = 1,tEmerge = 4))
+yy$get_ImagoQ()$add_ImagoQ(N_new=10,tEmerge_new=4,genotype_new=1,damID_new="1",sireID_new="1")
+yy$get_ImagoQ()$add_ImagoQ(N_new=5,tEmerge_new=5,genotype_new=2,damID_new="2",sireID_new="2")
+yy$get_ImagoQ()$get_ImagoQTime(tNow=4.1,clear=FALSE)
 
-yy$set_lambda(lambda = 1:365,ix = NULL)
+
+
+yy$set_lambda(lambda = 1:365)
 yy$get_lambda()
-yy$oneDay_EmergeSite(tNow = 50)
-yy$get_ImagoQ()
 
-yy$clear_ImagoQ()
+yy$oneDay_EmergeSite(tNow = 50)
+yy$get_ImagoQ()$get_ImagoQTime(tNow=50.1,clear=FALSE)
+
+yy$get_ImagoQ()$get_ImagoQTime(tNow=50.1,clear=TRUE)
+yy$get_ImagoQ()$get_ImagoQ()
 
 
 # make a landscape

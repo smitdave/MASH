@@ -34,6 +34,7 @@ mbitesBRO_humanEncounter <- function(){
           self$BloodMeal() # MBITES-BRO-Energetics.R
           self$feeding() # PATHOGEN-XX-Methods.R
           private$history$historyFeed(privateEnv = private) # MOSQUITO-History.hpp
+          private$stateNew = "R"
         }
 
       }
@@ -63,6 +64,7 @@ mbitesBRO_zooEncounter <- function(){
     if(runif(1) < private$FemalePopPointer$get_MBITES_PAR("feedZ")){ # successfully begins feeding
       self$BloodMeal() # MBITES-BRO-Energetics.R
       private$history$historyFeed(privateEnv = private) # MOSQUITO-History.hpp
+      private$stateNew = "R"
     }
 
   }

@@ -744,6 +744,17 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// humanPfMOI__get_Infection
+Rcpp::List humanPfMOI__get_Infection(MASH::RcppR6::RcppR6<MASH::humanPfMOI> obj_);
+RcppExport SEXP _MASH_humanPfMOI__get_Infection(SEXP obj_SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::humanPfMOI> >::type obj_(obj_SEXP);
+    rcpp_result_gen = Rcpp::wrap(humanPfMOI__get_Infection(obj_));
+    return rcpp_result_gen;
+END_RCPP
+}
 // humanPfMOI__track_history
 void humanPfMOI__track_history(MASH::RcppR6::RcppR6<MASH::humanPfMOI> obj_, double tEvent, std::string event);
 RcppExport SEXP _MASH_humanPfMOI__track_history(SEXP obj_SEXP, SEXP tEventSEXP, SEXP eventSEXP) {
@@ -1175,7 +1186,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // ImagoQ__add_ImagoQ
-void ImagoQ__add_ImagoQ(MASH::RcppR6::RcppR6<MASH::ImagoQ> obj_, int N_new, double tEmerge_new, int genotype_new, int damID_new, int sireID_new);
+void ImagoQ__add_ImagoQ(MASH::RcppR6::RcppR6<MASH::ImagoQ> obj_, int N_new, double tEmerge_new, int genotype_new, std::string damID_new, std::string sireID_new);
 RcppExport SEXP _MASH_ImagoQ__add_ImagoQ(SEXP obj_SEXP, SEXP N_newSEXP, SEXP tEmerge_newSEXP, SEXP genotype_newSEXP, SEXP damID_newSEXP, SEXP sireID_newSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -1183,8 +1194,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type N_new(N_newSEXP);
     Rcpp::traits::input_parameter< double >::type tEmerge_new(tEmerge_newSEXP);
     Rcpp::traits::input_parameter< int >::type genotype_new(genotype_newSEXP);
-    Rcpp::traits::input_parameter< int >::type damID_new(damID_newSEXP);
-    Rcpp::traits::input_parameter< int >::type sireID_new(sireID_newSEXP);
+    Rcpp::traits::input_parameter< std::string >::type damID_new(damID_newSEXP);
+    Rcpp::traits::input_parameter< std::string >::type sireID_new(sireID_newSEXP);
     ImagoQ__add_ImagoQ(obj_, N_new, tEmerge_new, genotype_new, damID_new, sireID_new);
     return R_NilValue;
 END_RCPP
@@ -1279,7 +1290,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // EggQ__add_EggQ
-void EggQ__add_EggQ(MASH::RcppR6::RcppR6<MASH::EggQ> obj_, int N_new, double tOviposit_new, int genotype_new, int damID_new, int sireID_new);
+void EggQ__add_EggQ(MASH::RcppR6::RcppR6<MASH::EggQ> obj_, int N_new, double tOviposit_new, int genotype_new, std::string damID_new, std::string sireID_new);
 RcppExport SEXP _MASH_EggQ__add_EggQ(SEXP obj_SEXP, SEXP N_newSEXP, SEXP tOviposit_newSEXP, SEXP genotype_newSEXP, SEXP damID_newSEXP, SEXP sireID_newSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -1287,8 +1298,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type N_new(N_newSEXP);
     Rcpp::traits::input_parameter< double >::type tOviposit_new(tOviposit_newSEXP);
     Rcpp::traits::input_parameter< int >::type genotype_new(genotype_newSEXP);
-    Rcpp::traits::input_parameter< int >::type damID_new(damID_newSEXP);
-    Rcpp::traits::input_parameter< int >::type sireID_new(sireID_newSEXP);
+    Rcpp::traits::input_parameter< std::string >::type damID_new(damID_newSEXP);
+    Rcpp::traits::input_parameter< std::string >::type sireID_new(sireID_newSEXP);
     EggQ__add_EggQ(obj_, N_new, tOviposit_new, genotype_new, damID_new, sireID_new);
     return R_NilValue;
 END_RCPP
@@ -1495,6 +1506,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_MASH_humanPfMOI__set_chemoprophylaxis", (DL_FUNC) &_MASH_humanPfMOI__set_chemoprophylaxis, 2},
     {"_MASH_humanPfMOI__add_Infection", (DL_FUNC) &_MASH_humanPfMOI__add_Infection, 4},
     {"_MASH_humanPfMOI__clear_Infection", (DL_FUNC) &_MASH_humanPfMOI__clear_Infection, 2},
+    {"_MASH_humanPfMOI__get_Infection", (DL_FUNC) &_MASH_humanPfMOI__get_Infection, 1},
     {"_MASH_humanPfMOI__track_history", (DL_FUNC) &_MASH_humanPfMOI__track_history, 3},
     {"_MASH_humanPfMOI__get_history", (DL_FUNC) &_MASH_humanPfMOI__get_history, 1},
     {"_MASH_mosquitoPfMOI__ctor", (DL_FUNC) &_MASH_mosquitoPfMOI__ctor, 5},
