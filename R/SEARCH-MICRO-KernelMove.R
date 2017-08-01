@@ -11,7 +11,7 @@
 # Initialize Methods
 #################################################################
 
-#' MICRO Search Kernels: Initialize Additional Methods & Fields in \code{MicroMosquitoPop} and \code{MicroMosquito}
+#' MICRO Search Kernels: Initialize Additional Methods & Fields in \code{\link{MicroMosquitoPopFemale}} and \code{\link{MicroMosquitoFemale}}
 #'
 #' Initialize MICRO Search Kernels module of mosquito search behavior.
 #'
@@ -93,40 +93,9 @@ SEARCH.MicroKernel.Setup <- function(MBITES = "BRO", overwrite = TRUE){
 # 'MicroKernel_SampleMvOb' Method
 #################################################################
 
-# #' MICRO Search Kernels: \code{\link{MicroMosquito}} Sample MvOb
-# #'
-# #' This method is a helper for \code{\link{MicroKernel_moveMe}} and samples the appropriate MvOb in MvAll in the enclosing \code{\link{MicroMosquitoPop}} object.
-# #'
-# #' @param MvOb a movement object, see \code{\link{MicroKernel_exactMvOb}}
-# #' @return new index
-# #' @export
-# MicroKernel_SampleMvOb <- function(MvOb){
-#
-#   x = runif(1)
-#
-#   ixNew = with(MvOb,{
-#     if(x <= PR[1]){ #no movement
-#       ix
-#     } else {
-#       if(x <= PR[1] + PR[2]){ #near movement
-#         ixNear = sample(x = 1:length(near$id),size = 1,prob = near$pr)
-#         near$id[ixNear]
-#       } else {
-#         if(x <= sum(PR)){ #around movement
-#           stop("'around' movement not yet implemented")
-#         } else { #moveFar movement
-#           stop("'moveFar' movement not yet implemented")
-#         }
-#       }
-#     }
-#   })
-#
-#   return(ixNew)
-# }
-
 #' MICRO Search Kernels: \code{\link{MicroMosquito}} Sample MvOb
 #'
-#' This method is a helper for \code{\link{MicroKernel_moveMe}} and samples the appropriate MvOb in MvAll in the enclosing \code{\link{MicroMosquitoPop}} object.
+#' This method is a helper for \code{\link{MicroKernel_moveMe}} and samples the appropriate MvOb in MvAll in the enclosing \code{\link{MicroMosquitoPopFemale}} object.
 #'  * This function is bound to \code{MicroMosquitoPopFemale$SampleMove}
 #'
 #' @param ixS: current site index \code{ix} of this mosquito

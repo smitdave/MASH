@@ -7,7 +7,6 @@
 //
 ////////////////////////////////////////////////////////////
 
-
 #ifndef _MASH_EGGQ_HPP_
 #define _MASH_EGGQ_HPP_
 
@@ -17,15 +16,15 @@ namespace MASH {
 
 // ImagoSlot: struct to store information for batches of emerging adults
 struct EggSlot{
-  EggSlot(const int &N_new, const double &tOviposit_new, const int &genotype_new, const int &damID_new, const int &sireID_new);
+  EggSlot(const int &N_new, const double &tOviposit_new, const int &genotype_new, const std::string &damID_new, const std::string &sireID_new);
   int N;
   double tOviposit;
   int genotype;
-  int damID;
-  int sireID;
+  std::string damID;
+  std::string sireID;
 };
 
-inline EggSlot::EggSlot(const int &N_new, const double &tOviposit_new, const int &genotype_new, const int &damID_new, const int &sireID_new){
+inline EggSlot::EggSlot(const int &N_new, const double &tOviposit_new, const int &genotype_new, const std::string &damID_new, const std::string &sireID_new){
   N = N_new;
   tOviposit = tOviposit_new;
   genotype = genotype_new;
@@ -107,7 +106,7 @@ public:
   }
 
   // add_EggQ: Add egg batches to EggQ
-  void add_EggQ(const int &N_new, const double &tOviposit_new, const int &genotype_new, const int &damID_new, const int &sireID_new){
+  void add_EggQ(const int &N_new, const double &tOviposit_new, const int &genotype_new, const std::string &damID_new, const std::string &sireID_new){
 
       // find null slot
       auto it = std::find_if(EggQVec.begin(), EggQVec.end(), [](EggSlot ix){
@@ -246,7 +245,7 @@ inline EggQ::EggQ(){
 
   N = 0;
   EggQVec.reserve(50);
-  EggQVec.insert(EggQVec.end(), 10, EggSlot(0,-1,-1,-1,-1));
+  EggQVec.insert(EggQVec.end(), 10, EggSlot(0,-1,-1,"-1","-1"));
 
 }
 

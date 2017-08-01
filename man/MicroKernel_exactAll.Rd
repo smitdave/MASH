@@ -23,6 +23,6 @@ Generate an exact movement object (one-step Markov transition matrix between all
 This function returns nested list of the following form for all site classes in landscape:
 \itemize{
 \item S2D: output of \code{\link{MicroKernel_exactMvOb}} applied to starting site point set S and destination point set D
-The output, MvAll, will be assigned to \code{private$movement} field of \code{MicroMosquitoPop}. The specific accessor can be found at \code{\link{get_MicroKernel_movement}}.
+The output, MvAll, will be assigned to \code{private$movement} field of \code{\link{MicroMosquitoPopFemale}} or \code{\link{MicroMosquitoPopMale}}. The specific accessor can be found at \code{\link{get_MicroKernel_movement}}.
 }
 }

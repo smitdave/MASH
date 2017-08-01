@@ -13,10 +13,10 @@
 # Checks of Life Status
 ##############################################################
 
-#' MBITES-Generic: Alive Check for \code{MicroMosquito}
+#' MBITES-Generic: Alive Check for \code{\link{MicroMosquitoFemale}} and \code{\link{MicroMosquitoMale}}
 #'
 #' Check if this mosquito is alive and return a logical value.
-#'  * This method is bound to \code{MicroMosquito$isAlive()}.
+#'  * This method is bound to \code{MicroMosquitoFemale$isAlive()} or \code{MicroMosquitoMale$isAlive()}.
 #' @md
 mbitesGeneric_isAlive <- function(){
   if(private$stateNew == "D" || private$state == "D"){
@@ -26,10 +26,10 @@ mbitesGeneric_isAlive <- function(){
   }
 }
 
-#' MBITES-Generic: Active Check for \code{MicroMosquito}
+#' MBITES-Generic: Active Check for \code{\link{MicroMosquitoFemale}} and \code{\link{MicroMosquitoMale}}
 #'
 #' Check if this mosquito is active and return a logical value.
-#'  * This method is bound to \code{MicroMosquito$isActive()}.
+#'  * This method is bound to \code{MicroMosquitoFemale$isActive()} or \code{MicroMosquitoMale$isActive()}.
 #' @md
 mbitesGeneric_isActive <- function(){
   if(private$state == "E"){

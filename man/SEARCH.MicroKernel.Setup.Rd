@@ -2,7 +2,7 @@
 % Please edit documentation in R/SEARCH-MICRO-KernelMove.R
 \name{SEARCH.MicroKernel.Setup}
 \alias{SEARCH.MicroKernel.Setup}
-\title{MICRO Search Kernels: Initialize Additional Methods & Fields in \code{MicroMosquitoPop} and \code{MicroMosquito}}
+\title{MICRO Search Kernels: Initialize Additional Methods & Fields in \code{\link{MicroMosquitoPopFemale}} and \code{\link{MicroMosquitoFemale}}}
 \usage{
 SEARCH.MicroKernel.Setup(MBITES = "BRO", overwrite = TRUE)
 }

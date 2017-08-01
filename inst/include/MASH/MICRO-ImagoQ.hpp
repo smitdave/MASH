@@ -16,15 +16,15 @@ namespace MASH {
 
 // ImagoSlot: struct to store information for batches of emerging adults
 struct ImagoSlot{
-  ImagoSlot(const int &N_new, const double &tEmerge_new, const int &genotype_new, const int &damID_new, const int &sireID_new);
+  ImagoSlot(const int &N_new, const double &tEmerge_new, const int &genotype_new, const std::string &damID_new, const std::string &sireID_new);
   int N;
   double tEmerge;
   int genotype;
-  int damID;
-  int sireID;
+  std::string damID;
+  std::string sireID;
 };
 
-inline ImagoSlot::ImagoSlot(const int &N_new, const double &tEmerge_new, const int &genotype_new, const int &damID_new, const int &sireID_new){
+inline ImagoSlot::ImagoSlot(const int &N_new, const double &tEmerge_new, const int &genotype_new, const std::string &damID_new, const std::string &sireID_new){
   N = N_new;
   tEmerge = tEmerge_new;
   genotype = genotype_new;
@@ -106,7 +106,7 @@ public:
   }
 
   // add_ImagoQ: Add emerging adults to the ImagoQ
-  void add_ImagoQ(const int &N_new, const double &tEmerge_new, const int &genotype_new, const int &damID_new, const int &sireID_new){
+  void add_ImagoQ(const int &N_new, const double &tEmerge_new, const int &genotype_new, const std::string &damID_new, const std::string &sireID_new){
 
       // find null slot
       auto it = std::find_if(ImagoQVec.begin(), ImagoQVec.end(), [](ImagoSlot ix){
@@ -221,8 +221,8 @@ public:
         ImagoQVec[*it].N = 0;
         ImagoQVec[*it].tEmerge = -1;
         ImagoQVec[*it].genotype = -1;
-        ImagoQVec[*it].damID = -1;
-        ImagoQVec[*it].sireID = -1;
+        ImagoQVec[*it].damID = "-1";
+        ImagoQVec[*it].sireID = "-1";
         N -= 1;
       }
 
@@ -245,7 +245,7 @@ inline ImagoQ::ImagoQ(){
 
   N = 0;
   ImagoQVec.reserve(50);
-  ImagoQVec.insert(ImagoQVec.end(), 10, ImagoSlot(0,-1,-1,-1,-1));
+  ImagoQVec.insert(ImagoQVec.end(), 10, ImagoSlot(0,-1,-1,"-1","-1"));
 
 }
 

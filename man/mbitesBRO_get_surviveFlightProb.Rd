@@ -7,7 +7,7 @@
 mbitesBRO_get_surviveFlightProb()
 }
 \description{
-Get baseline survival probability for \code{\link{mbitesBRO_surviveFlight}}.
+Get baseline survival probability for \code{\link{mbitesGeneric_surviveFlight}}.
 \itemize{
 \item This method is bound to \code{MicroMosquitoFemale$get_surviveFlightProb()}.
 }

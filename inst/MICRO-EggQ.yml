@@ -34,8 +34,8 @@ EggQ:
         - N_new: int
         - tOviposit_new: double
         - genotype_new: int
-        - damID_new: int
-        - sireID_new: int
+        - damID_new: "std::string"
+        - sireID_new: "std::string"
       return_type: void
 
     # Queue Tracking

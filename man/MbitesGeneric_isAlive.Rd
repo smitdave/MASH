@@ -2,13 +2,13 @@
 % Please edit documentation in R/MBITES-Bouts.R
 \name{mbitesGeneric_isAlive}
 \alias{mbitesGeneric_isAlive}
-\title{MBITES-Generic: Alive Check for \code{MicroMosquito}}
+\title{MBITES-Generic: Alive Check for \code{\link{MicroMosquitoFemale}} and \code{\link{MicroMosquitoMale}}}
 \usage{
 mbitesGeneric_isAlive()
 }
 \description{
 Check if this mosquito is alive and return a logical value.
 \itemize{
-\item This method is bound to \code{MicroMosquito$isAlive()}.
+\item This method is bound to \code{MicroMosquitoFemale$isAlive()} or \code{MicroMosquitoMale$isAlive()}.
 }
 }

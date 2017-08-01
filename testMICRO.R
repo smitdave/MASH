@@ -30,8 +30,8 @@ xx$get_RiskQ()$get_OtherHost()
 
 yy = AquaticSite$new(ix = 1, siteXY = c(0.5,0.5), searchWt = 99, lambda = 500, haz = 0, module = "emerge")
 yy$get_ImagoQ()
-yy$get_ImagoQ()$add_ImagoQ(N_new=10,tEmerge_new=4,genotype_new=1,damID_new=1,sireID_new=1)
-yy$get_ImagoQ()$add_ImagoQ(N_new=5,tEmerge_new=5,genotype_new=2,damID_new=2,sireID_new=2)
+yy$get_ImagoQ()$add_ImagoQ(N_new=10,tEmerge_new=4,genotype_new=1,damID_new="1",sireID_new="1")
+yy$get_ImagoQ()$add_ImagoQ(N_new=5,tEmerge_new=5,genotype_new=2,damID_new="2",sireID_new="2")
 yy$get_ImagoQ()$get_ImagoQTime(tNow=4.1,clear=FALSE)
 
 

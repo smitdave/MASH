@@ -1186,7 +1186,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // ImagoQ__add_ImagoQ
-void ImagoQ__add_ImagoQ(MASH::RcppR6::RcppR6<MASH::ImagoQ> obj_, int N_new, double tEmerge_new, int genotype_new, int damID_new, int sireID_new);
+void ImagoQ__add_ImagoQ(MASH::RcppR6::RcppR6<MASH::ImagoQ> obj_, int N_new, double tEmerge_new, int genotype_new, std::string damID_new, std::string sireID_new);
 RcppExport SEXP _MASH_ImagoQ__add_ImagoQ(SEXP obj_SEXP, SEXP N_newSEXP, SEXP tEmerge_newSEXP, SEXP genotype_newSEXP, SEXP damID_newSEXP, SEXP sireID_newSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -1194,8 +1194,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type N_new(N_newSEXP);
     Rcpp::traits::input_parameter< double >::type tEmerge_new(tEmerge_newSEXP);
     Rcpp::traits::input_parameter< int >::type genotype_new(genotype_newSEXP);
-    Rcpp::traits::input_parameter< int >::type damID_new(damID_newSEXP);
-    Rcpp::traits::input_parameter< int >::type sireID_new(sireID_newSEXP);
+    Rcpp::traits::input_parameter< std::string >::type damID_new(damID_newSEXP);
+    Rcpp::traits::input_parameter< std::string >::type sireID_new(sireID_newSEXP);
     ImagoQ__add_ImagoQ(obj_, N_new, tEmerge_new, genotype_new, damID_new, sireID_new);
     return R_NilValue;
 END_RCPP
@@ -1290,7 +1290,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // EggQ__add_EggQ
-void EggQ__add_EggQ(MASH::RcppR6::RcppR6<MASH::EggQ> obj_, int N_new, double tOviposit_new, int genotype_new, int damID_new, int sireID_new);
+void EggQ__add_EggQ(MASH::RcppR6::RcppR6<MASH::EggQ> obj_, int N_new, double tOviposit_new, int genotype_new, std::string damID_new, std::string sireID_new);
 RcppExport SEXP _MASH_EggQ__add_EggQ(SEXP obj_SEXP, SEXP N_newSEXP, SEXP tOviposit_newSEXP, SEXP genotype_newSEXP, SEXP damID_newSEXP, SEXP sireID_newSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -1298,8 +1298,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type N_new(N_newSEXP);
     Rcpp::traits::input_parameter< double >::type tOviposit_new(tOviposit_newSEXP);
     Rcpp::traits::input_parameter< int >::type genotype_new(genotype_newSEXP);
-    Rcpp::traits::input_parameter< int >::type damID_new(damID_newSEXP);
-    Rcpp::traits::input_parameter< int >::type sireID_new(sireID_newSEXP);
+    Rcpp::traits::input_parameter< std::string >::type damID_new(damID_newSEXP);
+    Rcpp::traits::input_parameter< std::string >::type sireID_new(sireID_newSEXP);
     EggQ__add_EggQ(obj_, N_new, tOviposit_new, genotype_new, damID_new, sireID_new);
     return R_NilValue;
 END_RCPP

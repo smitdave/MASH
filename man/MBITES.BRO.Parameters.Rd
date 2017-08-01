@@ -7,16 +7,14 @@
 MBITES.BRO.Parameters(B_wts = rep(1, 6), R_wts = rep(1, 6), O_wts = rep(1,
   6), InAndOut = matrix(c(c(4, 2, 1, 0, 1), c(2, 1, 1, 0, 1), c(2, 1, 1, 0,
   2), c(1, 1, 1, 0, 1), c(6, 4, 2, 1, 0)), byrow = FALSE, ncol = 5),
-  B_surv = 0.85, B_succeed = 0.3, B_time = 3/4, Q = 0.9, surviveH = 1,
+  B_surv = 0.85, B_succeed = 0.3, B_time = 3/4, surviveH = 1,
   probeH = 1, surviveprobeH = 1, feedH = 1, surviveZ = 1, feedZ = 1,
-  R_surv = 0.9, R_time = 0.8, reFeed = 0.2, O_surv = 0.8,
-  O_succeed = 0.7, O_time = 1.3, bms.a = 7.5, bms.b = 2.5,
-  bms.z = 0.01, rf.a = 18, rf.b = 10000, of.a = 5, of.b = 500,
-  sns.a = 0.1, sns.b = 100, sgr.d = 1/10, sgr.p = 0.95, sgr.t = 1/24,
-  sgr.a = 50, sgr.b = 10, sgr.sa = 50, sgr.sb = 200, sgr.sz = 1,
-  sgr.cvr = 0.2, ttsz.p = 0.5, ttsz.a = 5, ttsz.b = 95, ttr.a = 10,
-  ttr.b = 500, rpl.cvr = 0, rpl.rpl = 0, rpl.die = 0, eggT = 0,
-  eggP = 0, energyPreG = 0, PfEIP = 12)
+  R_surv = 0.9, R_time = 0.8, O_surv = 0.8, O_succeed = 0.7,
+  O_time = 1.3, bm.a = 7.5, bm.b = 2.5, REFEED = FALSE, rf.a = 60,
+  rf.b = 5000, OVERFEED = FALSE, of.a = 5, of.b = 5000,
+  SENESCE = FALSE, sns.a = 0.1, sns.b = 100, TATTER = FALSE,
+  ttsz.p = 0.5, ttsz.a = 5, ttsz.b = 95, ttr.a = 15, ttr.b = 500,
+  eggT = 0, eggP = 0, energyPreG = 0, PfEIP = 12)
 }
 \arguments{
 \item{B_wts}{landing spot weights}
@@ -27,99 +25,75 @@ MBITES.BRO.Parameters(B_wts = rep(1, 6), R_wts = rep(1, 6), O_wts = rep(1,
 
 \item{InAndOut}{matrix of landing probabilities}
 
-\item{B_time}{Blood Feed Attempt: Mean Time Elapsed (in Days)}
+\item{B_surv}{Blood feeding bout baseline survival probability \code{\link{mbitesGeneric_surviveFlight}}}
 
-\item{Q}{Proportion of Bites on Humans}
+\item{B_succeed}{Blood feeding bout probability of success (if succeed call \code{\link{mbitesGeneric_chooseHost}})}
 
-\item{R_time}{Resting: Mean Time Elapsed (in Days)}
+\item{B_time}{Blood feeding bout mean time elapsed (in days); alternatively the waiting time until next state transition}
 
-\item{reFeed}{WRITE ME}
+\item{surviveH}{human host encounter survival probability of initial encounter (proceed to probe)}
 
-\item{O_time}{Egg Laying Attempt: Mean Time Elapsed}
+\item{probeH}{human host encounter probability undeterred and begin probing}
 
-\item{bms.a}{Blood Meal Size, a}
+\item{surviveprobeH}{human host encounter survival probability of probing}
 
-\item{bms.b}{Blood Meal Size, b}
+\item{feedH}{human host encounter probability to successfully blood feed}
 
-\item{bms.z}{Blood Feeding Hazard}
+\item{surviveZ}{non-human host encounter survival probability of initial encounter (proceed to feed)}
 
-\item{rf.a}{ReFeed WRITE ME}
+\item{feedZ}{non-human host encounter probability to successfully blood feed}
 
-\item{rf.b}{ReFeed WRITE ME}
+\item{R_surv}{Post Prandial Resting bout baseline survival probability \code{\link{mbitesGeneric_surviveFlight}}}
 
-\item{of.a}{Overfeed WRITE ME}
+\item{R_time}{Post Prandial Resting bout mean time elapsed (in days); alternatively the waiting time until next state transition}
 
-\item{of.b}{Overfeed WRITE ME}
+\item{O_surv}{Egg Laying bout baseline survival probability \code{\link{mbitesGeneric_surviveFlight}}}
 
-\item{sns.a}{WRITE ME}
+\item{O_succeed}{Egg Laying bout probability of success (if successfull call \code{layEggs})}
 
-\item{sns.b}{WRITE ME}
+\item{O_time}{Egg Laying bout mean time elapsed (in days); alternatively the waiting time until next state transition}
 
-\item{sgr.d}{WRITE ME}
+\item{bm.a}{shape param for bloodmeal size (see \code{\link{mbitesGeneric_rBloodMealSize}})}
 
-\item{sgr.p}{WRITE ME}
+\item{bm.b}{shape param for bloodmeal size (see \code{\link{mbitesGeneric_rBloodMealSize}})}
 
-\item{sgr.t}{WRITE ME}
+\item{REFEED}{control boolean for refeeding behavior during resting bout}
 
-\item{sgr.a}{WRITE ME}
+\item{rf.a}{exp param for refeeding as function of bmSize (see \code{\link{mbitesGeneric_pReFeed}})}
 
-\item{sgr.b}{WRITE ME}
+\item{rf.b}{exp param for refeeding as function of bmSize (see \code{\link{mbitesGeneric_pReFeed}})}
 
-\item{sgr.sa}{WRITE ME}
+\item{OVERFEED}{control boolean for overfeeding during \code{\link{mbitesBRO_BloodMeal}}}
 
-\item{sgr.sb}{WRITE ME}
+\item{of.a}{exp param for overfeeding as function of bmSize (see \code{\link{mbitesGeneric_pOverFeed}})}
 
-\item{sgr.sz}{WRITE ME}
+\item{of.b}{exp param for overfeeding as function of bmSize (see \code{\link{mbitesGeneric_pOverFeed}})}
 
-\item{sgr.cvr}{WRITE ME}
+\item{SENESCE}{control boolean for senesce mortality during \code{\link{mbitesGeneric_surviveFlight}}}
 
-\item{ttsz.p}{WRITE ME}
+\item{sns.a}{exp param for senescence (see \code{\link{mbitesGeneric_pSenesce}})}
 
-\item{ttsz.a}{WRITE ME}
+\item{sns.b}{exp param for senescence (see \code{\link{mbitesGeneric_pSenesce}})}
 
-\item{ttsz.b}{WRITE ME}
+\item{TATTER}{control boolean for wing tattering during \code{\link{mbitesGeneric_surviveFlight}}}
 
-\item{ttr.a}{WRITE ME}
+\item{ttsz.p}{zero-inflation for tattering damage (see \code{\link{mbitesGeneric_rTatterSize}})}
 
-\item{ttr.b}{WRITE ME}
+\item{ttsz.a}{shape param for tattering damage (see \code{\link{mbitesGeneric_rTatterSize}})}
 
-\item{rpl.cvr}{WRITE ME}
+\item{ttsz.b}{shape param for tattering damage (see \code{\link{mbitesGeneric_rTatterSize}})}
 
-\item{rpl.rpl}{WRITE ME}
+\item{ttr.a}{exp param for tattering survival (see \code{\link{mbitesGeneric_pTatter}})}
 
-\item{rpl.die}{WRITE ME}
+\item{ttr.b}{exp param for tattering survival (see \code{\link{mbitesGeneric_pTatter}})}
 
-\item{eggT}{the minimum time before eggs are mature}
+\item{eggT}{minimum time to egg maturation}
 
-\item{eggP}{the minimum provision before eggs are mature}
+\item{eggP}{minimum provision to produce eggs}
 
 \item{energyPreG}{pre-gonotrophic energy requirement}
 
-\item{bfa.p}{Blood Feed Attempt: Prob Survives (Base)}
-
-\item{bfa.s}{Blood Feed Attempt: Prob Succeeds}
-
-\item{bfs.L}{Blood Feed Search: Prob Leaves Location}
-
-\item{bfs.E}{Blood Feed Search: Prob Enters New Location}
-
-\item{bfs.p}{Blood Feed Search: Prob Survives}
-
-\item{F_time}{Blood Feed Search: Mean Time Elapsed (in Days)}
-
-\item{ppr.p}{Resting: Prob Survives (Base)}
-
-\item{ela.p}{Egg Laying Attempt: Prob Survives (Base)}
-
-\item{ela.s}{Egg Laying Attempt: Prob Success}
-
-\item{els.p}{Egg Laying Search: Prob Survives (Base)}
-
-\item{L_time}{Egg Laying Search: Mean Time Elapsed}
-
-\item{els.a}{Egg Laying Search: Prob Accepts}
-
-\item{Pathogen}{name of the PATHOGEN module to use, can be in "PfSI", "PfMOI"}
+\item{PfEIP}{entomological inoculation period for Plasmodium falciparum during \code{MicroMosquitoFemale$probing()}}
 }
 \value{
 a named list of parameters
@@ -128,5 +102,5 @@ a named list of parameters
 Generate named list of parameters used throughout MICRO/M-BITES. All arguments have default values which are listed below before the definition.
 }
 \examples{
-P = MBITES.BRO.Parameters()
+MBITES.BRO.Parameters()
 }
