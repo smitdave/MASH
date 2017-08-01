@@ -96,20 +96,20 @@ MicroLandscapePlot_utility <- function(Landscape, xLim = c(0,1), yLim = c(0,1), 
 
   # extract coordinates
   nCol = 0
-  if(!is.null(testLandscape$get_FeedingSites())){
-    feedXY = t(vapply(X = testLandscape$get_FeedingSites(),FUN = function(x){x$get_siteXY()},FUN.VALUE = numeric(2)))
+  if(!is.null(Landscape$get_FeedingSites())){
+    feedXY = t(vapply(X = Landscape$get_FeedingSites(),FUN = function(x){x$get_siteXY()},FUN.VALUE = numeric(2)))
     nCol = nCol + 1
   }
-  if(!is.null(testLandscape$get_AquaSites())){
-    aquaXY = t(vapply(X = testLandscape$get_AquaSites(),FUN = function(x){x$get_siteXY()},FUN.VALUE = numeric(2)))
+  if(!is.null(Landscape$get_AquaSites())){
+    aquaXY = t(vapply(X = Landscape$get_AquaSites(),FUN = function(x){x$get_siteXY()},FUN.VALUE = numeric(2)))
     nCol = nCol + 1
   }
-  if(!is.null(testLandscape$get_SugarSites())){
-    sugarXY = t(vapply(X = testLandscape$get_SugarSites(),FUN = function(x){x$get_siteXY()},FUN.VALUE = numeric(2)))
+  if(!is.null(Landscape$get_SugarSites())){
+    sugarXY = t(vapply(X = Landscape$get_SugarSites(),FUN = function(x){x$get_siteXY()},FUN.VALUE = numeric(2)))
     nCol = nCol + 1
   }
-  if(!is.null(testLandscape$get_MatingSites())){
-    mateXY = t(vapply(X = testLandscape$get_MatingSites(),FUN = function(x){x$get_siteXY()},FUN.VALUE = numeric(2)))
+  if(!is.null(Landscape$get_MatingSites())){
+    mateXY = t(vapply(X = Landscape$get_MatingSites(),FUN = function(x){x$get_siteXY()},FUN.VALUE = numeric(2)))
     nCol = nCol + 1
   }
 
