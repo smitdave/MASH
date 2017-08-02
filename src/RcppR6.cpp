@@ -488,8 +488,8 @@ MASH::MosquitoFemaleHistory MosquitoFemaleHistory__ctor() {
   return MASH::MosquitoFemaleHistory();
 }
 // [[Rcpp::export]]
-void MosquitoFemaleHistory__historyInit(MASH::RcppR6::RcppR6<MASH::MosquitoFemaleHistory> obj_, int ix, std::string inPointSet) {
-  obj_->historyInit(ix, inPointSet);
+void MosquitoFemaleHistory__historyInit(MASH::RcppR6::RcppR6<MASH::MosquitoFemaleHistory> obj_, Rcpp::Environment privateEnv) {
+  obj_->historyInit(privateEnv);
 }
 // [[Rcpp::export]]
 void MosquitoFemaleHistory__historyTrack(MASH::RcppR6::RcppR6<MASH::MosquitoFemaleHistory> obj_, Rcpp::Environment privateEnv, bool alive) {

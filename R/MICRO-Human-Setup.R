@@ -16,8 +16,7 @@
 #'
 #' Write me! \code{\link{Human}}
 #'
-#' @param a parameter
-#' @return does stuff
+#' @param overwrite overwrite existing methods
 #' @examples
 #' MACRO.Humans.Setup()
 #' @export

@@ -20,7 +20,7 @@
 #'
 #'
 #' @param S pointer to list of starting sites (for example, Landscape$get_AquaSites())
-#' @param D pointer to list of destination sites
+#' @param D pointer to list of destination sites (for example, Landscape$get_FeedingSites())
 #' @param N number of random starting sites
 #' @param dMax maximum distance for distance bins
 #' @param dMesh granularity of distance bins
@@ -28,7 +28,7 @@
 #' @param eps a param
 #' @param beta a param
 #' @export
-MicroKernel_KernelsPlot <- function(S,D, N = 50, dMesh = 0.01, dMax=NULL, sigma = 3, eps = 0.1, beta = 0){
+MicroKernelPlot_utility <- function(S,D, N = 50, dMesh = 0.01, dMax=NULL, sigma = 3, eps = 0.1, beta = 0){
 
   M1 = MicroKernel_PowerKernel(S,D) #Markov transition matrix
   M2 = MicroKernel_DistanceMat(S,D) #distance matrix
@@ -55,7 +55,7 @@ MicroKernel_KernelsPlot <- function(S,D, N = 50, dMesh = 0.01, dMax=NULL, sigma 
   xmx = max(cdfT[1], diff(cdfT), cdf[2,]-cdf[1,], cdf[3,]-cdf[2,])
 
   par(mfrow=c(1,2))
-  colors = viridis(n=N)
+  colors = viridis::viridis(n=N)
   plot(x, cdfT, type = "l", xlab = "Distance", ylab = "CDF", ylim = c(0,1))
   grid()
   cdf = cdf[order(apply(cdf,MARGIN = 1,which.max)),] #sort rows by probability of long-range movement
@@ -65,7 +65,7 @@ MicroKernel_KernelsPlot <- function(S,D, N = 50, dMesh = 0.01, dMax=NULL, sigma 
   lines(x,cdfT, lwd =3)
 
   #need to plot the max of the y values as ylin.
-  plot(x, c(cdfT[1],diff(cdfT)), xlab = "Distance", ylab = "PDF", type = "l", ylim = c(0, 1), main = mtl)
+  plot(x, c(cdfT[1],diff(cdfT)), xlab = "Distance", ylab = "PDF", type = "l", ylim = c(0, 1), main = "Micro Search Kernels")
   grid()
   for(i in 1:N){
     lines(x, c(cdf[i,1],diff(cdf[i,])), col = colors[i])

@@ -27,9 +27,9 @@ public:
   MosquitoFemaleHistory();
 
   // historyInit: set initial values site of emergence when mosy born
-  void historyInit(const int &ix, const std::string &inPointSet){
-    ixH.push_back(ix);
-    pSetH.push_back(inPointSet);
+  void historyInit(const Rcpp::Environment &privateEnv){
+    ixH.push_back(privateEnv["ix"]);
+    pSetH.push_back(privateEnv["inPointSet"]);
   };
 
 

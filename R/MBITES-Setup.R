@@ -17,16 +17,15 @@
 #' Initialize Generic Methods for M-BITES
 #'
 #' This function initializes generic methods for M-BITES models; please note that the
-#' switches for this function modify only the methods that are added to the MicroMosquitoFemale
-#' and MicroMosquitoMale classes. Different genotypes still depend on the internal list of parameters
-#' to parameterize these functions and functional forms for equations.
+#' switches for this function modify only the methods that are added to the \code{\link{MicroMosquitoFemale}}
+#' and \code{\link{MicroMosquitoMale}} classes.
 #'
 #' @param batchSize character switch that should be one of \code{"bms","norm"} for egg batch sizes dependent on bloodmeal size or normally distributed
 #' @param eggMatT character switch that should be one of \code{"off","norm"} for egg batch maturation time turned off or normally distributed
 #'
 #'
 #'
-#' @return modifies the \code{MicroMosquitoFemale} and \code{MicroMosquitoMale} classes.
+#' @return modifies the \code{\link{MicroMosquitoFemale}} and \code{\link{MicroMosquitoMale}} classes.
 #' @export
 mbitesGeneric.Setup <- function(
   overwrite = TRUE,
@@ -38,7 +37,16 @@ mbitesGeneric.Setup <- function(
   message("initializing M-BITES generic shared methods")
 
   ##############################################################
-  # Checks of Life Status
+  # MBITES-ChooseHost.R
+  ##############################################################
+
+  MicroMosquitoFemale$set(which = "public",name = "chooseHost",
+            value = mbitesGeneric_chooseHost,
+            overwrite = overwrite
+  )
+
+  ##############################################################
+  # MBITES-Auxiliary.R
   ##############################################################
 
   MicroMosquitoFemale$set(which = "public",name = "isAlive",
@@ -62,8 +70,33 @@ mbitesGeneric.Setup <- function(
   )
 
   ##############################################################
-  # Egg Batch Switches
+  # MBITES-Energetics.R
   ##############################################################
+
+  MicroMosquitoFemale$set(which = "public",name = "pEnergySurvival",
+            value = mbitesGeneric_pEnergySurvival,
+            overwrite = overwrite
+  )
+
+  MicroMosquitoFemale$set(which = "public",name = "pSugarBout",
+            value = mbitesGeneric_pSugarBout,
+            overwrite = overwrite
+  )
+
+  MicroMosquitoFemale$set(which = "public",name = "rBloodMealSize",
+            value = mbitesGeneric_rBloodMealSize,
+            overwrite = overwrite
+  )
+
+  MicroMosquitoFemale$set(which = "public",name = "pOverFeed",
+            value = mbitesGeneric_pOverFeed,
+            overwrite = overwrite
+  )
+
+  MicroMosquitoFemale$set(which = "public",name = "pReFeed",
+            value = mbitesGeneric_pReFeed,
+            overwrite = overwrite
+  )
 
   # rBatchSize
   switch(batchSize,
@@ -99,6 +132,38 @@ mbitesGeneric.Setup <- function(
     {stop("unrecognized entry for eggMatT")}
   )
 
+  # MicroMosquitoFemale$set(which = "public",name = "makeBatches",
+  #           value = mbitesGeneric_makeBatches,
+  #           overwrite = overwrite
+  # )
 
+  ##############################################################
+  # MBITES-Survival.R
+  ##############################################################
+
+  MicroMosquitoFemale$set(which = "public",name = "surviveFlight",
+            value = mbitesGeneric_surviveFlight,
+            overwrite = overwrite
+  )
+
+  MicroMosquitoFemale$set(which = "public",name = "rTatterSize",
+            value = mbitesGeneric_rTatterSize,
+            overwrite = overwrite
+  )
+
+  MicroMosquitoFemale$set(which = "public",name = "pTatter",
+            value = mbitesGeneric_pTatter,
+            overwrite = overwrite
+  )
+
+  MicroMosquitoFemale$set(which = "public",name = "pSenesce",
+            value = mbitesGeneric_pSenesce,
+            overwrite = overwrite
+  )
+
+  MicroMosquitoFemale$set(which = "public",name = "surviveResting",
+            value = mbitesGeneric_surviveResting,
+            overwrite = overwrite
+  )
 
 }

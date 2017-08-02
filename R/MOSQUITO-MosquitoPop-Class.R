@@ -30,11 +30,13 @@ MicroMosquitoPopFemale <- R6::R6Class(classname = "MicroMosquitoPopFemale",
                          # ix_init should be a vector of initial site index
                          # genotype_init should be a vector of genotypes
                          # movement: movement object from MicroKernel_exactAll
-                         initialize = function(N, time_init, ix_init, genotype_init, MBITES_PAR, module, movement){
+                         # directory: directory to output data
+                         initialize = function(N, time_init, ix_init, genotype_init, MBITES_PAR, module, movement, directory){
 
                              # Initialize population level fields prior to allocating container
                              private$MBITES_PAR = MBITES_PAR
                              private$movement = movement
+                             private$directory = directory
                              switch(module,
                                 BRO = {private$initState = "B"},
                                 BROM = {private$initState = "M"},
@@ -46,8 +48,7 @@ MicroMosquitoPopFemale <- R6::R6Class(classname = "MicroMosquitoPopFemale",
 
                              # allocate population
                              private$pop = vector(mode="list",length=(N*5))
-                             lengths = NULL; lengths[1] = length(time_init); lengths[2] = length(ix_init); lengths[3] = length(genotype_init);
-                             if(length(unique(lengths)) != 1){
+                             if(length(ix_init) != length(genotype_init)){
                                stop("one or more of the input vectors to MicroMosquitoPopFemale initializer is not the same length")
                              }
 
@@ -76,6 +77,22 @@ MicroMosquitoPopFemale <- R6::R6Class(classname = "MicroMosquitoPopFemale",
                            stop("this hasn't been written yet")
                          },
 
+                         which_alive = function(){
+                           return(
+                             sum(vapply(X = private$pop, FUN = function(x){
+                                  if(is.null(x)){
+                                    return(FALSE)
+                                  } else {
+                                    if(x$isAlive()){
+                                      return(TRUE)
+                                    } else {
+                                      return(FALSE)
+                                    }
+                                  }
+                               }, FUN.VALUE = logical(1)))
+                            )
+                         },
+
                          # getter for nullPop
                          get_nullPop = function(){return(private$nullPop)},
                          # update nullPop
@@ -101,6 +118,13 @@ MicroMosquitoPopFemale <- R6::R6Class(classname = "MicroMosquitoPopFemale",
                          },
                          set_MBITES_PAR = function(MBITES_PAR){
                            private$MBITES_PAR = MBITES_PAR
+                         },
+
+                         get_directory = function(){
+                           return(private$directory)
+                         },
+                         set_directory = function(directory){
+                           private$directory = directory
                          },
 
                          #################################################################
@@ -167,7 +191,7 @@ MicroMosquitoPopFemale <- R6::R6Class(classname = "MicroMosquitoPopFemale",
                          },
 
                          # clear_pop: manage the pop vector (find dead mosquitoes; if 'con' is provided, write their histories out to JSON)
-                         clear_pop = function(con = NULL){
+                         clear_pop = function(historyTrack = FALSE, bionomicsTrack = FALSE){
 
                            deadIx = which(vapply(X = private$pop, FUN = function(x){
                                 if(is.null(x)){
@@ -181,13 +205,40 @@ MicroMosquitoPopFemale <- R6::R6Class(classname = "MicroMosquitoPopFemale",
                                 }
                              }, FUN.VALUE = logical(1)))
 
+                          if(historyTrack){
+                            histories = vector(mode="list",length=length(deadIx))
+                            names(histories) = vapply(X = private$pop, FUN = function(x){x$get_id()}, FUN.VALUE = character(1))
+                          }
+                          if(bionomicsTrack){
+                            bionomics = vector(mode="list",length=length(deadIx))
+                            names(bionomics) = vapply(X = private$pop, FUN = function(x){x$get_id()}, FUN.VALUE = character(1))
+                          }
+
                           for(ix in deadIx){
-                            # write histories out to a list
+                            if(historyTrack){
+                              histories[[ix]] = private$pop[[ix]]$get_history()
+                            }
+                            if(bionomicsTrack){
+                              bionomics[[ix]] = private$pop[[ix]]$get_bionomics()
+                            }
                             private$pop[[ix]] = NULL
                           }
 
                           # write the list out to JSON
+                          if(historyTrack){
+                            fileName = paste0("historyF",private$TilePointer$get_tNow(),".json")
+                            con = file(description = paste0(private$directory,"MOSQUITO/",fileName),open = "wt")
+                            writeLines(text = jsonlite::toJSON(x = histories,pretty = TRUE),con = con)
+                            close(con)
+                          }
+                          if(bionomicsTrack){
+                            fileName = paste0("bionomics",private$TilePointer$get_tNow(),".json")
+                            con = file(description = paste0(private$directory,"MOSQUITO/",fileName),open = "wt")
+                            writeLines(text = jsonlite::toJSON(x = histories,pretty = TRUE),con = con)
+                            close(con)
+                          }
 
+                          # update_nullPop
                           self$update_nullPop()
 
                          }
@@ -202,6 +253,7 @@ MicroMosquitoPopFemale <- R6::R6Class(classname = "MicroMosquitoPopFemale",
                          movement = NULL,          # movement object (type depends on specific SEARCH module)
                          initState = NULL,         # initial state for newly emerging females
                          MBITES_PAR = NULL,        # MBITES Parameters
+                         directory = NULL,         # directory to export data
 
                          # Pointers
                          MalePopPointer = NULL,    # Point to MicroMosquitoPopMale in the same microsimulation Tile

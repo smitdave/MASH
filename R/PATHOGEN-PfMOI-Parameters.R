@@ -15,7 +15,7 @@
 #' @param InteractionPf if using pathogen interaction model of clearance this parameter control strength of interaction
 #'  * 0: no interaction (reduces to independent clearance)
 #'  * <0: facilitation against host immune system (slower clearance rate than independent queueing)
-#'  * >0: competition for host resources (faster clearance rate than independent queueing)
+#'  * 0<: competition for host resources (faster clearance rate than independent queueing)
 #'  *  See \url{https://doi.org/10.1186/1475-2875-8-87} for details of queueing model with pathogen interaction.
 #' @param MosyMaxI maximum number of clonal variants passed in single mosquito to human transmission event (set to \code{-1L} for unlimited)
 #' @param HumanMaxI maximum number of clonal variants passed in single human to mosquito transmission event (set to \code{-1L} for unlimited)

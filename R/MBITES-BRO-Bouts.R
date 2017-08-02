@@ -54,11 +54,11 @@ mbitesBRO_timingExponential <- function(){
 #'  * 1: peri-domestic site
 #'  * 0: not peri-domestic site
 #'
-#'  * This method is bound to \code{MicroMosquitoFemale$getMySiteType()}.
+#'  * This method is bound to \code{MicroMosquitoFemale$get_MySiteType()}.
 #'
 #' @md
 #' @return vector of landing spot weights
-mbitesBRO_getMySiteType <- function(){
+mbitesBRO_get_MySiteType <- function(){
   switch(private$inPointSet,
     f = {return(private$LandscapePointer$get_FeedingSites(private$ix)$get_siteType())},
     l = {return(private$LandscapePointer$get_AquaSites(private$ix)$get_siteType())},
@@ -69,11 +69,11 @@ mbitesBRO_getMySiteType <- function(){
 #' MBITES-BRO: Return Landing Spot Weights for \code{MicroMosquitoFemale}
 #'
 #' Method for return landing spot weights based on behavioral state of mosquito.
-#'  * This method is bound to \code{MicroMosquitoFemale$getWTS()}.
+#'  * This method is bound to \code{MicroMosquitoFemale$get_WTS()}.
 #'
 #' @md
 #' @return vector of landing spot weights
-mbitesBRO_getWTS <- function(){
+mbitesBRO_get_WTS <- function(){
   switch(private$state,
     B = private$FemalePopPointer$get_MBITES_PAR("B_wts"),
     R = private$FemalePopPointer$get_MBITES_PAR("R_wts"),
@@ -83,7 +83,7 @@ mbitesBRO_getWTS <- function(){
 
 #' MBITES-BRO: Generate New Landing Spot for \code{MicroMosquitoFemale}
 #'
-#' Method for return a new landing spot based on behavioral state of mosquito and weights from \code{\link{mbitesBRO_getWTS}}.
+#' Method for return a new landing spot based on behavioral state of mosquito and weights from \code{\link{mbitesBRO_get_WTS}}.
 #' New landing spots generated at the end of the search bout, attempt bout, or after oviposition a mosquito has entered
 #' the area around a feeding site and either rested or attempted to rest.
 #'  * i: 1 rest on the inside wall of a structure
@@ -97,8 +97,8 @@ mbitesBRO_getWTS <- function(){
 #' @md
 #' @return integer value corresponding to new landing spot
 mbitesBro_newSpot <- function(){
-  if(self$getMySiteType() == 1){
-    probs = private$FemalePopPointer$get_MBITES_PAR("InAndOut")[private$lspot,] * self$getWTS()
+  if(self$get_MySiteType() == 1){
+    probs = private$FemalePopPointer$get_MBITES_PAR("InAndOut")[private$lspot,] * self$get_WTS()
     sample(x = 5L,size = 1,prob = probs)
   } else {
     return(3L)

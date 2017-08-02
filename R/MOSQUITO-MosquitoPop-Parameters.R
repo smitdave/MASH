@@ -8,19 +8,22 @@
 #
 #################################################################
 
-#' Initialize MICRO Mosquito Population Parameters
+#' Setup MICRO Mosquito Population & M-BITES Module for a \code{\link{MicroTile}}
 #'
 #' Generate a list of parameters to initialize \code{\link{MicroMosquitoPopFemale}} and (optionally) \code{\link{MicroMosquitoPopMale}} for initialization of
-#' mosquito populations in a microsimulation tile \code{\link{MicroTile}}.
+#' mosquito populations in a microsimulation tile \code{\link{MicroTile}}. For MICRO simulations, this function automatically interfaces with the necessary M-BITES setup functions.
 #'
 #' @param module which M-BITES module to use (must be a character in "BRO","BROM","BROS","BROMS","FULL")
+#' @param aquaModule which Aquatic Ecology module to use (must be a character in "emerge", "EL4P")
 #' @param N_female number of female mosquitoes
 #' @param N_male number of male mosquitoes
-#' @param time initial time to start populations
+#' @param time initial time to start populations (typically 0)
 #' @param ix_female vector of starting location indices for females (indices of \code{\link{AquaticSite}} they emerge from)
 #' @param ix_male vector of starting location indices for males (indices of \code{\link{AquaticSite}} they emerge from)
 #' @param genotype_female vector of genotpes for females
 #' @param genotype_male vector of genotpes for males
+#' @param batchSize passed to \code{\link{mbitesGeneric.Setup}}
+#' @param eggMatT passed to \code{\link{mbitesGeneric.Setup}}
 #' @param ... additional named parameters to be passed to the specific M-BITES parameters function
 #'  * MBITES-BRO: pass to \code{\link{MBITES.BRO.Parameters}}
 #' @return return a list
@@ -28,8 +31,9 @@
 #' MicroMosquitoPop.Parameters()
 #' @md
 #' @export
-MicroMosquitoPop.Parameters <- function(
+MicroMosquitoPop.Setup <- function(
     module,
+    aquaModule,
     N_female,
     N_male = NULL,
     time = 0,
@@ -37,6 +41,8 @@ MicroMosquitoPop.Parameters <- function(
     ix_male = NULL,
     genotype_female,
     genotype_male = NULL,
+    batchSize = "bms",
+    eggMatT = "off",
     ...
   ){
 
@@ -61,5 +67,25 @@ MicroMosquitoPop.Parameters <- function(
         {stop("unrecognized M-BITES module")}
       )
 
-      return(MosquitoPop_PAR)
+    # set up M-BITES for mosquito pop classes
+    switch(module,
+        BRO = {
+          # setup generic M-BITES methods
+          mbitesGeneric.Setup(overwrite = TRUE, batchSize = batchSize, eggMatT = eggMatT)
+          # setup M-BITES BRO methods
+          MBITES.BRO.Setup(overwrite = TRUE, aquaModule = aquaModule)
+          # set parameters
+          MicroMosquitoPopFemale$set(which = "private",name = "MBITES_PAR",
+                                  value = MosquitoPop_PAR$MBITES_PAR,
+                                  overwrite = TRUE
+          )
+        },
+        BROS = {print("havent written")},
+        BROM = {print("havent written")},
+        BROMS = {print("havent written")},
+        FULL = {print("havent written")},
+        {stop("unrecognized M-BITES module")}
+      )
+
+    return(MosquitoPop_PAR)
 }
