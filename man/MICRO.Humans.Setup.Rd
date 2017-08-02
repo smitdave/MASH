@@ -7,10 +7,7 @@
 MICRO.Humans.Setup(overwrite = TRUE)
 }
 \arguments{
-\item{a}{parameter}
-}
-\value{
-does stuff
+\item{overwrite}{overwrite existing methods}
 }
 \description{
 Write me! \code{\link{Human}}

@@ -1,8 +1,8 @@
 #################################################################
 #
 #   MASH
-#   R6-ified
-#   Well-mixed Patch Class
+#   MICRO Tile
+#   Microsimulation 'MicroTile' Class Definition
 #   Hector Sanchez & David Smith, Hector Sanchez, Sean Wu
 #   May 9, 2017
 #

@@ -16,5 +16,5 @@ set_MicroHuman_ActivitySpace(nDaily, Nplaces, p, loc)
 \item{loc}{vector of other sites visited}
 }
 \description{
-This function is bound to \code{HumanPop$set_ActivitySpace()}
+This function is bound to \code{Human$set_ActivitySpace()}
 }

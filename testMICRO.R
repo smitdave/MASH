@@ -47,6 +47,14 @@ MicroLandscapePlot_utility(tile$get_Landscape())
 MicroKernelPlot_utility(S = tile$get_Landscape()$get_AquaSites(),D = tile$get_Landscape()$get_FeedingSites())
 
 
+tile$get_HumanPop()$init_ActivitySpace(nDaily = 1.4)
+tile$get_HumanPop()$sim_ActivitySpace()
+for(i in 1:3){
+  print(tile$get_Landscape()$get_FeedingSites(i)$get_RiskQ()$get_HumanHost()  )
+}
+
+
+
 #################################################################
 # Component Tests
 #################################################################

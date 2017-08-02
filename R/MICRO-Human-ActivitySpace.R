@@ -24,7 +24,7 @@ get_MicroHuman_ActivitySpace <- function(){
 
 #' MICRO: Set \code{\link{Human}} ActivitySpace
 #'
-#' This function is bound to \code{HumanPop$set_ActivitySpace()}
+#' This function is bound to \code{Human$set_ActivitySpace()}
 #'
 #' @param nDaily average daily number of other sites visited
 #' @param Nplaces number of places visited
@@ -66,7 +66,7 @@ init_MicroHumanPop_ActivitySpace <- function(nDaily = 1.4){
 init_MicroHuman_ActivitySpace <- function(nDaily){
 
   Nplaces = 1 + rpois(n=1,lambda=3)
-  Nplaces = min(Nplaces,private$LandscapePointer$FeedingSitesN)
+  Nplaces = min(Nplaces,(private$LandscapePointer$FeedingSitesN-1L))
   p = rbeta(n=1,shape1=100,shape2=6)
   loc = sample(x = (1:private$LandscapePointer$FeedingSitesN)[-private$hhID],size = Nplaces)
 
@@ -109,7 +109,7 @@ sim_MicroHuman_ActivitySpace <- function(){
   nD = min(rpois(n=1,lambda=private$ActivitySpace$nDaily),private$ActivitySpace$Nplaces) # draw random number of other sites visited
   if(nD > 0){
     # sample sites in loc vector to visit
-    fD = sample(x = Nplaces, size = nD, replace = FALSE)
+    fD = sample(x = private$ActivitySpace$Nplaces, size = nD, replace = FALSE)
     for(ixS in 1:nD){
       private$LandscapePointer$get_FeedingSites(private$ActivitySpace$loc[fD[ixS]])$get_RiskQ()$add_HumanHost(who_new = private$myID, pTm_new = (1-pD)/nD, w_new = private$bWeight)
     }
