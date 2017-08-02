@@ -55,6 +55,65 @@ for(i in 1:3){
 
 
 
+MicroActivitySpacePlot_utility <- function(Landscape){
+
+  nSites = Landscape$FeedingSitesN
+
+
+
+}
+
+
+#riskList$atRisk stores the risk distribution object
+human_pTm <- function(atRisk){
+  h_id <- unique(as.vector(atRisk$Who)) #grab unique human IDs
+  h_id <- h_id[h_id!=0]
+  h_pTm <- matrix(0.0,nrow=length(h_id),ncol=atRisk$N.f)
+  h_w <- matrix(0.0,nrow=length(h_id),ncol=atRisk$N.f)
+  for(i in h_id){
+    h_ix <- which(atRisk$Who == i,arr.ind=TRUE) #grab indicies for human i
+    for(j in 1:nrow(h_ix)){ #fill h_pTm and h_w for human i
+      h_pTm[i,unname(h_ix[j,1])] <- atRisk$pTm[h_ix[j,1],h_ix[j,2]]
+      h_w[i,unname(h_ix[j,1])] <- atRisk$w[h_ix[j,1],h_ix[j,2]]
+    } #end iter over human i sites
+  } #end iter over all humans
+  return(list(id=h_id,pTm=h_pTm,w=h_w))
+}
+
+
+
+###base plotting animation###
+
+#generate pTm data
+atRisk_hist_pTm <- vector(mode="list",length=t_max)
+for(i in 1:t_max){
+  atRisk_hist_pTm[[i]] <- human_pTm(atRisk_hist[[i]])
+}
+
+generate_risk_animation <- function(pTm_hist){
+
+  colors <- colorRampPalette(colors=c("#132B43","#56B1F7"))(20)
+  max_iter <- length(pTm_hist)
+
+  for(i in 1:max_iter){
+
+    par(mar=c(0,0,0,0),mgp=c(0,0,0))
+    image(t(pTm_hist[[i]]$pTm[nrow(pTm_hist[[i]]$pTm):1,]),col=colors)
+    text(x=0.9,y=0.9,labels=paste0("day: ",i),cex=1.25,col="white")
+
+    print(paste0("on iteration: ",i,", of: ",max_iter))
+
+  }
+
+}
+
+saveGIF(generate_risk_animation(atRisk_hist_pTm),movie.name="/Users/slwu89/Desktop/MASH-Development/images/risk_animation.gif",
+        interval=0.25,ani.width=480,ani.height=480)
+
+
+
+
+
 #################################################################
 # Component Tests
 #################################################################

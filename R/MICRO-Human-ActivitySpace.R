@@ -89,6 +89,10 @@ init_MicroHuman_ActivitySpace <- function(nDaily){
 #'
 sim_MicroHumanPop_ActivitySpace <- function(){
 
+  # zero out all risk queues
+  private$LandscapePointer$clear_RiskQ()
+
+  # simulate ActivitySpace for each human
   for(ixH in 1:self$nHumans){
     private$pop[[ixH]]$sim_ActivitySpace()
   }

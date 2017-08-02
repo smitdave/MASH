@@ -111,17 +111,21 @@ FeedingSite <- R6::R6Class(classname = "FeedingSite",
                       )
                    },
 
-                  #  # sugar source (only used in MBITES-BRO and MBITES-BROM)
-                  #  get_sugar = function(){return(private$sugar)},
-                  #  set_sugar = function(sugar){private$sugar = sugar},
-
                    # house entry probability
                    get_enterP = function(){return(private$enterP)},
                    set_enterP = function(enterP){private$enterP = enterP},
 
+                   #################################################
+                   # Risk Queue
+                   #################################################
+
                    # host risk queue
                    get_RiskQ = function(){return(private$RiskQ)},
                    set_RiskQ = function(RiskQ){private$RiskQ = RiskQ},
+
+                   clear_RiskQ = function(){
+                     private$RiskQ$clear_HumanHost()
+                   },
 
                    #################################################
                    # Pointers
