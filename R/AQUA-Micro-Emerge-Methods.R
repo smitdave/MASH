@@ -88,10 +88,10 @@ set_MicroLambda <- function(lambda, ix = NULL){
 #' MICRO \code{\link{AquaticSite}} Method: Emerge One Day Dynamics
 #'
 #' Calculate emerging adults for a single aquatic habitat and add them to that site's ImagoQ.
-#' This method is bound to \code{AquaticSite$oneDay_EmergeSite()}.
+#' This method is bound to \code{AquaticSite$oneStep_EmergeSite()}.
 #'
 #' @param tNow integer time to calculate emergence
-oneDay_MicroEmergeSite <- function(tNow){
+oneStep_MicroEmergeSite <- function(tNow){
 
   lambdaExact = private$lambda[floor(tNow)%%365+1]
   lambdaEmerge = rpois(n = 1, lambda = lambdaExact)
@@ -105,12 +105,12 @@ oneDay_MicroEmergeSite <- function(tNow){
 #' MICRO \code{\link{Landscape}} Method: Emerge One Day Dynamics
 #'
 #' Calculate emerging adults for a single aquatic habitat and add them to that site's ImagoQ for all sites.
-#' This method is bound to \code{Landscape$oneDay_Emerge()}.
+#' This method is bound to \code{Landscape$oneStep_Emerge()}.
 #'
-oneDay_MicroEmerge <- function(){
+oneStep_MicroEmerge <- function(){
   tNow = private$TilePointer$get_tNow()
   for(ixA in 1:self$AquaSitesN){
-    private$AquaSites[[ixA]]$oneDay_EmergeSite(tNow)
+    private$AquaSites[[ixA]]$oneStep_EmergeSite(tNow)
   }
 }
 

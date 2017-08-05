@@ -79,7 +79,7 @@ MicroMosquitoPopFemale <- R6::R6Class(classname = "MicroMosquitoPopFemale",
 
                          which_alive = function(){
                            return(
-                             sum(vapply(X = private$pop, FUN = function(x){
+                             which(vapply(X = private$pop, FUN = function(x){
                                   if(is.null(x)){
                                     return(FALSE)
                                   } else {

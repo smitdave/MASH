@@ -23,6 +23,13 @@ simMICRO_oneStep <- function(timeStep = 1, print = FALSE){
   # human activity space simulation
   private$HumanPop$sim_ActivitySpace()
 
+  # Aquatic Ecology
+  private$Landscape$oneStep_AquaticEcology() # manage lambda -> ImagoQ (emerge) or EggQ -> ImagoQ (EL4P)
+  private$Landscape$addCohort() # emerging adults from ImagoQ to MicroMosquitoPopFemale
+
+  # M-BITES
+
+
   # # human activity space simulation
   # activitySpace()
   #
