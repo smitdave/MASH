@@ -28,6 +28,18 @@ simMICRO_oneStep <- function(timeStep = 1, print = FALSE){
   private$Landscape$addCohort() # emerging adults from ImagoQ to MicroMosquitoPopFemale
 
   # M-BITES
+  private$FemalePop$MBITES()
+
+  # human event queue simulation
+  private$HumanPop$simHumans(tPause = private$tNow)
+
+  # clear mosquito pop and track output
+  if(private$tNow %% 10 == 0){
+    private$FemalePop$clear_pop(historyTrack = TRUE, bionomicsTrack = TRUE)
+  }
+
+  # update tNow
+  private$tNow = private$tNow + timeStep
 
 
   # # human activity space simulation
@@ -64,11 +76,13 @@ simMICRO_oneStep <- function(timeStep = 1, print = FALSE){
   # }
 
 
-  if(!is.null(private$MalePop)){
-    # run male dynamics
-  }
-
-  # update tNow
-  private$tNow = private$tNow + timeStep
+  # if(!is.null(private$MalePop)){
+  #   # run male dynamics
+  # }
 
 }
+
+MicroTile$set(which = "public",name = "simMICRO_oneStep",
+          value = simMICRO_oneStep,
+          overwrite = overwrite
+)

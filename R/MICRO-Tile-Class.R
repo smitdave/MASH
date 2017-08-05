@@ -87,6 +87,8 @@ MicroTile <- R6::R6Class(classname = "MicroTile",
                                                                   movement = movement,  # movement object
                                                                   directory = directory)  #  directory to write output
 
+                     # initialize female mosquito Pathogen object field
+                     private$FemalePop$init_Pathogens()
 
                      # Set Pointers
 
