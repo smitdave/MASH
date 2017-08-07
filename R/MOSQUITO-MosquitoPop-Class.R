@@ -194,12 +194,18 @@ MicroMosquitoPopFemale <- R6::R6Class(classname = "MicroMosquitoPopFemale",
                          # extend_pop: extend the pop vecor
                          extend_pop = function(){
 
-                           N = length(private$pop)
-                           extendN = N*2
+                          #  N = length(private$pop)
+                          #  extendN = N*2
+                           #
+                          #
+                          #  for(ix in (N+1):extendN){
+                          #    private$pop[[ix]] = NULL
+                          #  }
 
-                           for(ix in (N+1):extendN){
-                             private$pop[[ix]] = NULL
-                           }
+                          N = length(private$pop)
+
+                          nullList = vector(mode="list",length=N)
+                          private$pop = c(private$pop,nullList)
 
                          },
 
@@ -219,21 +225,23 @@ MicroMosquitoPopFemale <- R6::R6Class(classname = "MicroMosquitoPopFemale",
                              }, FUN.VALUE = logical(1)))
 
                           if(historyTrack){
-                            histories = vector(mode="list",length=length(deadIx))
-                            names(histories) = vapply(X = private$pop, FUN = function(x){x$get_id()}, FUN.VALUE = character(1))
+                            # histories = vector(mode="list",length=length(deadIx))
+                            histories = lapply(X = private$pop[deadIx],FUN = function(x){x$get_history()})
+                            names(histories) = vapply(X = private$pop[deadIx], FUN = function(x){x$get_id()}, FUN.VALUE = character(1))
                           }
                           if(bionomicsTrack){
-                            bionomics = vector(mode="list",length=length(deadIx))
-                            names(bionomics) = vapply(X = private$pop, FUN = function(x){x$get_id()}, FUN.VALUE = character(1))
+                            # bionomics = vector(mode="list",length=length(deadIx))
+                            bionomics = lapply(X = private$pop[deadIx],FUN = function(x){x$get_bionomics()})
+                            names(bionomics) = vapply(X = private$pop[deadIx], FUN = function(x){x$get_id()}, FUN.VALUE = character(1))
                           }
 
                           for(ix in deadIx){
-                            if(historyTrack){
-                              histories[[ix]] = private$pop[[ix]]$get_history()
-                            }
-                            if(bionomicsTrack){
-                              bionomics[[ix]] = private$pop[[ix]]$get_bionomics()
-                            }
+                            # if(historyTrack){
+                            #   histories[[ix]] = private$pop[[ix]]$get_history()
+                            # }
+                            # if(bionomicsTrack){
+                            #   bionomics[[ix]] = private$pop[[ix]]$get_bionomics()
+                            # }
                             private$pop[[ix]] = NULL
                           }
 

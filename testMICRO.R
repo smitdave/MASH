@@ -114,7 +114,8 @@ tile = MicroTile$new(Landscape_PAR,
 tile$get_HumanPop()$init_ActivitySpace(nDaily = 1.4)
 tile$get_HumanPop()$init_MICRO_PfSI(PfPR = 0.15, tStart = 0)
 
-debug(tile$get_Landscape()$addCohort)
+# debug(tile$get_Landscape()$addCohort)
+debug(tile$get_FemalePop()$clear_pop)
 
 # run sim
 tMax = 11
