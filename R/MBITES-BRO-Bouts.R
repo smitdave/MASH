@@ -114,13 +114,13 @@ mbitesBro_newSpot <- function(){
 mbitesBro_enterHouse <- function(){
   if(runif(1) < private$LandscapePointer$get_FeedingSites(private$ix)$get_enterP()){
     # mosquito is inside of house
-    print(paste0("mosquito ",private$id," is entering house ",private$ix," at time: ",private$tNow)) # DEBUG
+    # print(paste0("mosquito ",private$id," is entering house ",private$ix," at time: ",private$tNow)) # DEBUG
   } else {
     # mosquito is not inside of house
     private$lspot = self$newSpot()
     self$surviveFlight()
     if(private$lspot == 1L){
-      print(paste0("mosquito ",private$id," is using Recall to enter house ",private$ix," at time: ",private$tNow)) # DEBUG
+      # print(paste0("mosquito ",private$id," is using Recall to enter house ",private$ix," at time: ",private$tNow)) # DEBUG
       Recall()
     }
   }
@@ -164,7 +164,7 @@ mbitesBRO_landingSpot <- function(){
 mbitesBRO_boutB <- function(){
   # check success
   if(runif(1) < private$FemalePopPointer$get_MBITES_PAR("B_succeed")){
-    self$ChooseHost() # MBITES-BRO-ChooseHost.R
+    self$chooseHost() # MBITES-BRO-ChooseHost.R
   } else {
     private$hostID = 0L
   }
@@ -200,6 +200,8 @@ mbitesBRO_boutR <- function(){
       } else {
         private$stateNew = "O"
       }
+    } else {
+      private$stateNew = "O"
     }
   }
 }
@@ -304,18 +306,34 @@ mbitesBro_oneBout <- function(){
 # MBITES-BRO: Simulation
 #################################################################
 
-#' MBITES-BRO: Run Simulation for \code{MicroMosquitoFemale}
+#' MBITES-BRO: Run Simulation for \code{\link{MicroMosquitoFemale}}
 #'
 #' Run the M-BITES life cycle simulation algorithm while alive and has not overrun time in enclosing \code{\link{MicroTile}}.
 #' This method calls \code{\link{mbitesBro_oneBout}} to simulate each life stage.
 #'  * This method is bound to \code{MicroMosquitoFemale$MBITES()}.
 #'
 #' @md
-mbitesBro_MBITES <- function(){
+mbitesBro_oneMosquito_MBITES <- function(){
 
   # run algorithm while alive and has not overrun tile time
   while(private$tNext < private$TilePointer$get_tNow() & private$stateNew != "D"){
     self$oneBout()
+  }
+
+}
+
+#' MBITES-BRO: Run Simulation for \code{\link{MicroMosquitoPopFemale}}
+#'
+#' Run the M-BITES life cycle simulation algorithm while alive and has not overrun time in enclosing \code{\link{MicroTile}}.
+#' This method calls \code{\link{mbitesBro_oneMosquito_MBITES}} one each living mosquito sequentially.
+#'  * This method is bound to \code{MicroMosquitoPopFemale$MBITES()}.
+#'
+#' @md
+mbitesBro_Pop_MBITES <- function(){
+
+  aliveM = self$which_alive()
+  for(ixM in aliveM){
+    private$pop[[ixM]]$MBITES()
   }
 
 }

@@ -507,9 +507,5 @@ void MosquitoFemaleHistory__calcBionomics(MASH::RcppR6::RcppR6<MASH::MosquitoFem
 Rcpp::List MosquitoFemaleHistory__exportHistory(MASH::RcppR6::RcppR6<MASH::MosquitoFemaleHistory> obj_) {
   return obj_->exportHistory();
 }
-// [[Rcpp::export]]
-Rcpp::List MosquitoFemaleHistory__exportBionomics(MASH::RcppR6::RcppR6<MASH::MosquitoFemaleHistory> obj_) {
-  return obj_->exportBionomics();
-}
 
 

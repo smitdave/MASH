@@ -127,10 +127,14 @@ PfSI.Setup <- function(
   )
 
   MicroMosquitoFemale$set(which = "public",name = "init_Pathogens",
-            value = init_Pathogens_PfSI,
+            value = init_Pathogens_MicroMosquitoFemale_PfSI,
             overwrite = overwrite
   )
 
+  MicroMosquitoPopFemale$set(which = "public",name = "init_Pathogens",
+            value = init_Pathogens_MicroMosquitoPopFemale_PfSI,
+            overwrite = overwrite
+  )
 
   ###################################################################
   # Add PfSI Parameters to 'HumanPop' Class
@@ -255,33 +259,6 @@ PfSI.Setup <- function(
             value = infectiousBite_PfSI,
             overwrite = overwrite
   )
-
-
-  ###################################################################
-  # PfSI: Human to Mosquito infectious bite
-  # Add methods to 'MicroMosquitoFemale' Classe
-  ###################################################################
-
-  # its okay if this function takes as a direct argument humanPfSI;
-  # like probeHost_PfSI, the functions that directly interact between classes are ok to pass these things by name rather than generic PAR
-  # try to reserve generic argument names like PAR when all modification is within-class; ie, when there will be no ambiguity.
-  # do not use when objects are passed between classes
-
-  # infectMosquito_PfSI <- function(tBite, ixH, ixS, ixM){
-  #   with(HUMANS[[ixH]]$Pathogens$Pf,{
-  #     if(infected==TRUE & rbinom(1,1,HUMANS[[ixH]]$Pathogens$Pf$c)){
-  #       infObj = makePfM(ixH, tBite, ixS)
-  #       if(PfTransmission_TRACK){
-  #         trackPfTransmission(M2H = FALSE, tBite = tBite, ixH = ixH, ixS = ixS, ixM = ixM, PfM = infObj$PfM)
-  #       }
-  #       return(infObj)
-  #     } else {
-  #       infObj = list(infected = FALSE)
-  #       return(infObj)
-  #     }
-  #   })
-  # }
-
 
   ###################################################################
   # Add PfSI Timing Functions to 'Human' Class

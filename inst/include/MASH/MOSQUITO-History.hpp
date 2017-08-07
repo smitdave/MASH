@@ -30,6 +30,8 @@ public:
   void historyInit(const Rcpp::Environment &privateEnv){
     ixH.push_back(privateEnv["ix"]);
     pSetH.push_back(privateEnv["inPointSet"]);
+    timeH.push_back(privateEnv["tNow"]);
+    stateH.push_back(privateEnv["state"]);
   };
 
 
@@ -92,12 +94,27 @@ public:
         bionomics_tBatch = 0;
       }
 
-      // intervals between bloodmeals
-      std::adjacent_difference(feedAllT.begin(), feedAllT.end(), std::back_inserter(bionomics_bmInt));
-      bionomics_bmInt.erase(bionomics_bmInt.begin());
+      // // intervals between bloodmeals
+      // std::adjacent_difference(feedAllT.begin(), feedAllT.end(), std::back_inserter(bionomics_bmInt));
+      // bionomics_bmInt.erase(bionomics_bmInt.begin());
+      //
+      // std::adjacent_difference(feedHumanT.begin(), feedHumanT.end(), std::back_inserter(bionomics_bmIntH));
+      // bionomics_bmIntH.erase(bionomics_bmIntH.begin());
 
-      std::adjacent_difference(feedHumanT.begin(), feedHumanT.end(), std::back_inserter(bionomics_bmIntH));
-      bionomics_bmIntH.erase(bionomics_bmIntH.begin());
+      // DEBUG for when the mosy dies after a single blood meal
+      if(feedAllT.size() < 2){
+        bionomics_bmInt.push_back(0);
+      } else {
+        std::adjacent_difference(feedAllT.begin(), feedAllT.end(), std::back_inserter(bionomics_bmInt));
+        bionomics_bmInt.erase(bionomics_bmInt.begin());
+      }
+
+      if(feedHumanT.size() < 2){
+        bionomics_bmIntH.push_back(0);
+      } else {
+        std::adjacent_difference(feedHumanT.begin(), feedHumanT.end(), std::back_inserter(bionomics_bmIntH));
+        bionomics_bmIntH.erase(bionomics_bmIntH.begin());
+      }
 
       // lifespan
       bionomics_lifespan = timeH.back() - timeH.front();
@@ -114,6 +131,7 @@ public:
 
     return(
       Rcpp::List::create(
+        // history objects
         Rcpp::Named("stateH") = stateH,
         Rcpp::Named("timeH") = timeH,
         Rcpp::Named("ixH") = ixH,
@@ -122,28 +140,19 @@ public:
         Rcpp::Named("feedAllT") = feedAllT,
         Rcpp::Named("feedHumanH") = feedHumanH,
         Rcpp::Named("feedHumanT") = feedHumanT,
+        Rcpp::Named("feedIxH") = feedIxH,
         Rcpp::Named("bmSizeH") = bmSizeH,
-        Rcpp::Named("batchH") = batchH
+        Rcpp::Named("batchH") = batchH,
+        // bionomics objects
+        Rcpp::Named("bionomics_mBatch") = bionomics_mBatch,
+        Rcpp::Named("bionomics_tBatch") = bionomics_tBatch,
+        Rcpp::Named("bionomics_bmInt") = bionomics_bmInt,
+        Rcpp::Named("bionomics_bmIntH") = bionomics_bmIntH,
+        Rcpp::Named("bionomics_lifespan") = bionomics_lifespan
       )
     );
 
   };
-
-  // exportBionomics: export this mosquito calculated bionomics
-  Rcpp::List exportBionomics(){
-
-    return(Rcpp::List::create(
-      Rcpp::Named("mBatch") = bionomics_mBatch,
-      Rcpp::Named("tBatch") = bionomics_tBatch,
-      Rcpp::Named("feedAllH") = feedAllH,
-      Rcpp::Named("feedHumanH") = feedHumanH,
-      Rcpp::Named("bmInt") = bionomics_bmInt,
-      Rcpp::Named("bmIntH") = bionomics_bmIntH,
-      Rcpp::Named("lifespan") = bionomics_lifespan
-    ));
-
-  };
-
 
 // private members
 private:

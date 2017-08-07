@@ -15,6 +15,10 @@ library(MASH)
 # Microsimulation Tile Tests
 #################################################################
 
+#################################################################
+# Init the MicroTile
+#################################################################
+
 MBITES_module = "BRO"
 AQUA_module = "emerge"
 
@@ -22,12 +26,21 @@ AQUA_module = "emerge"
 MICRO.Humans.Setup(overwrite = TRUE)
 SEARCH.MicroKernel.Setup(MBITES = "BRO",overwrite = TRUE)
 MICRO.Emerge.Setup(overwrite = TRUE)
-PfSI.Setup(overwrite = TRUE)
+PfSI.Setup(overwrite = TRUE,
+           Pf_b = 1,
+           Pf_c = 1,
+           FeverPf = 0.75)
+
+# DEBUGGING FLAGS (SET PRIOR TO MAKING OBJECTS)
+# MicroMosquitoFemale$debug("humanEncounter")
+# MicroMosquitoFemale$debug("oneBout")
+# MicroMosquitoFemale$debug("surviveResting")
+# MicroMosquitoFemale$debug("surviveFlight")
 
 # XX.Parameters() functions to generate parameters for objects in a MicroTile
-Landscape_PAR = Landscape.Parameters(nFeed = 3,nAqua = 3,module = AQUA_module,modulePars = list(N=3,lambda=10))
-AquaEmergeLambdaPlot_utility(Landscape_PAR$AquaticSite_PAR$lambda)
-HumanPop_PAR = HumanPop.Parameters(nSite = 3,siteSize = 3,siteMin = 1)
+Landscape_PAR = Landscape.Parameters(nFeed = 9,nAqua = 9,pointGen = "lattice",module = AQUA_module,modulePars = list(N=9,lambda=8))
+# AquaEmergeLambdaPlot_utility(Landscape_PAR$AquaticSite_PAR$lambda)
+HumanPop_PAR = HumanPop.Parameters(nSite = 9,siteSize = 3,siteMin = 1,bWeight = 1)
 MosquitoPop_PAR = MicroMosquitoPop.Setup(module = MBITES_module,
                                          aquaModule = AQUA_module,
                                          N_female = 20,
@@ -35,7 +48,9 @@ MosquitoPop_PAR = MicroMosquitoPop.Setup(module = MBITES_module,
                                          ix_female = rep(1,20),
                                          genotype_female = rep(1,20),
                                          batchSize = "bms",
-                                         eggMatT = "off")
+                                         eggMatT = "off",
+                                         PfEIP = 0.1,
+                                         B_succeed = 1)
 
 # Generate a MicroTile
 tile = MicroTile$new(Landscape_PAR,
@@ -43,17 +58,86 @@ tile = MicroTile$new(Landscape_PAR,
                      MosquitoPop_PAR,
                      directory = "/Users/slwu89/Desktop/mash.out/")
 
+#################################################################
+# Run MICRO
+#################################################################
+
+# plots
+AquaEmergeLambdaPlot_utility(Landscape_PAR$AquaticSite_PAR$lambda)
 MicroLandscapePlot_utility(tile$get_Landscape())
 MicroKernelPlot_utility(S = tile$get_Landscape()$get_AquaSites(),D = tile$get_Landscape()$get_FeedingSites())
 
+# initialize human activity space and pfsi infections
+tile$get_HumanPop()$init_ActivitySpace(nDaily = 0)
+tile$get_HumanPop()$init_MICRO_PfSI(PfPR = 0.5, tStart = 0)
 
-tile$get_HumanPop()$init_ActivitySpace(nDaily = 1.4)
-tile$get_HumanPop()$sim_ActivitySpace()
-for(i in 1:3){
-  print(tile$get_Landscape()$get_FeedingSites(i)$get_RiskQ()$get_HumanHost()  )
+# debug(tile$get_Landscape()$addCohort)
+# debug(tile$get_FemalePop()$clear_pop)
+# debug(tile$get_FemalePop()$get_MosquitoIxM(1)$MBITES)
+
+# run sim
+tMax = 365
+while(tile$get_tNow() < tMax){
+  tile$simMICRO_oneStep(timeStep = 1,print = TRUE,logInterval = 10)
 }
 
+PfSI_history = tile$get_HumanPop()$get_PfSI_history()
+plot_PfSI(PfSI_history)
 
+
+
+
+
+
+
+
+# # plot the movement kernels
+# MicroLandscapePlot_utility(tile$get_Landscape())
+# MicroKernelPlot_utility(S = tile$get_Landscape()$get_AquaSites(),D = tile$get_Landscape()$get_FeedingSites())
+#
+# #################################################################
+# # Activity Space
+# #################################################################
+#
+# tile$get_HumanPop()$init_ActivitySpace(nDaily = 1.4)
+# tile$get_HumanPop()$sim_ActivitySpace()
+# for(i in 1:tile$get_Landscape()$FeedingSitesN){
+#   print(
+#     tile$get_Landscape()$get_FeedingSites(i)$get_RiskQ()$get_HumanHost()
+#   )
+# }
+#
+# # initialize PfSI infections
+# tile$get_HumanPop()$init_MICRO_PfSI(PfPR = 0.15, tStart = 0)
+# tile$get_HumanPop()$get_PfSI_history()
+#
+# #################################################################
+# # Aquatic Ecology
+# #################################################################
+#
+# for(i in 1:tile$get_Landscape()$AquaSitesN){
+#   print(
+#     tile$get_Landscape()$get_AquaSites(ixS = i)$get_ImagoQ()$get_ImagoQ()[1]
+#   )
+# }
+#
+# tile$get_Landscape()$oneStep_AquaticEcology() # run the oneStep dynamics
+#
+# for(i in 1:tile$get_Landscape()$AquaSitesN){
+#   print(
+#     tile$get_Landscape()$get_AquaSites(ixS = i)$get_ImagoQ()$get_ImagoQ()[1]
+#   )
+# }
+#
+# tile$get_Landscape()$addCohort()
+# tile$get_FemalePop()$get_MosquitoIxM(21)
+# tile$get_FemalePop()
+#
+# #################################################################
+# # M-BITES
+# #################################################################
+#
+# tile$get_FemalePop()$MBITES()
 
 #################################################################
 # Component Tests

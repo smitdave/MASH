@@ -1427,17 +1427,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// MosquitoFemaleHistory__exportBionomics
-Rcpp::List MosquitoFemaleHistory__exportBionomics(MASH::RcppR6::RcppR6<MASH::MosquitoFemaleHistory> obj_);
-RcppExport SEXP _MASH_MosquitoFemaleHistory__exportBionomics(SEXP obj_SEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::MosquitoFemaleHistory> >::type obj_(obj_SEXP);
-    rcpp_result_gen = Rcpp::wrap(MosquitoFemaleHistory__exportBionomics(obj_));
-    return rcpp_result_gen;
-END_RCPP
-}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_MASH_util_PfSIoneHistory", (DL_FUNC) &_MASH_util_PfSIoneHistory, 3},
@@ -1565,7 +1554,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_MASH_MosquitoFemaleHistory__historyFeed", (DL_FUNC) &_MASH_MosquitoFemaleHistory__historyFeed, 2},
     {"_MASH_MosquitoFemaleHistory__calcBionomics", (DL_FUNC) &_MASH_MosquitoFemaleHistory__calcBionomics, 1},
     {"_MASH_MosquitoFemaleHistory__exportHistory", (DL_FUNC) &_MASH_MosquitoFemaleHistory__exportHistory, 1},
-    {"_MASH_MosquitoFemaleHistory__exportBionomics", (DL_FUNC) &_MASH_MosquitoFemaleHistory__exportBionomics, 1},
     {NULL, NULL, 0}
 };
 

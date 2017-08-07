@@ -131,6 +131,19 @@ Landscape <- R6::R6Class(classname = "Landscape",
                          }
 
                        })
+
+                       #########################################
+                       # Set Pointers
+                       #########################################
+
+                       for(ix in 1:self$FeedingSitesN){
+                         private$FeedingSites[[ix]]$set_LandscapePointer(self)
+                       }
+
+                       for(ix in 1:self$AquaSitesN){
+                         private$AquaSites[[ix]]$set_LandscapePointer(self)
+                       }
+
                    },
 
                   #################################################################
@@ -201,7 +214,6 @@ Landscape <- R6::R6Class(classname = "Landscape",
                     }
                   },
 
-
                   #################################################################
                   # Pointers
                   #################################################################
@@ -238,6 +250,15 @@ Landscape <- R6::R6Class(classname = "Landscape",
                     private$HumansPointer = HumansPointer
                   },
 
+                  #################################################################
+                  # Site-specific Functions
+                  #################################################################
+
+                  clear_RiskQ = function(){
+                    for(ixF in 1:self$FeedingSitesN){
+                      private$FeedingSites[[ixF]]$clear_RiskQ()
+                    }
+                  },
 
                   #################################################################
                   # Public Fields

@@ -102,7 +102,7 @@ pointsLattice <- function(n, xLim=c(0,1), yLim=c(0,1)){
   g2 = seq(lb.y, ub.y, length.out = Pdim)
   x = as.vector(matrix(g1,Pdim,Pdim))
   y = as.vector(matrix(g1,Pdim,Pdim,byrow = T))
-  list(x=x,y=y)
+  return(list(x=x,y=y))
 }
 
 

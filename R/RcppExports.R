@@ -511,7 +511,3 @@ MosquitoFemaleHistory__exportHistory <- function(obj_) {
     .Call('_MASH_MosquitoFemaleHistory__exportHistory', PACKAGE = 'MASH', obj_)
 }
 
-MosquitoFemaleHistory__exportBionomics <- function(obj_) {
-    .Call('_MASH_MosquitoFemaleHistory__exportBionomics', PACKAGE = 'MASH', obj_)
-}
-

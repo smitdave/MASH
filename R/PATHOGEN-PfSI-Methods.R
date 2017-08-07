@@ -260,8 +260,21 @@ PfSI_ttGSWanePf <- function(){
 #'
 #' @md
 #' @export
-init_Pathogens_PfSI <- function(){
+init_Pathogens_MicroMosquitoFemale_PfSI <- function(){
   private$Pathogens = MASH::mosquitoPfSI(PfID_init = -1L, infected_init = FALSE)
+}
+
+#' PfSI Helper Code for Pathogen Initialization in \code{\link{MicroMosquitoPopFemale}}
+#'
+#' Initializes empty PfSI pathogens in \code{\link{MicroMosquitoPopFemale}} called during object initialization.
+#'  * This method is bound to \code{MicroMosquitoPopFemale$init_Pathogens()}
+#'
+#' @md
+#' @export
+init_Pathogens_MicroMosquitoPopFemale_PfSI <- function(){
+  for(ixM in (1:length(private$pop))[-private$nullPop]){
+    private$pop[[ixM]]$init_Pathogens()
+  }
 }
 
 #' PfSI \code{\link{MicroMosquitoFemale}} Method: Host Probing
@@ -275,7 +288,8 @@ init_Pathogens_PfSI <- function(){
 #' @md
 probing_PfSI <- function(){
   # if mosquito has active infection
-  if(private$Pathogens$get_tInf() != -1L){
+  if(private$Pathogens$get_tInf() != -1){
+    # browser() # DEBUG
     # update the moquito infection
     if(private$tNow > (private$Pathogens$get_tInf() + private$FemalePopPointer$get_MBITES_PAR("PfEIP"))){
       private$Pathogens$set_infected(TRUE)

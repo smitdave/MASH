@@ -31,14 +31,14 @@ MICRO.Emerge.Setup <- function(overwrite = TRUE){
   #################################################################
 
   # lambda to ImagoQ
-  AquaticSite$set(which = "public",name = "oneDay_EmergeSite",
-            value = oneDay_MicroEmergeSite,
+  AquaticSite$set(which = "public",name = "oneStep_EmergeSite",
+            value = oneStep_MicroEmergeSite,
             overwrite = overwrite
   )
 
   # lambda to ImagoQ
-  Landscape$set(which = "public",name = "oneDay_Emerge",
-            value = oneDay_MicroEmerge,
+  Landscape$set(which = "public",name = "oneStep_AquaticEcology",
+            value = oneStep_MicroEmerge,
             overwrite = overwrite
   )
 
@@ -49,7 +49,7 @@ MICRO.Emerge.Setup <- function(overwrite = TRUE){
   )
 
   # ImagoQ to MicroMosquitoPopFemale
-  Landscape$set(which = "public",name = "addCohort_MicroEmerge",
+  Landscape$set(which = "public",name = "addCohort",
             value = addCohort_MicroEmerge,
             overwrite = overwrite
   )

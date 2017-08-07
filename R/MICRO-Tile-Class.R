@@ -63,7 +63,9 @@ MicroTile <- R6::R6Class(classname = "MicroTile",
                    # directory: directory to write data to (ex: "/Users/slwu89/Desktop/mash.out/")
                    initialize = function(Landscape_PAR, HumanPop_PAR, MosquitoPop_PAR, directory){
 
+                     #################################################
                      # Set Objects
+                     #################################################
 
                      # set simulation time
                      private$tNow = 1
@@ -87,8 +89,12 @@ MicroTile <- R6::R6Class(classname = "MicroTile",
                                                                   movement = movement,  # movement object
                                                                   directory = directory)  #  directory to write output
 
+                     # initialize female mosquito Pathogen object field
+                     private$FemalePop$init_Pathogens()
 
+                     #################################################
                      # Set Pointers
+                     #################################################
 
                      # Human & HumanPop Pointers (duplicate for Humans in HumanPop$pop)
                      private$HumanPop$set_TilePointer(self)
@@ -115,6 +121,15 @@ MicroTile <- R6::R6Class(classname = "MicroTile",
                        private$FemalePop$get_MosquitoIxM(ixM)$set_TilePointer(self)
                        private$FemalePop$get_MosquitoIxM(ixM)$set_LandscapePointer(private$Landscape)
                        private$FemalePop$get_MosquitoIxM(ixM)$set_HumansPointer(private$HumanPop)
+                     }
+
+                     #################################################
+                     # Set Output Directory
+                     #################################################
+
+                     if(!dir.exists(paste0(directory))){
+                       dir.create(paste0(directory))
+                       dir.create(paste0(directory,"MOSQUITO/"))
                      }
 
                    },

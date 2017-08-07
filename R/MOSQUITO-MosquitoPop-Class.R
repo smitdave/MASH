@@ -79,7 +79,7 @@ MicroMosquitoPopFemale <- R6::R6Class(classname = "MicroMosquitoPopFemale",
 
                          which_alive = function(){
                            return(
-                             sum(vapply(X = private$pop, FUN = function(x){
+                             which(vapply(X = private$pop, FUN = function(x){
                                   if(is.null(x)){
                                     return(FALSE)
                                   } else {
@@ -165,33 +165,44 @@ MicroMosquitoPopFemale <- R6::R6Class(classname = "MicroMosquitoPopFemale",
 
                          # push_pop: from a single ImagoSlot; add a cohort.
                          push_pop = function(N, tEmerge, ix, genotype, damID, sireID){
-                           if(N >= length(nullPop)){
+
+                           # if not enough NULL indices, expand the vector
+                           if(N >= length(private$nullPop)){
+
+                             # extend the population
                              self$extend_pop()
+
+                             # update nullPop indices
+                             self$update_nullPop()
                            }
+
+                           # push the mosquitoes
                            for(i in 1:N){
-                             private$pop[[private$nullPop[i]]] = MicroMosquitoFemale$new(id = paste0(tEmerge,"_",nullPop[i]), time = tEmerge, ix = ix, genotype = genotype, state = private$initState)
+                             private$pop[[private$nullPop[i]]] = MicroMosquitoFemale$new(id = paste0(tEmerge,"_",private$nullPop[i]), time = tEmerge, ix = ix, genotype = genotype, state = private$initState)
                              private$pop[[private$nullPop[i]]]$set_FemalePopPointer(self)
                              private$pop[[private$nullPop[i]]]$set_MalePopPointer(private$MalePopPointer)
                              private$pop[[private$nullPop[i]]]$set_LandscapePointer(private$LandscapePointer)
                              private$pop[[private$nullPop[i]]]$set_HumansPointer(private$HumansPointer)
                              private$pop[[private$nullPop[i]]]$set_TilePointer(private$TilePointer)
                            }
+
+                           # update nullPop indices
+                           self$update_nullPop()
+
                          },
 
                          # extend_pop: extend the pop vecor
                          extend_pop = function(){
 
-                           N = length(private$pop)
-                           extendN = N*2
+                          N = length(private$pop)
 
-                           for(ix in (N+1):extendN){
-                             private$pop[[ix]] = NULL
-                           }
+                          nullList = vector(mode="list",length=N)
+                          private$pop = c(private$pop,nullList)
 
                          },
 
                          # clear_pop: manage the pop vector (find dead mosquitoes; if 'con' is provided, write their histories out to JSON)
-                         clear_pop = function(historyTrack = FALSE, bionomicsTrack = FALSE){
+                         clear_pop = function(historyTrack = FALSE){
 
                            deadIx = which(vapply(X = private$pop, FUN = function(x){
                                 if(is.null(x)){
@@ -206,33 +217,17 @@ MicroMosquitoPopFemale <- R6::R6Class(classname = "MicroMosquitoPopFemale",
                              }, FUN.VALUE = logical(1)))
 
                           if(historyTrack){
-                            histories = vector(mode="list",length=length(deadIx))
-                            names(histories) = vapply(X = private$pop, FUN = function(x){x$get_id()}, FUN.VALUE = character(1))
-                          }
-                          if(bionomicsTrack){
-                            bionomics = vector(mode="list",length=length(deadIx))
-                            names(bionomics) = vapply(X = private$pop, FUN = function(x){x$get_id()}, FUN.VALUE = character(1))
+                            histories = lapply(X = private$pop[deadIx],FUN = function(x){x$get_history()})
+                            names(histories) = vapply(X = private$pop[deadIx], FUN = function(x){x$get_id()}, FUN.VALUE = character(1))
                           }
 
                           for(ix in deadIx){
-                            if(historyTrack){
-                              histories[[ix]] = private$pop[[ix]]$get_history()
-                            }
-                            if(bionomicsTrack){
-                              bionomics[[ix]] = private$pop[[ix]]$get_bionomics()
-                            }
                             private$pop[[ix]] = NULL
                           }
 
                           # write the list out to JSON
                           if(historyTrack){
                             fileName = paste0("historyF",private$TilePointer$get_tNow(),".json")
-                            con = file(description = paste0(private$directory,"MOSQUITO/",fileName),open = "wt")
-                            writeLines(text = jsonlite::toJSON(x = histories,pretty = TRUE),con = con)
-                            close(con)
-                          }
-                          if(bionomicsTrack){
-                            fileName = paste0("bionomics",private$TilePointer$get_tNow(),".json")
                             con = file(description = paste0(private$directory,"MOSQUITO/",fileName),open = "wt")
                             writeLines(text = jsonlite::toJSON(x = histories,pretty = TRUE),con = con)
                             close(con)

@@ -126,10 +126,14 @@ PfMOI.Setup <- function(
   )
 
   MicroMosquitoFemale$set(which = "public",name = "init_Pathogens",
-            value = init_Pathogens_PfMOI,
+            value = init_Pathogens_MicroMosquitoFemale_PfMOI,
             overwrite = overwrite
   )
 
+  MicroMosquitoPopFemale$set(which = "public",name = "init_Pathogens",
+            value = init_Pathogens_MicroMosquitoPopFemale_PfMOI,
+            overwrite = overwrite
+  )
 
   ###################################################################
   # Add PfMOI Parameters to 'HumanPop' Class
