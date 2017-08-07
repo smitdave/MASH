@@ -30,6 +30,8 @@ public:
   void historyInit(const Rcpp::Environment &privateEnv){
     ixH.push_back(privateEnv["ix"]);
     pSetH.push_back(privateEnv["inPointSet"]);
+    timeH.push_back(privateEnv["tNow"]);
+    stateH.push_back(privateEnv["state"]);
   };
 
 

@@ -26,7 +26,9 @@ AQUA_module = "emerge"
 MICRO.Humans.Setup(overwrite = TRUE)
 SEARCH.MicroKernel.Setup(MBITES = "BRO",overwrite = TRUE)
 MICRO.Emerge.Setup(overwrite = TRUE)
-PfSI.Setup(overwrite = TRUE)
+PfSI.Setup(overwrite = TRUE,
+           Pf_b = 1,
+           Pf_c = 1)
 
 # DEBUGGING FLAGS (SET PRIOR TO MAKING OBJECTS)
 # MicroMosquitoFemale$debug("humanEncounter")
@@ -35,7 +37,7 @@ PfSI.Setup(overwrite = TRUE)
 # MicroMosquitoFemale$debug("surviveFlight")
 
 # XX.Parameters() functions to generate parameters for objects in a MicroTile
-Landscape_PAR = Landscape.Parameters(nFeed = 8,nAqua = 3,module = AQUA_module,modulePars = list(N=3,lambda=10))
+Landscape_PAR = Landscape.Parameters(nFeed = 8,nAqua = 3,module = AQUA_module,modulePars = list(N=3,lambda=15))
 # AquaEmergeLambdaPlot_utility(Landscape_PAR$AquaticSite_PAR$lambda)
 HumanPop_PAR = HumanPop.Parameters(nSite = 8,siteSize = 3,siteMin = 1)
 MosquitoPop_PAR = MicroMosquitoPop.Setup(module = MBITES_module,
@@ -45,7 +47,9 @@ MosquitoPop_PAR = MicroMosquitoPop.Setup(module = MBITES_module,
                                          ix_female = rep(1,20),
                                          genotype_female = rep(1,20),
                                          batchSize = "bms",
-                                         eggMatT = "off")
+                                         eggMatT = "off",
+                                         PfEIP = 0.1,
+                                         B_succeed = 1)
 
 # Generate a MicroTile
 tile = MicroTile$new(Landscape_PAR,
@@ -112,17 +116,20 @@ tile = MicroTile$new(Landscape_PAR,
 
 # initialize human activity space and pfsi infections
 tile$get_HumanPop()$init_ActivitySpace(nDaily = 1.4)
-tile$get_HumanPop()$init_MICRO_PfSI(PfPR = 0.15, tStart = 0)
+tile$get_HumanPop()$init_MICRO_PfSI(PfPR = 0.95, tStart = 0)
 
 # debug(tile$get_Landscape()$addCohort)
-debug(tile$get_FemalePop()$clear_pop)
+# debug(tile$get_FemalePop()$clear_pop)
+# debug(tile$get_FemalePop()$get_MosquitoIxM(1)$MBITES)
 
 # run sim
-tMax = 11
+tMax = 200
 while(tile$get_tNow() < tMax){
   tile$simMICRO_oneStep(timeStep = 1,print = TRUE,logInterval = 10)
 }
 
+PfSI_history = tile$get_HumanPop()$get_PfSI_history()
+plot_PfSI(PfSI_history)
 
 
 

@@ -19,7 +19,6 @@
 #'  * This method is bound to \code{MicroMosquitoFemale$humanEncounter()}.
 #' @md
 mbitesBRO_humanEncounter <- function(){
-
   if(runif(1) < 1-private$FemalePopPointer$get_MBITES_PAR("surviveH")){ # does not survive to probe
     private$stateNew = "D"
   } else { # survives to probe

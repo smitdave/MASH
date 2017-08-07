@@ -216,6 +216,7 @@ AquaticSite <- R6::R6Class(classname = "AquaticSite",
                      private$siteXY = siteXY
                      private$searchWt = searchWt
                      private$haz = haz
+                     private$siteType = siteType
 
                      # shared Aquatic Ecology fields
                      # private$ImagoQ = allocImagoQ(N = maxQ)

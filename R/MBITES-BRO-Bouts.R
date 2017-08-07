@@ -200,6 +200,8 @@ mbitesBRO_boutR <- function(){
       } else {
         private$stateNew = "O"
       }
+    } else {
+      private$stateNew = "O"
     }
   }
 }

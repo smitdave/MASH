@@ -35,5 +35,18 @@ mbitesGeneric_chooseHost <- function(){
     }
   }
 
-  private$hostID = sample(x = whoIx,size = 1,prob = wIx*pTmIx) #select a host
+
+  private$hostID = sampleIx_utility(x = whoIx,size = 1,prob = wIx*pTmIx) #select a host
+}
+
+#' Sample Indices
+#'
+#' Wrapper for \code{\link{sample}} that will not lead to unexpected behavior when \code{x} is of length 1.
+#'  * This function is used in \code{\link{mbitesGeneric_chooseHost}}
+#' @md
+#' @export
+sampleIx_utility <- function(x, ...){
+  return(
+    x[sample.int(length(x), ...)]
+  )
 }
