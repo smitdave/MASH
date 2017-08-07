@@ -213,7 +213,7 @@ Landscape.Parameters <- function(
     FeedingSite_PAR = Landscape.Feeding.Parameters(nFeed=nFeed,pointGen=pointGen,searchWt=searchFeed,enterP=enterP,hazV=hazV,hazW=hazW,hazI=hazI,...)
 
     # Aquatic Habitats
-    aquaIx = sample(x = nFeed,size = nAqua,replace = F)
+    aquaIx = sample(x = nFeed,size = nAqua,replace = TRUE)
     aquaXY = list(
         x = rnorm(n = nAqua,mean = FeedingSite_PAR$siteXY$x[aquaIx],sd = aquaSD),
         y = rnorm(n = nAqua,mean = FeedingSite_PAR$siteXY$y[aquaIx],sd = aquaSD)
