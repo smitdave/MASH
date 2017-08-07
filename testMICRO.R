@@ -39,7 +39,7 @@ PfSI.Setup(overwrite = TRUE,
 # XX.Parameters() functions to generate parameters for objects in a MicroTile
 Landscape_PAR = Landscape.Parameters(nFeed = 8,nAqua = 3,module = AQUA_module,modulePars = list(N=3,lambda=15))
 # AquaEmergeLambdaPlot_utility(Landscape_PAR$AquaticSite_PAR$lambda)
-HumanPop_PAR = HumanPop.Parameters(nSite = 8,siteSize = 3,siteMin = 1)
+HumanPop_PAR = HumanPop.Parameters(nSite = 8,siteSize = 3,siteMin = 1,bWeight = 1)
 MosquitoPop_PAR = MicroMosquitoPop.Setup(module = MBITES_module,
                                          aquaModule = AQUA_module,
                                          N_female = 20,
@@ -115,7 +115,7 @@ tile = MicroTile$new(Landscape_PAR,
 # MicroKernelPlot_utility(S = tile$get_Landscape()$get_AquaSites(),D = tile$get_Landscape()$get_FeedingSites())
 
 # initialize human activity space and pfsi infections
-tile$get_HumanPop()$init_ActivitySpace(nDaily = 1.4)
+tile$get_HumanPop()$init_ActivitySpace(nDaily = 0)
 tile$get_HumanPop()$init_MICRO_PfSI(PfPR = 0.95, tStart = 0)
 
 # debug(tile$get_Landscape()$addCohort)

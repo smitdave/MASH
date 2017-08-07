@@ -287,7 +287,7 @@ get_MicroKernel_movement_BRO <- function(ixS, state, inPointSet){
       },
     O = {
         if(inPointSet=="f"){return(private$movement$F2L[[ixS]])}
-        if(inPointSet=="m"){return(private$movement$M2L[[ixS]])}
+        if(inPointSet=="l"){return(private$movement$L2L[[ixS]])}
       },
     {return(NULL)}
   )}
