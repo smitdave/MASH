@@ -114,13 +114,13 @@ mbitesBro_newSpot <- function(){
 mbitesBro_enterHouse <- function(){
   if(runif(1) < private$LandscapePointer$get_FeedingSites(private$ix)$get_enterP()){
     # mosquito is inside of house
-    print(paste0("mosquito ",private$id," is entering house ",private$ix," at time: ",private$tNow)) # DEBUG
+    # print(paste0("mosquito ",private$id," is entering house ",private$ix," at time: ",private$tNow)) # DEBUG
   } else {
     # mosquito is not inside of house
     private$lspot = self$newSpot()
     self$surviveFlight()
     if(private$lspot == 1L){
-      print(paste0("mosquito ",private$id," is using Recall to enter house ",private$ix," at time: ",private$tNow)) # DEBUG
+      # print(paste0("mosquito ",private$id," is using Recall to enter house ",private$ix," at time: ",private$tNow)) # DEBUG
       Recall()
     }
   }
@@ -164,7 +164,7 @@ mbitesBRO_landingSpot <- function(){
 mbitesBRO_boutB <- function(){
   # check success
   if(runif(1) < private$FemalePopPointer$get_MBITES_PAR("B_succeed")){
-    self$ChooseHost() # MBITES-BRO-ChooseHost.R
+    self$chooseHost() # MBITES-BRO-ChooseHost.R
   } else {
     private$hostID = 0L
   }

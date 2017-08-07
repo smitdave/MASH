@@ -52,6 +52,11 @@
 #' @param ttsz.b shape param for tattering damage (see \code{\link{mbitesGeneric_rTatterSize}})
 #' @param ttr.a exp param for tattering survival (see \code{\link{mbitesGeneric_pTatter}})
 #' @param ttr.b exp param for tattering survival (see \code{\link{mbitesGeneric_pTatter}})
+#' @param bs.m mean of normally-distributed egg batch size (used in \code{\link{mbitesGeneric_rBatchSizeNorm}})
+#' @param bs.v standard deviation of normally-distributed egg batch size (used in \code{\link{mbitesGeneric_rBatchSizeNorm}})
+#' @param maxBatch maximum egg batch size (used in \code{\link{mbitesGeneric_rBatchSizeBms}})
+#' @param emt.m mean of normally-distributed egg batch maturation time (used in \code{\link{mbitesGeneric_rEggMaturationTimeNorm}})
+#' @param emt.v standard deviation of normally-distributed egg batch maturation time (used in \code{\link{mbitesGeneric_rEggMaturationTimeNorm}})
 #' @param eggT minimum time to egg maturation
 #' @param eggP minimum provision to produce eggs
 #' @param energyPreG pre-gonotrophic energy requirement
@@ -65,9 +70,9 @@ MBITES.BRO.Parameters <- function(
   ##########################################
   # Landing Spot
   ##########################################
-  B_wts = rep(1,6),
-  R_wts = rep(1,6),
-  O_wts = rep(1,6),
+  B_wts = rep(1,5),
+  R_wts = rep(1,5),
+  O_wts = rep(1,5),
   InAndOut = matrix(
     c(c(4,2,1,0,1),
       c(2,1,1,0,1),
@@ -81,7 +86,7 @@ MBITES.BRO.Parameters <- function(
   ##########################################
 
   B_surv = 0.85, # baseline survival for surviveFlight
-  B_succeed = 0.3, # prob success (for boutB)
+  B_succeed = 0.8, # prob success (for boutB)
   B_time = 3/4,  # Blood Feed Attempt . Mean Time Elapsed (in Days)
 
   ##########################################
@@ -151,6 +156,11 @@ MBITES.BRO.Parameters <- function(
   ##########################################
   # Reproduction
   ##########################################
+  bs.m = 30, # used in mbitesGeneric_rBatchSizeNorm
+  bs.v = 5, # used in mbitesGeneric_rBatchSizeNorm
+  maxBatch = 30, # maximum egg batch size (used in mbitesGeneric_rBatchSizeBms)
+  emt.m = 3, # used in mbitesGeneric_rEggMaturationTimeNorm
+  emt.v = 1, # used in mbitesGeneric_rEggMaturationTimeNorm
   eggT = 0, # minimum time to egg maturation
   eggP = 0, # minimum provision to produce eggs
   energyPreG = 0, # pre-gonotrophic energy requirement
@@ -245,6 +255,11 @@ MBITES.BRO.Parameters <- function(
     ##########################################
     # Reproduction
     ##########################################
+    bs.m = bs.m,
+    bs.v = bs.v,
+    maxBatch = maxBatch,
+    emt.m = emt.m,
+    emt.v = emt.v,
     eggT = eggT, # minimum time to egg maturation
     eggP = eggP, # minimum provision to produce eggs
     energyPreG = energyPreG, # pre-gonotrophic energy requirement

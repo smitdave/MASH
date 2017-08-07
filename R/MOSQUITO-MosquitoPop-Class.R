@@ -168,7 +168,12 @@ MicroMosquitoPopFemale <- R6::R6Class(classname = "MicroMosquitoPopFemale",
 
                            # if not enough NULL indices, expand the vector
                            if(N >= length(private$nullPop)){
+
+                             # extend the population
                              self$extend_pop()
+
+                             # update nullPop indices
+                             self$update_nullPop()
                            }
 
                            # push the mosquitoes
@@ -183,7 +188,7 @@ MicroMosquitoPopFemale <- R6::R6Class(classname = "MicroMosquitoPopFemale",
 
                            # update nullPop indices
                            self$update_nullPop()
-                           
+
                          },
 
                          # extend_pop: extend the pop vecor

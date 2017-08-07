@@ -4,16 +4,17 @@
 \alias{MBITES.BRO.Parameters}
 \title{Generate Parameters for M-BITES 'BRO' Module}
 \usage{
-MBITES.BRO.Parameters(B_wts = rep(1, 6), R_wts = rep(1, 6), O_wts = rep(1,
-  6), InAndOut = matrix(c(c(4, 2, 1, 0, 1), c(2, 1, 1, 0, 1), c(2, 1, 1, 0,
+MBITES.BRO.Parameters(B_wts = rep(1, 5), R_wts = rep(1, 5), O_wts = rep(1,
+  5), InAndOut = matrix(c(c(4, 2, 1, 0, 1), c(2, 1, 1, 0, 1), c(2, 1, 1, 0,
   2), c(1, 1, 1, 0, 1), c(6, 4, 2, 1, 0)), byrow = FALSE, ncol = 5),
-  B_surv = 0.85, B_succeed = 0.3, B_time = 3/4, surviveH = 1,
+  B_surv = 0.85, B_succeed = 0.8, B_time = 3/4, surviveH = 1,
   probeH = 1, surviveprobeH = 1, feedH = 1, surviveZ = 1, feedZ = 1,
   R_surv = 0.9, R_time = 0.8, O_surv = 0.8, O_succeed = 0.7,
   O_time = 1.3, bm.a = 7.5, bm.b = 2.5, REFEED = FALSE, rf.a = 60,
   rf.b = 5000, OVERFEED = FALSE, of.a = 5, of.b = 5000,
   SENESCE = FALSE, sns.a = 0.1, sns.b = 100, TATTER = FALSE,
   ttsz.p = 0.5, ttsz.a = 5, ttsz.b = 95, ttr.a = 15, ttr.b = 500,
+  bs.m = 30, bs.v = 5, maxBatch = 30, emt.m = 3, emt.v = 1,
   eggT = 0, eggP = 0, energyPreG = 0, PfEIP = 12)
 }
 \arguments{
@@ -86,6 +87,16 @@ MBITES.BRO.Parameters(B_wts = rep(1, 6), R_wts = rep(1, 6), O_wts = rep(1,
 \item{ttr.a}{exp param for tattering survival (see \code{\link{mbitesGeneric_pTatter}})}
 
 \item{ttr.b}{exp param for tattering survival (see \code{\link{mbitesGeneric_pTatter}})}
+
+\item{bs.m}{mean of normally-distributed egg batch size (used in \code{\link{mbitesGeneric_rBatchSizeNorm}})}
+
+\item{bs.v}{standard deviation of normally-distributed egg batch size (used in \code{\link{mbitesGeneric_rBatchSizeNorm}})}
+
+\item{maxBatch}{maximum egg batch size (used in \code{\link{mbitesGeneric_rBatchSizeBms}})}
+
+\item{emt.m}{mean of normally-distributed egg batch maturation time (used in \code{\link{mbitesGeneric_rEggMaturationTimeNorm}})}
+
+\item{emt.v}{standard deviation of normally-distributed egg batch maturation time (used in \code{\link{mbitesGeneric_rEggMaturationTimeNorm}})}
 
 \item{eggT}{minimum time to egg maturation}
 
