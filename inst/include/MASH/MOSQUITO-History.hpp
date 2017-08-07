@@ -131,6 +131,7 @@ public:
 
     return(
       Rcpp::List::create(
+        // history objects
         Rcpp::Named("stateH") = stateH,
         Rcpp::Named("timeH") = timeH,
         Rcpp::Named("ixH") = ixH,
@@ -141,7 +142,13 @@ public:
         Rcpp::Named("feedHumanT") = feedHumanT,
         Rcpp::Named("feedIxH") = feedIxH,
         Rcpp::Named("bmSizeH") = bmSizeH,
-        Rcpp::Named("batchH") = batchH
+        Rcpp::Named("batchH") = batchH,
+        // bionomics objects
+        Rcpp::Named("bionomics_mBatch") = bionomics_mBatch,
+        Rcpp::Named("bionomics_tBatch") = bionomics_tBatch,
+        Rcpp::Named("bionomics_bmInt") = bionomics_bmInt,
+        Rcpp::Named("bionomics_bmIntH") = bionomics_bmIntH,
+        Rcpp::Named("bionomics_lifespan") = bionomics_lifespan
       )
     );
 
