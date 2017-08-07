@@ -102,7 +102,7 @@ pointsLattice <- function(n, xLim=c(0,1), yLim=c(0,1)){
   g2 = seq(lb.y, ub.y, length.out = Pdim)
   x = as.vector(matrix(g1,Pdim,Pdim))
   y = as.vector(matrix(g1,Pdim,Pdim,byrow = T))
-  list(x=x,y=y)
+  return(list(x=x,y=y))
 }
 
 
@@ -213,7 +213,7 @@ Landscape.Parameters <- function(
     FeedingSite_PAR = Landscape.Feeding.Parameters(nFeed=nFeed,pointGen=pointGen,searchWt=searchFeed,enterP=enterP,hazV=hazV,hazW=hazW,hazI=hazI,...)
 
     # Aquatic Habitats
-    aquaIx = sample(x = nFeed,size = nAqua,replace = TRUE)
+    aquaIx = sample(x = nFeed,size = nAqua,replace = F)
     aquaXY = list(
         x = rnorm(n = nAqua,mean = FeedingSite_PAR$siteXY$x[aquaIx],sd = aquaSD),
         y = rnorm(n = nAqua,mean = FeedingSite_PAR$siteXY$y[aquaIx],sd = aquaSD)

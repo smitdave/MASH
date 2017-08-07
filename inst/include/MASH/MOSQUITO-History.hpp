@@ -154,22 +154,6 @@ public:
 
   };
 
-  // exportBionomics: export this mosquito calculated bionomics
-  Rcpp::List exportBionomics(){
-
-    return(Rcpp::List::create(
-      Rcpp::Named("mBatch") = bionomics_mBatch,
-      Rcpp::Named("tBatch") = bionomics_tBatch,
-      Rcpp::Named("feedAllH") = feedAllH,
-      Rcpp::Named("feedHumanH") = feedHumanH,
-      Rcpp::Named("bmInt") = bionomics_bmInt,
-      Rcpp::Named("bmIntH") = bionomics_bmIntH,
-      Rcpp::Named("lifespan") = bionomics_lifespan
-    ));
-
-  };
-
-
 // private members
 private:
 

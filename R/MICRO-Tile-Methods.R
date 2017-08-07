@@ -37,7 +37,7 @@ simMICRO_oneStep <- function(timeStep = 1, print = FALSE, logInterval = 10){
 
   # clear mosquito pop and track output
   if(private$tNow %% 10 == 0){
-    private$FemalePop$clear_pop(historyTrack = TRUE, bionomicsTrack = TRUE)
+    private$FemalePop$clear_pop(historyTrack = TRUE)
   }
 
   # update tNow

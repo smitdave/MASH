@@ -12,19 +12,29 @@ Class to store female mosquito histories; \code{\link{MicroMosquitoFemale}} and 
 \section{Methods}{
 
 \itemize{
-\item clear_ImagoQ:
-\item add_ImagoQ:
-\item track_ImagoQ:
-\item get_N:
-\item set_N:
-\item get_ImagoQ:
-}
-}
-
-\section{Fields}{
-
+\item historyInit: initialize the mosquito history
+\item historyTrack: track history at the end of a generic bout (MBITES-XX-Bouts.R)
+\item historyFeed: track history from a host encounter (MBITES-XX-HostEncounter.R)
+\item calcBionomics: calculate bionomic parameters upon mosquito death; not intended to be directly called by user.
+\item exportHistory: export the mosquito history object as a named list which consists of the following components:
 \itemize{
-\item a field:
+\item stateH: state trajectory
+\item timeH: transition times
+\item ixH: sites visited
+\item pSetH: point sets visited
+\item feedAllH: number of blood meals
+\item feedAllT: times of blood meals
+\item feedHumanH: number of blood meals on human hosts
+\item feedHumanT: times of blood meals on human hosts
+\item feedIxH: ids of all blood hosts
+\item bmSizeH: size of blood meal
+\item batchH: size of egg batch
+\item bionomics_mBatch: mean egg batch size
+\item bionomics_tBatch: total egg production (sum of all egg batches)
+\item bionomics_bmInt: all bloodmeal intervals
+\item bionomics_bmIntH: human bloodmeal intervals
+\item bionomics_lifespan: lifespan
+}
 }
 }
 
