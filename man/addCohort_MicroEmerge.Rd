@@ -6,13 +6,10 @@
 \usage{
 addCohort_MicroEmerge()
 }
-\value{
-does stuff
-}
 \description{
 Grab emerging adult batches where tEmerge <= tNow and add to the \code{\link{MicroMosquitoPopFemale}}.
-This method is bound to \code{Landscape$addCohort_MicroEmerge()}
+This function fills a generic for \code{\link{simMICRO_oneStep}}.
+\itemize{
+\item This method is bound to \code{Landscape$addCohort()}
 }
-\examples{
-some_function()
 }

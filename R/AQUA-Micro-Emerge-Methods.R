@@ -96,7 +96,7 @@ oneStep_MicroEmergeSite <- function(tNow){
   lambdaExact = private$lambda[floor(tNow)%%365+1]
   lambdaEmerge = rpois(n = 1, lambda = lambdaExact)
   if(lambdaEmerge > 0){
-    private$ImagoQ$add_ImagoQ(N_new = lambdaEmerge, tEmerge_new = tNow, genotype_new = -1L, damID_new = -1L, sireID_new = -1L)
+    private$ImagoQ$add_ImagoQ(N_new = lambdaEmerge, tEmerge_new = tNow, genotype_new = -1L, damID_new = "-1", sireID_new = "-1")
   }
 
 }
@@ -105,8 +105,10 @@ oneStep_MicroEmergeSite <- function(tNow){
 #' MICRO \code{\link{Landscape}} Method: Emerge One Day Dynamics
 #'
 #' Calculate emerging adults for a single aquatic habitat and add them to that site's ImagoQ for all sites.
-#' This method is bound to \code{Landscape$oneStep_Emerge()}.
+#' This function fills a generic for \code{\link{simMICRO_oneStep}}.
+#'  * This method is bound to \code{Landscape$oneStep_AquaticEcology()}.
 #'
+#' @md
 oneStep_MicroEmerge <- function(){
   tNow = private$TilePointer$get_tNow()
   for(ixA in 1:self$AquaSitesN){
@@ -123,26 +125,26 @@ oneStep_MicroEmerge <- function(){
 #'
 addCohort_MicroEmergeSite <- function(tNow){
   # use tNow in the TILE and see who is ready to be taken from ImagoQ into the MosyPop.
-  EmeringAdults = private$ImagoQ$get_ImagoQTime(tNow = tNow,clear = TRUE)
+  EmergingAdults = private$ImagoQ$get_ImagoQTime(tNow = tNow,clear = TRUE)
 
-  if(length(EmeringAdults) > 0){
+  if(length(EmergingAdults) > 0){
     for(i in 1:length(EmergingAdults)){
-      private$LandscapePointer$get_MosquitoPopFemalePointer()$push_pop(N = EmeringAdults[[i]]$N, tEmerge = EmeringAdults[[i]]$tEmerge, ix = private$ix, genotype = EmeringAdults[[i]]$genotype, damID = EmeringAdults[[i]]$damID, sireID = EmeringAdults[[i]]$sireID)
+      private$LandscapePointer$get_MosquitoPopFemalePointer()$push_pop(N = EmergingAdults[[i]]$N, tEmerge = EmergingAdults[[i]]$tEmerge, ix = private$ix, genotype = EmergingAdults[[i]]$genotype, damID = EmergingAdults[[i]]$damID, sireID = EmergingAdults[[i]]$sireID)
     }
   }
 
-  rm(EmeringAdults)
+  rm(EmergingAdults)
 }
 
 
 #' MICRO \code{\link{Landscape}} Method: Get Emerging Adults from ImagoQ and Zero out ImagoQ
 #'
 #' Grab emerging adult batches where tEmerge <= tNow and add to the \code{\link{MicroMosquitoPopFemale}}.
-#' This method is bound to \code{Landscape$addCohort_MicroEmerge()}
+#' This function fills a generic for \code{\link{simMICRO_oneStep}}.
+#'  * This method is bound to \code{Landscape$addCohort()}
 #'
-#' @return does stuff
-#' @examples
-#' some_function()
+#'
+#' @md
 addCohort_MicroEmerge <- function(){
   tNow = private$TilePointer$get_tNow()
   for(ixA in 1:self$AquaSitesN){

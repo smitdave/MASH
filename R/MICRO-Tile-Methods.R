@@ -17,7 +17,7 @@
 simMICRO_oneStep <- function(timeStep = 1, print = FALSE){
 
   if(print){
-    print(paste0("Current tMax: ",private$tMax))
+    print(paste0("Current tNow: ",private$tNow))
   }
 
   # human activity space simulation
@@ -84,5 +84,5 @@ simMICRO_oneStep <- function(timeStep = 1, print = FALSE){
 
 MicroTile$set(which = "public",name = "simMICRO_oneStep",
           value = simMICRO_oneStep,
-          overwrite = overwrite
+          overwrite = TRUE
 )

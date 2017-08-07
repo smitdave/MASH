@@ -165,17 +165,25 @@ MicroMosquitoPopFemale <- R6::R6Class(classname = "MicroMosquitoPopFemale",
 
                          # push_pop: from a single ImagoSlot; add a cohort.
                          push_pop = function(N, tEmerge, ix, genotype, damID, sireID){
-                           if(N >= length(nullPop)){
+
+                           # if not enough NULL indices, expand the vector
+                           if(N >= length(private$nullPop)){
                              self$extend_pop()
                            }
+
+                           # push the mosquitoes
                            for(i in 1:N){
-                             private$pop[[private$nullPop[i]]] = MicroMosquitoFemale$new(id = paste0(tEmerge,"_",nullPop[i]), time = tEmerge, ix = ix, genotype = genotype, state = private$initState)
+                             private$pop[[private$nullPop[i]]] = MicroMosquitoFemale$new(id = paste0(tEmerge,"_",private$nullPop[i]), time = tEmerge, ix = ix, genotype = genotype, state = private$initState)
                              private$pop[[private$nullPop[i]]]$set_FemalePopPointer(self)
                              private$pop[[private$nullPop[i]]]$set_MalePopPointer(private$MalePopPointer)
                              private$pop[[private$nullPop[i]]]$set_LandscapePointer(private$LandscapePointer)
                              private$pop[[private$nullPop[i]]]$set_HumansPointer(private$HumansPointer)
                              private$pop[[private$nullPop[i]]]$set_TilePointer(private$TilePointer)
                            }
+
+                           # update nullPop indices
+                           self$update_nullPop()
+                           
                          },
 
                          # extend_pop: extend the pop vecor

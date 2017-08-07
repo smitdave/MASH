@@ -131,6 +131,19 @@ Landscape <- R6::R6Class(classname = "Landscape",
                          }
 
                        })
+
+                       #########################################
+                       # Set Pointers
+                       #########################################
+
+                       for(ix in 1:self$FeedingSitesN){
+                         private$FeedingSites[[ix]]$set_LandscapePointer(self)
+                       }
+
+                       for(ix in 1:self$AquaSitesN){
+                         private$AquaSites[[ix]]$set_LandscapePointer(self)
+                       }
+
                    },
 
                   #################################################################
