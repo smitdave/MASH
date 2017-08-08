@@ -41,18 +41,41 @@ EL4P:
       - alpha_new: double
       - p_new: double
   methods:
+
+    ##################################################
     # EL4P difference equations
+    ##################################################
+
+    # daily difference equations
     oneStep:
       return_type: void
 
+    ##################################################
+    # EL4P Fitting
+    ##################################################
+
+    oneStep_GEL4P:
+      args:
+        - M: double
+        - eqAqua: double
+        - G: double
+        - lifespan: double
+      return_type: void
+
+    ##################################################
     # add an egg batch
+    ##################################################
+
     addEggs:
       args:
         - eggs_N: double
         - genotype_ix: int
       return_type: void
 
+    ##################################################
     # Getters & Setters
+    ##################################################
+
     get_allGenotypes:
       return_type: "Rcpp::List"
 
@@ -87,3 +110,18 @@ EL4P:
 
     get_numGenotypes:
       return_type: int
+
+    get_totLambda:
+      return_type: double
+
+    get_specificLambda:
+      args:
+        - ix: int
+      return_type: double
+
+    ##################################################
+    # Other Functions
+    ##################################################
+
+    reset:
+      return_type: void

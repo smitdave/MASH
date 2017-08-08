@@ -492,6 +492,10 @@ void EL4P__oneStep(MASH::RcppR6::RcppR6<MASH::EL4P> obj_) {
   obj_->oneStep();
 }
 // [[Rcpp::export]]
+void EL4P__oneStep_GEL4P(MASH::RcppR6::RcppR6<MASH::EL4P> obj_, double M, double eqAqua, double G, double lifespan) {
+  obj_->oneStep_GEL4P(M, eqAqua, G, lifespan);
+}
+// [[Rcpp::export]]
 void EL4P__addEggs(MASH::RcppR6::RcppR6<MASH::EL4P> obj_, double eggs_N, int genotype_ix) {
   obj_->addEggs(eggs_N, genotype_ix);
 }
@@ -530,6 +534,18 @@ void EL4P__set_p(MASH::RcppR6::RcppR6<MASH::EL4P> obj_, double p_new) {
 // [[Rcpp::export]]
 int EL4P__get_numGenotypes(MASH::RcppR6::RcppR6<MASH::EL4P> obj_) {
   return obj_->get_numGenotypes();
+}
+// [[Rcpp::export]]
+double EL4P__get_totLambda(MASH::RcppR6::RcppR6<MASH::EL4P> obj_) {
+  return obj_->get_totLambda();
+}
+// [[Rcpp::export]]
+double EL4P__get_specificLambda(MASH::RcppR6::RcppR6<MASH::EL4P> obj_, int ix) {
+  return obj_->get_specificLambda(ix);
+}
+// [[Rcpp::export]]
+void EL4P__reset(MASH::RcppR6::RcppR6<MASH::EL4P> obj_) {
+  obj_->reset();
 }
 
 // [[Rcpp::export]]

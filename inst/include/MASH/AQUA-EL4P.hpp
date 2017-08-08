@@ -114,6 +114,46 @@ public:
   };
 
   ///////////////////////////////////
+  // EL4P Fitting
+  ///////////////////////////////////
+
+  void oneStep_GEL4P(const double &M, const double &eqAqua, const double &G, const double &lifespan){
+
+    // total larval density in pool
+    double D = 0;
+    for(auto it = EL4Pvec.begin(); it != EL4Pvec.end(); it++){
+      D += it->L1;
+      D += it->L2;
+      D += it->L3;
+      D += it->L4;
+    }
+
+    // aquatic stage mortality
+    double s1 = exp(-alpha);
+    double s2 = exp(-(alpha + psi*D));
+
+    // run difference equations for each genotype in EL4P pool
+    for(int i=0; i<EL4Pvec.size(); i++){
+
+      // initial larval sizes
+      double L10 = EL4Pvec[i].L1;
+      double L20 = EL4Pvec[i].L2;
+      double L30 = EL4Pvec[i].L3;
+      double L40 = EL4Pvec[i].L4;
+
+      // difference equations
+      EL4Pvec[i].lambda = s1*EL4Pvec[i].P; // P to lambda
+      EL4Pvec[i].P = s2*p*L40; // L4 to P
+      EL4Pvec[i].L4 = s2*(p*L30 + (1-p)*L40); // L3 to L4 (and L4 who do not advance)
+      EL4Pvec[i].L3 = s2*(p*L20 + (1-p)*L30); // L2 to L3 (and L3 who do not advance)
+      EL4Pvec[i].L2 = s2*(p*L10 + (1-p)*L20); // L1 to L2 (and L2 who do not advance)
+      EL4Pvec[i].L1 = EL4Pvec[i].eggs + s2*(1-p)*L10; // eggs to L1 (and L1 who do not advance)
+      EL4Pvec[i].eggs = M*eqAqua*(G/lifespan); // eggs are deposited accoridng to RM model at equilibrium
+    }
+
+  };
+
+  ///////////////////////////////////
   // Add Egg Batch
   ///////////////////////////////////
 
@@ -200,6 +240,36 @@ public:
   int get_numGenotypes(){
     return(EL4Pvec.size());
   };
+
+  // get total lambda across all genotypes
+  double get_totLambda(){
+    double lambda = 0.0;
+    for(auto it = EL4Pvec.begin(); it != EL4Pvec.end(); it++){
+      lambda += it->lambda;
+    }
+    return(lambda);
+  }
+
+  // get genotype specific lambda
+  double get_specificLambda(const int &ix){
+    return(EL4Pvec[ix].lambda);
+  }
+
+  ///////////////////////////////////
+  // Other Functions
+  ///////////////////////////////////
+
+  void reset(){
+    for(auto it = EL4Pvec.begin(); it != EL4Pvec.end(); it++){
+      it->eggs = 0.0;
+      it->L1 = 0.0;
+      it->L2 = 0.0;
+      it->L3 = 0.0;
+      it->L4 = 0.0;
+      it->P = 0.0;
+      it->lambda = 0.0;
+    }
+  }
 
 // private members
 private:
