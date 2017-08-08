@@ -83,7 +83,10 @@ MBITES.BRO.Setup <- function(overwrite = TRUE, aquaModule){
         )
       },
       EL4P = {
-        print("havent written")
+        MicroMosquitoFemale$set(which = "public",name = "layEggs",
+                  value = mbitesBRO_layEggs_EL4P,
+                  overwrite = overwrite
+        )
       },
       {stop("unrecognized Aquatic Ecology module")}
     )

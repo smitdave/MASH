@@ -38,6 +38,9 @@ template <> inline std::string generator_name<MASH::ImagoQ >() {return ".R6_Imag
 template <> inline std::string   class_name_r<MASH::EggQ >() {return "EggQ";}
 template <> inline std::string   package_name<MASH::EggQ >() {return "MASH";}
 template <> inline std::string generator_name<MASH::EggQ >() {return ".R6_EggQ";}
+template <> inline std::string   class_name_r<MASH::EL4P >() {return "EL4P";}
+template <> inline std::string   package_name<MASH::EL4P >() {return "MASH";}
+template <> inline std::string generator_name<MASH::EL4P >() {return ".R6_EL4P";}
 template <> inline std::string   class_name_r<MASH::MosquitoFemaleHistory >() {return "MosquitoFemaleHistory";}
 template <> inline std::string   package_name<MASH::MosquitoFemaleHistory >() {return "MASH";}
 template <> inline std::string generator_name<MASH::MosquitoFemaleHistory >() {return ".R6_MosquitoFemaleHistory";}
@@ -121,6 +124,12 @@ template <> inline SEXP wrap(const MASH::EggQ& x) {
 }
 template <> inline MASH::EggQ as(SEXP x) {
   return *(MASH::RcppR6::RcppR6<MASH::EggQ>(x));
+}
+template <> inline SEXP wrap(const MASH::EL4P& x) {
+  return wrap(MASH::RcppR6::RcppR6<MASH::EL4P>(x));
+}
+template <> inline MASH::EL4P as(SEXP x) {
+  return *(MASH::RcppR6::RcppR6<MASH::EL4P>(x));
 }
 template <> inline SEXP wrap(const MASH::MosquitoFemaleHistory& x) {
   return wrap(MASH::RcppR6::RcppR6<MASH::MosquitoFemaleHistory>(x));

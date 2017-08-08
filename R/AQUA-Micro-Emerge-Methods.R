@@ -24,9 +24,9 @@
 #' @md
 #' @return list \code{lambda} where each element is the daily emergence for that \code{\link{FeedingSite}}
 #' @examples
-#' makeLambda_Micro(aquaPars= list(lambda = c(2,3,4)))
+#' makeLambda_MicroEmerge(aquaPars= list(lambda = c(2,3,4)))
 #' @export
-makeLambda_Micro <- function(aquaPars){
+makeLambda_MicroEmerge <- function(aquaPars){
 
   with(aquaPars,{
 
@@ -56,7 +56,7 @@ makeLambda_Micro <- function(aquaPars){
 #' This method is bound to \code{AquaticSite$get_lambda()}.
 #'
 #' @param ixQ if \code{NULL} return the entire vector of lambda, else, return the value corresponding to day \code{ix}
-get_MicroLambda <- function(ix = NULL){
+get_lambda_MicroEmerge <- function(ix = NULL){
   if(is.null(ix)){
     return(private$lambda)
   } else {
@@ -72,7 +72,7 @@ get_MicroLambda <- function(ix = NULL){
 #'
 #' @param lambda the object to insert; if \code{ix = NULL} then it should be vector of lambda values, see \code{\link{makeLambda_Macro}} for details, else it should be a numeric value.
 #' @param ixQ if \code{NULL} set the entire ImagoQ, else, set the slot \code{ixQ}
-set_MicroLambda <- function(lambda, ix = NULL){
+set_lambda_MicroEmerge <- function(lambda, ix = NULL){
   if(is.null(ix)){
     private$lambda = lambda
   } else {
@@ -82,7 +82,7 @@ set_MicroLambda <- function(lambda, ix = NULL){
 
 
 #################################################################
-# One Day 'Emerge'
+# One Step 'Emerge'
 #################################################################
 
 #' MICRO \code{\link{AquaticSite}} Method: Emerge One Day Dynamics

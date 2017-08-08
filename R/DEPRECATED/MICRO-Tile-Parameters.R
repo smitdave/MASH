@@ -30,7 +30,7 @@
 # #'  * "emerge": initialize parameters for Emerge module of Aquatic Ecology
 # #'  * "EL4P": initialize parameters for EL4P module of Aquatic Ecology
 # #' @param modulePars additional list of named parameters to be passed to Aquatic Ecology module specific parameter generating functions
-# #'  * Emerge: for details see \code{\link{makeLambda_Micro}}
+# #'  * Emerge: for details see \code{\link{makeLambda_MicroEmerge}}
 # #'  * EL4P:
 # #' @param hazV mean value for feeding site vegetation landing hazard (if 0 it is set to 0 for all sites)
 # #' @param hazW mean value for feeding site outside wall landing hazard (if 0 it is set to 0 for all sites)

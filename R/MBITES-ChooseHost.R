@@ -35,7 +35,6 @@ mbitesGeneric_chooseHost <- function(){
     }
   }
 
-
   private$hostID = sampleIx_utility(x = whoIx,size = 1,prob = wIx*pTmIx) #select a host
 }
 

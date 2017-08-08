@@ -31,12 +31,6 @@ PfSI.Setup(overwrite = TRUE,
            Pf_c = 1,
            FeverPf = 0.75)
 
-# DEBUGGING FLAGS (SET PRIOR TO MAKING OBJECTS)
-# MicroMosquitoFemale$debug("humanEncounter")
-# MicroMosquitoFemale$debug("oneBout")
-# MicroMosquitoFemale$debug("surviveResting")
-# MicroMosquitoFemale$debug("surviveFlight")
-
 # XX.Parameters() functions to generate parameters for objects in a MicroTile
 Landscape_PAR = Landscape.Parameters(nFeed = 9,nAqua = 9,pointGen = "lattice",module = AQUA_module,modulePars = list(N=9,lambda=8))
 # AquaEmergeLambdaPlot_utility(Landscape_PAR$AquaticSite_PAR$lambda)
