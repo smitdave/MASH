@@ -484,6 +484,51 @@ Rcpp::List EggQ__get_EggQTime(MASH::RcppR6::RcppR6<MASH::EggQ> obj_, double tNow
 }
 
 // [[Rcpp::export]]
+MASH::EL4P EL4P__ctor(int numGenotypes, double psi_new, double alpha_new, double p_new) {
+  return MASH::EL4P(numGenotypes, psi_new, alpha_new, p_new);
+}
+// [[Rcpp::export]]
+void EL4P__oneStep(MASH::RcppR6::RcppR6<MASH::EL4P> obj_) {
+  obj_->oneStep();
+}
+// [[Rcpp::export]]
+Rcpp::List EL4P__get_allGenotypes(MASH::RcppR6::RcppR6<MASH::EL4P> obj_) {
+  return obj_->get_allGenotypes();
+}
+// [[Rcpp::export]]
+Rcpp::List EL4P__get_genotypeIx(MASH::RcppR6::RcppR6<MASH::EL4P> obj_, int ix) {
+  return obj_->get_genotypeIx(ix);
+}
+// [[Rcpp::export]]
+double EL4P__get_psi(MASH::RcppR6::RcppR6<MASH::EL4P> obj_) {
+  return obj_->get_psi();
+}
+// [[Rcpp::export]]
+void EL4P__set_psi(MASH::RcppR6::RcppR6<MASH::EL4P> obj_, double psi_new) {
+  obj_->set_psi(psi_new);
+}
+// [[Rcpp::export]]
+double EL4P__get_alpha(MASH::RcppR6::RcppR6<MASH::EL4P> obj_) {
+  return obj_->get_alpha();
+}
+// [[Rcpp::export]]
+void EL4P__set_alpha(MASH::RcppR6::RcppR6<MASH::EL4P> obj_, double alpha_new) {
+  obj_->set_alpha(alpha_new);
+}
+// [[Rcpp::export]]
+double EL4P__get_p(MASH::RcppR6::RcppR6<MASH::EL4P> obj_) {
+  return obj_->get_p();
+}
+// [[Rcpp::export]]
+void EL4P__set_p(MASH::RcppR6::RcppR6<MASH::EL4P> obj_, double p_new) {
+  obj_->set_p(p_new);
+}
+// [[Rcpp::export]]
+int EL4P__get_numGenotypes(MASH::RcppR6::RcppR6<MASH::EL4P> obj_) {
+  return obj_->get_numGenotypes();
+}
+
+// [[Rcpp::export]]
 MASH::MosquitoFemaleHistory MosquitoFemaleHistory__ctor() {
   return MASH::MosquitoFemaleHistory();
 }

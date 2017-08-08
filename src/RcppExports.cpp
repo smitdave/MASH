@@ -1362,6 +1362,130 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// EL4P__ctor
+MASH::EL4P EL4P__ctor(int numGenotypes, double psi_new, double alpha_new, double p_new);
+RcppExport SEXP _MASH_EL4P__ctor(SEXP numGenotypesSEXP, SEXP psi_newSEXP, SEXP alpha_newSEXP, SEXP p_newSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type numGenotypes(numGenotypesSEXP);
+    Rcpp::traits::input_parameter< double >::type psi_new(psi_newSEXP);
+    Rcpp::traits::input_parameter< double >::type alpha_new(alpha_newSEXP);
+    Rcpp::traits::input_parameter< double >::type p_new(p_newSEXP);
+    rcpp_result_gen = Rcpp::wrap(EL4P__ctor(numGenotypes, psi_new, alpha_new, p_new));
+    return rcpp_result_gen;
+END_RCPP
+}
+// EL4P__oneStep
+void EL4P__oneStep(MASH::RcppR6::RcppR6<MASH::EL4P> obj_);
+RcppExport SEXP _MASH_EL4P__oneStep(SEXP obj_SEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::EL4P> >::type obj_(obj_SEXP);
+    EL4P__oneStep(obj_);
+    return R_NilValue;
+END_RCPP
+}
+// EL4P__get_allGenotypes
+Rcpp::List EL4P__get_allGenotypes(MASH::RcppR6::RcppR6<MASH::EL4P> obj_);
+RcppExport SEXP _MASH_EL4P__get_allGenotypes(SEXP obj_SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::EL4P> >::type obj_(obj_SEXP);
+    rcpp_result_gen = Rcpp::wrap(EL4P__get_allGenotypes(obj_));
+    return rcpp_result_gen;
+END_RCPP
+}
+// EL4P__get_genotypeIx
+Rcpp::List EL4P__get_genotypeIx(MASH::RcppR6::RcppR6<MASH::EL4P> obj_, int ix);
+RcppExport SEXP _MASH_EL4P__get_genotypeIx(SEXP obj_SEXP, SEXP ixSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::EL4P> >::type obj_(obj_SEXP);
+    Rcpp::traits::input_parameter< int >::type ix(ixSEXP);
+    rcpp_result_gen = Rcpp::wrap(EL4P__get_genotypeIx(obj_, ix));
+    return rcpp_result_gen;
+END_RCPP
+}
+// EL4P__get_psi
+double EL4P__get_psi(MASH::RcppR6::RcppR6<MASH::EL4P> obj_);
+RcppExport SEXP _MASH_EL4P__get_psi(SEXP obj_SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::EL4P> >::type obj_(obj_SEXP);
+    rcpp_result_gen = Rcpp::wrap(EL4P__get_psi(obj_));
+    return rcpp_result_gen;
+END_RCPP
+}
+// EL4P__set_psi
+void EL4P__set_psi(MASH::RcppR6::RcppR6<MASH::EL4P> obj_, double psi_new);
+RcppExport SEXP _MASH_EL4P__set_psi(SEXP obj_SEXP, SEXP psi_newSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::EL4P> >::type obj_(obj_SEXP);
+    Rcpp::traits::input_parameter< double >::type psi_new(psi_newSEXP);
+    EL4P__set_psi(obj_, psi_new);
+    return R_NilValue;
+END_RCPP
+}
+// EL4P__get_alpha
+double EL4P__get_alpha(MASH::RcppR6::RcppR6<MASH::EL4P> obj_);
+RcppExport SEXP _MASH_EL4P__get_alpha(SEXP obj_SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::EL4P> >::type obj_(obj_SEXP);
+    rcpp_result_gen = Rcpp::wrap(EL4P__get_alpha(obj_));
+    return rcpp_result_gen;
+END_RCPP
+}
+// EL4P__set_alpha
+void EL4P__set_alpha(MASH::RcppR6::RcppR6<MASH::EL4P> obj_, double alpha_new);
+RcppExport SEXP _MASH_EL4P__set_alpha(SEXP obj_SEXP, SEXP alpha_newSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::EL4P> >::type obj_(obj_SEXP);
+    Rcpp::traits::input_parameter< double >::type alpha_new(alpha_newSEXP);
+    EL4P__set_alpha(obj_, alpha_new);
+    return R_NilValue;
+END_RCPP
+}
+// EL4P__get_p
+double EL4P__get_p(MASH::RcppR6::RcppR6<MASH::EL4P> obj_);
+RcppExport SEXP _MASH_EL4P__get_p(SEXP obj_SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::EL4P> >::type obj_(obj_SEXP);
+    rcpp_result_gen = Rcpp::wrap(EL4P__get_p(obj_));
+    return rcpp_result_gen;
+END_RCPP
+}
+// EL4P__set_p
+void EL4P__set_p(MASH::RcppR6::RcppR6<MASH::EL4P> obj_, double p_new);
+RcppExport SEXP _MASH_EL4P__set_p(SEXP obj_SEXP, SEXP p_newSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::EL4P> >::type obj_(obj_SEXP);
+    Rcpp::traits::input_parameter< double >::type p_new(p_newSEXP);
+    EL4P__set_p(obj_, p_new);
+    return R_NilValue;
+END_RCPP
+}
+// EL4P__get_numGenotypes
+int EL4P__get_numGenotypes(MASH::RcppR6::RcppR6<MASH::EL4P> obj_);
+RcppExport SEXP _MASH_EL4P__get_numGenotypes(SEXP obj_SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::EL4P> >::type obj_(obj_SEXP);
+    rcpp_result_gen = Rcpp::wrap(EL4P__get_numGenotypes(obj_));
+    return rcpp_result_gen;
+END_RCPP
+}
 // MosquitoFemaleHistory__ctor
 MASH::MosquitoFemaleHistory MosquitoFemaleHistory__ctor();
 RcppExport SEXP _MASH_MosquitoFemaleHistory__ctor() {
@@ -1548,6 +1672,17 @@ static const R_CallMethodDef CallEntries[] = {
     {"_MASH_EggQ__set_N", (DL_FUNC) &_MASH_EggQ__set_N, 2},
     {"_MASH_EggQ__get_EggQ", (DL_FUNC) &_MASH_EggQ__get_EggQ, 1},
     {"_MASH_EggQ__get_EggQTime", (DL_FUNC) &_MASH_EggQ__get_EggQTime, 3},
+    {"_MASH_EL4P__ctor", (DL_FUNC) &_MASH_EL4P__ctor, 4},
+    {"_MASH_EL4P__oneStep", (DL_FUNC) &_MASH_EL4P__oneStep, 1},
+    {"_MASH_EL4P__get_allGenotypes", (DL_FUNC) &_MASH_EL4P__get_allGenotypes, 1},
+    {"_MASH_EL4P__get_genotypeIx", (DL_FUNC) &_MASH_EL4P__get_genotypeIx, 2},
+    {"_MASH_EL4P__get_psi", (DL_FUNC) &_MASH_EL4P__get_psi, 1},
+    {"_MASH_EL4P__set_psi", (DL_FUNC) &_MASH_EL4P__set_psi, 2},
+    {"_MASH_EL4P__get_alpha", (DL_FUNC) &_MASH_EL4P__get_alpha, 1},
+    {"_MASH_EL4P__set_alpha", (DL_FUNC) &_MASH_EL4P__set_alpha, 2},
+    {"_MASH_EL4P__get_p", (DL_FUNC) &_MASH_EL4P__get_p, 1},
+    {"_MASH_EL4P__set_p", (DL_FUNC) &_MASH_EL4P__set_p, 2},
+    {"_MASH_EL4P__get_numGenotypes", (DL_FUNC) &_MASH_EL4P__get_numGenotypes, 1},
     {"_MASH_MosquitoFemaleHistory__ctor", (DL_FUNC) &_MASH_MosquitoFemaleHistory__ctor, 0},
     {"_MASH_MosquitoFemaleHistory__historyInit", (DL_FUNC) &_MASH_MosquitoFemaleHistory__historyInit, 2},
     {"_MASH_MosquitoFemaleHistory__historyTrack", (DL_FUNC) &_MASH_MosquitoFemaleHistory__historyTrack, 3},

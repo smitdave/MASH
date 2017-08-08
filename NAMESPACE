@@ -2,6 +2,7 @@
 
 export(AquaEmergeLambdaPlot_utility)
 export(AquaticSite)
+export(EL4P)
 export(EggQ)
 export(FeedingSite)
 export(HistoryGeneric)

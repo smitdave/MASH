@@ -21,6 +21,7 @@ namespace MASH { class mosquitoPfMOI; }
 namespace MASH { class RiskQ; }
 namespace MASH { class ImagoQ; }
 namespace MASH { class EggQ; }
+namespace MASH { class EL4P; }
 namespace MASH { class MosquitoFemaleHistory; }
 
 namespace Rcpp {
@@ -49,6 +50,8 @@ template <> SEXP wrap(const MASH::ImagoQ&);
 template <> MASH::ImagoQ as(SEXP);
 template <> SEXP wrap(const MASH::EggQ&);
 template <> MASH::EggQ as(SEXP);
+template <> SEXP wrap(const MASH::EL4P&);
+template <> MASH::EL4P as(SEXP);
 template <> SEXP wrap(const MASH::MosquitoFemaleHistory&);
 template <> MASH::MosquitoFemaleHistory as(SEXP);
 }

@@ -14,6 +14,7 @@ classes:
   # AQUATIC ECOLOGY classes
   - inst/AQUA-ImagoQ.yml
   - inst/AQUA-EggQ.yml
+  - inst/AQUA-EL4P.yml
 
   # MOSQUITO classes
   - inst/MOSQUITO-History.yml

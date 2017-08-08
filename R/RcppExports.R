@@ -487,6 +487,50 @@ EggQ__get_EggQTime <- function(obj_, tNow, clear) {
     .Call('_MASH_EggQ__get_EggQTime', PACKAGE = 'MASH', obj_, tNow, clear)
 }
 
+EL4P__ctor <- function(numGenotypes, psi_new, alpha_new, p_new) {
+    .Call('_MASH_EL4P__ctor', PACKAGE = 'MASH', numGenotypes, psi_new, alpha_new, p_new)
+}
+
+EL4P__oneStep <- function(obj_) {
+    invisible(.Call('_MASH_EL4P__oneStep', PACKAGE = 'MASH', obj_))
+}
+
+EL4P__get_allGenotypes <- function(obj_) {
+    .Call('_MASH_EL4P__get_allGenotypes', PACKAGE = 'MASH', obj_)
+}
+
+EL4P__get_genotypeIx <- function(obj_, ix) {
+    .Call('_MASH_EL4P__get_genotypeIx', PACKAGE = 'MASH', obj_, ix)
+}
+
+EL4P__get_psi <- function(obj_) {
+    .Call('_MASH_EL4P__get_psi', PACKAGE = 'MASH', obj_)
+}
+
+EL4P__set_psi <- function(obj_, psi_new) {
+    invisible(.Call('_MASH_EL4P__set_psi', PACKAGE = 'MASH', obj_, psi_new))
+}
+
+EL4P__get_alpha <- function(obj_) {
+    .Call('_MASH_EL4P__get_alpha', PACKAGE = 'MASH', obj_)
+}
+
+EL4P__set_alpha <- function(obj_, alpha_new) {
+    invisible(.Call('_MASH_EL4P__set_alpha', PACKAGE = 'MASH', obj_, alpha_new))
+}
+
+EL4P__get_p <- function(obj_) {
+    .Call('_MASH_EL4P__get_p', PACKAGE = 'MASH', obj_)
+}
+
+EL4P__set_p <- function(obj_, p_new) {
+    invisible(.Call('_MASH_EL4P__set_p', PACKAGE = 'MASH', obj_, p_new))
+}
+
+EL4P__get_numGenotypes <- function(obj_) {
+    .Call('_MASH_EL4P__get_numGenotypes', PACKAGE = 'MASH', obj_)
+}
+
 MosquitoFemaleHistory__ctor <- function() {
     .Call('_MASH_MosquitoFemaleHistory__ctor', PACKAGE = 'MASH')
 }

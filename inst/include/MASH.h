@@ -18,6 +18,7 @@
 // AQUATIC ECOLOGY classes
 #include <MASH/AQUA-ImagoQ.hpp>
 #include <MASH/AQUA-EggQ.hpp>
+#include <MASH/AQUA-EL4P.hpp>
 
 // MOSQUITO classes
 #include <MASH/MOSQUITO-History.hpp>
