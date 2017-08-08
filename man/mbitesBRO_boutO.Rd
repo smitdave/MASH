@@ -2,7 +2,7 @@
 % Please edit documentation in R/MBITES-BRO-Bouts.R
 \name{mbitesBRO_boutO}
 \alias{mbitesBRO_boutO}
-\title{MBITES-BRO: Egg Laying Bout \code{MicroMosquitoFemale}}
+\title{MBITES-BRO: Egg Laying Bout \code{\link{MicroMosquitoFemale}}}
 \usage{
 mbitesBRO_boutO()
 }

@@ -219,17 +219,26 @@ AquaticSite <- R6::R6Class(classname = "AquaticSite",
                      private$siteType = siteType
 
                      # shared Aquatic Ecology fields
-                     # private$ImagoQ = allocImagoQ(N = maxQ)
                      private$ImagoQ = MASH::ImagoQ()
 
                      # Aquatic Ecology Emerge module fields
-                     if(module == "emerge"){
-                       private$lambda = lambda
-                     } else if(module == "EL4P"){
-                       private$EggQ = MASH::EggQ()
-                     } else {
-                       stop("unrecognized module")
-                     }
+                     switch(module,
+                       emerge = {
+                         private$lambda = lambda
+                        },
+                        EL4P = {
+                          private$EggQ = MASH::EggQ()
+                        },
+                        {stop("unrecognized Aquatic Ecology module")}
+                      )
+
+                    #  if(module == "emerge"){
+                    #    private$lambda = lambda
+                    #  } else if(module == "EL4P"){
+                    #    private$EggQ = MASH::EggQ()
+                    #  } else {
+                    #    stop("unrecognized module")
+                    #  }
 
                    },
 

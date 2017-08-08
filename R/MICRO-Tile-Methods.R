@@ -8,6 +8,10 @@
 #
 #################################################################
 
+#################################################################
+# MICRO MicroTile Simulation
+#################################################################
+
 #' MICRO \code{\link{MicroTile}}: Run Simulation one Time Step
 #'
 #' Run MICRO simulation for one time step, the length of which defines the temporal window for indifference to contingent events.
@@ -31,12 +35,15 @@ simMICRO_oneStep <- function(timeStep = 1, print = FALSE, logInterval = 10){
 
   # M-BITES
   private$FemalePop$MBITES()
+  if(!is.null(private$MalePop)){
+    private$MalePop$MBITES()
+  }
 
   # human event queue simulation
   private$HumanPop$simHumans(tPause = private$tNow)
 
   # clear mosquito pop and track output
-  if(private$tNow %% 10 == 0){
+  if(private$tNow %% logInterval == 0){
     private$FemalePop$clear_pop(historyTrack = TRUE)
   }
 
@@ -45,6 +52,10 @@ simMICRO_oneStep <- function(timeStep = 1, print = FALSE, logInterval = 10){
 
 
 }
+
+#################################################################
+# Set Methods
+#################################################################
 
 MicroTile$set(which = "public",name = "simMICRO_oneStep",
           value = simMICRO_oneStep,

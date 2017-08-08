@@ -12,10 +12,12 @@
 #include <MASH/PATHOGEN-PfSI.hpp>
 #include <MASH/PATHOGEN-PfMOI.hpp>
 
-// MICRO-specific classes
+// MICRO classes
 #include <MASH/MICRO-RiskQ.hpp>
-#include <MASH/MICRO-ImagoQ.hpp>
-#include <MASH/MICRO-EggQ.hpp>
+
+// AQUATIC ECOLOGY classes
+#include <MASH/AQUA-ImagoQ.hpp>
+#include <MASH/AQUA-EggQ.hpp>
 
 // MOSQUITO classes
 #include <MASH/MOSQUITO-History.hpp>

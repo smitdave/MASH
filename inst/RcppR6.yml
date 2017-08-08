@@ -10,8 +10,10 @@ classes:
 
   # MICRO classes
   - inst/MICRO-RiskQ.yml
-  - inst/MICRO-ImagoQ.yml
-  - inst/MICRO-EggQ.yml
+
+  # AQUATIC ECOLOGY classes
+  - inst/AQUA-ImagoQ.yml
+  - inst/AQUA-EggQ.yml
 
   # MOSQUITO classes
   - inst/MOSQUITO-History.yml

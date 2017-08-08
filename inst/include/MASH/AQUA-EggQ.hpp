@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 //  MASH
-//  MICRO Egg Queue Structure
+//  AQUATIC ECOLOGY Egg Queue Structure
 //  Sean Wu
 //  July 19, 2017
 //

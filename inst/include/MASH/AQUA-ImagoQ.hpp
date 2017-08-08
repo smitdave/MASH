@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 //  MASH
-//  MICRO Imago Queue Structure
+//  AQUATIC ECOLOGY Imago Queue Structure
 //  Sean Wu
 //  July 18, 2017
 //

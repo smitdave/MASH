@@ -2,7 +2,7 @@
 % Please edit documentation in R/MBITES-BRO-Bouts.R
 \name{mbitesBRO_layEggs_Emerge}
 \alias{mbitesBRO_layEggs_Emerge}
-\title{MBITES-BRO: Lay Eggs \code{MicroMosquitoFemale}}
+\title{MBITES-BRO: Lay Eggs for 'Emerge' \code{\link{MicroMosquitoFemale}}}
 \usage{
 mbitesBRO_layEggs_Emerge()
 }

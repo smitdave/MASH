@@ -211,7 +211,7 @@ mbitesBRO_boutR <- function(){
 # MBITES-BRO: Egg Laying Bout
 #################################################################
 
-#' MBITES-BRO: Egg Laying Bout \code{MicroMosquitoFemale}
+#' MBITES-BRO: Egg Laying Bout \code{\link{MicroMosquitoFemale}}
 #'
 #' A mosquito performs a oviposition bout (all actions taken launch to launch when oviposition required).
 #'  * This method is bound to \code{MicroMosquitoFemale$boutO()}.
@@ -223,13 +223,26 @@ mbitesBRO_boutO <- function(){
   }
 }
 
-#' MBITES-BRO: Lay Eggs \code{MicroMosquitoFemale}
+#' MBITES-BRO: Lay Eggs for 'Emerge' \code{\link{MicroMosquitoFemale}}
 #'
 #' During an oviposition bout \code{\link{mbitesBRO_boutO}}, lay eggs (this is just a filler to clear out the \code{batch} field of the mosquito; egg laying is not implemented in any modules relying on "Emerge" Aquatic Ecology module)
 #'  * This method is bound to \code{MicroMosquitoFemale$layEggs()}.
 #'
 #' @md
 mbitesBRO_layEggs_Emerge <- function(){
+  if(runif(1) < private$FemalePopPointer$get_MBITES_PAR("O_succeed")){
+    private$batch = 0
+    private$stateNew = "B"
+  }
+}
+
+#' MBITES-BRO: Lay Eggs for 'EL4P' \code{\link{MicroMosquitoFemale}}
+#'
+#' During an oviposition bout \code{\link{mbitesBRO_boutO}}, lay eggs for 'EL4P' module of Aquatic Ecology.
+#'  * This method is bound to \code{MicroMosquitoFemale$layEggs()}.
+#'
+#' @md
+mbitesBRO_layEggs_EL4P <- function(){
   if(runif(1) < private$FemalePopPointer$get_MBITES_PAR("O_succeed")){
     private$batch = 0
     private$stateNew = "B"
