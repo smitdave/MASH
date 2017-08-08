@@ -7,7 +7,9 @@
 EL4P(numGenotypes, psi_new, alpha_new, p_new)
 }
 \description{
-Initialize an EL4P pool inside an aquatic site or for a well-mixed macrosimulation tile. This class is nested inside \code{\link{AquaticSite}} or \code{\link{MacroTile}}.
+Initialize an EL4P pool inside an aquatic site or for a well-mixed macrosimulation tile.
+This class is nested inside \code{\link{AquaticSite}} or \code{\link{MacroTile}}.
+Note that genotype corresponding to index 0 is always the wild type.
 }
 \section{Methods}{
 

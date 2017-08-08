@@ -13,7 +13,9 @@ EL4P:
   forward_declare: true
   constructor:
     roxygen: |
-      Initialize an EL4P pool inside an aquatic site or for a well-mixed macrosimulation tile. This class is nested inside \code{\link{AquaticSite}} or \code{\link{MacroTile}}.
+      Initialize an EL4P pool inside an aquatic site or for a well-mixed macrosimulation tile.
+      This class is nested inside \code{\link{AquaticSite}} or \code{\link{MacroTile}}.
+      Note that genotype corresponding to index 0 is always the wild type.
       @title Aquatic Ecology EL4P Class
       @section Methods:
         * get_N:
@@ -41,6 +43,13 @@ EL4P:
   methods:
     # EL4P difference equations
     oneStep:
+      return_type: void
+
+    # add an egg batch
+    addEggs:
+      args:
+        - eggs_N: double
+        - genotype_ix: int
       return_type: void
 
     # Getters & Setters

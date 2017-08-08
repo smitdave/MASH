@@ -114,6 +114,19 @@ public:
   };
 
   ///////////////////////////////////
+  // Add Egg Batch
+  ///////////////////////////////////
+
+  void addEggs(const double &eggs_N, const int &genotype_ix){
+
+    if(genotype_ix >= EL4Pvec.size()){
+      Rcpp::stop("genotype to add not found in EL4P object");
+    }
+
+    EL4Pvec[genotype_ix].eggs += eggs_N;
+  };
+
+  ///////////////////////////////////
   // Getters & Setters
   ///////////////////////////////////
 

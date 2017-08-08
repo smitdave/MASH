@@ -495,6 +495,10 @@ EL4P__oneStep <- function(obj_) {
     invisible(.Call('_MASH_EL4P__oneStep', PACKAGE = 'MASH', obj_))
 }
 
+EL4P__addEggs <- function(obj_, eggs_N, genotype_ix) {
+    invisible(.Call('_MASH_EL4P__addEggs', PACKAGE = 'MASH', obj_, eggs_N, genotype_ix))
+}
+
 EL4P__get_allGenotypes <- function(obj_) {
     .Call('_MASH_EL4P__get_allGenotypes', PACKAGE = 'MASH', obj_)
 }

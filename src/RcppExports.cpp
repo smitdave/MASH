@@ -1386,6 +1386,18 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// EL4P__addEggs
+void EL4P__addEggs(MASH::RcppR6::RcppR6<MASH::EL4P> obj_, double eggs_N, int genotype_ix);
+RcppExport SEXP _MASH_EL4P__addEggs(SEXP obj_SEXP, SEXP eggs_NSEXP, SEXP genotype_ixSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::EL4P> >::type obj_(obj_SEXP);
+    Rcpp::traits::input_parameter< double >::type eggs_N(eggs_NSEXP);
+    Rcpp::traits::input_parameter< int >::type genotype_ix(genotype_ixSEXP);
+    EL4P__addEggs(obj_, eggs_N, genotype_ix);
+    return R_NilValue;
+END_RCPP
+}
 // EL4P__get_allGenotypes
 Rcpp::List EL4P__get_allGenotypes(MASH::RcppR6::RcppR6<MASH::EL4P> obj_);
 RcppExport SEXP _MASH_EL4P__get_allGenotypes(SEXP obj_SEXP) {
@@ -1674,6 +1686,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_MASH_EggQ__get_EggQTime", (DL_FUNC) &_MASH_EggQ__get_EggQTime, 3},
     {"_MASH_EL4P__ctor", (DL_FUNC) &_MASH_EL4P__ctor, 4},
     {"_MASH_EL4P__oneStep", (DL_FUNC) &_MASH_EL4P__oneStep, 1},
+    {"_MASH_EL4P__addEggs", (DL_FUNC) &_MASH_EL4P__addEggs, 3},
     {"_MASH_EL4P__get_allGenotypes", (DL_FUNC) &_MASH_EL4P__get_allGenotypes, 1},
     {"_MASH_EL4P__get_genotypeIx", (DL_FUNC) &_MASH_EL4P__get_genotypeIx, 2},
     {"_MASH_EL4P__get_psi", (DL_FUNC) &_MASH_EL4P__get_psi, 1},

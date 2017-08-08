@@ -492,6 +492,10 @@ void EL4P__oneStep(MASH::RcppR6::RcppR6<MASH::EL4P> obj_) {
   obj_->oneStep();
 }
 // [[Rcpp::export]]
+void EL4P__addEggs(MASH::RcppR6::RcppR6<MASH::EL4P> obj_, double eggs_N, int genotype_ix) {
+  obj_->addEggs(eggs_N, genotype_ix);
+}
+// [[Rcpp::export]]
 Rcpp::List EL4P__get_allGenotypes(MASH::RcppR6::RcppR6<MASH::EL4P> obj_) {
   return obj_->get_allGenotypes();
 }
