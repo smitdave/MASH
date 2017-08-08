@@ -91,12 +91,29 @@ EL4P.Parameters <- function(
     return(out)
 }
 
+#' Fit EL4P Aquatic Ecology Module to \code{\link{Landscape}}
+#'
+#' Fit the EL4P Aquatic Ecology module on the exact LANDSCAPE to match a desired level of daily emergence at equilibrium.
+#' This means that the site-specific density dependent mortality parameter \code{psi} will be fit
+#' to K for each aquatic habitat on the landscape, and then each site will be run to equilibrium. Compare with \code{\link{setupAquaPop_EL4PsamplePoints}} which will
+#' fit \code{psi} based on a sampling grid of K.
+#'
+#' @md
+#' @export
+EL4P.Exact.Fit <- function(){
 
+}
 
+#' Fit EL4P Aquatic Ecology Module to Sample Grid
+#'
+#' Fit the EL4P Aquatic Ecology module on a sampling grid of K values to match a desired level of daily emergence at equilibrium.
+#' This means that the site-specific density dependent mortality parameter \code{psi} will be fit
+#' to K based on a sampling grid of values for K in log-space. If \code{plot = TRUE}, the linear regression of \code{psi} against logged values of K
+#' should show exact linear dependence, indicating fitted \code{psi} will produce desired level of lambda at equilibrium. Compare with \code{\link{setupAquaPop_EL4Pexact}} which will
+#' fit \code{psi} based on an exact LANDSCAPE. This will also return the coefficients of a linear regression of K on psi (see \code{\link{psi2K_cf}}) to give the functional relationship between K and psi.
+#'
+#' @md
+#' @export
+EL4P.Sample.Fit <- function(){
 
-# # calculate initial parameter values
-# W = rgamma(n = nA,shape = a,scale = b)
-# K = (lambda*W) / sum(W)
-# pp = -log(P^((1-p)/5))
-# alpha = abs(rnorm(n = nA,mean = pp,sd = 0.004))
-# psi = alpha/K
+}
