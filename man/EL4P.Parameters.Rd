@@ -4,7 +4,7 @@
 \alias{EL4P.Parameters}
 \title{Initialize EL4P Aquatic Ecoogy Module Parameters}
 \usage{
-EL4P.Parameters(nAqua, nHumans, R0, M, eqAqua, EIP, lifespan, S,
+EL4P.Parameters(nAqua, nHumans, R0, M, eqAqua, EIP, lifespan, G, nu, S,
   alpha.m = 0.8, p = 0.9, K.a = 1, K.b = 1)
 }
 \arguments{
@@ -16,11 +16,15 @@ EL4P.Parameters(nAqua, nHumans, R0, M, eqAqua, EIP, lifespan, S,
 
 \item{M}{vector of densities of mosquitoes at each aquatic habitat}
 
-\item{eqAqua}{vector of probability of oviposition at each aquatic habitat (see \code{\link{aquaIx_equilibrium}})}
+\item{eqAqua}{vector of probability of oviposition at each aquatic habitat}
 
 \item{EIP}{length of the entomological incubation period}
 
 \item{lifespan}{average lifespan of mosquito}
+
+\item{G}{mean total lifetime egg production of adult female}
+
+\item{nu}{mean egg batch size for single oviposition}
 
 \item{S}{stability index; number of bites on humans over the average mosquito lifespan}
 
@@ -33,5 +37,5 @@ EL4P.Parameters(nAqua, nHumans, R0, M, eqAqua, EIP, lifespan, S,
 \item{K.b}{scale parameter for gamma distributed weights on K}
 }
 \description{
-Generate named list of EL4P parameters.
+Generate named list of EL4P parameters, and calculates lambda (see \code{\link{calcLambda_MicroEL4P}} for details).
 }
