@@ -61,12 +61,12 @@ MICRO.Emerge.Setup <- function(overwrite = TRUE){
   #################################################################
 
   AquaticSite$set(which = "public",name = "get_lambda",
-            value = get_MicroLambda,
+            value = get_lambda_MicroEmerge,
             overwrite = overwrite
   )
 
   AquaticSite$set(which = "public",name = "set_lambda",
-            value = set_MicroLambda,
+            value = set_lambda_MicroEmerge,
             overwrite = overwrite
   )
 
