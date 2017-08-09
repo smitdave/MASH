@@ -90,7 +90,7 @@ set_lambda_MicroEmerge <- function(lambda, ix = NULL){
 #' Calculate emerging adults for a single aquatic habitat and add them to that site's ImagoQ.
 #' This method is bound to \code{AquaticSite$oneStep_EmergeSite()}.
 #'
-#' @param tNow integer time to calculate emergence
+#' @param tNow current global time of \code{\link{MicroTile}}
 oneStep_MicroEmergeSite <- function(tNow){
 
   lambdaExact = private$lambda[floor(tNow)%%365+1]

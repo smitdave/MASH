@@ -208,8 +208,7 @@ AquaticSite <- R6::R6Class(classname = "AquaticSite",
                    # Initialize
                    #################################################
 
-                   # maxQ: pre-alloc ImagoQ and EggQ size
-                   initialize = function(ix, siteXY, searchWt, module, lambda = NULL, haz = 0, siteType = 0L){
+                   initialize = function(ix, siteXY, searchWt, module, lambda = NULL, numGenotypes = 1, haz = 0, siteType = 0L){
 
                      # generic fields
                      private$ix = ix
@@ -227,18 +226,12 @@ AquaticSite <- R6::R6Class(classname = "AquaticSite",
                          private$lambda = lambda
                         },
                         EL4P = {
+                          private$numGenotypes = numGenotypes
                           private$EggQ = MASH::EggQ()
+                          private$EL4P = MASH::EL4P(numGenotypes=numGenotypes,psi_new=0,alpha_new=0,p_new=0)
                         },
                         {stop("unrecognized Aquatic Ecology module")}
                       )
-
-                    #  if(module == "emerge"){
-                    #    private$lambda = lambda
-                    #  } else if(module == "EL4P"){
-                    #    private$EggQ = MASH::EggQ()
-                    #  } else {
-                    #    stop("unrecognized module")
-                    #  }
 
                    },
 
@@ -254,7 +247,7 @@ AquaticSite <- R6::R6Class(classname = "AquaticSite",
 
                    # site coordinates
                    get_siteXY = function(){return(private$siteXY)},
-                   set_siteXY = function(newSiteXY){private$siteXY = siteXY},
+                   set_siteXY = function(siteXY){private$siteXY = siteXY},
 
                    # search weight
                    get_searchWt = function(){return(private$searchWt)},
@@ -275,8 +268,14 @@ AquaticSite <- R6::R6Class(classname = "AquaticSite",
                    get_EggQ = function(){return(private$EggQ)},
                    set_EggQ = function(EggQ){private$EggQ = EggQ},
 
+                   get_EL4P = function(){return(private$EL4P)},
+                   set_EL4P = function(EL4P){private$EL4P = EL4P},
+
                    get_lambda = function(){return(private$lambda)},
                    set_lambda = function(lambda){private$lambda = lambda},
+
+                   get_numGenotypes = function(){return(private$numGenotypes)},
+                   set_numGenotypes = function(numGenotypes){private$numGenotypes = numGenotypes},
 
                    #################################################
                    # Pointers
@@ -302,7 +301,9 @@ AquaticSite <- R6::R6Class(classname = "AquaticSite",
                    haz = NULL,
                    ImagoQ = NULL,
                    EggQ = NULL,
+                   EL4P = NULL,
                    lambda = NULL,
+                   numGenotypes = NULL,
 
                    # Pointers
                    LandscapePointer = NULL

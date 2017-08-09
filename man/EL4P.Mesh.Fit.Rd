@@ -19,7 +19,9 @@ EL4P.Mesh.Fit(mesh_N, EL4P_PAR, var_tol = 0.1, plot = FALSE)
 named list
 \itemize{
 \item equilibriumPops: equilibrium aquatic populations
-\item psiFit: fitted values of psi
+\item psi: fitted values of psi
+\item alpha: sampled values of alpha
+\item K: sampled values of K
 \item meshK: sampled values of K
 \item psi2K_cf: slope coefficient between 1/psi and K
 }

@@ -12,7 +12,7 @@
 # Setup
 #################################################################
 
-#' Initialize Emerge MODULE
+#' Initialize Emerge Aquatic Ecology Module
 #'
 #' This function initializes methods and fields for the 'Emerge' MODULE of Aquatic Ecology COMPONENT.
 #' It modifies \code{\link{AquaticSite}} and \code{\link{Landscape}} classes.

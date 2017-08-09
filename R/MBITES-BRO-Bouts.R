@@ -244,6 +244,7 @@ mbitesBRO_layEggs_Emerge <- function(){
 #' @md
 mbitesBRO_layEggs_EL4P <- function(){
   if(runif(1) < private$FemalePopPointer$get_MBITES_PAR("O_succeed")){
+    private$LandscapePointer$get_AquaSites(private$ix)$get_EggQ()$add_EggQ(N_new=private$batch,tOviposit_new=private$tNow,genotype_new=0L,damID_new="-1L",sireID_new="-1L")
     private$batch = 0
     private$stateNew = "B"
   }

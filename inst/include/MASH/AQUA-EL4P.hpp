@@ -214,13 +214,13 @@ public:
   // Add Egg Batch
   ///////////////////////////////////
 
-  void addEggs(const double &eggs_N, const int &genotype_ix){
+  void addEggs(const double &eggs_N, const int &genotype){
 
-    if(genotype_ix >= EL4Pvec.size()){
+    if(genotype >= EL4Pvec.size()){
       Rcpp::stop("genotype to add not found in EL4P object");
     }
 
-    EL4Pvec[genotype_ix].eggs += eggs_N;
+    EL4Pvec[genotype].eggs += eggs_N;
   };
 
   ///////////////////////////////////
@@ -309,6 +309,9 @@ public:
 
   // get genotype specific lambda
   double get_specificLambda(const int &ix){
+    if(ix >= EL4Pvec.size()){
+      Rcpp::stop("invalid genotype index")
+    }
     return(EL4Pvec[ix].lambda);
   };
 
