@@ -495,6 +495,22 @@ EL4P__oneStep <- function(obj_) {
     invisible(.Call('_MASH_EL4P__oneStep', PACKAGE = 'MASH', obj_))
 }
 
+EL4P__oneStep_GEL4P <- function(obj_, M, eqAqua, G, lifespan) {
+    invisible(.Call('_MASH_EL4P__oneStep_GEL4P', PACKAGE = 'MASH', obj_, M, eqAqua, G, lifespan))
+}
+
+EL4P__burnIn_GEL4P <- function(obj_, M, eqAqua, G, lifespan, tMax) {
+    invisible(.Call('_MASH_EL4P__burnIn_GEL4P', PACKAGE = 'MASH', obj_, M, eqAqua, G, lifespan, tMax))
+}
+
+EL4P__G2K_GEL4P <- function(obj_, eqAqua, G, lifespan, tMax) {
+    invisible(.Call('_MASH_EL4P__G2K_GEL4P', PACKAGE = 'MASH', obj_, eqAqua, G, lifespan, tMax))
+}
+
+EL4P__checkDX_GEL4P <- function(obj_, eqAqua, G, lifespan, tMax) {
+    .Call('_MASH_EL4P__checkDX_GEL4P', PACKAGE = 'MASH', obj_, eqAqua, G, lifespan, tMax)
+}
+
 EL4P__addEggs <- function(obj_, eggs_N, genotype_ix) {
     invisible(.Call('_MASH_EL4P__addEggs', PACKAGE = 'MASH', obj_, eggs_N, genotype_ix))
 }
@@ -533,6 +549,22 @@ EL4P__set_p <- function(obj_, p_new) {
 
 EL4P__get_numGenotypes <- function(obj_) {
     .Call('_MASH_EL4P__get_numGenotypes', PACKAGE = 'MASH', obj_)
+}
+
+EL4P__get_totalLambda <- function(obj_) {
+    .Call('_MASH_EL4P__get_totalLambda', PACKAGE = 'MASH', obj_)
+}
+
+EL4P__get_specificLambda <- function(obj_, ix) {
+    .Call('_MASH_EL4P__get_specificLambda', PACKAGE = 'MASH', obj_, ix)
+}
+
+EL4P__reset <- function(obj_) {
+    invisible(.Call('_MASH_EL4P__reset', PACKAGE = 'MASH', obj_))
+}
+
+EL4P__set_pop <- function(obj_, initPop) {
+    invisible(.Call('_MASH_EL4P__set_pop', PACKAGE = 'MASH', obj_, initPop))
 }
 
 MosquitoFemaleHistory__ctor <- function() {
