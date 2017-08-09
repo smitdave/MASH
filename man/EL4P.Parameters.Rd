@@ -5,7 +5,7 @@
 \title{Initialize EL4P Aquatic Ecoogy Module Parameters}
 \usage{
 EL4P.Parameters(nAqua, nHumans, R0, M, eqAqua, EIP, lifespan, G, nu, S,
-  alpha.a = 0.8, alpha.sd = 0.004, p = 0.9, K.a = 1, K.b = 1)
+  alpha_a = 0.8, alpha_sd = 0.004, p = 0.9, K_a = 1, K_b = 1)
 }
 \arguments{
 \item{nAqua}{number of aquatic habitats on landscape}
@@ -28,15 +28,15 @@ EL4P.Parameters(nAqua, nHumans, R0, M, eqAqua, EIP, lifespan, G, nu, S,
 
 \item{S}{stability index; number of bites on humans over the average mosquito lifespan}
 
-\item{alpha.a}{density independent survival parameter \code{alpha} from pupae to adult \deqn{-log(alpha.a^{\frac{1-p}{5}})}}
+\item{alpha_a}{density independent survival parameter \code{alpha} from pupae to adult \deqn{-log(alpha_a^{\frac{1-p}{5}})}}
 
-\item{alpha.sd}{standard deviation of density independent survival parameter \code{alpha}}
+\item{alpha_sd}{standard deviation of density independent survival parameter \code{alpha}}
 
 \item{p}{expected fraction of cohort that advances to next life stage (1/p is expected time spent in each stage L1,L2,L3,L4,P)}
 
-\item{K.a}{shape parameter for gamma distributed weights on K}
+\item{K_a}{shape parameter for gamma distributed weights on K}
 
-\item{K.b}{scale parameter for gamma distributed weights on K}
+\item{K_b}{scale parameter for gamma distributed weights on K}
 }
 \description{
 Generate named list of EL4P parameters, and calculates lambda (see \code{\link{calcLambda_MicroEL4P}} for details).

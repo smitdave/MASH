@@ -117,6 +117,7 @@ public:
   // EL4P Fitting
   ///////////////////////////////////
 
+  // run one step of difference equations with equilibrium RM input egg laying
   void oneStep_GEL4P(const double &M, const double &eqAqua, const double &G, const double &lifespan){
 
     // total larval density in pool
@@ -151,6 +152,62 @@ public:
       EL4Pvec[i].eggs = M*eqAqua*(G/lifespan); // eggs are deposited accoridng to RM model at equilibrium
     }
 
+  };
+
+  // run the EL4P pool through a burnin period
+  void burnIn_GEL4P(const double &M, const double &eqAqua, const double &G, const double &lifespan, const int &tMax = 800){
+    for(int i=0; i<tMax; i++){
+      this->oneStep_GEL4P(M,eqAqua,G,lifespan);
+    }
+  };
+
+  // run the EL4P pool with simulated adult dynamics
+  void G2K_GEL4P(const double &eqAqua, const double &G, const double &lifespan, const int &tMax = 800){
+
+    // set adult population equal to emergence
+    double M = this->get_totalLambda();
+    M += 1;
+
+    // run EL4P pool through tMax
+    for(int i=0; i<tMax; i++){
+      // run daily time step with RM egg laying
+      this->oneStep_GEL4P(M,eqAqua,G,lifespan);
+
+      // overall lambda for all genotypes
+      double lambda = this->get_totalLambda();
+
+      // simulate adult population dynamics
+      M = ((exp(-1/lifespan))*M) + lambda;
+    }
+
+  };
+
+  // run the EL4P pool with simulated adult dynamics and output vector of daily emergence 'lambda'; please initialize the pop before running this function
+  std::vector<double> checkDX_GEL4P(const double &eqAqua, const double &G, const double &lifespan, const int &tMax = 800){
+
+    // set adult population equal to emergence
+    double lambda = this->get_totalLambda();
+    double M = lambda;
+
+    // vector of lambda
+    std::vector<double> lambdaH;
+    lambdaH.reserve(tMax+1);
+    lambdaH.push_back(lambda);
+
+    // simulate adult dynamics through transient period
+    for(int i=0; i<100; i++){
+      M = ((exp(-1/lifespan))*M) + lambda;
+    }
+
+    // run daily simulation with RM adult dynamics
+    for(int i=0; i<tMax; i++){
+      this->oneStep_GEL4P(M,eqAqua,G,lifespan);
+      lambda = this->get_totalLambda();
+      M = ((exp(-1/lifespan))*M) + lambda;
+      lambdaH.push_back(lambda);
+    }
+
+    return(lambdaH);
   };
 
   ///////////////////////////////////
@@ -242,18 +299,18 @@ public:
   };
 
   // get total lambda across all genotypes
-  double get_totLambda(){
+  double get_totalLambda(){
     double lambda = 0.0;
     for(auto it = EL4Pvec.begin(); it != EL4Pvec.end(); it++){
       lambda += it->lambda;
     }
     return(lambda);
-  }
+  };
 
   // get genotype specific lambda
   double get_specificLambda(const int &ix){
     return(EL4Pvec[ix].lambda);
-  }
+  };
 
   ///////////////////////////////////
   // Other Functions
@@ -269,7 +326,27 @@ public:
       it->P = 0.0;
       it->lambda = 0.0;
     }
-  }
+  };
+
+  void set_pop(const Rcpp::List &initPop){
+
+    // make sure sizes of initial pop sizes match
+    if(EL4Pvec.size() != initPop.size()){
+      Rcpp::stop("size of initPop not equal to number of genotypes");
+    }
+
+    // set initial population
+    for(int i=0; i<EL4Pvec.size(); i++){
+      Rcpp::List currPop = initPop[i];
+      EL4Pvec[i].eggs = currPop["eggs"];
+      EL4Pvec[i].L1 = currPop["L1"];
+      EL4Pvec[i].L2 = currPop["L2"];
+      EL4Pvec[i].L3 = currPop["L3"];
+      EL4Pvec[i].L4 = currPop["L4"];
+      EL4Pvec[i].P = currPop["P"];
+      EL4Pvec[i].lambda = currPop["lambda"];
+    }
+  };
 
 // private members
 private:

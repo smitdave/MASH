@@ -1400,6 +1400,50 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// EL4P__burnIn_GEL4P
+void EL4P__burnIn_GEL4P(MASH::RcppR6::RcppR6<MASH::EL4P> obj_, double M, double eqAqua, double G, double lifespan, int tMax);
+RcppExport SEXP _MASH_EL4P__burnIn_GEL4P(SEXP obj_SEXP, SEXP MSEXP, SEXP eqAquaSEXP, SEXP GSEXP, SEXP lifespanSEXP, SEXP tMaxSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::EL4P> >::type obj_(obj_SEXP);
+    Rcpp::traits::input_parameter< double >::type M(MSEXP);
+    Rcpp::traits::input_parameter< double >::type eqAqua(eqAquaSEXP);
+    Rcpp::traits::input_parameter< double >::type G(GSEXP);
+    Rcpp::traits::input_parameter< double >::type lifespan(lifespanSEXP);
+    Rcpp::traits::input_parameter< int >::type tMax(tMaxSEXP);
+    EL4P__burnIn_GEL4P(obj_, M, eqAqua, G, lifespan, tMax);
+    return R_NilValue;
+END_RCPP
+}
+// EL4P__G2K_GEL4P
+void EL4P__G2K_GEL4P(MASH::RcppR6::RcppR6<MASH::EL4P> obj_, double eqAqua, double G, double lifespan, int tMax);
+RcppExport SEXP _MASH_EL4P__G2K_GEL4P(SEXP obj_SEXP, SEXP eqAquaSEXP, SEXP GSEXP, SEXP lifespanSEXP, SEXP tMaxSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::EL4P> >::type obj_(obj_SEXP);
+    Rcpp::traits::input_parameter< double >::type eqAqua(eqAquaSEXP);
+    Rcpp::traits::input_parameter< double >::type G(GSEXP);
+    Rcpp::traits::input_parameter< double >::type lifespan(lifespanSEXP);
+    Rcpp::traits::input_parameter< int >::type tMax(tMaxSEXP);
+    EL4P__G2K_GEL4P(obj_, eqAqua, G, lifespan, tMax);
+    return R_NilValue;
+END_RCPP
+}
+// EL4P__checkDX_GEL4P
+std::vector<double> EL4P__checkDX_GEL4P(MASH::RcppR6::RcppR6<MASH::EL4P> obj_, double eqAqua, double G, double lifespan, int tMax);
+RcppExport SEXP _MASH_EL4P__checkDX_GEL4P(SEXP obj_SEXP, SEXP eqAquaSEXP, SEXP GSEXP, SEXP lifespanSEXP, SEXP tMaxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::EL4P> >::type obj_(obj_SEXP);
+    Rcpp::traits::input_parameter< double >::type eqAqua(eqAquaSEXP);
+    Rcpp::traits::input_parameter< double >::type G(GSEXP);
+    Rcpp::traits::input_parameter< double >::type lifespan(lifespanSEXP);
+    Rcpp::traits::input_parameter< int >::type tMax(tMaxSEXP);
+    rcpp_result_gen = Rcpp::wrap(EL4P__checkDX_GEL4P(obj_, eqAqua, G, lifespan, tMax));
+    return rcpp_result_gen;
+END_RCPP
+}
 // EL4P__addEggs
 void EL4P__addEggs(MASH::RcppR6::RcppR6<MASH::EL4P> obj_, double eggs_N, int genotype_ix);
 RcppExport SEXP _MASH_EL4P__addEggs(SEXP obj_SEXP, SEXP eggs_NSEXP, SEXP genotype_ixSEXP) {
@@ -1512,14 +1556,14 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// EL4P__get_totLambda
-double EL4P__get_totLambda(MASH::RcppR6::RcppR6<MASH::EL4P> obj_);
-RcppExport SEXP _MASH_EL4P__get_totLambda(SEXP obj_SEXP) {
+// EL4P__get_totalLambda
+double EL4P__get_totalLambda(MASH::RcppR6::RcppR6<MASH::EL4P> obj_);
+RcppExport SEXP _MASH_EL4P__get_totalLambda(SEXP obj_SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::EL4P> >::type obj_(obj_SEXP);
-    rcpp_result_gen = Rcpp::wrap(EL4P__get_totLambda(obj_));
+    rcpp_result_gen = Rcpp::wrap(EL4P__get_totalLambda(obj_));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -1542,6 +1586,17 @@ BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::EL4P> >::type obj_(obj_SEXP);
     EL4P__reset(obj_);
+    return R_NilValue;
+END_RCPP
+}
+// EL4P__set_pop
+void EL4P__set_pop(MASH::RcppR6::RcppR6<MASH::EL4P> obj_, Rcpp::List initPop);
+RcppExport SEXP _MASH_EL4P__set_pop(SEXP obj_SEXP, SEXP initPopSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::EL4P> >::type obj_(obj_SEXP);
+    Rcpp::traits::input_parameter< Rcpp::List >::type initPop(initPopSEXP);
+    EL4P__set_pop(obj_, initPop);
     return R_NilValue;
 END_RCPP
 }
@@ -1734,6 +1789,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_MASH_EL4P__ctor", (DL_FUNC) &_MASH_EL4P__ctor, 4},
     {"_MASH_EL4P__oneStep", (DL_FUNC) &_MASH_EL4P__oneStep, 1},
     {"_MASH_EL4P__oneStep_GEL4P", (DL_FUNC) &_MASH_EL4P__oneStep_GEL4P, 5},
+    {"_MASH_EL4P__burnIn_GEL4P", (DL_FUNC) &_MASH_EL4P__burnIn_GEL4P, 6},
+    {"_MASH_EL4P__G2K_GEL4P", (DL_FUNC) &_MASH_EL4P__G2K_GEL4P, 5},
+    {"_MASH_EL4P__checkDX_GEL4P", (DL_FUNC) &_MASH_EL4P__checkDX_GEL4P, 5},
     {"_MASH_EL4P__addEggs", (DL_FUNC) &_MASH_EL4P__addEggs, 3},
     {"_MASH_EL4P__get_allGenotypes", (DL_FUNC) &_MASH_EL4P__get_allGenotypes, 1},
     {"_MASH_EL4P__get_genotypeIx", (DL_FUNC) &_MASH_EL4P__get_genotypeIx, 2},
@@ -1744,9 +1802,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_MASH_EL4P__get_p", (DL_FUNC) &_MASH_EL4P__get_p, 1},
     {"_MASH_EL4P__set_p", (DL_FUNC) &_MASH_EL4P__set_p, 2},
     {"_MASH_EL4P__get_numGenotypes", (DL_FUNC) &_MASH_EL4P__get_numGenotypes, 1},
-    {"_MASH_EL4P__get_totLambda", (DL_FUNC) &_MASH_EL4P__get_totLambda, 1},
+    {"_MASH_EL4P__get_totalLambda", (DL_FUNC) &_MASH_EL4P__get_totalLambda, 1},
     {"_MASH_EL4P__get_specificLambda", (DL_FUNC) &_MASH_EL4P__get_specificLambda, 2},
     {"_MASH_EL4P__reset", (DL_FUNC) &_MASH_EL4P__reset, 1},
+    {"_MASH_EL4P__set_pop", (DL_FUNC) &_MASH_EL4P__set_pop, 2},
     {"_MASH_MosquitoFemaleHistory__ctor", (DL_FUNC) &_MASH_MosquitoFemaleHistory__ctor, 0},
     {"_MASH_MosquitoFemaleHistory__historyInit", (DL_FUNC) &_MASH_MosquitoFemaleHistory__historyInit, 2},
     {"_MASH_MosquitoFemaleHistory__historyTrack", (DL_FUNC) &_MASH_MosquitoFemaleHistory__historyTrack, 3},

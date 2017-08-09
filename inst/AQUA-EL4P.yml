@@ -62,6 +62,31 @@ EL4P:
         - lifespan: double
       return_type: void
 
+    burnIn_GEL4P:
+      args:
+        - M: double
+        - eqAqua: double
+        - G: double
+        - lifespan: double
+        - tMax: int
+      return_type: void
+
+    G2K_GEL4P:
+      args:
+        - eqAqua: double
+        - G: double
+        - lifespan: double
+        - tMax: int
+      return_type: void
+
+    checkDX_GEL4P:
+      args:
+        - eqAqua: double
+        - G: double
+        - lifespan: double
+        - tMax: int
+      return_type: "std::vector<double>"
+
     ##################################################
     # add an egg batch
     ##################################################
@@ -111,7 +136,7 @@ EL4P:
     get_numGenotypes:
       return_type: int
 
-    get_totLambda:
+    get_totalLambda:
       return_type: double
 
     get_specificLambda:
@@ -124,4 +149,9 @@ EL4P:
     ##################################################
 
     reset:
+      return_type: void
+
+    set_pop:
+      args:
+        - initPop: "Rcpp::List"
       return_type: void

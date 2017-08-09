@@ -4,12 +4,12 @@
 \alias{EL4P.Sample.Fit}
 \title{Fit EL4P Aquatic Ecology Module to Sample Grid}
 \usage{
-EL4P.Sample.Fit(mesh.N, var.tol = 0.1, plot = FALSE)
+EL4P.Sample.Fit(mesh_N, var_tol = 0.1, plot = FALSE)
 }
 \arguments{
-\item{mesh.N}{number of sample points of K (density of mesh of K values used to fit psi)}
+\item{mesh_N}{number of sample points of K (density of mesh of K values used to fit psi)}
 
-\item{var.tol}{target minimum variance in lambda for emergence for equilibrium to be assumed}
+\item{var_tol}{target minimum variance in lambda for emergence for equilibrium to be assumed}
 
 \item{plot}{produce diagnostic plots of fitting algorithm}
 }

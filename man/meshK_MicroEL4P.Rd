@@ -4,30 +4,30 @@
 \alias{meshK_MicroEL4P}
 \title{Fit Psi on Mesh of K Values}
 \usage{
-meshK_MicroEL4P(K.l, K.u, AquaPops, psi.min = 0, psi.max = 10, tMax = 500,
-  var.tol = 0.1)
+meshK_MicroEL4P(K_l, K_u, AquaPops, psi_min = 0, psi_max = 10, tMax = 500,
+  var_tol = 0.1)
 }
 \arguments{
-\item{K.l}{lower bound of K mesh}
+\item{K_l}{lower bound of K mesh}
 
-\item{K.u}{upper bound of K mesh}
+\item{K_u}{upper bound of K mesh}
 
 \item{AquaPops}{list of EL4P objects (see \code{\link{EL4P}})}
 
-\item{psi.min}{lower bound for fitting psi via one dimensional optimization}
+\item{psi_min}{lower bound for fitting psi via one dimensional optimization}
 
-\item{psi.max}{upper bound for fitting psi via one dimensional optimization}
+\item{psi_max}{upper bound for fitting psi via one dimensional optimization}
 
 \item{tMax}{maximum time to to run aquatic populations to equilibrium}
 
-\item{var.tol}{target minimum variance in lambda for aquatic populations equilibrium}
+\item{var_tol}{target minimum variance in lambda for aquatic populations equilibrium}
 }
 \value{
 named list
 \itemize{
-\item EL4P_pops: aquatic populations run to equilibrium values
-\item psi.hat: fitted values of psi
-\item K.mesh: sampled values of K
+\item eq_pops: EL4P pool populations at equilibrium values
+\item psi_hat: fitted values of psi
+\item meshK: sampled values of K
 }
 }
 \description{

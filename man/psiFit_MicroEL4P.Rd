@@ -13,7 +13,7 @@ psiFit_MicroEL4P(x, EL4P, M, eqAqua, K, G, lifespan, tMax = 150)
 
 \item{M}{equilibrium mosquito density at this aquatic habitat}
 
-\item{eqAqua}{equilibrium mosquito density at this aquatic habitat}
+\item{eqAqua}{vector of probability of oviposition at each aquatic habitat}
 
 \item{K}{carrying capacity at this aquatic habitat}
 
@@ -28,5 +28,5 @@ value of objective function at \code{x}
 }
 \description{
 Given a input psi, \code{x}, run a single aquatic population and output objective function; squared error of lambda around the given value of K \eqn{\left ( \lambda-K \right )^{2}}.
-This will typically be called by \code{\meshK_MicroEL4P{meshK_EL4P}} or \code{optimize}; generally it is the objective function that will be passed to \code{optimize(...)}
+This will typically be called by \code{\link{meshK_MicroEL4P}} or \code{optimize}; generally it is the objective function that will be passed to \code{optimize(...)}
 }
