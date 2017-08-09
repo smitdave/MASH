@@ -84,9 +84,9 @@ plot_PfSI(PfSI_history)
 # Microsimulation Tile Tests 'EL4P'
 #################################################################
 
-EL4P_PAR = EL4P.Parameters(nAqua = 5,nHumans = 30,R0 = 3,eqAqua = rep(x = 0.2,times=5),EIP = 12,lifespan = 11,
+EL4P_PAR = EL4P.Parameters(nAqua = 50,nHumans = 300,R0 = 3,eqAqua = rep(x = 0.2,times=5),EIP = 12,lifespan = 11,
                            G = 65,nu = 65/2,S = 3)
 
-EL4P.Mesh.Fit(mesh_N = 5,var_tol = 100,plot = TRUE)
+EL4P.Mesh.Fit(mesh_N = 50,EL4P_PAR = EL4P_PAR,var_tol = 100,plot = TRUE)
 
 
