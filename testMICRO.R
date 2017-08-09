@@ -90,19 +90,23 @@ library(MASH)
 # set up classes
 SEARCH.MicroKernel.Setup(MBITES = "BRO",overwrite = TRUE)
 MICRO.EL4P.Setup(overwrite = TRUE)
+PfSI.Setup(overwrite = TRUE)
+MICRO.Humans.Setup(overwrite = TRUE)
 
 # first generate the landscape parameters
 MBITES_module = "BRO"
 AQUA_module = "EL4P"
 
-Landscape_PAR = Landscape.Parameters(nFeed = 9,nAqua = 9,pointGen = "poisson",module = AQUA_module,modulePars = NULL)
-HumanPop_PAR = HumanPop.Parameters(nSite = 9,siteSize = 3,siteMin = 1,bWeight = 1)
+nFeed = 5
+nAqua = 4
+Landscape_PAR = Landscape.Parameters(nFeed = nFeed,nAqua = nAqua,pointGen = "poisson",module = AQUA_module,modulePars = NULL)
+HumanPop_PAR = HumanPop.Parameters(nSite = nFeed,siteSize = 3,siteMin = 1,bWeight = 1)
 MosquitoPop_PAR = MicroMosquitoPop.Setup(module = MBITES_module,
                                          aquaModule = AQUA_module,
-                                         N_female = 20,
+                                         N_female = 1,
                                          time = 0,
-                                         ix_female = rep(1,20),
-                                         genotype_female = rep(0,20),
+                                         ix_female = rep(1,1),
+                                         genotype_female = rep(0,1),
                                          batchSize = "bms",
                                          eggMatT = "off",
                                          PfEIP = 0.1,
@@ -113,6 +117,61 @@ tile = MicroTile$new(Landscape_PAR,
                      HumanPop_PAR,
                      MosquitoPop_PAR,
                      directory = "/Users/slwu89/Desktop/mash.out/")
+
+# plot the landscape on the tile
+MicroLandscapePlot_utility(tile$get_Landscape())
+
+
+#################################################################
+# figure out how to do eqAqua
+#################################################################
+
+# get the movement object
+movement = tile$get_FemalePop()$get_movementObject()
+
+# for mbites-bro, make the relevant matrix
+aquaMatrix = matrix(data = 0,nrow = nFeed+nAqua,ncol = nFeed+nAqua)
+aquaNames = c(paste0("F",1:nFeed),paste0("L",1:nAqua))
+colnames(aquaMatrix) = aquaNames
+rownames(aquaMatrix) = aquaNames
+
+
+feedIx = grep(pattern = "F",x = rownames(aquaMatrix))
+aquaIx = grep(pattern = "L",x = rownames(aquaMatrix))
+
+# fill in parts of the matrix corresponding to moving from feeding site to aquatic habitat (F2L)
+for(ixF in feedIx){
+
+  # starting site
+  feedSite = as.numeric(substr(x = aquaNames[ixF],start = 2,stop = 2))
+
+  # movement object from starting site to destination sites
+  mvOb = movement$F2L[[feedSite]]$near
+
+  for(i in 1:length(mvOb$id)){
+    aquaMatrix[ feedIx[feedSite], aquaIx[mvOb$id[i]] ] = mvOb$pr[i]
+  }
+
+}
+
+
+# fill in L2L
+for(ixA in aquaIx){
+
+  # starting site
+  aquaSite = as.numeric(substr(x = aquaNames[ixA],start = 2,stop = 2))
+
+  # movement object from starting site to destination sites
+  mvOb = movement$L2L[[aquaSite]]$near
+
+  for(i in 1:length(mvOb$id)){
+    aquaMatrix[ aquaIx[aquaSite], aquaIx[mvOb$id[i]] ] = mvOb$pr[i]
+  }
+
+}
+
+aquaMarkov = new(Class = "markovchain",states = aquaNames, transitionMatrix = aquaMatrix,name = "aquaMarkov")
+markovchain::steadyStates(aquaMarkov)
 
 
 # fit EL4P

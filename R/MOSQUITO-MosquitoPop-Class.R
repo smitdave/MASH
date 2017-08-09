@@ -88,7 +88,15 @@ MicroMosquitoPopFemale <- R6::R6Class(classname = "MicroMosquitoPopFemale",
                          get_movement = function(){
                            return(private$movement)
                          },
-                         set_movment = function(movement){
+                         set_movement = function(movement){
+                           private$movement = movement
+                         },
+
+                         # get the entire movement object
+                         get_movementObject = function(){
+                           return(private$movement)
+                         },
+                         set_movementObject = function(movement){
                            private$movement = movement
                          },
 
@@ -125,7 +133,7 @@ MicroMosquitoPopFemale <- R6::R6Class(classname = "MicroMosquitoPopFemale",
                         #  clear_pop = NULL,
 
                         #  update_pop = NULL
-                        
+
 
                          #################################################################
                          # Pointers
