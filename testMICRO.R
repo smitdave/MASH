@@ -87,10 +87,32 @@ plot_PfSI(PfSI_history)
 rm(list=ls())
 library(MASH)
 
-# first generate the landscape parameters
-AQUA_module = "EL4P"
-Landscape_PAR = Landscape.Parameters(nFeed = 9,nAqua = 9,pointGen = "poisson",module = AQUA_module,modulePars = NULL)
+# set up classes
+SEARCH.MicroKernel.Setup(MBITES = "BRO",overwrite = TRUE)
+MICRO.EL4P.Setup(overwrite = TRUE)
 
+# first generate the landscape parameters
+MBITES_module = "BRO"
+AQUA_module = "EL4P"
+
+Landscape_PAR = Landscape.Parameters(nFeed = 9,nAqua = 9,pointGen = "poisson",module = AQUA_module,modulePars = NULL)
+HumanPop_PAR = HumanPop.Parameters(nSite = 9,siteSize = 3,siteMin = 1,bWeight = 1)
+MosquitoPop_PAR = MicroMosquitoPop.Setup(module = MBITES_module,
+                                         aquaModule = AQUA_module,
+                                         N_female = 20,
+                                         time = 0,
+                                         ix_female = rep(1,20),
+                                         genotype_female = rep(0,20),
+                                         batchSize = "bms",
+                                         eggMatT = "off",
+                                         PfEIP = 0.1,
+                                         B_succeed = 1)
+
+# Generate a MicroTile
+tile = MicroTile$new(Landscape_PAR,
+                     HumanPop_PAR,
+                     MosquitoPop_PAR,
+                     directory = "/Users/slwu89/Desktop/mash.out/")
 
 
 # fit EL4P

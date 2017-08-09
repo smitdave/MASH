@@ -310,7 +310,7 @@ public:
   // get genotype specific lambda
   double get_specificLambda(const int &ix){
     if(ix >= EL4Pvec.size()){
-      Rcpp::stop("invalid genotype index")
+      Rcpp::stop("invalid genotype index");
     }
     return(EL4Pvec[ix].lambda);
   };

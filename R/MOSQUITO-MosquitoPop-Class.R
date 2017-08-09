@@ -77,28 +77,12 @@ MicroMosquitoPopFemale <- R6::R6Class(classname = "MicroMosquitoPopFemale",
                            stop("this hasn't been written yet")
                          },
 
-                         which_alive = function(){
-                           return(
-                             which(vapply(X = private$pop, FUN = function(x){
-                                  if(is.null(x)){
-                                    return(FALSE)
-                                  } else {
-                                    if(x$isAlive()){
-                                      return(TRUE)
-                                    } else {
-                                      return(FALSE)
-                                    }
-                                  }
-                               }, FUN.VALUE = logical(1)))
-                            )
-                         },
+                        #  which_alive = NULL,
 
                          # getter for nullPop
                          get_nullPop = function(){return(private$nullPop)},
                          # update nullPop
-                         update_nullPop = function(){
-                           private$nullPop = which(vapply(X = private$pop,FUN = is.null,FUN.VALUE = logical(1)))
-                         },
+                        #  update_nullPop = NULL,
 
                          # generic get_movement method; designed to be overwritten by module-specific parameteric getter
                          get_movement = function(){
@@ -126,6 +110,22 @@ MicroMosquitoPopFemale <- R6::R6Class(classname = "MicroMosquitoPopFemale",
                          set_directory = function(directory){
                            private$directory = directory
                          },
+
+                         ##############################################################
+                         # Cohort Methods
+                         ##############################################################
+
+                         # push_pop: from a single ImagoSlot; add a cohort.
+                        #  push_pop = NULL,
+
+                         # extend_pop: extend the pop vecor
+                        #  extend_pop = NULL,
+
+                         # clear_pop: manage the pop vector (find dead mosquitoes; if 'con' is provided, write their histories out to JSON)
+                        #  clear_pop = NULL,
+
+                        #  update_pop = NULL
+                        
 
                          #################################################################
                          # Pointers
@@ -157,85 +157,6 @@ MicroMosquitoPopFemale <- R6::R6Class(classname = "MicroMosquitoPopFemale",
                          },
                          set_TilePointer = function(TilePointer){
                            private$TilePointer = TilePointer
-                         },
-
-                         ##############################################################
-                         # Cohort Methods
-                         ##############################################################
-
-                         # push_pop: from a single ImagoSlot; add a cohort.
-                         push_pop = function(N, tEmerge, ix, genotype, damID, sireID){
-
-                           # if not enough NULL indices, expand the vector
-                           if(N >= length(private$nullPop)){
-
-                             # extend the population
-                             self$extend_pop()
-
-                             # update nullPop indices
-                             self$update_nullPop()
-                           }
-
-                           # push the mosquitoes
-                           for(i in 1:N){
-                             private$pop[[private$nullPop[i]]] = MicroMosquitoFemale$new(id = paste0(tEmerge,"_",private$nullPop[i]), time = tEmerge, ix = ix, genotype = genotype, state = private$initState)
-                             private$pop[[private$nullPop[i]]]$set_FemalePopPointer(self)
-                             private$pop[[private$nullPop[i]]]$set_MalePopPointer(private$MalePopPointer)
-                             private$pop[[private$nullPop[i]]]$set_LandscapePointer(private$LandscapePointer)
-                             private$pop[[private$nullPop[i]]]$set_HumansPointer(private$HumansPointer)
-                             private$pop[[private$nullPop[i]]]$set_TilePointer(private$TilePointer)
-                           }
-
-                           # update nullPop indices
-                           self$update_nullPop()
-
-                         },
-
-                         # extend_pop: extend the pop vecor
-                         extend_pop = function(){
-
-                          N = length(private$pop)
-
-                          nullList = vector(mode="list",length=N)
-                          private$pop = c(private$pop,nullList)
-
-                         },
-
-                         # clear_pop: manage the pop vector (find dead mosquitoes; if 'con' is provided, write their histories out to JSON)
-                         clear_pop = function(historyTrack = FALSE){
-
-                           deadIx = which(vapply(X = private$pop, FUN = function(x){
-                                if(is.null(x)){
-                                  return(FALSE)
-                                } else {
-                                  if(x$isAlive()){
-                                    return(FALSE)
-                                  } else {
-                                    return(TRUE)
-                                  }
-                                }
-                             }, FUN.VALUE = logical(1)))
-
-                          if(historyTrack){
-                            histories = lapply(X = private$pop[deadIx],FUN = function(x){x$get_history()})
-                            names(histories) = vapply(X = private$pop[deadIx], FUN = function(x){x$get_id()}, FUN.VALUE = character(1))
-                          }
-
-                          for(ix in deadIx){
-                            private$pop[[ix]] = NULL
-                          }
-
-                          # write the list out to JSON
-                          if(historyTrack){
-                            fileName = paste0("historyF",private$TilePointer$get_tNow(),".json")
-                            con = file(description = paste0(private$directory,"MOSQUITO/",fileName),open = "wt")
-                            writeLines(text = jsonlite::toJSON(x = histories,pretty = TRUE),con = con)
-                            close(con)
-                          }
-
-                          # update_nullPop
-                          self$update_nullPop()
-
                          }
 
                        ),

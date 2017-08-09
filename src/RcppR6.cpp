@@ -508,8 +508,8 @@ std::vector<double> EL4P__checkDX_GEL4P(MASH::RcppR6::RcppR6<MASH::EL4P> obj_, d
   return obj_->checkDX_GEL4P(eqAqua, G, lifespan, tMax);
 }
 // [[Rcpp::export]]
-void EL4P__addEggs(MASH::RcppR6::RcppR6<MASH::EL4P> obj_, double eggs_N, int genotype_ix) {
-  obj_->addEggs(eggs_N, genotype_ix);
+void EL4P__addEggs(MASH::RcppR6::RcppR6<MASH::EL4P> obj_, double eggs_N, int genotype) {
+  obj_->addEggs(eggs_N, genotype);
 }
 // [[Rcpp::export]]
 Rcpp::List EL4P__get_allGenotypes(MASH::RcppR6::RcppR6<MASH::EL4P> obj_) {

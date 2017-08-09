@@ -1,3 +1,13 @@
+############################################################
+#
+#   MASH
+#   AQUATIC ECOLOGY
+#   ImagoQ class definition
+#   Sean Wu
+#   August 7, 2017
+#
+############################################################
+
 ImagoQ:
   name_cpp: MASH::ImagoQ
   forward_declare: true

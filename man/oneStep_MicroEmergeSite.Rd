@@ -7,7 +7,7 @@
 oneStep_MicroEmergeSite(tNow)
 }
 \arguments{
-\item{tNow}{integer time to calculate emergence}
+\item{tNow}{current global time of \code{\link{MicroTile}}}
 }
 \description{
 Calculate emerging adults for a single aquatic habitat and add them to that site's ImagoQ.

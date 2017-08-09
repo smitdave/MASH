@@ -118,7 +118,7 @@ EL4P.Parameters <- function(
 #' @md
 #' @export
 EL4P.Landscape.Fit <- function(){
-
+  stop("write me please")
 }
 
 #' Fit EL4P Aquatic Ecology Module to Mesh of K
