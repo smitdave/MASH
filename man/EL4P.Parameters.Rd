@@ -4,8 +4,9 @@
 \alias{EL4P.Parameters}
 \title{Initialize EL4P Aquatic Ecoogy Module Parameters}
 \usage{
-EL4P.Parameters(nAqua, nHumans, R0, M, eqAqua, EIP, lifespan, G, nu, S,
-  alpha_a = 0.8, alpha_sd = 0.004, p = 0.9, K_a = 1, K_b = 1)
+EL4P.Parameters(nAqua, nHumans, R0, eqAqua, EIP, lifespan, G, nu, S,
+  alpha_a = 0.8, alpha_sd = 0.004, p = 0.9, K_a = 1, K_b = 1,
+  b = 0.55, c = 0.15, r = 1/38)
 }
 \arguments{
 \item{nAqua}{number of aquatic habitats on landscape}
@@ -13,8 +14,6 @@ EL4P.Parameters(nAqua, nHumans, R0, M, eqAqua, EIP, lifespan, G, nu, S,
 \item{nHumans}{number of humans on landscape}
 
 \item{R0}{desired pathogen transmission level at equilibrium}
-
-\item{M}{vector of densities of mosquitoes at each aquatic habitat}
 
 \item{eqAqua}{vector of probability of oviposition at each aquatic habitat}
 
@@ -37,6 +36,12 @@ EL4P.Parameters(nAqua, nHumans, R0, M, eqAqua, EIP, lifespan, G, nu, S,
 \item{K_a}{shape parameter for gamma distributed weights on K}
 
 \item{K_b}{scale parameter for gamma distributed weights on K}
+
+\item{b}{mosquito to human transmission efficiency}
+
+\item{c}{human to mosquito transmission efficiency}
+
+\item{r}{rate of recovery in humans (1/average length of infection)}
 }
 \description{
 Generate named list of EL4P parameters, and calculates lambda (see \code{\link{calcLambda_MicroEL4P}} for details).

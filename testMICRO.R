@@ -12,7 +12,7 @@ rm(list=ls())
 library(MASH)
 
 #################################################################
-# Microsimulation Tile Tests
+# Microsimulation Tile Tests 'Emerge'
 #################################################################
 
 #################################################################
@@ -80,101 +80,13 @@ plot_PfSI(PfSI_history)
 
 
 
-
-
-
-
-
-# # plot the movement kernels
-# MicroLandscapePlot_utility(tile$get_Landscape())
-# MicroKernelPlot_utility(S = tile$get_Landscape()$get_AquaSites(),D = tile$get_Landscape()$get_FeedingSites())
-#
-# #################################################################
-# # Activity Space
-# #################################################################
-#
-# tile$get_HumanPop()$init_ActivitySpace(nDaily = 1.4)
-# tile$get_HumanPop()$sim_ActivitySpace()
-# for(i in 1:tile$get_Landscape()$FeedingSitesN){
-#   print(
-#     tile$get_Landscape()$get_FeedingSites(i)$get_RiskQ()$get_HumanHost()
-#   )
-# }
-#
-# # initialize PfSI infections
-# tile$get_HumanPop()$init_MICRO_PfSI(PfPR = 0.15, tStart = 0)
-# tile$get_HumanPop()$get_PfSI_history()
-#
-# #################################################################
-# # Aquatic Ecology
-# #################################################################
-#
-# for(i in 1:tile$get_Landscape()$AquaSitesN){
-#   print(
-#     tile$get_Landscape()$get_AquaSites(ixS = i)$get_ImagoQ()$get_ImagoQ()[1]
-#   )
-# }
-#
-# tile$get_Landscape()$oneStep_AquaticEcology() # run the oneStep dynamics
-#
-# for(i in 1:tile$get_Landscape()$AquaSitesN){
-#   print(
-#     tile$get_Landscape()$get_AquaSites(ixS = i)$get_ImagoQ()$get_ImagoQ()[1]
-#   )
-# }
-#
-# tile$get_Landscape()$addCohort()
-# tile$get_FemalePop()$get_MosquitoIxM(21)
-# tile$get_FemalePop()
-#
-# #################################################################
-# # M-BITES
-# #################################################################
-#
-# tile$get_FemalePop()$MBITES()
-
 #################################################################
-# Component Tests
+# Microsimulation Tile Tests 'EL4P'
 #################################################################
 
-# MICRO.Emerge.Setup(overwrite = TRUE)
-#
-# xx = FeedingSite$new(ix = 1, siteXY = c(0.5,0.5), searchWt = 0.5, enterP = 0.9)
-# xx$get_RiskQ()$add_HumanHost(who_new = 1,pTm_new = 0.5,w_new = 9)
-# xx$get_RiskQ()$get_HumanHost()
-# xx$get_RiskQ()$get_OtherHost()
-#
-# yy = AquaticSite$new(ix = 1, siteXY = c(0.5,0.5), searchWt = 99, lambda = 500, haz = 0, module = "emerge")
-# yy$get_ImagoQ()
-# yy$get_ImagoQ()$add_ImagoQ(N_new=10,tEmerge_new=4,genotype_new=1,damID_new="1",sireID_new="1")
-# yy$get_ImagoQ()$add_ImagoQ(N_new=5,tEmerge_new=5,genotype_new=2,damID_new="2",sireID_new="2")
-# yy$get_ImagoQ()$get_ImagoQTime(tNow=4.1,clear=FALSE)
-#
-#
-#
-# yy$set_lambda(lambda = 1:365)
-# yy$get_lambda()
-#
-# yy$oneDay_EmergeSite(tNow = 50)
-# yy$get_ImagoQ()$get_ImagoQTime(tNow=50.1,clear=FALSE)
-#
-# yy$get_ImagoQ()$get_ImagoQTime(tNow=50.1,clear=TRUE)
-# yy$get_ImagoQ()$get_ImagoQ()
-#
-#
-# # make a landscape
-# Landscape_PAR = Landscape.Parameters(nFeed = 10,nAqua = 12,module = "emerge",modulePars = list(N=12,lambda=5))
-# zz = Landscape$new(Landscape_PAR)
-#
-# MvAll = MicroKernel_exactAll(zz)
-#
-# # make a Tile
-# MICRO.Humans.Setup(overwrite = TRUE)
-#
-# MicroTile_PAR = MICRO.Tile.Parameters(nFeed = 5,nAqua = 3,module = "emerge",modulePars = list(N=3,lambda=7))
-# tile = MicroTile$new(MicroTile_PAR)
-#
-# # set up SEARCH-MicroKernels
-# SEARCH.MicroKernel.Setup(MBITES = "BRO",overwrite = TRUE)
+EL4P_PAR = EL4P.Parameters(nAqua = 50,nHumans = 300,R0 = 3,eqAqua = rep(x = 0.2,times=5),EIP = 12,lifespan = 11,
+                           G = 65,nu = 65/2,S = 3)
+
+EL4P.Mesh.Fit(mesh_N = 50,EL4P_PAR = EL4P_PAR,var_tol = 100,plot = TRUE)
 
 

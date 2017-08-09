@@ -4,8 +4,8 @@
 \alias{meshK_MicroEL4P}
 \title{Fit Psi on Mesh of K Values}
 \usage{
-meshK_MicroEL4P(K_l, K_u, AquaPops, psi_min = 0, psi_max = 10, tMax = 500,
-  var_tol = 0.1)
+meshK_MicroEL4P(K_l, K_u, AquaPops, EL4P_PAR, psi_min = 0, psi_max = 10,
+  tMax = 500, var_tol = 0.1)
 }
 \arguments{
 \item{K_l}{lower bound of K mesh}
@@ -13,6 +13,8 @@ meshK_MicroEL4P(K_l, K_u, AquaPops, psi_min = 0, psi_max = 10, tMax = 500,
 \item{K_u}{upper bound of K mesh}
 
 \item{AquaPops}{list of EL4P objects (see \code{\link{EL4P}})}
+
+\item{EL4P_PAR}{parameters from \code{\link{EL4P.Parameters}}}
 
 \item{psi_min}{lower bound for fitting psi via one dimensional optimization}
 
