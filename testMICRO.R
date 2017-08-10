@@ -118,7 +118,7 @@ MosquitoPop_PAR = MicroMosquitoPop.Setup(cohort = TRUE,
                                          batchSize = "bms",
                                          eggMatT = "off",
                                          PfEIP = 0.1,
-                                         B_succeed = 1)
+                                         B_succeed = 1, B_surv = 0.9)
 
 # Generate a MicroTile
 tile = MicroTile$new(Landscape_PAR,
@@ -127,7 +127,7 @@ tile = MicroTile$new(Landscape_PAR,
                      directory = "/Users/slwu89/Desktop/mash.out/")
 
 # plot the landscape on the tile
-MicroLandscapePlot_utility(tile$get_Landscape())
+# MicroLandscapePlot_utility(tile$get_Landscape())
 
 
 #################################################################
@@ -136,7 +136,7 @@ MicroLandscapePlot_utility(tile$get_Landscape())
 
 
 # run cohort
-tile$get_FemalePop()$simCohort(N=100,writeOut=TRUE)
+tile$get_FemalePop()$simCohort(N=1e3,writeJSON=TRUE)
 
 # rest mosy parameters to not be the COHORT version
 

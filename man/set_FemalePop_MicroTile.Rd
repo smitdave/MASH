@@ -19,6 +19,7 @@ This function is needed for running MBITES-Cohort models, themselves needed to p
 \item generate a list of parameters and set methods with \code{\link{MicroMosquitoPop.Setup}} with argument \code{cohort=TRUE}
 \item initialize a \code{MicroTile} as normal
 \item run the cohort simulation and output data
+\item use \code{\link{EL4P.Mesh.Fit}} or \code{\link{EL4P.Landscape.Fit}} to fit EL4P; see those functions for details
 \item make a new list of parameters and overwrite cohort methods with \code{\link{MicroMosquitoPop.Setup}} with argument \code{cohort=FALSE}
 \item use this method to re-allocate the females using the parameters and methods from step 4.
 }

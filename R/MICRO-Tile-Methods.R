@@ -83,8 +83,9 @@ MicroTile$set(which = "public",name = "simMICRO_oneStep",
 #'  1. generate a list of parameters and set methods with \code{\link{MicroMosquitoPop.Setup}} with argument \code{cohort=TRUE}
 #'  2. initialize a `MicroTile` as normal
 #'  3. run the cohort simulation and output data
-#'  4. make a new list of parameters and overwrite cohort methods with \code{\link{MicroMosquitoPop.Setup}} with argument \code{cohort=FALSE}
-#'  5. use this method to re-allocate the females using the parameters and methods from step 4.
+#'  4. use \code{\link{EL4P.Mesh.Fit}} or \code{\link{EL4P.Landscape.Fit}} to fit EL4P; see those functions for details
+#'  5. make a new list of parameters and overwrite cohort methods with \code{\link{MicroMosquitoPop.Setup}} with argument \code{cohort=FALSE}
+#'  6. use this method to re-allocate the females using the parameters and methods from step 4.
 #'
 #'  * This method is bound to \code{MicroTile$set_FemalePop}
 #'

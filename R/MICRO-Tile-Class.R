@@ -130,7 +130,12 @@ MicroTile <- R6::R6Class(classname = "MicroTile",
 
                      if(!dir.exists(paste0(directory))){
                        dir.create(paste0(directory))
-                       dir.create(paste0(directory,"MOSQUITO/"))
+                       if(!dir.exists(paste0(directory,"MOSQUITO/"))){
+                         dir.create(paste0(directory,"MOSQUITO/"))
+                       }
+                       if(!dir.exists(paste0(directory,"HUMAN/"))){
+                         dir.create(paste0(directory,"HUMAN/"))
+                       }
                      }
 
                    },

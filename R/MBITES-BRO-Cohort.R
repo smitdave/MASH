@@ -83,7 +83,7 @@ mbitesBRO_cohort_oneMosquito_MBITES <- function(){
 #' @param writeJSON if \code{TRUE} write output to JSON in the directory initialized in the enclosing \code{\link{MicroTile}}, else return a list
 #' @md
 mbitesBRO_cohort_simCohort <- function(N, writeJSON){
-  browser()
+  
   # allocate space for cohort
   private$pop = vector(mode="list",length=N)
 
@@ -108,24 +108,23 @@ mbitesBRO_cohort_simCohort <- function(N, writeJSON){
   cohortOut = parallel::mclapply(X = private$pop,FUN = function(x){x$MBITES_Cohort()},mc.cores = nCores)
 
   # write out to JSON directory.
-  cohortOut = lapply(X = private$pop[deadIx],FUN = function(x){x$get_history()})
   if(writeJSON){
 
-    #
-    con = file(description = paste0(private$TilePointer$get_directory(),"MOSQUITO/","cohortBRO"),open = "wt")
+    # write JSON
+    con = file(description = paste0(private$TilePointer$get_directory(),"MOSQUITO/","cohortBRO.json"),open = "wt")
     writeLines(text = jsonlite::toJSON(x = cohortOut,pretty = TRUE),con = con)
     close(con)
 
     # remove the temporary cohort and manually garbage collect to clear up memory
-    rm(private$pop)
     private$pop = NULL
     gc()
     return(NULL)
   } else {
     # remove the temporary cohort and manually garbage collect to clear up memory
-    rm(private$pop)
     private$pop = NULL
     gc()
+
+    # return a list
     return(cohortOut)
   }
 }

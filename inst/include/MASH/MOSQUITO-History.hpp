@@ -32,7 +32,7 @@ public:
     ixH.push_back(privateEnv["ix"]);
     pSetH.push_back(privateEnv["inPointSet"]);
     timeH.push_back(privateEnv["tNow"]);
-    stateH.push_back(privateEnv["state"]);
+    stateH.push_back("emerge");
   };
 
 
