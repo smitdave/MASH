@@ -32,15 +32,19 @@ PfSI.Setup(overwrite = TRUE,
            FeverPf = 0.75)
 
 # XX.Parameters() functions to generate parameters for objects in a MicroTile
-Landscape_PAR = Landscape.Parameters(nFeed = 9,nAqua = 9,pointGen = "lattice",module = AQUA_module,modulePars = list(N=9,lambda=8))
+nFeed=25
+nAqua=25
+nMosy=500
+Landscape_PAR = Landscape.Parameters(nFeed = nFeed,nAqua = nAqua,pointGen = "lattice",module = AQUA_module,modulePars = list(N=nAqua,lambda=50))
 # AquaEmergeLambdaPlot_utility(Landscape_PAR$AquaticSite_PAR$lambda)
-HumanPop_PAR = HumanPop.Parameters(nSite = 9,siteSize = 3,siteMin = 1,bWeight = 1)
-MosquitoPop_PAR = MicroMosquitoPop.Setup(module = MBITES_module,
+HumanPop_PAR = HumanPop.Parameters(nSite = nFeed,siteSize = 5,siteMin = 3,bWeight = 1)
+MosquitoPop_PAR = MicroMosquitoPop.Setup(cohort = FALSE,
+                                         module = MBITES_module,
                                          aquaModule = AQUA_module,
-                                         N_female = 20,
+                                         N_female = nMosy,
                                          time = 0,
-                                         ix_female = rep(1,20),
-                                         genotype_female = rep(1,20),
+                                         ix_female = rep(1,nMosy),
+                                         genotype_female = rep(1,nMosy),
                                          batchSize = "bms",
                                          eggMatT = "off",
                                          PfEIP = 0.1,
@@ -94,6 +98,7 @@ MICRO.EL4P.Setup(overwrite = TRUE)
 PfSI.Setup(overwrite = TRUE)
 MICRO.Humans.Setup(overwrite = TRUE)
 
+
 # first generate the landscape parameters
 MBITES_module = "BRO"
 AQUA_module = "EL4P"
@@ -103,8 +108,9 @@ nAqua = 4
 Landscape_PAR = Landscape.Parameters(nFeed = nFeed,nAqua = nAqua,pointGen = "poisson",module = AQUA_module,modulePars = NULL)
 HumanPop_PAR = HumanPop.Parameters(nSite = nFeed,siteSize = 3,siteMin = 1,bWeight = 1)
 # set N_female equal to small number because we need to update it later.
-MosquitoPop_PAR = MicroMosquitoPop.Setup(module = MBITES_module,
-                                         aquaModule = AQUA_module,
+MosquitoPop_PAR = MicroMosquitoPop.Setup(cohort = TRUE,
+                                         module = MBITES_module,
+                                         aquaModule = "emerge",
                                          N_female = 1,
                                          time = 0,
                                          ix_female = rep(1,1),
@@ -128,9 +134,11 @@ MicroLandscapePlot_utility(tile$get_Landscape())
 # figure out how to do eqAqua
 #################################################################
 
-# get the movement object
-movement = tile$get_FemalePop()$get_movementObject()
 
+# run cohort
+tile$get_FemalePop()$simCohort(N=100,writeOut=TRUE)
+
+# rest mosy parameters to not be the COHORT version
 
 # fit EL4P
 EL4P_PAR = EL4P.Parameters(nAqua = 50,nHumans = 300,R0 = 3,eqAqua = rep(x = 0.2,times=5),EIP = 12,lifespan = 11,
@@ -141,4 +149,7 @@ EL4P_fit = EL4P.Mesh.Fit(mesh_N = 50,EL4P_PAR = EL4P_PAR,var_tol = 5,plot = TRUE
 # update the Landscape and AquaticSite
 
 # remember to run updatePop to update the female pop after we find our M, eqAqua, etc.
+MBITES.Generic.Setup(overwrite = TRUE,batchSize = "bms",eggMatT = "off")
+MBITES.BRO.Setup(overwrite = TRUE,aquaModule = AQUA_module)
 MicroMosquitoPopFemale$update_pop()
+

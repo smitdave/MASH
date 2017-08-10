@@ -29,14 +29,10 @@ MicroMosquitoPopFemale <- R6::R6Class(classname = "MicroMosquitoPopFemale",
                          # N: size of initial cohort
                          # ix_init should be a vector of initial site index
                          # genotype_init should be a vector of genotypes
-                         # movement: movement object from MicroKernel_exactAll
-                         # directory: directory to output data
-                         initialize = function(N, time_init, ix_init, genotype_init, MBITES_PAR, module, movement, directory){
+                         initialize = function(N, time_init, ix_init, genotype_init, MBITES_PAR, module){
 
                              # Initialize population level fields prior to allocating container
                              private$MBITES_PAR = MBITES_PAR
-                             private$movement = movement
-                             private$directory = directory
                              switch(module,
                                 BRO = {private$initState = "B"},
                                 BROM = {private$initState = "M"},
@@ -84,22 +80,6 @@ MicroMosquitoPopFemale <- R6::R6Class(classname = "MicroMosquitoPopFemale",
                          # update nullPop
                         #  update_nullPop = NULL,
 
-                         # generic get_movement method; designed to be overwritten by module-specific parameteric getter
-                         get_movement = function(){
-                           return(private$movement)
-                         },
-                         set_movement = function(movement){
-                           private$movement = movement
-                         },
-
-                         # get the entire movement object
-                         get_movementObject = function(){
-                           return(private$movement)
-                         },
-                         set_movementObject = function(movement){
-                           private$movement = movement
-                         },
-
                          # return parameter list or element of list by name
                          get_MBITES_PAR = function(ixP = NULL){
                            if(is.null(ixP)){
@@ -110,13 +90,6 @@ MicroMosquitoPopFemale <- R6::R6Class(classname = "MicroMosquitoPopFemale",
                          },
                          set_MBITES_PAR = function(MBITES_PAR){
                            private$MBITES_PAR = MBITES_PAR
-                         },
-
-                         get_directory = function(){
-                           return(private$directory)
-                         },
-                         set_directory = function(directory){
-                           private$directory = directory
                          },
 
                          ##############################################################
@@ -174,10 +147,8 @@ MicroMosquitoPopFemale <- R6::R6Class(classname = "MicroMosquitoPopFemale",
                          # Fields
                          pop = NULL,               # mosquito population
                          nullPop = NULL,           # null entries in list for memory allocation
-                         movement = NULL,          # movement object (type depends on specific SEARCH module)
                          initState = NULL,         # initial state for newly emerging females
                          MBITES_PAR = NULL,        # MBITES Parameters
-                         directory = NULL,         # directory to export data
 
                          # Pointers
                          MalePopPointer = NULL,    # Point to MicroMosquitoPopMale in the same microsimulation Tile
@@ -221,14 +192,6 @@ MicroMosquitoPopMale <- R6::R6Class(classname = "MicroMosquitoPopMale",
                                # update nullPop
                                update_nullPop = function(){
                                  private$nullPop = which(vapply(X = private$pop,FUN = is.null,FUN.VALUE = logical(1)))
-                               },
-
-                               # generic get_movement method; designed to be overwritten by module-specific parameteric getter
-                               get_movement = function(){
-                                 return(private$movement)
-                               },
-                               set_movment = function(movement){
-                                 private$movement = movement
                                },
 
                                # return parameter list or element of list by name
@@ -276,7 +239,6 @@ MicroMosquitoPopMale <- R6::R6Class(classname = "MicroMosquitoPopMale",
                                # Fields
                                pop = NULL,               # mosquito population
                                nullPop = NULL,           # null entries in list for memory allocation
-                               movement = NULL,          # movement object (type depends on specific SEARCH module)
                                MBITES_PAR = NULL,        # MBITES Parameters
 
                                # Pointers

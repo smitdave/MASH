@@ -8,6 +8,7 @@
 #
 #################################################################
 
+# NOTE: THESE FUNCTIONS ARE FREE-FLOATING IN PACKAGE NAMESPACE (NOT CLASS METHODS)
 
 #################################################################
 # Calculate MICRO Search Kernels

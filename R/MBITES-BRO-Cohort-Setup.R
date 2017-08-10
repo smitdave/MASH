@@ -24,7 +24,7 @@
 MBITES.BRO.Cohort.Setup <- function(overwrite = TRUE){
 
   # alert user
-  message("initializing MBITES-BRO-Cohort shared methods")
+  message("initializing MBITES-BRO Cohort shared methods")
 
   MBITES.BRO.Setup(overwrite=TRUE,aquaModule="emerge")
   MBITES.Cohort.Setup(overwrite=TRUE)
@@ -33,15 +33,21 @@ MBITES.BRO.Cohort.Setup <- function(overwrite = TRUE){
   # MBITES-BRO-Cohort.R
   ##############################################################
 
+  # humanEncounter
   MicroMosquitoFemale$set(which = "public",name = "humanEncounter",
             value = mbitesBRO_cohort_humanEncounter,
             overwrite = overwrite
   )
 
+  # MBITES_Cohort
+  MicroMosquitoFemale$set(which = "public",name = "MBITES_Cohort",
+            value = mbitesBRO_cohort_oneMosquito_MBITES,
+            overwrite = overwrite
+  )
 
-  # set a null population for the cohort
-  MicroMosquitoPopFemale$set(which = "private",name = "cohortPop",
-            value = NULL,
+  # simCohort
+  MicroMosquitoPopFemale$set(which = "public",name = "simCohort",
+            value = mbitesBRO_cohort_simCohort,
             overwrite = overwrite
   )
 

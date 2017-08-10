@@ -61,3 +61,40 @@ MicroTile$set(which = "public",name = "simMICRO_oneStep",
           value = simMICRO_oneStep,
           overwrite = TRUE
 )
+
+
+#################################################################
+# MICRO MicroTile Set MicroMosquitoPopFemale
+# This is needed for running DHM-Cohort:
+#   1. use MicroMosquitoPop.Setup with cohort=TRUE
+#   2. initialize the MicroTile as per normal
+#   3. run the cohort sim and output data
+#   4. make new parameters with cohort = FALSE
+#   5. use this function to make the mosquitoes for full sim
+#################################################################
+
+#' MICRO \code{\link{MicroTile}}: Re-initialize \code{\link{MicroMosquitoPopFemale}}
+#'
+#' Erase the old \code{private$FemalePop} object in the tile and re-allocate.
+#' This function is needed for running MBITES-Cohort models, themselves needed to parameterize EL4P Aquatic Ecology Module.
+#'
+#' @section How to use with fitting EL4P:
+#'
+#'  1. generate a list of parameters and set methods with \code{\link{MicroMosquitoPop.Setup}} with argument \code{cohort=TRUE}
+#'  2. initialize a `MicroTile` as normal
+#'  3. run the cohort simulation and output data
+#'  4. make a new list of parameters and overwrite cohort methods with \code{\link{MicroMosquitoPop.Setup}} with argument \code{cohort=FALSE}
+#'  5. use this method to re-allocate the females using the parameters and methods from step 4.
+#'
+#'  * This method is bound to \code{MicroTile$set_FemalePop}
+#'
+#' @param MosquitoPop_PAR output of \code{\link{MicroMosquitoPop.Setup}}
+#' @md
+set_FemalePop_MicroTile <- function(MosquitoPop_PAR){
+
+}
+
+MicroTile$set(which = "public",name = "set_FemalePop",
+          value = set_FemalePop_MicroTile,
+          overwrite = TRUE
+)

@@ -66,6 +66,8 @@ mbitesBRO_cohort_oneMosquito_MBITES <- function(){
     self$oneBout()
   }
 
+  history = self$get_history()
+  return(history)
 }
 
 
@@ -77,11 +79,13 @@ mbitesBRO_cohort_oneMosquito_MBITES <- function(){
 #'
 #' After calling \code{\link{mbitesGeneric_chooseHost}}, the mosquito encounters a human host and attempts to feed.
 #'  * This method is bound to \code{MicroMosquitoPopFemale$simCohort()}.
+#' @param N number of mosquitoes in cohort
+#' @param writeJSON if \code{TRUE} write output to JSON in the directory initialized in the enclosing \code{\link{MicroTile}}, else return a list
 #' @md
-mbitesBRO_cohort_simCohort <- function(N){
-
+mbitesBRO_cohort_simCohort <- function(N, writeJSON){
+  browser()
   # allocate space for cohort
-  private$cohortPop = vector(mode="list",length=N)
+  private$pop = vector(mode="list",length=N)
 
   # randomly allocate to initial positions
   aquaN = private$LandscapePointer$AquaSitesN
@@ -89,19 +93,39 @@ mbitesBRO_cohort_simCohort <- function(N){
 
   # assign cohort
   for(i in 1:N){
-    private$cohortPop[[i]] = MicroMosquitoFemale$new(id = as.character(ix), time = 0, ix = aquaIx[ix], genotype = 0L, state = private$initState)
-    private$pop[[ix]]$set_FemalePopPointer(self)
+    private$pop[[i]] = MicroMosquitoFemale$new(id = as.character(i), time = 0, ix = aquaIx[i], genotype = 0L, state = private$initState)
+    private$pop[[i]]$set_FemalePopPointer(self)
+    private$pop[[i]]$set_TilePointer(private$TilePointer)
+    private$pop[[i]]$set_LandscapePointer(private$LandscapePointer)
+
+    # unneeded pointers
     # private$pop[[ix]]$set_MalePopPointer(private$MalePopPointer)
-    private$pop[[ix]]$set_TilePointer(private$TilePointer)
-    private$pop[[ix]]$set_LandscapePointer(private$LandscapePointer)
     # private$pop[[ix]]$set_HumansPointer(private$HumansPointer)
   }
 
-  # do the sim.
+  # do the sim
+  nCores = parallel::detectCores()-2L
+  cohortOut = parallel::mclapply(X = private$pop,FUN = function(x){x$MBITES_Cohort()},mc.cores = nCores)
 
-  # write to directory.
+  # write out to JSON directory.
+  cohortOut = lapply(X = private$pop[deadIx],FUN = function(x){x$get_history()})
+  if(writeJSON){
 
-  # remove the temporary cohort and manually garbage collect to clear up memory
-  rm(private$cohortPop)
-  gc()
+    #
+    con = file(description = paste0(private$TilePointer$get_directory(),"MOSQUITO/","cohortBRO"),open = "wt")
+    writeLines(text = jsonlite::toJSON(x = cohortOut,pretty = TRUE),con = con)
+    close(con)
+
+    # remove the temporary cohort and manually garbage collect to clear up memory
+    rm(private$pop)
+    private$pop = NULL
+    gc()
+    return(NULL)
+  } else {
+    # remove the temporary cohort and manually garbage collect to clear up memory
+    rm(private$pop)
+    private$pop = NULL
+    gc()
+    return(cohortOut)
+  }
 }

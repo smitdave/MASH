@@ -77,7 +77,7 @@ MicroTile <- R6::R6Class(classname = "MicroTile",
                      private$HumanPop = HumanPop$new(HumanPop_PAR)
 
                      # generate movement object
-                     movement = MicroKernel_exactAll(private$Landscape,sigma=3,eps=0.1,beta=0)
+                     private$movementFemale = MicroKernel_exactAll(private$Landscape,sigma=3,eps=0.1,beta=0)
 
                      # generate female mosquito object
                      private$FemalePop = MicroMosquitoPopFemale$new(N = MosquitoPop_PAR$N_female,  # number of female mosquitoes at initialization
@@ -85,9 +85,7 @@ MicroTile <- R6::R6Class(classname = "MicroTile",
                                                                   ix_init = MosquitoPop_PAR$ix_female,  # landscape indices of female mosquitoes
                                                                   genotype_init = MosquitoPop_PAR$genotype_female,  # genotypes of females
                                                                   MBITES_PAR = MosquitoPop_PAR$MBITES_PAR,  # M-BITES parameters
-                                                                  module = MosquitoPop_PAR$module,  # M-BITES module
-                                                                  movement = movement,  # movement object
-                                                                  directory = directory)  #  directory to write output
+                                                                  module = MosquitoPop_PAR$module)  # M-BITES module
 
                      # initialize female mosquito Pathogen object field
                      private$FemalePop$init_Pathogens()
@@ -127,6 +125,9 @@ MicroTile <- R6::R6Class(classname = "MicroTile",
                      # Set Output Directory
                      #################################################
 
+                     # set output directory
+                     private$directory = directory
+
                      if(!dir.exists(paste0(directory))){
                        dir.create(paste0(directory))
                        dir.create(paste0(directory,"MOSQUITO/"))
@@ -147,7 +148,10 @@ MicroTile <- R6::R6Class(classname = "MicroTile",
 
                    get_FemalePop = function(){return(private$FemalePop)},
 
-                   get_MalePop = function(){return(private$MalePop)}
+                   get_MalePop = function(){return(private$MalePop)},
+
+                   get_directory = function(){return(private$directory)},
+                   set_directory = function(directory){private$directory = directory}
 
                  ),
 
@@ -158,6 +162,9 @@ MicroTile <- R6::R6Class(classname = "MicroTile",
                    tNow = NULL,
                    Landscape_PAR = NULL,
                    HumanPop_PAR = NULL,
+                   movementFemale = NULL,
+                   movementMale = NULL,
+                   directory = NULL,
 
                    # objects interacting on a tile
                    HumanPop = NULL,

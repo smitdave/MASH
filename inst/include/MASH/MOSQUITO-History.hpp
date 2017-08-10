@@ -28,6 +28,7 @@ public:
 
   // historyInit: set initial values site of emergence when mosy born
   void historyInit(const Rcpp::Environment &privateEnv){
+    ID = Rcpp::as<std::string>(privateEnv["id"]); // mosquito ID
     ixH.push_back(privateEnv["ix"]);
     pSetH.push_back(privateEnv["inPointSet"]);
     timeH.push_back(privateEnv["tNow"]);
@@ -131,6 +132,8 @@ public:
 
     return(
       Rcpp::List::create(
+        // ID
+        Rcpp::Named("ID") = ID,
         // history objects
         Rcpp::Named("stateH") = stateH,
         Rcpp::Named("timeH") = timeH,
@@ -156,6 +159,9 @@ public:
 
 // private members
 private:
+
+  // ID
+  std::string              ID;
 
   // history objects
   std::vector<std::string> stateH;

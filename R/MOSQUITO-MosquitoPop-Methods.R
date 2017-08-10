@@ -149,7 +149,7 @@ MicroMosquitoPopFemale_clear_pop <- function(historyTrack = FALSE){
  # write the list out to JSON
  if(historyTrack){
    fileName = paste0("historyF",private$TilePointer$get_tNow(),".json")
-   con = file(description = paste0(private$directory,"MOSQUITO/",fileName),open = "wt")
+   con = file(description = paste0(private$TilePointer$get_directory(),"MOSQUITO/",fileName),open = "wt")
    writeLines(text = jsonlite::toJSON(x = histories,pretty = TRUE),con = con)
    close(con)
  }
