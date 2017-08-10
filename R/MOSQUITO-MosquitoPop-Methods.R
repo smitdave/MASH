@@ -190,8 +190,14 @@ MicroMosquitoPopFemale_update_pop <- function(N, time_init=0, ix_init, genotype_
 
    # allocate initial cohort
    for(ix in 1:N){
+     # make new mosquito
      private$pop[[ix]] = MicroMosquitoFemale$new(id = paste0(time_init,"_",ix), time = time_init, ix = ix_init[ix], genotype = genotype_init[ix], state = private$initState)
+     # set pointers
      private$pop[[ix]]$set_FemalePopPointer(self)
+     private$pop[[ix]]$set_MalePopPointer(private$MalePopPointer)
+     private$pop[[ix]]$set_TilePointer(private$TilePointer)
+     private$pop[[ix]]$set_LandscapePointer(private$LandscapePointer)
+     private$pop[[ix]]$set_HumansPointer(private$HumansPointer)
    }
    # find NULL indices
    self$update_nullPop()

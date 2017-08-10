@@ -38,6 +38,26 @@ mbitesGeneric_chooseHost <- function(){
   private$hostID = sampleIx_utility(x = whoIx,size = 1,prob = wIx*pTmIx) #select a host
 }
 
+#' MBITES-Cohort: Host Choosing for \code{\link{MicroMosquitoFemale}}
+#'
+#' Choose a human or animal host for MBITES-Cohort algorithms (moquito life-cycle simulations).
+#'  * This method is bound to \code{MicroMosquitoFemale$chooseHost()}.
+#' @md
+mbitesCohort_chooseHost <- function(){
+
+  if(private$inPointSet != "f"){ #check M is in a feeding site
+    stop(paste0("chooseHost error; mosy ",M$id," inPointSet: ",M$inPointSet," , not in a feeding site"))
+  }
+
+  # human host
+  if(runif(1) < private$FemalePopPointer$get_MBITES_PAR("Q")){
+    private$hostID = 1L
+  # zoo host
+  } else {
+    private$hostID = -1L
+  }
+}
+
 #' Sample Indices
 #'
 #' Wrapper for \code{\link{sample}} that will not lead to unexpected behavior when \code{x} is of length 1.

@@ -82,6 +82,7 @@ plot_PfSI(PfSI_history)
 
 #################################################################
 # Microsimulation Tile Tests 'EL4P'
+# basically, set up the tile, then run Cohort, then fit EL4P, then update the mosy pop.
 #################################################################
 
 rm(list=ls())
@@ -101,6 +102,7 @@ nFeed = 5
 nAqua = 4
 Landscape_PAR = Landscape.Parameters(nFeed = nFeed,nAqua = nAqua,pointGen = "poisson",module = AQUA_module,modulePars = NULL)
 HumanPop_PAR = HumanPop.Parameters(nSite = nFeed,siteSize = 3,siteMin = 1,bWeight = 1)
+# set N_female equal to small number because we need to update it later.
 MosquitoPop_PAR = MicroMosquitoPop.Setup(module = MBITES_module,
                                          aquaModule = AQUA_module,
                                          N_female = 1,
@@ -129,50 +131,6 @@ MicroLandscapePlot_utility(tile$get_Landscape())
 # get the movement object
 movement = tile$get_FemalePop()$get_movementObject()
 
-# for mbites-bro, make the relevant matrix
-aquaMatrix = matrix(data = 0,nrow = nFeed+nAqua,ncol = nFeed+nAqua)
-aquaNames = c(paste0("F",1:nFeed),paste0("L",1:nAqua))
-colnames(aquaMatrix) = aquaNames
-rownames(aquaMatrix) = aquaNames
-
-
-feedIx = grep(pattern = "F",x = rownames(aquaMatrix))
-aquaIx = grep(pattern = "L",x = rownames(aquaMatrix))
-
-# fill in parts of the matrix corresponding to moving from feeding site to aquatic habitat (F2L)
-for(ixF in feedIx){
-
-  # starting site
-  feedSite = as.numeric(substr(x = aquaNames[ixF],start = 2,stop = 2))
-
-  # movement object from starting site to destination sites
-  mvOb = movement$F2L[[feedSite]]$near
-
-  for(i in 1:length(mvOb$id)){
-    aquaMatrix[ feedIx[feedSite], aquaIx[mvOb$id[i]] ] = mvOb$pr[i]
-  }
-
-}
-
-
-# fill in L2L
-for(ixA in aquaIx){
-
-  # starting site
-  aquaSite = as.numeric(substr(x = aquaNames[ixA],start = 2,stop = 2))
-
-  # movement object from starting site to destination sites
-  mvOb = movement$L2L[[aquaSite]]$near
-
-  for(i in 1:length(mvOb$id)){
-    aquaMatrix[ aquaIx[aquaSite], aquaIx[mvOb$id[i]] ] = mvOb$pr[i]
-  }
-
-}
-
-aquaMarkov = new(Class = "markovchain",states = aquaNames, transitionMatrix = aquaMatrix,name = "aquaMarkov")
-markovchain::steadyStates(aquaMarkov)
-
 
 # fit EL4P
 EL4P_PAR = EL4P.Parameters(nAqua = 50,nHumans = 300,R0 = 3,eqAqua = rep(x = 0.2,times=5),EIP = 12,lifespan = 11,
@@ -181,3 +139,6 @@ EL4P_PAR = EL4P.Parameters(nAqua = 50,nHumans = 300,R0 = 3,eqAqua = rep(x = 0.2,
 EL4P_fit = EL4P.Mesh.Fit(mesh_N = 50,EL4P_PAR = EL4P_PAR,var_tol = 5,plot = TRUE)
 
 # update the Landscape and AquaticSite
+
+# remember to run updatePop to update the female pop after we find our M, eqAqua, etc.
+MicroMosquitoPopFemale$update_pop()

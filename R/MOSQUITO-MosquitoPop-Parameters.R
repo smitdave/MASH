@@ -22,8 +22,8 @@
 #' @param ix_male vector of starting location indices for males (indices of \code{\link{AquaticSite}} they emerge from)
 #' @param genotype_female vector of genotpes for females
 #' @param genotype_male vector of genotpes for males
-#' @param batchSize passed to \code{\link{mbitesGeneric.Setup}}
-#' @param eggMatT passed to \code{\link{mbitesGeneric.Setup}}
+#' @param batchSize passed to \code{\link{MBITES.Generic.Setup}}
+#' @param eggMatT passed to \code{\link{MBITES.Generic.Setup}}
 #' @param ... additional named parameters to be passed to the specific M-BITES parameters function
 #'  * MBITES-BRO: pass to \code{\link{MBITES.BRO.Parameters}}
 #' @return return a list
@@ -71,7 +71,7 @@ MicroMosquitoPop.Setup <- function(
     switch(module,
         BRO = {
           # setup generic M-BITES methods
-          mbitesGeneric.Setup(overwrite = TRUE, batchSize = batchSize, eggMatT = eggMatT)
+          MBITES.Generic.Setup(overwrite = TRUE, batchSize = batchSize, eggMatT = eggMatT)
           # setup M-BITES BRO methods
           MBITES.BRO.Setup(overwrite = TRUE, aquaModule = aquaModule)
           # set parameters

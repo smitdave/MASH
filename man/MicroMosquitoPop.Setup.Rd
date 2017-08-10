@@ -27,9 +27,9 @@ MicroMosquitoPop.Setup(module, aquaModule, N_female, N_male = NULL,
 
 \item{genotype_male}{vector of genotpes for males}
 
-\item{batchSize}{passed to \code{\link{mbitesGeneric.Setup}}}
+\item{batchSize}{passed to \code{\link{MBITES.Generic.Setup}}}
 
-\item{eggMatT}{passed to \code{\link{mbitesGeneric.Setup}}}
+\item{eggMatT}{passed to \code{\link{MBITES.Generic.Setup}}}
 
 \item{...}{additional named parameters to be passed to the specific M-BITES parameters function
 \itemize{

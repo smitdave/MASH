@@ -15,7 +15,7 @@ MBITES.BRO.Parameters(B_wts = rep(1, 5), R_wts = rep(1, 5), O_wts = rep(1,
   SENESCE = FALSE, sns.a = 0.1, sns.b = 100, TATTER = FALSE,
   ttsz.p = 0.5, ttsz.a = 5, ttsz.b = 95, ttr.a = 15, ttr.b = 500,
   bs.m = 30, bs.v = 5, maxBatch = 30, emt.m = 3, emt.v = 1,
-  eggT = 0, eggP = 0, energyPreG = 0, PfEIP = 12)
+  eggT = 0, eggP = 0, energyPreG = 0, PfEIP = 12, Q = 0.9)
 }
 \arguments{
 \item{B_wts}{landing spot weights}
@@ -105,6 +105,8 @@ MBITES.BRO.Parameters(B_wts = rep(1, 5), R_wts = rep(1, 5), O_wts = rep(1,
 \item{energyPreG}{pre-gonotrophic energy requirement}
 
 \item{PfEIP}{entomological inoculation period for Plasmodium falciparum during \code{MicroMosquitoFemale$probing()}}
+
+\item{Q}{human blood index (used in \code{\link{mbitesCohort_chooseHost}})}
 }
 \value{
 a named list of parameters

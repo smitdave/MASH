@@ -96,7 +96,7 @@ mbitesBRO_get_WTS <- function(){
 #'
 #' @md
 #' @return integer value corresponding to new landing spot
-mbitesBro_newSpot <- function(){
+mbitesBRO_newSpot <- function(){
   if(self$get_MySiteType() == 1){
     probs = private$FemalePopPointer$get_MBITES_PAR("InAndOut")[private$lspot,] * self$get_WTS()
     sample(x = 5L,size = 1,prob = probs)
@@ -111,16 +111,14 @@ mbitesBro_newSpot <- function(){
 #'  * This method is bound to \code{MicroMosquitoFemale$enterHouse()}.
 #'
 #' @md
-mbitesBro_enterHouse <- function(){
+mbitesBRO_enterHouse <- function(){
   if(runif(1) < private$LandscapePointer$get_FeedingSites(private$ix)$get_enterP()){
     # mosquito is inside of house
-    # print(paste0("mosquito ",private$id," is entering house ",private$ix," at time: ",private$tNow)) # DEBUG
   } else {
     # mosquito is not inside of house
     private$lspot = self$newSpot()
     self$surviveFlight()
     if(private$lspot == 1L){
-      # print(paste0("mosquito ",private$id," is using Recall to enter house ",private$ix," at time: ",private$tNow)) # DEBUG
       Recall()
     }
   }
@@ -129,7 +127,7 @@ mbitesBro_enterHouse <- function(){
 #' MBITES-BRO: Land After Flight \code{MicroMosquitoFemale}
 #'
 #' Mosquito lands after a flight (choose a landing spot), which may cause various events.
-#' This function always calls \code{\link{mbitesBro_newSpot}} and may call \code{\link{mbitesBro_enterHouse}}
+#' This function always calls \code{\link{mbitesBRO_newSpot}} and may call \code{\link{mbitesBRO_enterHouse}}
 #' Landing spots include:
 #'  * i: 1 rest on the inside wall of a structure
 #'  * w: 2 rest on the outside wall of a structure
@@ -258,7 +256,7 @@ mbitesBRO_layEggs_EL4P <- function(){
 #' MBITES-BRO: One Bout \code{MicroMosquitoFemale}
 #'
 #' Mosquito behavior has a finite set of states (state space of model), within which there are certain biological functions that are always evaluated.
-#' A bout is the actions taken by a mosquito between a launch and landing; \code{mbitesBro_oneBout} handles all the biological imperatives that occur during a bout,
+#' A bout is the actions taken by a mosquito between a launch and landing; \code{mbitesBRO_oneBout} handles all the biological imperatives that occur during a bout,
 #' while specialized bout action methods handle the events that occur due to the purpose of the bout.
 #'  * \code{\link{mbitesBRO_boutB}}: blood feeding bout
 #'  * \code{\link{mbitesBRO_boutR}}: blood feeding bout
@@ -281,7 +279,7 @@ mbitesBRO_layEggs_EL4P <- function(){
 #'  * This method is bound to \code{MicroMosquitoFemale$oneBout()}.
 #'
 #' @md
-mbitesBro_oneBout <- function(){
+mbitesBRO_oneBout <- function(){
 
   # update time and state
   private$tNow = private$tNext # update time
@@ -323,11 +321,11 @@ mbitesBro_oneBout <- function(){
 #' MBITES-BRO: Run Simulation for \code{\link{MicroMosquitoFemale}}
 #'
 #' Run the M-BITES life cycle simulation algorithm while alive and has not overrun time in enclosing \code{\link{MicroTile}}.
-#' This method calls \code{\link{mbitesBro_oneBout}} to simulate each life stage.
+#' This method calls \code{\link{mbitesBRO_oneBout}} to simulate each life stage.
 #'  * This method is bound to \code{MicroMosquitoFemale$MBITES()}.
 #'
 #' @md
-mbitesBro_oneMosquito_MBITES <- function(){
+mbitesBRO_oneMosquito_MBITES <- function(){
 
   # run algorithm while alive and has not overrun tile time
   while(private$tNext < private$TilePointer$get_tNow() & private$stateNew != "D"){
@@ -339,11 +337,11 @@ mbitesBro_oneMosquito_MBITES <- function(){
 #' MBITES-BRO: Run Simulation for \code{\link{MicroMosquitoPopFemale}}
 #'
 #' Run the M-BITES life cycle simulation algorithm while alive and has not overrun time in enclosing \code{\link{MicroTile}}.
-#' This method calls \code{\link{mbitesBro_oneMosquito_MBITES}} one each living mosquito sequentially.
+#' This method calls \code{\link{mbitesBRO_oneMosquito_MBITES}} one each living mosquito sequentially.
 #'  * This method is bound to \code{MicroMosquitoPopFemale$MBITES()}.
 #'
 #' @md
-mbitesBro_Pop_MBITES <- function(){
+mbitesBRO_Pop_MBITES <- function(){
 
   aliveM = self$which_alive()
   for(ixM in aliveM){
