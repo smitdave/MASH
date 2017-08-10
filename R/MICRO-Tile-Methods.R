@@ -93,6 +93,30 @@ MicroTile$set(which = "public",name = "simMICRO_oneStep",
 #' @md
 set_FemalePop_MicroTile <- function(MosquitoPop_PAR){
 
+  # generate female mosquito object
+  private$FemalePop = MicroMosquitoPopFemale$new(N = MosquitoPop_PAR$N_female,  # number of female mosquitoes at initialization
+                                               time_init = MosquitoPop_PAR$time,  # time simulation begins
+                                               ix_init = MosquitoPop_PAR$ix_female,  # landscape indices of female mosquitoes
+                                               genotype_init = MosquitoPop_PAR$genotype_female,  # genotypes of females
+                                               MBITES_PAR = MosquitoPop_PAR$MBITES_PAR,  # M-BITES parameters
+                                               module = MosquitoPop_PAR$module)  # M-BITES module
+
+  # initialize female mosquito Pathogen object field
+  private$FemalePop$init_Pathogens()
+
+  # Female Mosquito Population Pointers
+  private$FemalePop$set_TilePointer(self)
+  private$FemalePop$set_LandscapePointer(private$Landscape)
+  private$FemalePop$set_HumansPointer(private$HumanPop)
+  private$FemalePop$set_MalePopPointer(private$MalePop)
+
+  for(ixM in private$FemalePop$which_alive()){
+    private$FemalePop$get_MosquitoIxM(ixM)$set_TilePointer(self)
+    private$FemalePop$get_MosquitoIxM(ixM)$set_LandscapePointer(private$Landscape)
+    private$FemalePop$get_MosquitoIxM(ixM)$set_HumansPointer(private$HumanPop)
+    private$FemalePop$get_MosquitoIxM(ixM)$set_MalePopPointer(private$MalePop)
+  }
+
 }
 
 MicroTile$set(which = "public",name = "set_FemalePop",

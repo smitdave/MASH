@@ -83,7 +83,7 @@ mbitesBRO_cohort_oneMosquito_MBITES <- function(){
 #' @param writeJSON if \code{TRUE} write output to JSON in the directory initialized in the enclosing \code{\link{MicroTile}}, else return a list
 #' @md
 mbitesBRO_cohort_simCohort <- function(N, writeJSON){
-  
+
   # allocate space for cohort
   private$pop = vector(mode="list",length=N)
 

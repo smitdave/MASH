@@ -136,9 +136,12 @@ tile = MicroTile$new(Landscape_PAR,
 
 
 # run cohort
-tile$get_FemalePop()$simCohort(N=1e3,writeJSON=TRUE)
+cohortOut = tile$get_FemalePop()$simCohort(N=1e3,writeJSON=FALSE)
 
-# rest mosy parameters to not be the COHORT version
+# equilibrium-ish
+eqAqua = ovipositionEq_utility(history = cohortOut,nAqua = nAqua)
+
+
 
 # fit EL4P
 EL4P_PAR = EL4P.Parameters(nAqua = 50,nHumans = 300,R0 = 3,eqAqua = rep(x = 0.2,times=5),EIP = 12,lifespan = 11,
@@ -148,8 +151,22 @@ EL4P_fit = EL4P.Mesh.Fit(mesh_N = 50,EL4P_PAR = EL4P_PAR,var_tol = 5,plot = TRUE
 
 # update the Landscape and AquaticSite
 
-# remember to run updatePop to update the female pop after we find our M, eqAqua, etc.
-MBITES.Generic.Setup(overwrite = TRUE,batchSize = "bms",eggMatT = "off")
-MBITES.BRO.Setup(overwrite = TRUE,aquaModule = AQUA_module)
-MicroMosquitoPopFemale$update_pop()
+# # remember to run updatePop to update the female pop after we find our M, eqAqua, etc.
+# MBITES.Generic.Setup(overwrite = TRUE,batchSize = "bms",eggMatT = "off")
+# MBITES.BRO.Setup(overwrite = TRUE,aquaModule = AQUA_module)
+# MicroMosquitoPopFemale$update_pop()
 
+
+
+
+MosquitoPop_PAR = MicroMosquitoPop.Setup(cohort = TRUE,
+                                         module = MBITES_module,
+                                         aquaModule = AQUA_module,
+                                         N_female = 1,
+                                         time = 0,
+                                         ix_female = rep(1,1),
+                                         genotype_female = rep(0,1),
+                                         batchSize = "bms",
+                                         eggMatT = "off",
+                                         PfEIP = 0.1,
+                                         B_succeed = 1, B_surv = 0.9)
