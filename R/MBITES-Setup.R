@@ -27,7 +27,7 @@
 #'
 #' @return modifies the \code{\link{MicroMosquitoFemale}} and \code{\link{MicroMosquitoMale}} classes.
 #' @export
-mbitesGeneric.Setup <- function(
+MBITES.Generic.Setup <- function(
   overwrite = TRUE,
   batchSize = "bms",
   eggMatT = "off"

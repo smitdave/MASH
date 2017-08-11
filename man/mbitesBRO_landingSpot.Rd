@@ -8,7 +8,7 @@ mbitesBRO_landingSpot()
 }
 \description{
 Mosquito lands after a flight (choose a landing spot), which may cause various events.
-This function always calls \code{\link{mbitesBro_newSpot}} and may call \code{\link{mbitesBro_enterHouse}}
+This function always calls \code{\link{mbitesBRO_newSpot}} and may call \code{\link{mbitesBRO_enterHouse}}
 Landing spots include:
 \itemize{
 \item i: 1 rest on the inside wall of a structure

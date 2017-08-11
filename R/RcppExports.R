@@ -511,8 +511,8 @@ EL4P__checkDX_GEL4P <- function(obj_, eqAqua, G, lifespan, tMax) {
     .Call('_MASH_EL4P__checkDX_GEL4P', PACKAGE = 'MASH', obj_, eqAqua, G, lifespan, tMax)
 }
 
-EL4P__addEggs <- function(obj_, eggs_N, genotype_ix) {
-    invisible(.Call('_MASH_EL4P__addEggs', PACKAGE = 'MASH', obj_, eggs_N, genotype_ix))
+EL4P__addEggs <- function(obj_, eggs_N, genotype) {
+    invisible(.Call('_MASH_EL4P__addEggs', PACKAGE = 'MASH', obj_, eggs_N, genotype))
 }
 
 EL4P__get_allGenotypes <- function(obj_) {

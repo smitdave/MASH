@@ -30,8 +30,8 @@ Landscape.Parameters(nFeed, nAqua, pointGen = "poisson", module, modulePars,
 
 \item{modulePars}{additional list of named parameters to be passed to Aquatic Ecology module specific parameter generating functions
 \itemize{
-\item Emerge: for details see \code{\link{makeLambda_MicroEmerge}}
-\item EL4P:
+\item Emerge: should be named list of parameters for \code{\link{makeLambda_MicroEmerge}}
+\item EL4P: NULL
 }}
 
 \item{hazV}{mean value for feeding site vegetation landing hazard (if 0 it is set to 0 for all sites)}

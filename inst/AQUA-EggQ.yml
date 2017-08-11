@@ -1,3 +1,13 @@
+############################################################
+#
+#   MASH
+#   AQUATIC ECOLOGY
+#   EggQ class definition
+#   Sean Wu
+#   August 7, 2017
+#
+############################################################
+
 EggQ:
   name_cpp: MASH::EggQ
   forward_declare: true

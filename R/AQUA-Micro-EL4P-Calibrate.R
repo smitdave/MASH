@@ -38,8 +38,6 @@ calcLambda_MicroEL4P <- function(R0, EIP, lifespan, S, nH, b = 0.55, c = 0.15, r
   )
 }
 
-# MAYBE M SHOULD JUST BE A SCALAR OVER THE ENTIRE LANDSCAPE? CHECK THE DETERMINISTIC SOLUTIONS
-
 #' Initialize EL4P Aquatic Ecoogy Module Parameters
 #'
 #' Generate named list of EL4P parameters, and calculates lambda (see \code{\link{calcLambda_MicroEL4P}} for details).
@@ -120,7 +118,7 @@ EL4P.Parameters <- function(
 #' @md
 #' @export
 EL4P.Landscape.Fit <- function(){
-
+  stop("write me please")
 }
 
 #' Fit EL4P Aquatic Ecology Module to Mesh of K
@@ -138,7 +136,9 @@ EL4P.Landscape.Fit <- function(){
 #'
 #' @return named list
 #'  * equilibriumPops: equilibrium aquatic populations
-#'  * psiFit: fitted values of psi
+#'  * psi: fitted values of psi
+#'  * alpha: sampled values of alpha
+#'  * K: sampled values of K
 #'  * meshK: sampled values of K
 #'  * psi2K_cf: slope coefficient between 1/psi and K
 #' @md
@@ -151,7 +151,7 @@ EL4P.Mesh.Fit <- function(mesh_N, EL4P_PAR, var_tol = 0.1, plot = FALSE){
     K_w = rgamma(n = mesh_N, shape = K_a, scale = K_b) # weights on K
     K = (lambda * K_w) / sum(K_w) # K for each pool (aquatic habitat)
     alpha_m = -log(alpha_a^((1-p)/5)) # mean of alpha mortality parameter
-    alpha = abs(rnorm(n = mesh_N, mean = alpha_m, sd = alpha_sd)) # density-independet mortality
+    alpha = abs(rnorm(n = mesh_N, mean = alpha_m, sd = alpha_sd)) # density-independent mortality
     psi_init = alpha/K # initial value of psi (density-dependent mortality)
 
     # plot relationship between K and psi prior to fitting
@@ -187,8 +187,13 @@ EL4P.Mesh.Fit <- function(mesh_N, EL4P_PAR, var_tol = 0.1, plot = FALSE){
     eq_pops = parallel::mcmapply(FUN = run2eq_MicroEL4P,psi = psi_fit, EL4P = AquaPops, eqAqua = eqAqua,
       MoreArgs = list(M=M,G=G,lifespan=lifespan,var_tol=var_tol),SIMPLIFY=FALSE,USE.NAMES=FALSE,mc.cores=parallel::detectCores()-2L)
 
+    # remove external pointers to C++ objects and manually garbage collect memory
+    rm(AquaPops)
+    invisible(gc())
+
+    # return results
     return(
-      list(equilibriumPops=eq_pops,psiFit=psi_fit,meshK=meshK_out$meshK,psi2K_cf=cf)
+      list(equilibriumPops=eq_pops,psi=psi_fit,alpha=alpha,K=K,meshK=meshK_out$meshK,psi2K_cf=cf)
     )
 
   })

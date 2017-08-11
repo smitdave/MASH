@@ -61,6 +61,7 @@
 #' @param eggP minimum provision to produce eggs
 #' @param energyPreG pre-gonotrophic energy requirement
 #' @param PfEIP entomological inoculation period for Plasmodium falciparum during \code{MicroMosquitoFemale$probing()}
+#' @param Q human blood index (used in \code{\link{mbitesCohort_chooseHost}})
 #' @return a named list of parameters
 #' @examples
 #' MBITES.BRO.Parameters()
@@ -169,7 +170,13 @@ MBITES.BRO.Parameters <- function(
   # Pathogen Transmission
   ##########################################
 
-  PfEIP = 12
+  PfEIP = 12,
+
+  ##########################################
+  # MBITES-BRO-Cohort Parameters
+  ##########################################
+
+  Q = 0.9 # human blood index
 
 ){
 
@@ -267,7 +274,12 @@ MBITES.BRO.Parameters <- function(
     ##########################################
     # Pathogen Transmission
     ##########################################
-    PfEIP = PfEIP
+    PfEIP = PfEIP,
+
+    ##########################################
+    # MBITES-BRO-Cohort
+    ##########################################
+    Q = Q
 
   ))
 

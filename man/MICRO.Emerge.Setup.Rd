@@ -2,7 +2,7 @@
 % Please edit documentation in R/AQUA-Micro-Emerge-Setup.R
 \name{MICRO.Emerge.Setup}
 \alias{MICRO.Emerge.Setup}
-\title{Initialize Emerge MODULE}
+\title{Initialize Emerge Aquatic Ecology Module}
 \usage{
 MICRO.Emerge.Setup(overwrite = TRUE)
 }

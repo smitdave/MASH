@@ -46,12 +46,12 @@ MBITES.BRO.Setup <- function(overwrite = TRUE, aquaModule){
     )
 
     MicroMosquitoFemale$set(which = "public",name = "newSpot",
-              value = mbitesBro_newSpot,
+              value = mbitesBRO_newSpot,
               overwrite = overwrite
     )
 
     MicroMosquitoFemale$set(which = "public",name = "enterHouse",
-              value = mbitesBro_enterHouse,
+              value = mbitesBRO_enterHouse,
               overwrite = overwrite
     )
 
@@ -92,17 +92,17 @@ MBITES.BRO.Setup <- function(overwrite = TRUE, aquaModule){
     )
 
     MicroMosquitoFemale$set(which = "public",name = "oneBout",
-              value = mbitesBro_oneBout,
+              value = mbitesBRO_oneBout,
               overwrite = overwrite
     )
 
     MicroMosquitoFemale$set(which = "public",name = "MBITES",
-              value = mbitesBro_oneMosquito_MBITES,
+              value = mbitesBRO_oneMosquito_MBITES,
               overwrite = overwrite
     )
 
     MicroMosquitoPopFemale$set(which = "public",name = "MBITES",
-              value = mbitesBro_Pop_MBITES,
+              value = mbitesBRO_Pop_MBITES,
               overwrite = overwrite
     )
 

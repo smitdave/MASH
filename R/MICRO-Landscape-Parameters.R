@@ -170,8 +170,8 @@ betaRootA <- function(mean, beta = 1){
 #'  * "emerge": initialize parameters for Emerge module of Aquatic Ecology
 #'  * "EL4P": initialize parameters for EL4P module of Aquatic Ecology
 #' @param modulePars additional list of named parameters to be passed to Aquatic Ecology module specific parameter generating functions
-#'  * Emerge: for details see \code{\link{makeLambda_MicroEmerge}}
-#'  * EL4P:
+#'  * Emerge: should be named list of parameters for \code{\link{makeLambda_MicroEmerge}}
+#'  * EL4P: NULL
 #' @param hazV mean value for feeding site vegetation landing hazard (if 0 it is set to 0 for all sites)
 #' @param hazW mean value for feeding site outside wall landing hazard (if 0 it is set to 0 for all sites)
 #' @param hazI mean value for feeding site indoor wall landing hazard (if 0 it is set to 0 for all sites)
@@ -315,8 +315,8 @@ Landscape.Feeding.Parameters <- function(nFeed, pointGen = "poisson", searchWt =
 #'  * "emerge": initialize parameters for Emerge module of Aquatic Ecology
 #'  * "EL4P": initialize parameters for EL4P module of Aquatic Ecology
 #' @param modulePars additional list of named parameters to be passed to Aquatic Ecology module specific parameter generating functions
-#'  * Emerge: see for deatils \code{\link{makeLambda_MicroEmerge}}
-#'  * EL4P:
+#'  * Emerge: should be named list of parameters for \code{\link{makeLambda_MicroEmerge}}
+#'  * EL4P: NULL
 #' @param searchWt vector of searchWt (if \code{NULL} initialize to Gamma(1,1) distribution)
 #' @param haz mean value of landing hazards (if \code{!= 0} use \code{\link{betaRootA}} to find alpha parameter of beta distribution to give that mean value and produce Beta distributed hazards)
 #' @return return a list
@@ -345,14 +345,8 @@ Landscape.Aqua.Parameters <- function(nAqua, siteXY, module , modulePars, search
   # Aquatic Ecology modules
   Landscape_Aqua_PAR$module = module
   if(module == "emerge"){
-
     Landscape_Aqua_PAR$lambda = makeLambda_MicroEmerge(modulePars)
-
-  } else {
-    stop("sean hasnt written EL4P or any other AQUA modules yet!")
   }
 
-
   return(Landscape_Aqua_PAR)
-
 }

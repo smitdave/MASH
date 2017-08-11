@@ -94,7 +94,7 @@ EL4P:
     addEggs:
       args:
         - eggs_N: double
-        - genotype_ix: int
+        - genotype: int
       return_type: void
 
     ##################################################

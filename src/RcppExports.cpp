@@ -1445,14 +1445,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // EL4P__addEggs
-void EL4P__addEggs(MASH::RcppR6::RcppR6<MASH::EL4P> obj_, double eggs_N, int genotype_ix);
-RcppExport SEXP _MASH_EL4P__addEggs(SEXP obj_SEXP, SEXP eggs_NSEXP, SEXP genotype_ixSEXP) {
+void EL4P__addEggs(MASH::RcppR6::RcppR6<MASH::EL4P> obj_, double eggs_N, int genotype);
+RcppExport SEXP _MASH_EL4P__addEggs(SEXP obj_SEXP, SEXP eggs_NSEXP, SEXP genotypeSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< MASH::RcppR6::RcppR6<MASH::EL4P> >::type obj_(obj_SEXP);
     Rcpp::traits::input_parameter< double >::type eggs_N(eggs_NSEXP);
-    Rcpp::traits::input_parameter< int >::type genotype_ix(genotype_ixSEXP);
-    EL4P__addEggs(obj_, eggs_N, genotype_ix);
+    Rcpp::traits::input_parameter< int >::type genotype(genotypeSEXP);
+    EL4P__addEggs(obj_, eggs_N, genotype);
     return R_NilValue;
 END_RCPP
 }
