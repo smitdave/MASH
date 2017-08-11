@@ -106,6 +106,7 @@ mbitesBRO_cohort_simCohort <- function(N, writeJSON){
   # do the sim
   nCores = parallel::detectCores()-2L
   cohortOut = parallel::mclapply(X = private$pop,FUN = function(x){x$MBITES_Cohort()},mc.cores = nCores)
+  names(cohortOut) = 1:N
 
   # write out to JSON directory.
   if(writeJSON){

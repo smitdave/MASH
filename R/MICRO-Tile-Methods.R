@@ -123,3 +123,7 @@ MicroTile$set(which = "public",name = "set_FemalePop",
           value = set_FemalePop_MicroTile,
           overwrite = TRUE
 )
+
+#################################################################
+# Set EL4P (used after running EL4P fitting routines)
+#################################################################
