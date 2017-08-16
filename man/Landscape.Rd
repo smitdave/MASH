@@ -65,8 +65,8 @@ This is a Landscape object that is part of a MICRO microsimulation Tile object, 
 \itemize{
 \item get_TilePointer: get \code{\link{MicroTile}} pointer
 \item set_TilePointer: set \code{\link{MicroTile}} pointer
-\item get_MosquitoPopFemalePointer:
-\item set_MosquitoPopFemalePointer:
+\item set_FemalePopPointer:
+\item set_FemalePopPointer:
 \item get_MosquitoPopMalePointer:
 \item set_MosquitoPopMalePointer:
 \item get_HumansPointer: get \code{\link{HumanPop}} pointer

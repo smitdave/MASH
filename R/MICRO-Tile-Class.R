@@ -108,7 +108,7 @@ MicroTile <- R6::R6Class(classname = "MicroTile",
                      # Landscape Pointers
                      private$Landscape$set_TilePointer(self)
                      private$Landscape$set_HumansPointer(private$HumanPop)
-                     private$Landscape$set_MosquitoPopFemalePointer(private$FemalePop)
+                     private$Landscape$set_FemalePopPointer(private$FemalePop)
 
                      # Female Mosquito Population Pointers
                      private$FemalePop$set_TilePointer(self)

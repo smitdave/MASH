@@ -93,6 +93,8 @@ MicroTile$set(which = "public",name = "simMICRO_oneStep",
 #' @md
 set_FemalePop_MicroTile <- function(MosquitoPop_PAR){
 
+  private$FemalePop = NULL
+
   # generate female mosquito object
   private$FemalePop = MicroMosquitoPopFemale$new(N = MosquitoPop_PAR$N_female,  # number of female mosquitoes at initialization
                                                time_init = MosquitoPop_PAR$time,  # time simulation begins
@@ -117,6 +119,19 @@ set_FemalePop_MicroTile <- function(MosquitoPop_PAR){
     private$FemalePop$get_MosquitoIxM(ixM)$set_MalePopPointer(private$MalePop)
   }
 
+  # reset pointers
+
+  # Human & HumanPop Pointers (duplicate for Humans in HumanPop$pop)
+  private$HumanPop$set_FemalePopPointer(private$FemalePop)
+  for(ixH in 1:private$HumanPop$nHumans){
+    private$HumanPop$get_Human(ixH)$set_FemalePopPointer(private$FemalePop)
+  }
+
+  # Landscape Pointers
+  private$Landscape$set_FemalePopPointer(private$FemalePop)
+
+  # garbage collection
+  invisible(gc())
 }
 
 MicroTile$set(which = "public",name = "set_FemalePop",

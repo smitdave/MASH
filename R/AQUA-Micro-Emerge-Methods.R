@@ -129,7 +129,7 @@ addCohort_MicroEmergeSite <- function(tNow){
 
   if(length(EmergingAdults) > 0){
     for(i in 1:length(EmergingAdults)){
-      private$LandscapePointer$get_MosquitoPopFemalePointer()$push_pop(N = EmergingAdults[[i]]$N, tEmerge = EmergingAdults[[i]]$tEmerge, ix = private$ix, genotype = EmergingAdults[[i]]$genotype, damID = EmergingAdults[[i]]$damID, sireID = EmergingAdults[[i]]$sireID)
+      private$LandscapePointer$get_FemalePopPointer()$push_pop(N = EmergingAdults[[i]]$N, tEmerge = EmergingAdults[[i]]$tEmerge, ix = private$ix, genotype = EmergingAdults[[i]]$genotype, damID = EmergingAdults[[i]]$damID, sireID = EmergingAdults[[i]]$sireID)
     }
   }
 

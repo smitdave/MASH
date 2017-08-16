@@ -48,8 +48,8 @@
 #'  * **Pointers**
 #'    * get_TilePointer: get \code{\link{MicroTile}} pointer
 #'    * set_TilePointer: set \code{\link{MicroTile}} pointer
-#'    * get_MosquitoPopFemalePointer:
-#'    * set_MosquitoPopFemalePointer:
+#'    * set_FemalePopPointer:
+#'    * set_FemalePopPointer:
 #'    * get_MosquitoPopMalePointer:
 #'    * set_MosquitoPopMalePointer:
 #'    * get_HumansPointer: get \code{\link{HumanPop}} pointer
@@ -226,20 +226,20 @@ Landscape <- R6::R6Class(classname = "Landscape",
                     private$TilePointer = TilePointer
                   },
 
-                  # MosquitoPopFemalePointer
-                  get_MosquitoPopFemalePointer = function(){
-                    return(private$MosquitoPopFemalePointer)
+                  # FemalePopPointer
+                  get_FemalePopPointer = function(){
+                    return(private$FemalePopPointer)
                   },
-                  set_MosquitoPopFemalePointer = function(MosquitoPopFemalePointer){
-                    private$MosquitoPopFemalePointer = MosquitoPopFemalePointer
+                  set_FemalePopPointer = function(FemalePopPointer){
+                    private$FemalePopPointer = FemalePopPointer
                   },
 
-                  # MosquitoPopMalePointer
-                  get_MosquitoPopMalePointer = function(){
-                    return(private$MosquitoPopMalePointer)
+                  # MalePopPointer
+                  get_MalePopPointer = function(){
+                    return(private$MalePopPointer)
                   },
-                  set_MosquitoPopMalePointer = function(MosquitoPopMalePointer){
-                    private$MosquitoPopMalePointer = MosquitoPopMalePointer
+                  set_MalePopPointer = function(MalePopPointer){
+                    private$MalePopPointer = MalePopPointer
                   },
 
                   # HumansPointer
@@ -283,8 +283,8 @@ Landscape <- R6::R6Class(classname = "Landscape",
 
                    # Pointers
                    TilePointer = NULL,                    # point to the enclosing microsimulation TILE (MICRO)
-                   MosquitoPopFemalePointer = NULL,       # point to the MicroMosquitoPopFemale in this enclosing microsimulation TILE (MICRO)
-                   MosquitoPopMalePointer = NULL,         # point to the MicroMosquitoPopMale in this enclosing microsimulation TILE (MICRO)
+                   FemalePopPointer = NULL,       # point to the MicroMosquitoPopFemale in this enclosing microsimulation TILE (MICRO)
+                   MalePopPointer = NULL,         # point to the MicroMosquitoPopMale in this enclosing microsimulation TILE (MICRO)
                    HumansPointer = NULL                   # point to the HumanPop in this enclosing microsimulation TILE (MICRO)
 
 

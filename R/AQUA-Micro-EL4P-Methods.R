@@ -56,8 +56,10 @@ oneStep_MicroEL4PSite <- function(tNow){
 
   # move eggs from EggQ to EL4P
   eggs = private$EggQ$get_EggQTime(tNow = tNow,clear = TRUE)
-  for(i in 1:length(eggs)){
-    private$EL4P$addEggs(eggs_N = eggs[[i]]$N, genotype = eggs[[i]]$genotype)
+  if(length(eggs) > 0){
+    for(i in 1:length(eggs)){
+      private$EL4P$addEggs(eggs_N = eggs[[i]]$N, genotype = eggs[[i]]$genotype)
+    }
   }
 
   # run daily EL4P difference equations
@@ -102,7 +104,7 @@ addCohort_MicroEL4PSite <- function(tNow){
 
   if(length(EmergingAdults) > 0){
     for(i in 1:length(EmergingAdults)){
-      private$LandscapePointer$get_MosquitoPopFemalePointer()$push_pop(N = EmergingAdults[[i]]$N, tEmerge = EmergingAdults[[i]]$tEmerge, ix = private$ix, genotype = EmergingAdults[[i]]$genotype, damID = EmergingAdults[[i]]$damID, sireID = EmergingAdults[[i]]$sireID)
+      private$LandscapePointer$get_FemalePopPointer()$push_pop(N = EmergingAdults[[i]]$N, tEmerge = EmergingAdults[[i]]$tEmerge, ix = private$ix, genotype = EmergingAdults[[i]]$genotype, damID = EmergingAdults[[i]]$damID, sireID = EmergingAdults[[i]]$sireID)
     }
   }
 
