@@ -206,7 +206,7 @@ PfMOI_ttClearPf_Independent <- function(){
 #'
 #'  * See \url{https://doi.org/10.1186/1475-2875-8-87} for details of queueing model with pathogen interaction.
 PfMOI_ttClearPf_Interaction <- function(){
-  clearanceRate = (1/self$get_PfMOI_PAR("DurationPf")) * (private$Pathogens$get_MOI() * self$get_PfMOI_PAR("InteractionPf"))
+  clearanceRate = (1/self$get_PfMOI_PAR("DurationPf")) ^ (private$Pathogens$get_MOI() * self$get_PfMOI_PAR("InteractionPf"))
   return(rexp(n=1, rate=clearanceRate))
 }
 
