@@ -6,15 +6,9 @@
 \usage{
 emergingAdults_MacroEmerge()
 }
-\arguments{
-\item{a}{parameter}
-}
-\value{
-does stuff
-}
 \description{
 Write me! does this for all patches. generates a vector of emerging adults, and zeros out the ImagoQ
+\itemize{
+\item This method is bound to \code{MacroPatch$emergingAdults_MacroEmerge}
 }
-\examples{
-some_function()
 }

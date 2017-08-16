@@ -6,15 +6,9 @@
 \usage{
 oneDay_MacroEmerge()
 }
-\arguments{
-\item{a}{parameter}
-}
-\value{
-does stuff
-}
 \description{
 Queue the ImagoQ
+\itemize{
+\item This method is bound to \code{MacroPatch$oneDay_MacroEmerge}
 }
-\examples{
-some_function()
 }

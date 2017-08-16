@@ -151,11 +151,9 @@ MACRO.Patch.Emerge.Setup <- function(overwrite = TRUE){
 #' MACRO: Calculate Emerging Adults for \code{MacroPatch}
 #'
 #' Write me! does this for all patches
+#'  * This method is bound to \code{MacroPatch$addCohort_MacroEmerge}
 #'
-#' @param a parameter
-#' @return does stuff
-#' @examples
-#' some_function()
+#' @md
 addCohort_MacroEmerge <- function(){
   newM = self$get_MosquitoPointer()$get_M() + self$emergingAdults_MacroEmerge()
   self$get_MosquitoPointer()$set_M(M = newM, ix = NULL)
@@ -164,17 +162,19 @@ addCohort_MacroEmerge <- function(){
 #' MACRO: Calculate Emerging Adults from ImagoQ for \code{MacroPatch}
 #'
 #' Write me! does this for all patches. generates a vector of emerging adults, and zeros out the ImagoQ
+#'  * This method is bound to \code{MacroPatch$emergingAdults_MacroEmerge}
 #'
-#' @param a parameter
-#' @return does stuff
-#' @examples
-#' some_function()
+#' @md
 emergingAdults_MacroEmerge <- function(){
 
   # grab slots that are ready to emerge
   tNow = self$get_TilePointer()$get_tNow()
   newM = vector(mode="integer",length=private$N)
   for(ixP in 1:private$N){
+
+    # imago = private$ImagoQ$get_ImagoQTime(tNow = tNow,clear = TRUE)
+    # newM[ixP] = sum(vapply(X = imago,FUN = function(x){x$N},FUN.VALUE = integer(1)))
+
     newM[ixP] = private$PatchesImagoQ[[ixP]]$N
     self$set_PatchesImagoQ(PatchesImagoQ = newImago(),ixP = ixP)
   }
@@ -185,19 +185,17 @@ emergingAdults_MacroEmerge <- function(){
 #' Get \code{MacroPatch} Seasonal Emergence
 #'
 #' Queue the ImagoQ
+#'  * This method is bound to \code{MacroPatch$oneDay_MacroEmerge}
 #'
-#' @param a parameter
-#' @return does stuff
-#' @examples
-#' some_function()
+#' @md
 oneDay_MacroEmerge <- function(){
 
   tNow = self$get_TilePointer()$get_tNow()
   lambdaExact = vapply(X = private$season,FUN = function(x){x[floor(tNow)%%365+1]},FUN.VALUE = numeric(1))
   lambdaEmerge = rpois(n = length(lambdaExact),lambda = lambdaExact)
   for(ixP in 1:private$N){
+    # private$ImagoQ$add_ImagoQ(N_new = lambdaEmerge[ixP], tEmerge_new = tNow, genotype_new = -1L, damID_new = "-1", sireID_new = "-1")
     self$set_PatchesImagoQ(PatchesImagoQ = newImago(N = lambdaEmerge[ixP], tEmerge = tNow), ixP = ixP)
-    # self$set_PatchesEggQ(PatchesEggQ = newEgg(), ixP = ixP) RESET EGG
   }
 
 }

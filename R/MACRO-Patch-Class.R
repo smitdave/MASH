@@ -86,6 +86,8 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                          private$PatchesImagoQ =  PatchesImagoQ
                          private$PatchesEggQ = PatchesEggQ
 
+                        #  private$ImagoQ = MASH::ImagoQ()
+
                        } else if(aquaModel == "EL4P"){
                          stop("sean hasn't written the routines for MACRO EL4P Aquatic Ecology")
                        } else {
@@ -101,7 +103,7 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                        } else if(pathogenModel == "none"){
                          stop("sean hasn't written the routines for MACRO none PATHOGEN module")
                        } else {
-                         stop("pathogenModel msut be a value in 'PatchPf' or 'none'")
+                         stop("pathogenModel must be a value in 'PatchPf' or 'none'")
                        }
 
                       }) # exit MacroPatch_PAR environment

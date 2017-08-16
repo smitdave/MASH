@@ -6,15 +6,9 @@
 \usage{
 addCohort_MacroEmerge()
 }
-\arguments{
-\item{a}{parameter}
-}
-\value{
-does stuff
-}
 \description{
 Write me! does this for all patches
+\itemize{
+\item This method is bound to \code{MacroPatch$addCohort_MacroEmerge}
 }
-\examples{
-some_function()
 }

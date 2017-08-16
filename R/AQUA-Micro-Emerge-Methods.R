@@ -121,8 +121,9 @@ oneStep_MicroEmerge <- function(){
 #'
 #' Grab emerging adult batches where tEmerge <= tNow and add to the \code{\link{MicroMosquitoPopFemale}}.
 #' This is a helper function for \code{\link{addCohort_MicroEmerge}}.
-#' This method is bound to \code{AquaticSite$addCohort_MicroEmergeSite()}.
+#'  * This method is bound to \code{AquaticSite$addCohort_MicroEmergeSite()}.
 #'
+#' @md
 addCohort_MicroEmergeSite <- function(tNow){
   # use tNow in the TILE and see who is ready to be taken from ImagoQ into the MosyPop.
   EmergingAdults = private$ImagoQ$get_ImagoQTime(tNow = tNow,clear = TRUE)

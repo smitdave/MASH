@@ -63,6 +63,7 @@ MACRO.Tile.Parameters <- function(
   return(
     list(
       N = N,
+      aquaModule = aquaModule,
       pathogenModule = pathogenModule,
       HumanPop_PAR = HumanPop_PAR,
       MacroPatch_PAR = MacroPatch_PAR,

@@ -9,5 +9,7 @@ addCohort_MicroEmergeSite(tNow)
 \description{
 Grab emerging adult batches where tEmerge <= tNow and add to the \code{\link{MicroMosquitoPopFemale}}.
 This is a helper function for \code{\link{addCohort_MicroEmerge}}.
-This method is bound to \code{AquaticSite$addCohort_MicroEmergeSite()}.
+\itemize{
+\item This method is bound to \code{AquaticSite$addCohort_MicroEmergeSite()}.
+}
 }
