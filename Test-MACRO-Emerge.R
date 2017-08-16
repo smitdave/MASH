@@ -79,7 +79,7 @@ set.seed(42)
 # initialize classes for MACRO
 MACRO.Humans.Setup(pathogenModule = "PfMOI")
 
-PfMOI.Setup(interaction = TRUE,InteractionPf = -1)
+PfMOI.Setup(interaction = TRUE,InteractionPf = 0.15)
 SimBitePfMOI.Setup()
 
 # MACRO Patch initialization
@@ -92,7 +92,7 @@ tileParameters$MacroMosquitoPop_PAR$M_density = rep(200,nPatch)
 tile = MacroTile$new(MacroTile_PAR = tileParameters)
 
 PfMOI = c(rep(0,nPatch/2),rep(1,nPatch/2))
-debug(tile$init_PfMOI)
+# debug(tile$init_PfMOI)
 tile$init_PfMOI(PfMOI = PfMOI)
 
 tile$simMacro(500)
