@@ -66,10 +66,6 @@ MacroHuman_init_travel <- function(n, freqMean = 7, freqSd = 2, lengthMean = 2, 
   PAR = list(there = away, ixTravel = ixTrip)
   self$add2Q_takeTrip(tEvent = tTrip, PAR = PAR)
 
-  # if(tNow==0){
-  #   # initialize history with home patchID
-  #   self$track_travel(tTravel=tNow,locationH=private$patchID)
-  # }
   private$travelHistory$track_travel(tNow,private$patchID)
 
   travel = list(

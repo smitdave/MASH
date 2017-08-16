@@ -1,6 +1,11 @@
 #################################################################
 #
-#   MASH
+#       ___   ____  __  _____
+#     /   | / __ \/ / / /   |
+#    / /| |/ / / / / / / /| |
+#   / ___ / /_/ / /_/ / ___ |
+#  /_/  |_\___\_\____/_/  |_|
+#
 #   MICRO Aquatic Ecology: EL4P
 #   Method definitions
 #   Hector Sanchez & David Smith, Hector Sanchez, Sean Wu

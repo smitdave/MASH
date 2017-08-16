@@ -101,4 +101,3 @@ pfmoiHist = tile$get_HumanPop()$get_PfMOI_history()
 
 travelHist = tile$get_HumanPop()$get_travelHistory()
 tile$get_HumanPop()$json_travelHistory(con = file(description = "/Users/slwu89/Desktop/OUTPUT/humanTravel.json",open = "wt"))
-
