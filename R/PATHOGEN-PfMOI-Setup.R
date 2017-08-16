@@ -212,6 +212,18 @@ PfMOI.Setup <- function(
             overwrite = overwrite
   )
 
+  # initialize PfMOI infections with patch parasite mean MOI PfMOI
+  HumanPop$set(which = "public",name = "init_MACRO_PfMOI",
+            value = init_MACRO_PfMOI,
+            overwrite = overwrite
+  )
+
+  # initialize PfMOI infections for MACRO
+  MacroTile$set(which = "public",name = "init_PfMOI",
+            value = init_MacroTile_PfMOI,
+            overwrite = overwrite
+  )
+
   # get PfMOI history
   HumanPop$set(which = "public",name = "get_PfMOI_history",
             value = HumanPop_get_PfMOI_history,

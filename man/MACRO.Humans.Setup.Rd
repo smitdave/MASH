@@ -2,18 +2,17 @@
 % Please edit documentation in R/MACRO-Human-Setup.R
 \name{MACRO.Humans.Setup}
 \alias{MACRO.Humans.Setup}
-\title{MACRO: Initialize Additional Methods & Fields in \code{Human}}
+\title{MACRO: Initialize Additional Methods & Fields in \code{\link{Human}} and \code{\link{HumanPop}}}
 \usage{
-MACRO.Humans.Setup(overwrite = TRUE)
+MACRO.Humans.Setup(pathogenModule = "PfSI", overwrite = TRUE)
 }
 \arguments{
-\item{a}{parameter}
-}
-\value{
-does stuff
+\item{pathogenModule}{what PATHOGEN module to use (must be character in "PfSI","PfMOI")}
+
+\item{overwrite}{overwrite existing fields}
 }
 \description{
-Write me! \code{\link{Human}}
+Initialize methods and fields for biting and inter-patch travel for a macrosimulation tile \code{\link{MacroTile}}.
 }
 \examples{
 MACRO.Humans.Setup()

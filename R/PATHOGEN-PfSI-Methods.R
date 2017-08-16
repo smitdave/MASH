@@ -93,6 +93,8 @@ init_MACRO_PfSI <- function(PfPR, tStart = 0){
   private$PfID = 1L
   self$set_humanPfSI()
 
+  # initialize biting propensity on humans
+  self$updateKappa()
 
   patchID = private$patchID
   patches = unique(patchID)

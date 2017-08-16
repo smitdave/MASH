@@ -13,7 +13,7 @@
 # Kappa: update the human component of kappa
 #################################################################
 
-#' MACRO: Update \code{Human} kappa For a Patch
+#' MACRO: Update \code{\link{Human}} PfSI kappa For a Patch
 #'
 #' Add my contribution to kappa to current patch (current value of \code{location}).
 #' This method is bound to \code{Human$sumKappa()}
@@ -22,9 +22,26 @@
 #' @return does stuff
 #' @examples
 #' some_function()
-MacroHuman_sumKappa <- function(){
-  if(private$Pathogens$Pf$get_infected()){
-    self$get_PatchesPointer()$accumulate_kappa(kappa = (private$bWeight*private$Pathogens$Pf$get_c()), ix = private$location)
+MacroHuman_sumKappa_PfSI <- function(){
+  if(private$Pathogens$get_infected()){
+    self$get_PatchesPointer()$accumulate_kappa(kappa = (private$bWeight*private$Pathogens$get_c()), ix = private$location)
+  } else {
+    self$get_PatchesPointer()$accumulate_kappa(kappa = 0, ix = private$location)
+  }
+}
+
+#' MACRO: Update \code{\link{Human}} PfMOI kappa For a Patch
+#'
+#' Add my contribution to kappa to current patch (current value of \code{location}).
+#' This method is bound to \code{Human$sumKappa()}
+#'
+#' @param a parameter
+#' @return does stuff
+#' @examples
+#' some_function()
+MacroHuman_sumKappa_PfMOI <- function(){
+  if(private$Pathogens$get_MOI() > 0){
+    self$get_PatchesPointer()$accumulate_kappa(kappa = (private$bWeight*private$Pathogens$get_c()), ix = private$location)
   } else {
     self$get_PatchesPointer()$accumulate_kappa(kappa = 0, ix = private$location)
   }

@@ -52,7 +52,7 @@ class HistoryTravel{
 public:
 
   // constructor
-  HistoryTravel(const int &N = 100){
+  HistoryTravel(const int &N = 20){
     locationHVec.reserve(N);
     tTravelVec.reserve(N);
   }

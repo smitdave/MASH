@@ -92,7 +92,6 @@ MacroTile <- R6::R6Class(classname = "MacroTile",
                        # patchID
                        private$HumanPop$set_patchID(MacroTile_PAR$HumanPop_PAR$homeIDs)
                      }
-                     private$HumanPop$set_humanPfSI() # set up human PfSI objects
 
                      # Patches Pointers
                      private$Patches$set_TilePointer(self)
@@ -104,8 +103,6 @@ MacroTile <- R6::R6Class(classname = "MacroTile",
                      private$MosquitoPop$set_PatchesPointer(private$Patches)
                      private$MosquitoPop$set_HumansPointer(private$HumanPop)
 
-                     # initialize kappa (biting propensity on humans)
-                     private$HumanPop$updateKappa()
                    },
 
                   #################################################################

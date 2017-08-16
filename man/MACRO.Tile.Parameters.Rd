@@ -5,8 +5,8 @@
 \title{Initialize MACRO Tile Parameters for \code{MacroTile}}
 \usage{
 MACRO.Tile.Parameters(N = 10, patchSize = 20, patchMin = 10, EIP = 10,
-  aquaModel = "emerge", aquaPars = list(lambda = rep(10, 10)),
-  humanPars = "auto")
+  aquaModule = "emerge", aquaPars = list(lambda = rep(10, 10)),
+  pathogenModule = "PfSI", humanPars = "auto")
 }
 \arguments{
 \item{N}{number of patches}
@@ -17,13 +17,15 @@ MACRO.Tile.Parameters(N = 10, patchSize = 20, patchMin = 10, EIP = 10,
 
 \item{EIP}{length of entomological incubation period}
 
-\item{aquaModel}{character in 'emerge', 'EL4P'}
+\item{aquaModule}{character in 'emerge', 'EL4P'}
 
 \item{aquaPars}{Aquatic Ecology module specific parameters (see \code{\link{MACRO.Patch.Parameters}} for details)
 \itemize{
 \item Emerge: list with elements 'lambda'
 \item EL4P: list with elements
 }}
+
+\item{pathogenModule}{character in 'PfSI', 'PfMOI'}
 
 \item{humanPars}{character in 'auto', 'manual' ; if \code{manual} the user should pass}
 }

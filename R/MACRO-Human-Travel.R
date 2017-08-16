@@ -49,6 +49,8 @@ MacroHuman_set_travel <- function(travel){
 #' some_function()
 MacroHuman_init_travel <- function(n, freqMean = 7, freqSd = 2, lengthMean = 2, lengthSd = 1, tNow = 0){
 
+  private$travelHistory = MASH::HistoryTravel()
+
   N = self$get_PatchesPointer()$get_N() # how many patches
   here = self$get_patchID() # where is my home?
 
@@ -64,10 +66,11 @@ MacroHuman_init_travel <- function(n, freqMean = 7, freqSd = 2, lengthMean = 2, 
   PAR = list(there = away, ixTravel = ixTrip)
   self$add2Q_takeTrip(tEvent = tTrip, PAR = PAR)
 
-  if(tNow==0){
-    # initialize history with home patchID
-    self$track_travel(tTravel=tNow,locationH=private$patchID)
-  }
+  # if(tNow==0){
+  #   # initialize history with home patchID
+  #   self$track_travel(tTravel=tNow,locationH=private$patchID)
+  # }
+  private$travelHistory$track_travel(tNow,private$patchID)
 
   travel = list(
         randomRate = 1/730,
@@ -85,19 +88,6 @@ MacroHuman_init_travel <- function(n, freqMean = 7, freqSd = 2, lengthMean = 2, 
 # Travel history tracking
 ###################################################################
 
-#' Track \code{Human} Travel History
-#'
-#' Write me! Defined in MACRO-Human-Travel.R
-#'
-#' @param tTravel time of trip
-#' @param location destination of trip
-#' @return does stuff
-#' @examples
-#' self$trackTravel(tTravel = 1, location = 1L)
-MacroHuman_track_travel <- function(tTravel, locationH){
-  private$locationH = c(private$locationH, locationH)
-  private$tTravel = c(private$tTravel, tTravel)
-}
 
 #' Return \code{Human} Travel History
 #'
@@ -110,9 +100,8 @@ MacroHuman_track_travel <- function(tTravel, locationH){
 #' @examples
 #' some_function()
 MacroHuman_get_travelHistoryHuman <- function(){
-  list(
-    location = private$locationH,
-    tTravel = private$tTravel
+  return(
+    private$travelHistory$get_travelHistory()
   )
 }
 
@@ -206,7 +195,8 @@ MacroHuman_takeTrip <- function(tEvent, PAR){
   private$location = away
   home = private$patchID
 
-  self$track_travel(tTravel = tEvent, locationH = away) # history
+  # self$track_travel(tTravel = tEvent, locationH = away) # history
+  private$travelHistory$track_travel(tEvent,away)
 
   # update home biting weight
   wHome = self$get_PatchesPointer()$get_bWeightHuman(ix = home) - self$get_bWeight()
@@ -267,7 +257,8 @@ MacroHuman_returnHome <- function(tEvent, PAR){
   home = private$patchID
   private$location = home  # go home
 
-  self$track_travel(tTravel = tEvent, locationH = home) # history
+  # self$track_travel(tTravel = tEvent, locationH = home) # history
+  private$travelHistory$track_travel(tEvent,home)
 
   # update home biting weight
   wHome = self$get_PatchesPointer()$get_bWeightHuman(ix = home) + self$get_bWeight()

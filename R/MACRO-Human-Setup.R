@@ -13,16 +13,16 @@
 # Initalize Methods & Fields in 'Human'
 #################################################################
 
-#' MACRO: Initialize Additional Methods & Fields in \code{Human}
+#' MACRO: Initialize Additional Methods & Fields in \code{\link{Human}} and \code{\link{HumanPop}}
 #'
-#' Write me! \code{\link{Human}}
+#' Initialize methods and fields for biting and inter-patch travel for a macrosimulation tile \code{\link{MacroTile}}.
 #'
-#' @param a parameter
-#' @return does stuff
+#' @param pathogenModule what PATHOGEN module to use (must be character in "PfSI","PfMOI")
+#' @param overwrite overwrite existing fields
 #' @examples
 #' MACRO.Humans.Setup()
 #' @export
-MACRO.Humans.Setup <- function(overwrite = TRUE){
+MACRO.Humans.Setup <- function(pathogenModule = "PfSI" ,overwrite = TRUE){
 
   message("initializing MACRO component methods & fields for Human & HumanPop Class")
 
@@ -218,18 +218,8 @@ MACRO.Humans.Setup <- function(overwrite = TRUE){
 
   # travel history:
 
-  Human$set(which = "private",name = "locationH",
+  Human$set(which = "private",name = "travelHistory",
             value = NULL,
-            overwrite = overwrite
-  )
-
-  Human$set(which = "private",name = "tTravel",
-            value = NULL,
-            overwrite = overwrite
-  )
-
-  Human$set(which = "public",name = "track_travel",
-            value = MacroHuman_track_travel,
             overwrite = overwrite
   )
 
@@ -341,10 +331,22 @@ MACRO.Humans.Setup <- function(overwrite = TRUE){
             overwrite = overwrite
   )
 
-  # set sumKappa
-  Human$set(which = "public",name = "sumKappa",
-            value = MacroHuman_sumKappa,
-            overwrite = overwrite
+  switch(pathogenModule,
+          PfSI = {
+            # set sumKappa
+            Human$set(which = "public",name = "sumKappa",
+                      value = MacroHuman_sumKappa_PfSI,
+                      overwrite = overwrite
+            )
+          },
+          PfMOI = {
+            # set sumKappa
+            Human$set(which = "public",name = "sumKappa",
+                      value = MacroHuman_sumKappa_PfMOI,
+                      overwrite = overwrite
+            )
+          },
+          {stop("other PATHOGEN modules not yet implemented for MACRO")}
   )
 
   # set sumKappa

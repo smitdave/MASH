@@ -21,10 +21,11 @@
 #' @param patchSize passed to \code{\link{sitePops}}
 #' @param patchMin passed to \code{\link{sitePops}}
 #' @param EIP length of entomological incubation period
-#' @param aquaModel character in 'emerge', 'EL4P'
+#' @param aquaModule character in 'emerge', 'EL4P'
 #' @param aquaPars Aquatic Ecology module specific parameters (see \code{\link{MACRO.Patch.Parameters}} for details)
 #' * Emerge: list with elements 'lambda'
 #' * EL4P: list with elements
+#' @param pathogenModule character in 'PfSI', 'PfMOI'
 #' @param humanPars character in 'auto', 'manual' ; if \code{manual} the user should pass
 #' @md
 #' @return return a list
@@ -37,8 +38,9 @@ MACRO.Tile.Parameters <- function(
   patchSize = 20,
   patchMin = 10,
   EIP = 10,
-  aquaModel = "emerge",
+  aquaModule = "emerge",
   aquaPars = list(lambda=rep(10,10)),
+  pathogenModule = "PfSI",
   humanPars = "auto"
 
   ){
@@ -53,7 +55,7 @@ MACRO.Tile.Parameters <- function(
       },x=patch_hhID_helper$values,y=patch_hhID_helper$lengths)
 
     # make MacroPatch_PAR
-    MacroPatch_PAR = MACRO.Patch.Parameters(N=N, hhID=patch_hhID, humanIDs=HumanPop_PAR$siteHumanIDs, aquaModel = aquaModel,aquaPars = aquaPars)
+    MacroPatch_PAR = MACRO.Patch.Parameters(N=N, hhID=patch_hhID, humanIDs=HumanPop_PAR$siteHumanIDs, aquaModel = aquaModule,aquaPars = aquaPars)
 
     # make MacroMosquitoPop_PAR
     MacroMosquitoPop_PAR = MACRO.MosquitoPop.Parameters(N=N,EIP=EIP)
@@ -61,6 +63,7 @@ MACRO.Tile.Parameters <- function(
   return(
     list(
       N = N,
+      pathogenModule = pathogenModule,
       HumanPop_PAR = HumanPop_PAR,
       MacroPatch_PAR = MacroPatch_PAR,
       MacroMosquitoPop_PAR = MacroMosquitoPop_PAR
