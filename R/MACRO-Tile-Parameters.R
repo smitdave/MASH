@@ -55,7 +55,7 @@ MACRO.Tile.Parameters <- function(
       },x=patch_hhID_helper$values,y=patch_hhID_helper$lengths)
 
     # make MacroPatch_PAR
-    MacroPatch_PAR = MACRO.Patch.Parameters(N=N, hhID=patch_hhID, humanIDs=HumanPop_PAR$siteHumanIDs, aquaModel = aquaModule,aquaPars = aquaPars)
+    MacroPatch_PAR = MACRO.Patch.Parameters(N=N, hhID=patch_hhID, humanIDs=HumanPop_PAR$siteHumanIDs, aquaModule = aquaModule,aquaPars = aquaPars)
 
     # make MacroMosquitoPop_PAR
     MacroMosquitoPop_PAR = MACRO.MosquitoPop.Parameters(N=N,EIP=EIP)

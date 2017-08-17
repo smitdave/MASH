@@ -80,7 +80,7 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                        private$weightMate = weightMate
 
                        # initialize AQUATIC ECOLOGY
-                       if(aquaModel == "emerge"){
+                       if(aquaModule == "emerge"){
 
                          private$season = season
                          private$PatchesImagoQ =  PatchesImagoQ
@@ -88,10 +88,10 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
 
                         #  private$ImagoQ = MASH::ImagoQ()
 
-                       } else if(aquaModel == "EL4P"){
+                       } else if(aquaModule == "EL4P"){
                          stop("sean hasn't written the routines for MACRO EL4P Aquatic Ecology")
                        } else {
-                         stop("aquaModel must be a value in 'emerge' or 'EL4P'")
+                         stop("aquaModule must be a value in 'emerge' or 'EL4P'")
                        }
 
 
