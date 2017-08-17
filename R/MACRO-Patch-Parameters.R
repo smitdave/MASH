@@ -41,8 +41,7 @@ MACRO.Patch.Parameters <- function(
     bWeightZoo2 = 1,
 
     # component options
-    pathogenModel = "PatchPf", # {PatchPf, none}
-    aquaModel = "emerge",
+    aquaModule = "emerge",
     aquaPars
 
   ){
@@ -80,44 +79,20 @@ MACRO.Patch.Parameters <- function(
   # AQUATIC ECOLOGY
   ################################################
 
-  if(aquaModel == "emerge"){
+  if(aquaModule == "emerge"){
 
-    # emergeArgs = names(sapply(match.call(), deparse))[-1]
-    # if(!"lambda" %in% emergeArgs){
-    #   stop("please specify the vector 'lambda' when using the 'Emerge' module of Aquatic Ecology")
-    # }
-    MacroPatch_PAR$aquaModel = aquaModel
+    MacroPatch_PAR$aquaModule = aquaModule
     MacroPatch_PAR$season = makeLambda_Macro(aquaPars)
     MacroPatch_PAR$PatchesImagoQ =  replicate(n=N,expr=newImago(),simplify=FALSE)
     MacroPatch_PAR$PatchesEggQ = replicate(n=N,expr=newEgg(),simplify=FALSE)
 
-  } else if(aquaModel == "EL4P"){
+  } else if(aquaModule == "EL4P"){
 
-    MacroPatch_PAR$aquaModel = aquaModel
+    MacroPatch_PAR$aquaModule = aquaModule
     stop("sean hasn't written the routines for MACRO EL4P Aquatic Ecology")
 
   } else {
-    stop("aquaModel must be a value in 'emerge' or 'EL4P'")
-  }
-
-  ################################################
-  # PATHOGEN
-  ################################################
-
-  if(pathogenModel == "PatchPf"){
-
-    MacroPatch_PAR$pathogenModel = pathogenModel
-
-    PatchPf = vector(mode="list",length=N)
-    for(ixP in 1:N){PatchPf[[ixP]] = MacroPatchPf$new(damID = NULL, sireID = NULL)}
-    MacroPatch_PAR$PatchPf = PatchPf
-
-  } else if(pathogenModel == "none"){
-
-    MacroPatch_PAR$pathogenModel = pathogenModel
-    stop("sean hasn't written the routines for MACRO 'none' PATHOGEN module")
-  } else {
-    stop("pathogenModel must be a value in 'PatchPf' or 'none'")
+    stop("aquaModule must be a value in 'emerge' or 'EL4P'")
   }
 
   return(MacroPatch_PAR)

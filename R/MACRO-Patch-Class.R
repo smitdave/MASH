@@ -94,17 +94,6 @@ MacroPatch <- R6::R6Class(classname = "MacroPatch",
                          stop("aquaModel must be a value in 'emerge' or 'EL4P'")
                        }
 
-                       # initialize PATHOGEN
-                       if(pathogenModel == "PatchPf"){
-
-                         MacroPatch_PAR$pathogenModel = pathogenModel
-                         private$PatchPf = PatchPf
-
-                       } else if(pathogenModel == "none"){
-                         stop("sean hasn't written the routines for MACRO none PATHOGEN module")
-                       } else {
-                         stop("pathogenModel must be a value in 'PatchPf' or 'none'")
-                       }
 
                       }) # exit MacroPatch_PAR environment
 
