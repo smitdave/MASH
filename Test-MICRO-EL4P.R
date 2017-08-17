@@ -79,7 +79,7 @@ cohort_bionomics = calculateBionomics_utility(history = cohortOut)
 eqAqua = ovipositionEq_utility(history = cohortOut,nAqua = nAqua)
 
 # fit EL4P
-EL4P_PAR = EL4P.Parameters(nAqua = nAqua,nHumans = HumanPop_PAR$nHumans,R0 = 3,
+EL4P_PAR = EL4P.Parameters(nAqua = nAqua,nHumans = HumanPop_PAR$nHumans,R0 = 6,
                            eqAqua = eqAqua,EIP = 12,lifespan = cohort_bionomics$summary$lifespans,
                            G = cohort_bionomics$summary$meanEggBatches,
                            nu = cohort_bionomics$summary$totalEggBatches,
